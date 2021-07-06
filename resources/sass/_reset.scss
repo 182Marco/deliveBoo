@@ -1,0 +1,21 @@
+* {
+    color: $txt-col;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    @include a();
+}
+input {
+    @include input();
+}
+
+ul,
+ol {
+    list-style-position: inside;
+}
+ul {
+    list-style: none;
+}
