@@ -15,6 +15,9 @@ input {
 ul,
 ol {
     list-style-position: inside;
+    li {
+        display: inline-block;
+    }
 }
 ul {
     list-style: none;

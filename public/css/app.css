@@ -10970,7 +10970,17 @@ ol {
   list-style-position: inside;
 }
 
+ul li,
+ol li {
+  display: inline-block;
+}
+
 ul {
   list-style: none;
+}
+
+.cont {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
