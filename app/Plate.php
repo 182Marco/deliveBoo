@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Plate extends Model
 {
     protected $fillable = [
-        'name','ingredients','ingredients','visible','price','plate_img',
+        'name','ingredients','ingredients','visible','price','plate_img','restaurant_id'
     ];
+    // relationship one to many with restaurants
+    public function restaurant(){
+       return $this->belongsTo('App\Restaurant');
+    }
 }

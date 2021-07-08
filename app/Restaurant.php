@@ -9,4 +9,8 @@ class Restaurant extends Model
     protected $fillable = [
         'name','phone','address'
     ];
+    // relationship one to many with plates
+    public function Plates(){
+        return $this->hasMany('App\Plate');
+        }
 }
