@@ -13,4 +13,9 @@ class Plate extends Model
     public function restaurant(){
        return $this->belongsTo('App\Restaurant');
     }
+    // -------
+    //define relationship with orders many to many
+    public function orders() {
+        return $this->belongsToMany('App\Order');
+    }
 }

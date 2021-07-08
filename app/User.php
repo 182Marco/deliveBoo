@@ -38,8 +38,9 @@ class User extends Authenticatable
     ];
 
 
-    //RELATION with PLATES (users-plates) one to many
-    public function plate() {
-        return $this->belongsTo('App\Plate');
+    //define with restaurant one to one
+    public function restaurant() {
+        return $this->hasOne('App\Restaurant');
     }
+
 }
