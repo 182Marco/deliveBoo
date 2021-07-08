@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','p_iva','address'
+        'name', 'email', 'password', 'plate_id', 'p_iva','address'
     ];
 
     /**
@@ -36,4 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    //RELATION with PLATES (users-plates) one to many
+    public function plate() {
+        return $this->belongsTo('App\Plate');
+    }
 }
