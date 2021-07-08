@@ -18,6 +18,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('name', 50); 
             $table->string('phone', 50); 
             $table->string('address', 50); 
+            $table->string('img')->nullable(); 
             $table->timestamps();
         });
     }
