@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         // REMEMBER!
         // they must be ordered in sequence -> interpretated as a cascade ->
         // first I have to populate those table whitch give data to other tables
-        $this->call([TypesTableSeeder::class]);
+        $this->call([
+            UserTableSeeder::class,
+            RestaurantsTableSeeder::class,
+            TypesTableSeeder::class,
+        ]);
     }
 }
