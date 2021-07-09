@@ -15,6 +15,7 @@ class RestaurantsTableSeeder extends Seeder
         // data
         $restaurants =[
             [
+                "user_id" => "2",
                 "name" => "La_Pizza_Napoli",
                 "phone" => "329 5868797",
                 "city" => "Milano",
@@ -22,6 +23,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "4",
                 "name" => "My mexican pall",
                 "phone" => "333 5678987",
                 "city" => "Trento",
@@ -29,6 +31,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "5",
                 "name" => "Sushi Li",
                 "phone" => "333 7893098",
                 "city" => "Milano",
@@ -36,6 +39,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "3",
                 "name" => "thai food",
                 "phone" => "343 9634675",
                 "city" => "Milano",
@@ -43,6 +47,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "1",
                 "name" => "Il cacciatore",
                 "phone" => "329 6992873",
                 "city" => "Pavia",
@@ -50,6 +55,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "12",
                 "name" => "Il gabbiano",
                 "phone" => "329 0930876",
                 "city" => "Civitanova Marche",
@@ -57,6 +63,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "6",
                 "name" => "El Gaucho",
                 "phone" => "366 8656889",
                 "city" => "Milano",
@@ -64,6 +71,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "9",
                 "name" => "the garage",
                 "phone" => "333 5683903",
                 "city" => "Piacenza",
@@ -71,6 +79,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "10",
                 "name" => "La lanterna",
                 "phone" => "329 8356728",
                 "city" => "Cagliari",
@@ -78,6 +87,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "7",
                 "name" => "Green food",
                 "phone" => "333 7782395",
                 "city" => "Roma",
@@ -85,6 +95,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "11",
                 "name" => "La gondola",
                 "phone" => "327 4782401",
                 "city" => "Venezia",
@@ -92,6 +103,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "",
             ],
             [
+                "user_id" => "8",
                 "name" => "Il Rancio",
                 "phone" => "347 7359012",
                 "city" => "Ancona",
@@ -104,6 +116,7 @@ class RestaurantsTableSeeder extends Seeder
             // instance
             $new_restaurant = new Restaurant();
             // populate
+            $new_restaurant->user_id = $restaurant['user_id'];
             $new_restaurant->name = $restaurant['name'];
             $new_restaurant->phone = $restaurant['phone'];
             $new_restaurant->city = $restaurant['city'];
