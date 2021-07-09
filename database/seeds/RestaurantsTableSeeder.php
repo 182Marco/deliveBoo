@@ -148,8 +148,8 @@ class RestaurantsTableSeeder extends Seeder
            $El_Gaucho = Restaurant::find(7);
            $El_Gaucho ->types()->sync([7, 5]); //ethnic //fast food
 
-           $the_garage = Restaurant::find(8);
-           $the_garage ->types()->sync([6, 5]); //pizzeria // fast food
+        //    $the_garage = Restaurant::find(8);
+        //    $the_garage ->types()->sync([6, 5]); //pizzeria // fast food
 
         //    $La_lanterna = Restaurant::find(9);
         //    $La_lanterna ->types()->attach(4); //stellato
