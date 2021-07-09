@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'vat_number' => 'required|numeric|digits_between:11,11',
+            // 'vat_number' => 'required|numeric|digits_between:11,11',
         ]);
     }
 
@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'vat_number' => $data['vat_number'],
+            // 'vat_number' => $data['vat_number'],
         ]);
     }
 }

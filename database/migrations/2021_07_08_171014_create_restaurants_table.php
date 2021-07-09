@@ -17,7 +17,8 @@ class CreateRestaurantsTable extends Migration
             $table->id();
             $table->string('name', 50); 
             $table->string('phone', 50); 
-            $table->string('address', 50); 
+            $table->string('address', 50);
+            $table->bigInteger('vat_number')->unique(); 
             $table->string('img')->nullable(); 
             $table->timestamps();
         });

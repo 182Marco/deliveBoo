@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Restaurant extends Model
 {
     protected $fillable = [
-        'name','phone','address'
+        'name','phone','address', 'vat_number'
     ];
     // relationship one to many with plates
     public function Plates(){
