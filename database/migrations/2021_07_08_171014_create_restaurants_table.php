@@ -15,11 +15,11 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50); 
-            $table->string('phone', 50); 
-            $table->string('address', 50);
+            $table->string('restaurant_name', 50); 
+            $table->string('restaurant_phone', 50)->unique(); 
+            $table->string('restaurant_address', 50);
             $table->bigInteger('vat_number')->unique(); 
-            $table->string('img')->nullable(); 
+            $table->string('restaurant_img')->nullable(); 
             $table->timestamps();
         });
     }

@@ -22,6 +22,9 @@ Route::prefix('admin')
       ->group(function() {
         // route home admin
         Route::get('/', 'HomeController@index')->name('home');
+
+        // Rotte resource restaurants
+        Route::resource('/restaurants', 'RestaurantController');
       });
 
 // front office
