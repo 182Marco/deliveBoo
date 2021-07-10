@@ -10984,3 +10984,7 @@ ul {
   margin: 0 auto;
 }
 
+.nav-logo {
+  max-width: 180px;
+}
+
