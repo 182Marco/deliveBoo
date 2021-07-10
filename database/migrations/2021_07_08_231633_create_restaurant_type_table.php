@@ -19,13 +19,13 @@ class CreateRestaurantTypeTable extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->foreign('restaurant_id')
                   ->references('id')
-                  ->on('types')
+                  ->on('restaurants')
                   ->onDelete('cascade');
             // create foreign key type
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')
                   ->references('id')
-                  ->on('restaurants')
+                  ->on('types')
                   ->onDelete('cascade');
         });
     }

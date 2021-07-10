@@ -15,7 +15,7 @@ class Restaurant extends Model
         }
     // relationship one to many with orders
     public function orders(){
-        return $this->hasMany('App\orders');
+        return $this->hasMany('App\Order');
         }
     // -------
     //define relationship with user one to one

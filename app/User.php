@@ -39,8 +39,8 @@ class User extends Authenticatable
 
 
     //define relationship with restaurant one to one
-    public function restaurant() {
-        return $this->hasOne('App\Restaurant');
+    public function restaurants() {
+        return $this->hasMany('App\Restaurant');
     }
 
 }

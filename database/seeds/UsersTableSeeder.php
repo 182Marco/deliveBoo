@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-           // data
-           $users =[
+        $users =[
             [
                 "name" => "Domenico",
                 "last_name" => "Politi",
@@ -111,6 +110,6 @@ class UserTableSeeder extends Seeder
             $new_user->vat_number = $user['vat_number'];
             // save
             $new_user->save();
-        }    
     }
+}
 }

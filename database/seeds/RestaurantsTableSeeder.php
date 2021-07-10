@@ -12,7 +12,7 @@ class RestaurantsTableSeeder extends Seeder
      */
     public function run()
     {
-        // data
+        // // data
         $restaurants =[
             [
                 "user_id" => "2",
@@ -70,46 +70,46 @@ class RestaurantsTableSeeder extends Seeder
                 "address" => "via Alighieri 35",
                 "img" => "",
             ],
-            [
-                "user_id" => "9",
-                "name" => "the garage",
-                "phone" => "333 5683903",
-                "city" => "Piacenza",
-                "address" => "via Borromeo 12",
-                "img" => "",
-            ],
-            [
-                "user_id" => "10",
-                "name" => "La lanterna",
-                "phone" => "329 8356728",
-                "city" => "Cagliari",
-                "address" => "via Foscolo 9",
-                "img" => "",
-            ],
-            [
-                "user_id" => "7",
-                "name" => "Green food",
-                "phone" => "333 7782395",
-                "city" => "Roma",
-                "address" => "via Giolitti 34",
-                "img" => "",
-            ],
-            [
-                "user_id" => "11",
-                "name" => "La gondola",
-                "phone" => "327 4782401",
-                "city" => "Venezia",
-                "address" => "via Moro 5",
-                "img" => "",
-            ],
-            [
-                "user_id" => "8",
-                "name" => "Il Rancio",
-                "phone" => "347 7359012",
-                "city" => "Ancona",
-                "address" => "via Salvemini 22",
-                "img" => "",
-            ],
+            // [
+            //     "user_id" => "9",
+            //     "name" => "the garage",
+            //     "phone" => "333 5683903",
+            //     "city" => "Piacenza",
+            //     "address" => "via Borromeo 12",
+            //     "img" => "",
+            // ],
+            // [
+            //     "user_id" => "10",
+            //     "name" => "La lanterna",
+            //     "phone" => "329 8356728",
+            //     "city" => "Cagliari",
+            //     "address" => "via Foscolo 9",
+            //     "img" => "",
+            // ],
+            // [
+            //     "user_id" => "7",
+            //     "name" => "Green food",
+            //     "phone" => "333 7782395",
+            //     "city" => "Roma",
+            //     "address" => "via Giolitti 34",
+            //     "img" => "",
+            // ],
+            // [
+            //     "user_id" => "11",
+            //     "name" => "La gondola",
+            //     "phone" => "327 4782401",
+            //     "city" => "Venezia",
+            //     "address" => "via Moro 5",
+            //     "img" => "",
+            // ],
+            // [
+            //     "user_id" => "8",
+            //     "name" => "Il Rancio",
+            //     "phone" => "347 7359012",
+            //     "city" => "Ancona",
+            //     "address" => "via Salvemini 22",
+            //     "img" => "",
+            // ],
         ];
 
         foreach($restaurants as $restaurant){
@@ -126,27 +126,30 @@ class RestaurantsTableSeeder extends Seeder
             $new_restaurant->save();
         } 
         
+        
+        
         //    seedind the many to many with types
-           $La_Pizza_Napoli = Restaurant::find(1);
-           $La_Pizza_Napoli ->types()->attach(6); //pizzeria
+        //Forse va nel Controller??
+        //    $La_Pizza_Napoli = Restaurant::find(1);
+        //    $La_Pizza_Napoli ->types()->attach(6); //pizzeria
 
-           $My_mexican_pal = Restaurant::find(2);
-           $My_mexican_pal ->types()->sync([1,6]); //messicano //pizzeria
+        //    $My_mexican_pal = Restaurant::find(2);
+        //    $My_mexican_pal ->types()->sync([1,6]); //messicano //pizzeria
 
-           $Sushi_Li = Restaurant::find(3);
-           $Sushi_Li ->types()->attach(3); //giapponese
+        //    $Sushi_Li = Restaurant::find(3);
+        //    $Sushi_Li ->types()->attach(3); //giapponese
 
-           $thai_food = Restaurant::find(4);
-           $thai_food ->types()->sync([6,7]);  //pizzeria // ethnic
+        //    $thai_food = Restaurant::find(4);
+        //    $thai_food ->types()->sync([6,7]);  //pizzeria // ethnic
 
-           $il_cacciatore = Restaurant::find(5);
-           $il_cacciatore ->types()->attach(4); //stellato
+        //    $il_cacciatore = Restaurant::find(5);
+        //    $il_cacciatore ->types()->attach(4); //stellato
 
-           $Il_gabbiano = Restaurant::find(6);
-           $Il_gabbiano ->types()->attach(4); //stellato
+        //    $Il_gabbiano = Restaurant::find(6);
+        //    $Il_gabbiano ->types()->attach(4); //stellato
 
-           $El_Gaucho = Restaurant::find(7);
-           $El_Gaucho ->types()->sync([7, 5]); //ethnic //fast food
+        //    $El_Gaucho = Restaurant::find(7);
+        //    $El_Gaucho ->types()->sync([7, 5]); //ethnic //fast food
 
         //    $the_garage = Restaurant::find(8);
         //    $the_garage ->types()->sync([6, 5]); //pizzeria // fast food
@@ -163,5 +166,6 @@ class RestaurantsTableSeeder extends Seeder
 
         //    $Il_Rancio = Restaurant::find(12);
         //    $Il_Rancio ->types()->attach(4); //stellato        
+    
     }
 }

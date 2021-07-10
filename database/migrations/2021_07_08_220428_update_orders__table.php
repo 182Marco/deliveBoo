@@ -35,7 +35,7 @@ class UpdateOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
              // remove relation before dropping the column
-             $table->dropForeign('plates_restaurant_id_foreign');
+             $table->dropForeign('orders_restaurant_id_foreign');
              // remove the column
              $table->dropColumn('restaurant_id');
         });

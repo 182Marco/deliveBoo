@@ -19,13 +19,13 @@ class CreateOrderPlateTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')
                   ->references('id')
-                  ->on('plates')
+                  ->on('orders')
                   ->onDelete('cascade');
             // create foreign key plate
             $table->unsignedBigInteger('plate_id');
             $table->foreign('plate_id')
                   ->references('id')
-                  ->on('orders')
+                  ->on('plates')
                   ->onDelete('cascade');
         });
     }
