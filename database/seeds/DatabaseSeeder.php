@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
             // first I have to populate those table whitch give data to other tables
             $this->call([
                 UsersTableSeeder::class, 
+                TypesTableSeeder::class,
                 RestaurantsTableSeeder::class,
                 PlatesTableSeeder::class,
-                TypesTableSeeder::class,
                  
             ]);
         }
