@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <p class="mb-3">{{ __('Successfully logged in!') }}</p>  
+                    <span >Click here to see you're restaurant</span>
+                    <a href="{{ route('admin.restaurants.index') }}" class="btn btn-success ml-3">my restaurant</a>
                 </div>
             </div>
         </div>
