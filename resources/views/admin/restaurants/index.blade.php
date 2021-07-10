@@ -17,7 +17,7 @@
             @foreach ($restaurants as $restaurant)              
               <tr>
                   
-                  <td colspan="3">{{ $restaurant->name }}</td>
+                  <td colspan="3">{{ str_replace("_"," ", $restaurant->name)}}</td>
                   <td colspan="2">{{ $restaurant->phone }}</td>
                   <td colspan="3">{{ $restaurant->address }}</td>
                   
