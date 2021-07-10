@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="container">
-    <h1>Your Restaurants</h1>
+    <h1 class="my-4">Your Restaurant</h1>
     
     <table class="table"> 
         <thead>
             <tr>
-                <th colspan="3">Restaurant Name</th>
-                <th colspan="2">Restaurant Phone</th>
-                <th colspan="2">Restaurant city</th>
-                <th colspan="3">Restaurant Address</th>
+                <th>Restaurant Name</th>
+                <th>Restaurant Phone</th>
+                <th>Restaurant city</th>
+                <th>Restaurant Address</th>
                 <th colspan="3">Buttons</th>
             </tr>
         </thead>
@@ -18,14 +18,14 @@
             @foreach ($restaurants as $restaurant)              
               <tr>
                   
-                  <td colspan="3">{{ str_replace("_"," ", $restaurant->name)}}</td>
-                  <td colspan="2">{{ $restaurant->phone }}</td>
-                  <td colspan="2">{{ $restaurant->city }}</td>
-                  <td colspan="3">{{ $restaurant->address }}</td>
+                  <td>{{ str_replace("_"," ", $restaurant->name)}}</td>
+                  <td>{{ $restaurant->phone }}</td>
+                  <td>{{ $restaurant->city }}</td>
+                  <td>{{ $restaurant->address }}</td>
                   
-                  <td >SHOW</td>
-                  <td >EDIT</td>
-                  <td >DELETE</td>
+                  <td> <a class="btn btn-success btn-sm" href="#">SHOW</a> </td>
+                  <td> <a class="btn btn-warning btn-sm" href="#">EDIT</a> </td>
+                  <td> <a class="btn btn-danger btn-sm" href="#">DELETE</a> </td>
                   </td>
               </tr>  
             @endforeach
