@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -84,7 +85,7 @@ class UsersTableSeeder extends Seeder
                 "vat_number" => "26738911127",
             ],
             [
-                "name" => "Iavana",
+                "name" => "Ivana",
                 "last_name" => "Stefanini",
                 "email" => "Ivana_Stefanini@gmail.com",
                 "password" => "3728usjk",
@@ -106,7 +107,7 @@ class UsersTableSeeder extends Seeder
             $new_user->name = $user['name'];
             $new_user->last_name = $user['last_name'];
             $new_user->email = $user['email'];
-            $new_user->password = $user['password'];
+            $new_user->password =  Hash::make($user['password']);
             $new_user->vat_number = $user['vat_number'];
             // save
             $new_user->save();
