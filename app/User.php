@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
 
-    //define relationship with restaurant one to one
+    //define relationship with restaurant one to many
     public function restaurants() {
         return $this->hasMany('App\Restaurant');
     }

@@ -110,6 +110,30 @@ class RestaurantsTableSeeder extends Seeder
                 "address" => "via Salvemini 22",
                 "img" => "",
             ],
+            [
+                "user_id" => "9",
+                "name" => "Burger King",
+                "phone" => "347 4587567",
+                "city" => "Rimini",
+                "address" => "via Dalla Chiesa 52",
+                "img" => "",
+            ],
+            [
+                "user_id" => "9",
+                "name" => "Mc Donald's",
+                "phone" => "333 872391",
+                "city" => "Modena",
+                "address" => "via Moro 52",
+                "img" => "",
+            ],
+            [
+                "user_id" => "6",
+                "name" => "Starbucks",
+                "phone" => "347 552997",
+                "city" => "Milano",
+                "address" => "via De Gasperi 52",
+                "img" => "",
+            ],
         ];
 
         foreach($restaurants as $restaurant){
@@ -165,6 +189,15 @@ class RestaurantsTableSeeder extends Seeder
            $La_gondola ->types()->attach(4); //stellato
 
            $Il_Rancio = Restaurant::find(12);
-           $Il_Rancio ->types()->attach(4); //stellato        
+           $Il_Rancio ->types()->attach(4); //stellato  
+
+           $Burger_King = Restaurant::find(13);
+           $Burger_King ->types()->attach(5); //fast food  
+
+           $Mc_Donald = Restaurant::find(14);
+           $Mc_Donald ->types()->attach(5); //fast food   
+
+           $StarBucks = Restaurant::find(15);
+           $StarBucks ->types()->attach(5); //fast food        
     }
 }

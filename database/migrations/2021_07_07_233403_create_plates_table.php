@@ -16,6 +16,7 @@ class CreatePlatesTable extends Migration
         Schema::create('plates', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50); 
+            $table->text('ingredients'); 
             $table->text('description'); 
             $table->boolean('visible')->default(1); 
             $table->float('price', 5, 2); 
