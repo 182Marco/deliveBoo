@@ -56,4 +56,4 @@ const router = new VueRouter({
 
 // necessary to see this var in the App.vue ->
 // in other files in general
-export default router;
+export default router; //
