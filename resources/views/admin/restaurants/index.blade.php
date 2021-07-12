@@ -38,7 +38,7 @@
                   
                 <td> <a class="btn btn-success btn-sm" href="{{ route('admin.restaurants.show', $auth_restaurant->id) }}">SHOW</a> </td>
                 <td> <a class="btn btn-warning btn-sm" href="{{ route('admin.restaurants.edit', $auth_restaurant->id)}}">EDIT</a> </td>
-                <td><form class="delete" action="{{ route('admin.restaurants.destroy', $auth_restaurant->id)}}" method="POST">
+                <td><form class="delete-post-form" action="{{ route('admin.restaurants.destroy', $auth_restaurant->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
@@ -51,4 +51,6 @@
         </tbody>
     </table>
 </div>
+{{-- confirm box to avoid user clicks by mistake--}}
+@include('layouts/deleteConfirm')
 @endsection
