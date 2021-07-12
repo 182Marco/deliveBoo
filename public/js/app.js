@@ -55350,7 +55350,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 }); // necessary to see this var in the App.vue ->
 // in other files in general
 
-/* harmony default export */ __webpack_exports__["default"] = (router);
+/* harmony default export */ __webpack_exports__["default"] = (router); //
 
 /***/ }),
 
