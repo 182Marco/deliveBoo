@@ -23,13 +23,23 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+
+                <!--LOGO-->
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="nav-logo" src="{{ asset('/images/logoColBrand.png') }}">
+                </a>
+
+                <!--LINK HOME ADMIN-->
+                <a class="navbar-brand" href="{{ route('admin.home') }}">
+                    {{ config('app.name', 'Laravel') }} Admin
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+
+                        <!--LINK HOME SITE-->
+                        <a class="nav-link" target="_blank" href="{{ url('/') }}">View Site</a>
 
                     </ul>
 
@@ -47,7 +57,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.restaurants.index') }}">Restaurant</a>
+                                <a class="nav-link" href="{{ route('admin.restaurants.index') }}">Restaurants</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
