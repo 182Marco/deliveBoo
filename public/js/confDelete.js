@@ -93,41 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// all delete btns
-var delForms = document.querySelectorAll(".delete-post-form"); // del confim container
 
-var confirmBox = document.querySelector(".del-Container"); // btn confirm
-
-var btnConf = document.querySelector("#deleteConfermed"); // btn quit
-
-var btnQuit = document.querySelector("#deleteAbort");
-delForms.forEach(function (btn) {
-  return btn.addEventListener("submit", function (e) {
-    e.preventDefault(); // show confirm box
-
-    show();
-    var thisForm = this; // if click confirm -> submit + no-show confirm box
-
-    btnConf.addEventListener("click", function () {
-      thisForm.submit();
-      noShow();
-    }); // if click no Confirm ->  no-show confirm
-
-    btnQuit.addEventListener("click", function () {
-      noShow();
-    });
-  });
-}); // FUNCTION UTILITIES
-// show confirm box
-
-function show() {
-  confirmBox.classList.remove("no-show");
-} // unshow confirm box
-
-
-function noShow() {
-  confirmBox.classList.add("no-show");
-}
 
 /***/ }),
 
