@@ -1,17 +1,19 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('guest.home');
-// });
-// PLEASE TEAM CHECK! 
-// I think we don't need those lines
-//  anymore because it's already written below
-// Route::get('/admin', 'HomeController@index')->name('home');
-// authentication routes
-// Auth::routes();
-// Route::get('/admin', 'HomeController@index')->name('admin');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
 Auth::routes(); // from here all the routes for which you need authentication
 
 // ROTTE AREA ADMIN
