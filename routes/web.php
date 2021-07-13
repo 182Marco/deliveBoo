@@ -27,6 +27,9 @@ Route::prefix('admin')
 
         // rotte resource restaurants
         Route::resource('/restaurants', 'RestaurantController');
+
+        // rotte resource restaurants
+        Route::resource('/plates', 'PlateController');
       });
 
 // front office
