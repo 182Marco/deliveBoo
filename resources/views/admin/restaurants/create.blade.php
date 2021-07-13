@@ -46,6 +46,27 @@
                     @enderror" type="text" id="address" name="address" value="{{old('address')}}">
                 </div>
 
+                {{--Add Types--}}
+                <h4>Types</h4>
+                <div class="mb-3">
+
+                    @foreach ($types as $type)
+                    <span class="d-inline-block mr-3">
+                        <input type="checkbox" name="types[]" id="type {{ $loop->iteration }}" value="{{ $type->id}}"
+                        
+                        @if (in_array($type->id, old('types', []) ))  {{-- []<- Default value in case there are no tags --}}
+                            checked
+                        @endif>
+
+                        <label for="type {{ $loop->iteration }}"> {{ $type->name }} </label>
+                    </span>
+                    @endforeach
+
+                    @error('types')
+                    <div>{{ $message }}</div>
+                        
+                    @enderror
+                </div>
 
                 {{-- Add Restaurant Image --}}
                 <div class="mb-3">
