@@ -34,7 +34,6 @@ class PlateController extends Controller
         $user_id = $restaurant['user_id'];
   
 
-
         // now user_id found from query(above) must be the same of who's logged
         if($user_id == auth()->id()){
             // comparison of fy and restaurant id 
@@ -73,8 +72,28 @@ class PlateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {        
+        //find plate in query
+        $plate= Plate::find($id);
+
+
+
+        // does the plate exist?
+        if(! $plate) {
+            abort(404);
+        }else{
+            // find restaurant to which plate in query belongs
+            $rest_plate_belongs = Restaurant::find($plate['restaurant_id']);
+            // find user_id to which restaurant above belongs 
+            $user_id_plate_belongs =  $rest_plate_belongs['user_id'];
+
+             // Does the authenticated user have the same Id of user 
+             // which belongs restaurant which belongs the plate ?
+            if($user_id_plate_belongs == auth()->id()){
+                return view('admin.plates.show', compact('plate'));
+            }
+        }
+        return 'this plate doesn\'t belongs to one of your restaurants!';
     }
 
     /**
