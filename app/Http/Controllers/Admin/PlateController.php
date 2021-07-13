@@ -20,12 +20,20 @@ class PlateController extends Controller
         // than worked with string through php method to have just restaurant id 
         $restaurant_id = chop(substr( $r->fullUrl(), 35) ,"=");
 
-        // if(l'id che passi a che rest corriponde == auth()->id){ 
-            // comparison of fy and restaurant id 
-        $res_plates = Plate::where('restaurant_id', $restaurant_id)->get(); 
-        // ifesle{fuck}
+        // getting all data of the restaurant in the query
+        $restaurant = Restaurant::find($restaurant_id);
+        // getting user_id associated with the restaurant above
+        $user_id = $restaurant['user_id'];
 
-        return view('admin.plates.index', compact('res_plates'));
+
+        // now user_id found from query(above) must be the same of who's logged
+        if($user_id == auth()->id()){
+            // comparison of fy and restaurant id 
+            $res_plates = Plate::where('restaurant_id', $restaurant_id)->get(); 
+            return view('admin.plates.index', compact('res_plates'));
+        }
+        // else we wouldn't show him competitors plates
+            return "Here there are plates that do not belong to one of your restaurant...we're sure it was just a mistake happened by accident :-) ";
     }
 
     /**
