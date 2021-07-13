@@ -18,6 +18,14 @@
         @endif
     </div>
 
+    {{-- add Types --}}
+    @if (count($restaurant->types) >0)
+        <h4>Types</h4>
+        @foreach ($restaurant->types as $type )
+            <span class="badge badge-primary"> {{ $type->name }} </span>
+        @endforeach
+    @endif
+
     <h2>Numero di telefono: {{ $restaurant->phone }}</h2>
     <h2>Città: {{ $restaurant->city }}</h2>
     <h2>Indirizzo: {{ $restaurant->address }}</h2>

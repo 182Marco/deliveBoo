@@ -46,12 +46,42 @@
                         @enderror" type="text" id="address" name="address" value="{{old('address', $restaurant->address)}}">
                     </div>
 
+                {{--Add Types--}}
+                <h4>Types</h4>
+                <div class="mb-3">
+
+                    @foreach ($types as $type)
+                    <span class="d-inline-block mr-3">
+                        <input type="checkbox" name="types[]" id="type {{ $loop->iteration }}" value="{{ $type->id}}"
+                        
+                        @if ($errors->any() && in_array($type->id, old('tags'))) 
+                            checked
+                        @elseif (! $errors->any() && $restaurant->types->contains($type->id))
+                            checked    
+                        @endif>
+
+                        <label for="type {{ $loop->iteration }}"> {{ $type->name }} </label>
+                    </span>
+                    @endforeach
+
+                    @error('types')
+                    <div>{{ $message }}</div>
+                        
+                    @enderror
+                </div>
 
                     {{-- Add Restaurant Image --}}
                     <div class="mb-3">
                         <div>
                             <label for="img" class="form-label">Restaurant Image</label>
                         </div>
+
+                     @if ($restaurant->img)
+                        <div class="mb-3">
+                            <img width="200" src="{{ asset('storage/' . $restaurant->img) }}" alt="{{ $restaurant->name }}">
+                        </div>
+                    @endif
+
                         <input type="file" name="img" id="img">
                         @error('img')
                             <div>{{ $message }}</div>
