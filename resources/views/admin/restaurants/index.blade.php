@@ -47,7 +47,6 @@
                   <td> <a class="btn btn-success btn-sm" href="{{ route('admin.plates.index', $auth_restaurant->id) }}">PLATES</a> </td>
                   </td>
               </tr>  
-              <h1>{{$auth_restaurant->id}}</h1>
             @endforeach
         </tbody>
     </table>
