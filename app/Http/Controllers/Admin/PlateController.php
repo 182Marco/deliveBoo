@@ -22,15 +22,24 @@ class PlateController extends Controller
 
         // getting all data of the restaurant in the query
         $restaurant = Restaurant::find($restaurant_id);
+
+
+        if(Restaurant::find($restaurant_id)){
+            $restaurant = Restaurant::find($restaurant_id);
+        } else {
+            abort(404);
+        }
+
         // getting user_id associated with the restaurant above
         $user_id = $restaurant['user_id'];
+  
 
 
         // now user_id found from query(above) must be the same of who's logged
         if($user_id == auth()->id()){
             // comparison of fy and restaurant id 
             $res_plates = Plate::where('restaurant_id', $restaurant_id)->get(); 
-            return view('admin.plates.index', compact('res_plates'));
+            return view('admin.plates.index', compact('res_plates','restaurant_id'));
         }
         // else we wouldn't show him competitors plates
             return "Here there are plates that do not belong to one of your restaurant...we're sure it was just a mistake happened by accident :-) ";
@@ -99,6 +108,10 @@ class PlateController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $plate= Plate::find($id);
+        $plate->delete();
+
+        return redirect()->back()->with('deleted', $plate->name);
     }
 }
