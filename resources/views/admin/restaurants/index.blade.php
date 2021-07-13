@@ -44,7 +44,7 @@
                     <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
                     </form>
                 </td>
-                  <td> <a class="btn btn-success btn-sm" href="#">PLATES</a> </td>
+                  <td> <a class="btn btn-success btn-sm" href="{{ route('admin.plates.index', $auth_restaurant->id) }}">PLATES</a> </td>
                   </td>
               </tr>  
             @endforeach
