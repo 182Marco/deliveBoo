@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h1 class="mb-5">CREATE NEW RESTAURANT</h1>
+        <h1 class="mb-5">EDIT RESTAURANT</h1>
 
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -20,30 +20,54 @@
                         <input class="form-control @error('title')
                             is-invalid
                         @enderror" type="text" id="name" name="name" value="{{old('name', $restaurant->name)}}">
+
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     {{-- Phone --}}
                     <div>
-                        <label class="form-label" for="name">Phone*</label>
+                        <label class="form-label" for="phone">Phone*</label>
                         <input class="form-control @error('phone')
                             is-invalid
                         @enderror" type="text" id="phone" name="phone" value="{{old('phone', $restaurant->phone)}}">
+
+                        @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     {{-- City --}}
                     <div>
-                        <label class="form-label" for="name">City*</label>
+                        <label class="form-label" for="city">City*</label>
                         <input class="form-control @error('city')
                             is-invalid
                         @enderror" type="text" id="city" name="city" value="{{old('city', $restaurant->city)}}">
+
+                        @error('city')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                 {{-- Address --}}
                     <div>
-                        <label class="form-label" for="name">Address*</label>
+                        <label class="form-label" for="address">Address*</label>
                         <input class="form-control @error('address')
                             is-invalid
                         @enderror" type="text" id="address" name="address" value="{{old('address', $restaurant->address)}}">
+
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                 {{--Add Types--}}
@@ -54,7 +78,7 @@
                     <span class="d-inline-block mr-3">
                         <input type="checkbox" name="types[]" id="type {{ $loop->iteration }}" value="{{ $type->id}}"
                         
-                        @if ($errors->any() && in_array($type->id, old('tags'))) 
+                        @if ($errors->any() && in_array($type->id, old('types'))) 
                             checked
                         @elseif (! $errors->any() && $restaurant->types->contains($type->id))
                             checked    
