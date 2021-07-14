@@ -17,7 +17,7 @@
                     {{-- Name --}}
                     <div>
                         <label class="form-label" for="name">Name*</label>
-                        <input class="form-control @error('title')
+                        <input class="form-control @error('name')
                             is-invalid
                         @enderror" type="text" id="name" name="name" value="{{old('name', $restaurant->name)}}">
 
@@ -27,6 +27,8 @@
                             </span>
                         @enderror
                     </div>
+
+                    
 
                     {{-- Phone --}}
                     <div>
@@ -57,7 +59,7 @@
                     </div>
 
                 {{-- Address --}}
-                    <div>
+                    <div class="mb-3">
                         <label class="form-label" for="address">Address*</label>
                         <input class="form-control @error('address')
                             is-invalid

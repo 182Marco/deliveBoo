@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h1>Ristorante: {{ $restaurant->name }}</h1>
+    <h1>Restaurant: {{ $restaurant->name }}</h1>
 
     <div class="mb-5">
         <a class="btn btn-warning" href="{{ route('admin.restaurants.edit', $restaurant->id) }}">Edit</a>
@@ -26,9 +26,9 @@
         @endforeach
     @endif
 
-    <h2>Numero di telefono: {{ $restaurant->phone }}</h2>
-    <h2>Città: {{ $restaurant->city }}</h2>
-    <h2>Indirizzo: {{ $restaurant->address }}</h2>
+    <h2>Phone: {{ $restaurant->phone }}</h2>
+    <h2>City: {{ $restaurant->city }}</h2>
+    <h2>Address: {{ $restaurant->address }}</h2>
 
 </div>
 @endsection 

@@ -21,12 +21,24 @@
                         <input class="form-control @error('name')
                             is-invalid
                         @enderror" type="text" id="name" name="name" value="{{old('name')}}">
+                        
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>    
+                        @enderror
                     </div>
 
                     {{-- description --}}
                     <div class="my-2">
                         <label class="form-label" for="description">description*</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="4">{{old('description')}}</textarea>
+                    
+                        @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>    
+                        @enderror
                     </div>
 
                     {{-- ingredients --}}
@@ -35,6 +47,12 @@
                         <input class="form-control @error('ingredients')
                             is-invalid
                         @enderror" type="text" id="ingredients" name="ingredients" value="{{old('ingredients')}}">
+
+                        @error('ingredients')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>    
+                        @enderror
                     </div>
 
                      {{-- price --}}
@@ -43,6 +61,12 @@
                         <input class="form-control @error('price')
                             is-invalid
                         @enderror" type="text" id="price" name="price" value="{{old('price')}}">
+
+                        @error('price')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>    
+                        @enderror
                     </div>
 
                     {{-- Is visible --}}

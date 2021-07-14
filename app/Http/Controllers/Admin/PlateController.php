@@ -80,7 +80,7 @@ class PlateController extends Controller
             'img'=> 'nullable | image'
         ],        
         [
-            'required'=> 'The :attribute is required!',
+            'required'=> 'Required Field!',
             'max' => 'you have exceeded the :max characters allowed for the :attribute'
             ]);
 
@@ -192,7 +192,7 @@ class PlateController extends Controller
         ],
         
         [
-            'required'=> 'The :attribute is required!',
+            'required'=> 'Required Field!',
             'unique'=> 'This :attribute is already used',
             'max' => 'you have exceeded the :max characters allowed for the :attribute'
             ]);
