@@ -10949,6 +10949,10 @@ a.text-dark:focus {
   padding: 0;
 }
 
+body {
+  padding-bottom: 100px;
+}
+
 a {
   color: #5acdbd;
   text-decoration: none;

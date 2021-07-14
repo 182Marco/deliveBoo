@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-    <h1>{{$restaurant_id}}</h1>
 
     {{-- Session Deleted --}}
     @if (session('deleted'))
@@ -15,7 +14,7 @@
     <h1 class="my-4">Your Restaurants</h1>
 
     <!--Create-->
-    <a class=" mb-5 btn btn-primary" href="{{ route('admin.plates.create')}}">Create</a>
+    <a class=" mb-5 btn btn-primary" href="{{ route('admin.plates.create', $restaurant_id)}}">Create</a>
     
     <table class="table"> 
         <thead>
@@ -40,7 +39,7 @@
                   
                 <td> <a class="btn btn-success btn-sm" href="{{ route('admin.plates.show', $res_plate->id) }}">SHOW</a> </td>
                 <td> <a class="btn btn-warning btn-sm" href="{{ route('admin.plates.edit', $res_plate->id)}}">EDIT</a> </td>
-                <td><form class="delete-post-form" action="{{ route('admin.plates.destroy', [$res_plate->id, $restaurant_id])}}" method="POST">
+                <td><form class="delete-post-form" action="{{ route('admin.plates.destroy', $res_plate->id )}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
