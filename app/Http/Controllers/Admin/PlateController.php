@@ -228,6 +228,7 @@ class PlateController extends Controller
         $plate= Plate::find($id);
         $plate->delete();
 
+
         return redirect()->back()->with('deleted', $plate->name);
     }
 }
