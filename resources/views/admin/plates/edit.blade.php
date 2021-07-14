@@ -8,6 +8,8 @@
                 
                 <h2 class="my-3 font-weight-bold">EDIT THE PLATE</h2>
 
+                <a class="btn btn-primary font-weight-bold" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
+
                 <form action="{{ route('admin.plates.update', $plate->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')

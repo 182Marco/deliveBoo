@@ -25,5 +25,13 @@
     <p> <strong>Price:</strong><em> {{ number_format($plate->price,2)}} €</em></p>
     <p> <strong>Now available: </strong> <em>@if($plate->visible == 1) yes @else no @endif </em> </p>
 
+    <form class="delete-post-form font-weight-bold" action="{{ route('admin.plates.destroy', $plate->id )}}" method="POST">
+        @csrf
+        @method('DELETE')
+        <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
+    </form>
+
 </div>
+{{-- confirm box to avoid user clicks by mistake--}}
+@include('layouts/deleteConfirm')
 @endsection 
