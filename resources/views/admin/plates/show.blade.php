@@ -3,10 +3,11 @@
 @section('content')
 
 <div class="container">
-    <h1 class="mt-4">Piatto: {{ $plate->name }}</h1>
+    <h2 class="mt-3 font-weight-bold">Piatto: {{ $plate->name }}</h2>
 
     <div class="my-5">
-        <a class="btn btn-warning" href="{{ route('admin.plates.edit', $plate->id) }}">Edit</a>
+        <a class="btn btn-warning font-weight-bold" href="{{ route('admin.plates.edit', $plate->id) }}">Edit</a>
+        <a class="btn btn-primary ml-3 font-weight-bold" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
     </div>
 
     {{-- plate Image --}}
