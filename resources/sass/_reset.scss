@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+body {
+    padding-bottom: 100px;
+}
+
 a {
     @include a();
 }
