@@ -99,7 +99,7 @@ class PlateController extends Controller
    
            //fillable in plate
            $new_plate->fill($data);
-   
+           
            //save
            $new_plate->save();
    

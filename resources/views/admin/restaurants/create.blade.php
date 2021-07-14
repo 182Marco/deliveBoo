@@ -20,30 +20,54 @@
                     <input class="form-control @error('name')
                         is-invalid
                     @enderror" type="text" id="name" name="name" value="{{old('name')}}">
+
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 {{-- Phone --}}
                 <div>
-                    <label class="form-label" for="name">Phone*</label>
+                    <label class="form-label" for="phone">Phone*</label>
                     <input class="form-control @error('phone')
                         is-invalid
                     @enderror" type="text" id="phone" name="phone" value="{{old('phone')}}">
+
+                    @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 {{-- City --}}
                 <div>
-                    <label class="form-label" for="name">City*</label>
+                    <label class="form-label" for="city">City*</label>
                     <input class="form-control @error('city')
                         is-invalid
                     @enderror" type="text" id="city" name="city" value="{{old('city')}}">
+
+                    @error('city')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 {{-- Address --}}
                 <div>
-                    <label class="form-label" for="name">Address*</label>
+                    <label class="form-label" for="address">Address*</label>
                     <input class="form-control @error('address')
                         is-invalid
                     @enderror" type="text" id="address" name="address" value="{{old('address')}}">
+
+                    @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 {{--Add Types--}}
@@ -54,7 +78,7 @@
                     <span class="d-inline-block mr-3">
                         <input type="checkbox" name="types[]" id="type {{ $loop->iteration }}" value="{{ $type->id}}"
                         
-                        @if (in_array($type->id, old('types', []) ))  {{-- []<- Default value in case there are no tags --}}
+                        @if (in_array($type->id, old('types', []) ))  {{-- []<- Default value in case there are no types --}}
                             checked
                         @endif>
 
