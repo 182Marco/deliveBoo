@@ -133,8 +133,10 @@ class RestaurantController extends Controller
         if(! $restaurant) {
             abort(404);
         }
-
-        return view('admin.restaurants.edit', compact('restaurant','types'));
+        elseif($restaurant->user_id == auth()->id()) {
+            return view('admin.restaurants.edit', compact('restaurant', 'types'));
+        }
+        return 'this restaurant doesn\'t belongs to you!';
     }
 
     /**
