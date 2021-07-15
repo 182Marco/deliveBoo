@@ -23,10 +23,6 @@ class PlateController extends Controller
         // got the restaurant id from query ($r->fullUrl() ) 
         // than worked with string through php method to have just restaurant id
         $restaurant_id = chop(substr( $r->fullUrl(), 35) ,"=");
-      
-        // getting all data of the restaurant in the query
-        $restaurant = Restaurant::find($restaurant_id);
-
 
         if(Restaurant::find($restaurant_id)){
             $restaurant = Restaurant::find($restaurant_id);
