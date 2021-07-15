@@ -33,13 +33,9 @@ class PlateController extends Controller
         } else {
             abort(404);
         }
-
-        // getting user_id associated with the restaurant above
-        $user_id = $restaurant['user_id'];
   
-
-        // now user_id found from query(above) must be the same of who's logged
-        if($user_id == auth()->id()){
+        // User_id colum in the restaurant I've found must be the same id of who's logged
+        if($restaurant['user_id'] == auth()->id()){
             // comparison of fy and restaurant id 
             $res_plates = Plate::where('restaurant_id', $restaurant_id)->get(); 
             return view('admin.plates.index', compact('res_plates','restaurant_id'));
