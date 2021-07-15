@@ -20,10 +20,12 @@ class PlateController extends Controller
      */
     public function index(Request $r)
     {      
+        // $query = $r->fullUrl();
+        // dd($query);
         // got the restaurant id from query ($r->fullUrl() ) 
-        // than worked with string through php method to have just restaurant id 
+        // than worked with string through php method to have just restaurant id
         $restaurant_id = chop(substr( $r->fullUrl(), 35) ,"=");
-
+      
         // getting all data of the restaurant in the query
         $restaurant = Restaurant::find($restaurant_id);
 
@@ -222,13 +224,17 @@ class PlateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $r, $id)
     {
 
+        // $query = $r->fullUrl();
+        // dd($query);
+
         $plate= Plate::find($id);
+        $restaurant_id = $plate['restaurant_id'];
         $plate->delete();
 
-
-        return redirect()->back()->with('deleted', $plate->name);
+        return redirect()->route('admin.plates.index', ['plates' => $restaurant_id])->with('deleted', $plate->name);     
+        // return redirect()->back()->with('deleted', $plate->name);
     }
 }
