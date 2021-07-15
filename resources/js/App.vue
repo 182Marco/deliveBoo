@@ -17,6 +17,9 @@ export default {
     components: {
         Header,
         Footer
+    },
+    created() {
+        console.log(axios);
     }
 };
 </script>
