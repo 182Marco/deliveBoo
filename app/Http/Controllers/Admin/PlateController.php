@@ -75,7 +75,7 @@ class PlateController extends Controller
             'name'=> 'required | max: 50',
             'ingredients' => 'required',
             'description'=> 'required',
-            // 'visible'=> 'required',
+            'visible'=> 'required',
             'price'=> 'required',
             'img'=> 'nullable | image'
         ],        
@@ -186,7 +186,7 @@ class PlateController extends Controller
             
             'ingredients'=> 'required',
             'description'=> 'required',
-            // 'visible'=> 'required',
+            'visible'=> 'required',
             'price'=> 'required',
             'img'=> 'nullable |image',
         ],
@@ -227,6 +227,8 @@ class PlateController extends Controller
         $plate= Plate::find($id);
         $restaurant_id = $plate['restaurant_id'];
         $plate->delete();
+        // do not leave orphans in pivot table if element cancelled
+        $plate->orders()->detach();
 
         // [$restaurant_id] means that I pass the id of 
         // restaurant as query to get the right plates list
