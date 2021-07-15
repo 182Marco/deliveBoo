@@ -21,9 +21,9 @@ class PlateController extends Controller
     public function index(Request $r)
     {      
         // got the restaurant id from query ($r->fullUrl() ) 
-        // than worked with string through php method to have just restaurant id 
+        // than worked with string through php method to have just restaurant id
         $restaurant_id = chop(substr( $r->fullUrl(), 35) ,"=");
-
+      
         // getting all data of the restaurant in the query
         $restaurant = Restaurant::find($restaurant_id);
 
@@ -75,7 +75,7 @@ class PlateController extends Controller
             'name'=> 'required | max: 50',
             'ingredients' => 'required',
             'description'=> 'required',
-            // 'visible'=> 'required',
+            'visible'=> 'required',
             'price'=> 'required',
             'img'=> 'nullable | image'
         ],        
@@ -186,7 +186,7 @@ class PlateController extends Controller
             
             'ingredients'=> 'required',
             'description'=> 'required',
-            // 'visible'=> 'required',
+            'visible'=> 'required',
             'price'=> 'required',
             'img'=> 'nullable |image',
         ],
@@ -222,13 +222,16 @@ class PlateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $r, $id)
     {
-
         $plate= Plate::find($id);
+        $restaurant_id = $plate['restaurant_id'];
         $plate->delete();
+        // do not leave orphans in pivot table if element cancelled
+        $plate->orders()->detach();
 
-
-        return redirect()->back()->with('deleted', $plate->name);
+        // [$restaurant_id] means that I pass the id of 
+        // restaurant as query to get the right plates list
+        return redirect()->route('admin.plates.index', [$restaurant_id])->with('deleted', $plate->name); 
     }
 }

@@ -10,6 +10,12 @@
 
                 <a class="btn btn-primary font-weight-bold" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
 
+                <form class="delete-post-form font-weight-bold d-inline-block ml-3" action="{{ route('admin.plates.destroy', $plate->id )}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
+                </form>
+
                 <form action="{{ route('admin.plates.update', $plate->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
