@@ -13,10 +13,7 @@
             <br />
             <em> Already scaffolded with love &hearts; Vue.js</em>
         </h1>
-        <TypeSelection
-            :types="types"
-            @wishedTypes="SelectedTypes(typesSelected)"
-        />
+        <TypeSelection :types="types" />
     </div>
 </template>
 

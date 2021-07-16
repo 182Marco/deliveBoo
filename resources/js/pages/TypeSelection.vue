@@ -4,11 +4,7 @@
         <div class="types-container">
             <ul>
                 <li v-for="type in types" :key="type.id">
-                    <TypeComp
-                        :type="type"
-                        @clickedType="push(type.id)"
-                        @unClickedType="pull(type.id)"
-                    />
+                    <TypeComp :type="type" />
                 </li>
             </ul>
         </div>
@@ -27,27 +23,9 @@ export default {
         types: Array
     },
     data() {
-        return {
-            typesSelected: []
-        };
+        return {};
     },
-    methods: {
-        push(typeId) {
-            this.typesSelected.push(typeId);
-            console.log(this.typesSelected);
-            this.emit();
-        },
-        pull(typeId) {
-            this.typesSelected = [
-                ...this.typesSelected.filter(e => e != typeId)
-            ];
-            console.error(this.typesSelected);
-            this.emit();
-        },
-        emit() {
-            this.$emit("wishedTypes", this.typesSelected);
-        }
-    }
+    methods: {}
 };
 </script>
 

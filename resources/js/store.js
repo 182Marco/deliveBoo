@@ -7,17 +7,19 @@ Vue.use(Vuex);
 const store = () => {
     return new Vuex.Store({
         state: {
-            // accesso all'app
-            prova: "vuex è qui!"
+            // types that user is currently selecting for getting restaurants
+            typesSelected: []
         },
         getters: {},
         mutations: {
             // accesso all'app
-            loginOk(state) {
-                state.loginDone = true;
+            addType(state, typeId) {
+                state.typesSelected.push(typeId);
             },
-            accountChosen(state) {
-                state.accountDone = true;
+            pullType(state, typeId) {
+                state.typesSelected = [
+                    ...state.typesSelected.filter(e => e != typeId)
+                ];
             }
         },
         actions: {

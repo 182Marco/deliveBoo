@@ -2208,9 +2208,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2314,6 +2311,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2323,8 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TypeComp",
   props: {
@@ -2336,12 +2339,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {},
-  methods: {
-    sendTypeSelected: function sendTypeSelected(id) {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["addType", "pullType"])), {}, {
+    toggle: function toggle(typeId) {
       this.checked = !this.checked;
-      this.checked ? this.$emit("clickedType", this.type.id) : this.$emit("unClickedType", this.type.id);
+      this.checked ? this.$store.commit("addType", typeId) : this.$store.commit("pullType", typeId);
     }
-  }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["typesSelected"]))
 });
 
 /***/ }),
@@ -2356,22 +2360,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TypeComp_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TypeComp.vue */ "./resources/js/pages/TypeComp.vue");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-//
-//
-//
-//
 //
 //
 //
@@ -2395,27 +2383,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     types: Array
   },
   data: function data() {
-    return {
-      typesSelected: []
-    };
+    return {};
   },
-  methods: {
-    push: function push(typeId) {
-      this.typesSelected.push(typeId);
-      console.log(this.typesSelected);
-      this.emit();
-    },
-    pull: function pull(typeId) {
-      this.typesSelected = _toConsumableArray(this.typesSelected.filter(function (e) {
-        return e != typeId;
-      }));
-      console.error(this.typesSelected);
-      this.emit();
-    },
-    emit: function emit() {
-      this.$emit("wishedTypes", this.typesSelected);
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -39491,14 +39461,7 @@ var render = function() {
         _c("em", [_vm._v(" Already scaffolded with love ♥ Vue.js")])
       ]),
       _vm._v(" "),
-      _c("TypeSelection", {
-        attrs: { types: _vm.types },
-        on: {
-          wishedTypes: function($event) {
-            return _vm.SelectedTypes(_vm.typesSelected)
-          }
-        }
-      })
+      _c("TypeSelection", { attrs: { types: _vm.types } })
     ],
     1
   )
@@ -39635,6 +39598,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("span", [_vm._v(_vm._s(_vm.typesSelected))]),
+    _vm._v(" "),
     _c(
       "a",
       {
@@ -39642,7 +39607,7 @@ var render = function() {
         attrs: { href: "#" },
         on: {
           click: function($event) {
-            return _vm.sendTypeSelected(_vm.type.id)
+            return _vm.toggle(_vm.type.id)
           }
         }
       },
@@ -39682,19 +39647,7 @@ var render = function() {
           return _c(
             "li",
             { key: type.id },
-            [
-              _c("TypeComp", {
-                attrs: { type: type },
-                on: {
-                  clickedType: function($event) {
-                    return _vm.push(type.id)
-                  },
-                  unClickedType: function($event) {
-                    return _vm.pull(type.id)
-                  }
-                }
-              })
-            ],
+            [_c("TypeComp", { attrs: { type: type } })],
             1
           )
         }),
@@ -57417,17 +57370,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var store = function store() {
   return new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     state: {
-      // accesso all'app
-      prova: "vuex è qui!"
+      // types that user is currently selecting for getting restaurants
+      typesSelected: []
     },
     getters: {},
     mutations: {
       // accesso all'app
-      loginOk: function loginOk(state) {
-        state.loginDone = true;
+      addType: function addType(state, typeId) {
+        state.typesSelected.push(typeId);
       },
-      accountChosen: function accountChosen(state) {
-        state.accountDone = true;
+      pullType: function pullType(state, typeId) {
+        state.typesSelected = _toConsumableArray(state.typesSelected.filter(function (e) {
+          return e != typeId;
+        }));
       }
     },
     actions: {

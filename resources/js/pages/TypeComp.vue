@@ -1,15 +1,15 @@
 <template>
     <div>
-        <a
-            :class="{ clicked: checked }"
-            @click="sendTypeSelected(type.id)"
-            href="#"
-            >{{ type.name }}</a
-        >
+        <span>{{ typesSelected }}</span>
+        <a :class="{ clicked: checked }" @click="toggle(type.id)" href="#">{{
+            type.name
+        }}</a>
     </div>
 </template>
 
 <script>
+import { mapMutations, mapState, mapActions } from "vuex";
+
 export default {
     name: "TypeComp",
     props: {
@@ -22,12 +22,16 @@ export default {
     },
     created() {},
     methods: {
-        sendTypeSelected(id) {
+        ...mapMutations(["addType", "pullType"]),
+        toggle(typeId) {
             this.checked = !this.checked;
             this.checked
-                ? this.$emit("clickedType", this.type.id)
-                : this.$emit("unClickedType", this.type.id);
+                ? this.$store.commit("addType", typeId)
+                : this.$store.commit("pullType", typeId);
         }
+    },
+    computed: {
+        ...mapState(["typesSelected"])
     }
 };
 </script>
