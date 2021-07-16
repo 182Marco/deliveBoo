@@ -1,7 +1,113 @@
 <template>
     <footer class="footer">
         <div class="cont">
-            this is the footer of the site made by the best team
+            <div class="card-container">
+                <div class="card">
+                    <h3>Scopri Deliveroo</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Investitori</a>
+                        </li>
+                        <li>
+                            <a href="#">Chi siamo</a>
+                        </li>
+                        <li>
+                            <a href="#">Ristoranti</a>
+                        </li>
+                        <li>
+                            <a href="#">Altro</a>
+                        </li>
+                        <li>
+                            <a href="#">Pressroom</a>
+                        </li>
+                        <li>
+                            <a href="#">Il nostro blog</a>
+                        </li>
+                        <li>
+                            <a href="#">Programmazione</a>
+                        </li>
+                        <li>
+                            <a href="#">Design</a>
+                        </li>
+                        <li>
+                            <a href="#">Lavora con noi</a>
+                        </li>
+                        <li>
+                            <a href="#">Diventa nostro partner</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Note legali</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Termini & condizioni</a>
+                        </li>
+                        <li>
+                            <a href="#">Informativa sulla privacy</a>
+                        </li>
+                        <li>
+                            <a href="#">Cookies</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Aiuto</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Contatti</a>
+                        </li>
+                        <li>
+                            <a href="#">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="#">Tipi di cucina</a>
+                        </li>
+                        <li>
+                            <a href="#">Mappa del sito</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Porta Deliveroo con te</h3>
+                    <ul>
+                        <li>
+                            <a href="#" class="store">
+                                <div>
+                                    <img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Download_on_the_App_Store_Badge_IT_RGB_blk.svg/2560px-Download_on_the_App_Store_Badge_IT_RGB_blk.svg.png"
+                                        alt="apple-store"
+                                    />
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="store">
+                                <div>
+                                    <img
+                                        src="https://lh3.googleusercontent.com/proxy/ONqOrX9cFSkZMM4LRzWD9RPVqqJp71c1Wcx23aWln8b5RvY46nKnziXq7lkRglT8KR0-8Gl4gycjVsJztutwflOBHkwhBJvUt-Y1tOTbOepVp0ehfCNV-c7qshXcTOc72mpklJm-8v0T4kWSmQIoaDk"
+                                        alt="play-store"
+                                    />
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="icons-copy">
+                <ul class="icons">
+                    <li>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </li>
+                </ul>
+                <div class="copyright">&copy; 2021 Deliveroo</div>
+            </div>
         </div>
     </footer>
 </template>
@@ -23,5 +129,71 @@ export default {
 footer.footer {
     text-align: center;
     margin-top: 100px;
+    background: #2e3333;
+    .cont {
+        .card-container {
+            display: flex;
+            width: 100%;
+            padding: 20px 0px;
+            .card {
+                text-align: left;
+                width: calc((100% / 4) - 10px);
+                margin: 0 5px;
+                background: #434848;
+                padding: 20px;
+                border-radius: 5px;
+
+                h3 {
+                    color: white;
+                    margin-bottom: 10px;
+                }
+
+                ul {
+                    li {
+                        margin-bottom: 5px;
+                        display: block;
+                        a {
+                            color: white;
+                            text-decoration: none;
+
+                            div {
+                                height: 40px;
+                                width: 135px;
+                                img {
+                                    max-width: 100%;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                    li:last-child {
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+        }
+
+        .icons-copy {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 5px 20px;
+            .icons {
+                display: flex;
+                li {
+                    margin-right: 20px;
+                    a {
+                        i {
+                            font-size: 20px;
+                            color: white;
+                        }
+                    }
+                }
+            }
+            .copyright {
+                color: #828585;
+            }
+        }
+    }
 }
 </style>
