@@ -10953,6 +10953,10 @@ body {
   padding-bottom: 100px;
 }
 
+body.body-guest {
+  padding-bottom: 0;
+}
+
 a {
   color: #5acdbd;
   text-decoration: none;

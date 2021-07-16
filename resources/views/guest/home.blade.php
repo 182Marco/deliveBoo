@@ -8,7 +8,7 @@
         <!-- Scripts -->
         <title>Delivero</title>
     </head>
-    <body>
+    <body class="body-guest">
         <div id="root"></div>
     </body>
 </html>

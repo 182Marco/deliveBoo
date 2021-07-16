@@ -26,9 +26,10 @@ const router = new VueRouter({
         {
             path: "/",
             // what I use to call it in attribute to of router-link tag
-            // SYNTAX TO CALL IT->  :to="{ name: 'home' }"
+            // SYNTAX TO CALL IT ->  :to="{ name: 'home' }"
             name: "home",
-            component: Home
+            component: Home,
+            props: true
         },
         {
             path: "/registrati-o-accedi",
@@ -56,4 +57,4 @@ const router = new VueRouter({
 
 // necessary to see this var in the App.vue ->
 // in other files in general
-export default router; //
+export default router;

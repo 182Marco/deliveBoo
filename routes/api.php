@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 
 Route::namespace('Api')->group(function(){
+    // get all types
+    Route::get('/types', 'TypeController@index');
     //temporarily Get all Restaurant
-    Route::get('/restaurants', 'RestaurantController@index');
+    Route::get('/restaurants/{ids}', 'RestaurantController@index');
 });
 

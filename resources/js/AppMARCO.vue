@@ -1,11 +1,11 @@
 <template>
     <div>
         <Header />
-        <router-view>
+        <router-view :types="types">
             <!-- component matched by the route will be rendered here -->
         </router-view>
-        <h1>{{ types }}</h1>
         <Footer />
+        <p v-for="(type, i) in types" :key="`_${i}`">{{ type }}</p>
     </div>
 </template>
 
@@ -26,7 +26,12 @@ export default {
         };
     },
     created() {
-        this.getTypes();
+        console.log(
+            `http://127.0.0.1:8000/api/restaurants${this.query.join("/")}`
+        );
+        // this.getTypes();
+        this.getRestaurants();
+        // this.tryArrayAsQuery();
     },
     methods: {
         getTypes() {
@@ -34,7 +39,6 @@ export default {
                 .get("http://127.0.0.1:8000/api/types")
                 .then(r => {
                     this.types = r.data.types;
-                    console.log(this.types);
                 })
                 .catch(r => console.log(r));
         },
@@ -44,6 +48,16 @@ export default {
                 .then(r => console.error(r.data))
                 .catch(r => console.log(r));
         }
+        // tryArrayAsQuery() {
+        //     axios
+        //         .get(
+        //             `http://127.0.0.1:8000/api/restaurants${this.query.join(
+        //                 "/"
+        //             )}`
+        //         )
+        //         .then(r => console.warn(r.data))
+        //         .catch(r => console.log(r));
+        // }
     }
 };
 </script>
