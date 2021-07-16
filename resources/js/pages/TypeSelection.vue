@@ -3,8 +3,8 @@
         <h2>Cercavi qualcosa?</h2>
         <div class="types-container">
             <ul>
-                <li v-for="type in types" :key="type.id">
-                    <TypeComp :type="type" />
+                <li v-for="type in Alltypes" :key="type.id">
+                    <TypeComp :typeName="type.name" :typeId="type.id" />
                 </li>
             </ul>
         </div>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TypeComp from "./TypeComp.vue";
 
 export default {
@@ -24,6 +25,9 @@ export default {
     },
     data() {
         return {};
+    },
+    computed: {
+        ...mapState(["Alltypes"])
     },
     methods: {}
 };
@@ -42,23 +46,5 @@ h2 {
 .types-container {
     display: flex;
     padding: 20px 0px;
-
-    ul {
-        li {
-            a {
-                font-size: 28px;
-                font-weight: 600;
-                text-decoration: none;
-                background: #f9fafa;
-                color: #2e3333;
-                margin-right: 10px;
-                padding: 5px;
-                margin-bottom: 10px;
-                &.clicked {
-                    color: blue;
-                }
-            }
-        }
-    }
 }
 </style>

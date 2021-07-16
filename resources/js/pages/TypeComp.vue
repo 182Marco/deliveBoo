@@ -1,19 +1,20 @@
 <template>
     <div>
         <span>{{ typesSelected }}</span>
-        <a :class="{ clicked: checked }" @click="toggle(type.id)" href="#">{{
-            type.name
+        <a :class="{ clicked: checked }" @click="toggle(typeId)" href="#">{{
+            typeName
         }}</a>
     </div>
 </template>
 
 <script>
-import { mapMutations, mapState, mapActions } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
     name: "TypeComp",
     props: {
-        type: Object
+        typeName: String,
+        typeId: Number
     },
     data() {
         return {
@@ -46,26 +47,17 @@ h2 {
     font-size: 40px;
 }
 
-.types-container {
-    display: flex;
-    padding: 20px 0px;
-
-    ul {
-        li {
-            a {
-                font-size: 28px;
-                font-weight: 600;
-                text-decoration: none;
-                background: #f9fafa;
-                color: #2e3333;
-                margin-right: 10px;
-                padding: 5px;
-                margin-bottom: 10px;
-                &.clicked {
-                    color: blue;
-                }
-            }
-        }
+a {
+    font-size: 28px;
+    font-weight: 600;
+    text-decoration: none;
+    background: #f9fafa;
+    color: #2e3333;
+    margin-right: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    &.clicked {
+        color: blue;
     }
 }
 </style>
