@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Type;
 
-class typesController extends Controller
+class TypeController extends Controller
 {
     public function index () {
-        
         $types = Type::all()->toArray();
 
         // get an array of types with just name

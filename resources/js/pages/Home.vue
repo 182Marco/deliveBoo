@@ -6,13 +6,17 @@
         <br />
         <br />
         <h1>
+            {{ selectTypes }}
             This is the view you will get with any route that does not match the
             admin prefix...from here it strat's the singol page application.
             <br />
             <br />
             <em> Already scaffolded with love &hearts; Vue.js</em>
         </h1>
-        <TypeSelection />
+        <TypeSelection
+            :types="types"
+            @wishedTypes="SelectedTypes(typesSelected)"
+        />
     </div>
 </template>
 
@@ -22,6 +26,20 @@ export default {
     name: "Home",
     components: {
         TypeSelection
+    },
+    props: {
+        types: Array
+    },
+    data() {
+        return {
+            selectTypes: []
+        };
+    },
+    methods: {
+        SelectedTypes(typesSelected) {
+            this.selectTypes = typesSelected;
+            console.warn(this.selectTypes);
+        }
     }
 };
 </script>

@@ -3,35 +3,12 @@
         <h2>Cercavi qualcosa?</h2>
         <div class="types-container">
             <ul>
-                <li>
-                    <a href="#">Messicano</a>
-                </li>
-                <li>
-                    <a href="#">Vegano</a>
-                </li>
-                <li>
-                    <a href="#">Giapponese</a>
-                </li>
-                <li>
-                    <a href="#">Fast-food</a>
-                </li>
-                <li>
-                    <a href="#">Pizzeria</a>
-                </li>
-                <li>
-                    <a href="#">Etnico</a>
-                </li>
-                <li>
-                    <a href="#">Sushi</a>
-                </li>
-                <li>
-                    <a href="#">Libanese</a>
-                </li>
-                <li>
-                    <a href="#">Dessert</a>
-                </li>
-                <li>
-                    <a href="#">Greco</a>
+                <li v-for="type in types" :key="type.id">
+                    <TypeComp
+                        :type="type"
+                        @clickedType="push(type.id)"
+                        @unClickedType="pull(type.id)"
+                    />
                 </li>
             </ul>
         </div>
@@ -39,8 +16,38 @@
 </template>
 
 <script>
+import TypeComp from "./TypeComp.vue";
+
 export default {
-    name: "TypeSelection"
+    name: "TypeSelection",
+    components: {
+        TypeComp
+    },
+    props: {
+        types: Array
+    },
+    data() {
+        return {
+            typesSelected: []
+        };
+    },
+    methods: {
+        push(typeId) {
+            this.typesSelected.push(typeId);
+            console.log(this.typesSelected);
+            this.emit();
+        },
+        pull(typeId) {
+            this.typesSelected = [
+                ...this.typesSelected.filter(e => e != typeId)
+            ];
+            console.error(this.typesSelected);
+            this.emit();
+        },
+        emit() {
+            this.$emit("wishedTypes", this.typesSelected);
+        }
+    }
 };
 </script>
 
@@ -69,6 +76,9 @@ h2 {
                 margin-right: 10px;
                 padding: 5px;
                 margin-bottom: 10px;
+                &.clicked {
+                    color: blue;
+                }
             }
         }
     }
