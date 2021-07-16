@@ -12,12 +12,17 @@
             <br />
             <em> Already scaffolded with love &hearts; Vue.js</em>
         </h1>
+        <TypeSelection />
     </div>
 </template>
 
 <script>
+import TypeSelection from "./TypeSelection.vue";
 export default {
-    name: "Home"
+    name: "Home",
+    components: {
+        TypeSelection
+    }
 };
 </script>
 
