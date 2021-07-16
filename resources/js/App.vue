@@ -4,8 +4,11 @@
         <router-view :types="types">
             <!-- component matched by the route will be rendered here -->
         </router-view>
+        <div class="cont">
+            <div v-if="typesSelected.length > 0">{{ RestByTypes }}</div>
+            <div v-else>you haven't selected any type</div>
+        </div>
         <Footer />
-        {{ Alltypes }}
     </div>
 </template>
 
@@ -29,27 +32,12 @@ export default {
     },
     created() {
         this.$store.dispatch("getTypes");
-        console.log();
     },
     computed: {
-        ...mapState(["Alltypes"])
+        ...mapState(["Alltypes", "RestByTypes", "typesSelected"])
     },
     methods: {
         ...mapActions(["getTypes"])
-        // getTypes() {
-        //     axios
-        //         .get("http://127.0.0.1:8000/api/types")
-        //         .then(r => {
-        //             this.types = r.data.types;
-        //         })
-        //         .catch(r => console.log(r));
-        // }
-        // getRestaurants(id) {
-        //     axios
-        //         .get(`http://127.0.0.1:8000/api/restaurants/${this.query}`)
-        //         .then(r => console.error(r.data))
-        //         .catch(r => console.log(r));
-        // }
     }
 };
 </script>

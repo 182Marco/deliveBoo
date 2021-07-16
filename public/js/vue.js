@@ -1975,6 +1975,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
  //*** */
@@ -1993,9 +1996,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {
     this.$store.dispatch("getTypes");
-    console.log();
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(["Alltypes"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(["Alltypes", "RestByTypes", "typesSelected"])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(["getTypes"]))
 });
 
@@ -2327,6 +2329,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     toggle: function toggle(typeId) {
       this.checked = !this.checked;
       this.checked ? this.$store.commit("addType", typeId) : this.$store.commit("pullType", typeId);
+      this.$store.dispatch("getRestaurants");
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["typesSelected"]))
@@ -39161,8 +39164,13 @@ var render = function() {
       _vm._v(" "),
       _c("router-view", { attrs: { types: _vm.types } }),
       _vm._v(" "),
-      _c("Footer"),
-      _vm._v("\n    " + _vm._s(_vm.Alltypes) + "\n")
+      _c("div", { staticClass: "cont" }, [
+        _vm.typesSelected.length > 0
+          ? _c("div", [_vm._v(_vm._s(_vm.RestByTypes))])
+          : _c("div", [_vm._v("you haven't selected any type")])
+      ]),
+      _vm._v(" "),
+      _c("Footer")
     ],
     1
   )
@@ -57384,14 +57392,27 @@ var store = function store() {
       },
       fillTypesArray: function fillTypesArray(state, apiResult) {
         state.Alltypes = apiResult;
+      },
+      fillRestByTypesArray: function fillRestByTypesArray(state, apiResult) {
+        state.RestByTypes = apiResult;
       }
     },
     actions: {
-      // chiamata axios quando si fa ricerca
+      // axicall on created get all types
       getTypes: function getTypes(_ref) {
         var commit = _ref.commit;
         axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://127.0.0.1:8000/api/types").then(function (r) {
           return commit("fillTypesArray", r.data.types);
+        })["catch"](function (r) {
+          return console.log(r);
+        });
+      },
+      // axicall for restaurant matching selected typesSelected array
+      getRestaurants: function getRestaurants(_ref2) {
+        var state = _ref2.state,
+            commit = _ref2.commit;
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://127.0.0.1:8000/api/restaurants/".concat(state.typesSelected)).then(function (r) {
+          return commit("fillRestByTypesArray", r.data);
         })["catch"](function (r) {
           return console.log(r);
         });

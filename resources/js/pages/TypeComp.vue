@@ -29,6 +29,7 @@ export default {
             this.checked
                 ? this.$store.commit("addType", typeId)
                 : this.$store.commit("pullType", typeId);
+            this.$store.dispatch("getRestaurants");
         }
     },
     computed: {

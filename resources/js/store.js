@@ -26,14 +26,26 @@ const store = () => {
             },
             fillTypesArray(state, apiResult) {
                 state.Alltypes = apiResult;
+            },
+            fillRestByTypesArray(state, apiResult) {
+                state.RestByTypes = apiResult;
             }
         },
         actions: {
-            // chiamata axios quando si fa ricerca
+            // axicall on created get all types
             getTypes({ commit }) {
                 axios
                     .get("http://127.0.0.1:8000/api/types")
                     .then(r => commit("fillTypesArray", r.data.types))
+                    .catch(r => console.log(r));
+            },
+            // axicall for restaurant matching selected typesSelected array
+            getRestaurants({ state, commit }) {
+                axios
+                    .get(
+                        `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}`
+                    )
+                    .then(r => commit("fillRestByTypesArray", r.data))
                     .catch(r => console.log(r));
             }
         }
