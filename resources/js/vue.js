@@ -13,9 +13,14 @@ window.axios = require("axios");
 import App from "./App.vue";
 // import the router
 import router from "./routes";
+import Vuex from "vuex";
+import store from "./store.js";
+
+Vue.use(Vuex);
 
 const root = new Vue({
     el: "#root",
+    store,
     // keyword already register in Vue.js (router)-> assigned with var router
     //  (match which is possible thanks to "export default" at last line of routes file)
     // LONG SINTAX

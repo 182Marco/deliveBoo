@@ -1,6 +1,7 @@
 <template>
     <div>
         <Header />
+        <h1>{{ prova }}</h1>
         <router-view :types="types">
             <!-- component matched by the route will be rendered here -->
         </router-view>
@@ -9,6 +10,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 //*** */
@@ -36,13 +38,15 @@ export default {
                 })
                 .catch(r => console.log(r));
         }
+
         // getRestaurants(id) {
         //     axios
         //         .get(`http://127.0.0.1:8000/api/restaurants/${this.query}`)
         //         .then(r => console.error(r.data))
         //         .catch(r => console.log(r));
         // }
-    }
+    },
+    computed: mapState(["prova"])
 };
 </script>
 
