@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import TypeSelection from "./TypeSelection.vue";
+import TypeSelection from "../components/TypeSelection.vue";
 export default {
     name: "Home",
     components: {
