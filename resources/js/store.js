@@ -19,7 +19,11 @@ const store = () => {
             }
         },
         mutations: {
-            // accesso all'app
+            // get all types at create
+            fillTypesArray(state, apiResult) {
+                state.alltypes = apiResult;
+            },
+            // manage array of selected types
             addType(state, typeId) {
                 state.typesSelected.push(typeId);
             },
@@ -28,11 +32,14 @@ const store = () => {
                     ...state.typesSelected.filter(e => e != typeId)
                 ];
             },
-            fillTypesArray(state, apiResult) {
-                state.alltypes = apiResult;
-            },
+            // fiil restbytypes resaults from axicall in action
             fillRestByTypesArray(state, apiResult) {
                 state.restByTypes = apiResult;
+            },
+            // when user goes back from restaurant menu page
+            // to home->clean selectedTypes array
+            cleanTypesSelected(state) {
+                state.typesSelected = [];
             }
         },
         actions: {

@@ -1,12 +1,13 @@
 <template>
     <div>
         <article
+            v-show="selectedTypesLenght"
             class="my-4"
             v-for="(rest, i) in restByTypes"
             :key="`restaurant_index${i}`"
         >
             <h2 class="my-2">{{ rest.name }}</h2>
-            <img class="my-2" src="rest.img" alt="rest.name" />
+            <img class="my-2" :src="rest.img" :alt="rest.name" />
             <br />
             <p class="my-2 d-inline-block">
                 {{ rest.city }}, {{ rest.address }}
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
     name: "RestByTypes",
@@ -32,7 +33,8 @@ export default {
     },
     created() {},
     computed: {
-        ...mapState(["restByTypes"])
+        ...mapState(["restByTypes"]),
+        ...mapGetters(["selectedTypesLenght"])
     },
     methods: {}
 };
