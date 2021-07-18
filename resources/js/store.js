@@ -11,7 +11,9 @@ const store = () => {
             // types that user is currently selecting for getting restaurants
             typesSelected: [],
             // restaurant associated with selected types
-            restByTypes: []
+            restByTypes: [],
+            // restaurant  menu and detail
+            restaurant: {}
         },
         getters: {
             selectedTypesLenght: state => {
@@ -32,7 +34,7 @@ const store = () => {
                     ...state.typesSelected.filter(e => e != typeId)
                 ];
             },
-            // fiil restbytypes resaults from axicall in action
+            // fiil restbytypes with results from axicall in action
             fillRestByTypesArray(state, apiResult) {
                 state.restByTypes = apiResult;
             },
@@ -40,6 +42,11 @@ const store = () => {
             // to home->clean selectedTypes array
             cleanTypesSelected(state) {
                 state.typesSelected = [];
+            },
+            // fiil state obj restaurant(single restaurant detail and menu)
+            //  with results from axicall in action
+            fillRest(state, apiResult) {
+                state.restaurant = apiResult;
             }
         },
         actions: {
@@ -61,6 +68,12 @@ const store = () => {
                         }`
                     )
                     .then(r => commit("fillRestByTypesArray", r.data))
+                    .catch(r => console.log(r));
+            },
+            getMenuAndDetails({ commit }, rest) {
+                axios
+                    .get(`http://127.0.0.1:8000/api/restaurantsMenu/${rest.id}`)
+                    .then(r => commit("fillRest", r.data))
                     .catch(r => console.log(r));
             }
         }

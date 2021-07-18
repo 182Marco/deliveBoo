@@ -33,7 +33,7 @@ class RestaurantController extends Controller
     public function restMunu($id)
     {   
 
-        $restaurants = Restaurant::query()->with('plates')->get();
+        $restaurants = Restaurant::query()->with('plates','types')->get();
         $restaurant = $restaurants->find($id);
 
       
