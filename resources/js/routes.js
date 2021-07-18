@@ -9,7 +9,6 @@ import VueRouter from "vue-router";
 import Home from "./pages/Home.vue";
 import Register from "./pages/Register.vue";
 import WorkWithUs from "./pages/WorkWithUs.vue";
-import Menu from "./pages/Menu.vue";
 import NotFound from "./pages/NotFound.vue";
 import RestMenu from "./pages/RestMenu.vue";
 
@@ -46,11 +45,6 @@ const router = new VueRouter({
             path: "/chosen-restaurant-menu-and-details",
             name: "restMenu",
             component: RestMenu
-        },
-        {
-            path: "/menu",
-            name: "plates",
-            component: Menu
         },
         // to go in component 404 if you write
         // in browser routes that don't exist

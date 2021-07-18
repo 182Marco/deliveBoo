@@ -1,12 +1,20 @@
 <template>
     <div class="cont">
-        <h1>Here you will see the restaurant menu and details</h1>
+        <h1>Restaurant {{ restaurant.name }}</h1>
+        <h2>the restaurant plates:</h2>
     </div>
 </template>
 
 <script>
 export default {
-    name: "RestMenu"
+    name: "RestMenu",
+    data() {
+        return {
+            restaurant: {
+                name: "Il Gabbiano"
+            }
+        };
+    }
 };
 </script>
 
