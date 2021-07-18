@@ -13,6 +13,7 @@
                 {{ rest.city }}, {{ rest.address }}
             </p>
             <router-link
+                v-show="restByTypes"
                 class="btn btn-success btn-small ml-3"
                 :to="{ name: 'restMenu' }"
             >

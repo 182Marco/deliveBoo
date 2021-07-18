@@ -12,7 +12,7 @@ class RestaurantController extends Controller
     public function restByTypes($ids){
     
     if(!$ids){
-        return "";
+        return response()->json();
     }
     $Types_id_array = explode(",",$ids);
     
@@ -31,7 +31,8 @@ class RestaurantController extends Controller
 
 
     public function restMunu($id)
-    { 
+    {   
+
         $restaurants = Restaurant::query()->with('plates')->get();
         $restaurant = $restaurants->find($id);
 
