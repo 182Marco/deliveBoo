@@ -85,7 +85,7 @@
                             <a href="#" class="store">
                                 <div>
                                     <img
-                                        src="https://lh3.googleusercontent.com/proxy/ONqOrX9cFSkZMM4LRzWD9RPVqqJp71c1Wcx23aWln8b5RvY46nKnziXq7lkRglT8KR0-8Gl4gycjVsJztutwflOBHkwhBJvUt-Y1tOTbOepVp0ehfCNV-c7qshXcTOc72mpklJm-8v0T4kWSmQIoaDk"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Google_Play_Store_badge_IT.svg/1024px-Google_Play_Store_badge_IT.svg.png"
                                         alt="play-store"
                                     />
                                 </div>
