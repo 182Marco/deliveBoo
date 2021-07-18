@@ -24,14 +24,14 @@
         >
             <h4>{{ plate.name }}</h4>
             <img :src="plate.img" :alt="plate.name" />
-            <p><strong>description: </strong> {{ plate.description }}</p>
-            <p><strong>ingredients: </strong> {{ plate.ingredients }}</p>
+            <p>{{ plate.description }}</p>
+            <!-- <p>{{ plate.ingredients }}</p> -->
             <p>
                 <strong>available: </strong>
                 <span v-if="plate.visible"> yes</span>
                 <span v-else>no</span>
             </p>
-            <p><strong>price: </strong>{{ plate.price }}€</p>
+            <p>{{ plate.price }}€</p>
         </article>
     </div>
 </template>
@@ -55,15 +55,45 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-h1,
-h2,
+h1 {
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+.plate {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0px;
+}
+
+.plate:last-child {
+    margin-bottom: 20px;
+    border-bottom: none;
+    padding: 10px 0px;
+}
+
 h4 {
     font-weight: 700;
+    margin-bottom: 20px;
+}
+
+img {
     margin-bottom: 10px;
 }
 
 p {
     max-width: 10px 0;
+    margin-bottom: 10px;
+    color: #777;
+
+    strong {
+        color: #888;
+    }
 }
 
 .label {
@@ -72,9 +102,6 @@ p {
     color: white;
     border-radius: 5px;
     padding: 5px 10px;
-    margin: 8px 15px 20px 0;
-}
-.plate {
-    margin-bottom: 20px;
+    margin: 8px 15px 50px 0;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-        <h2>Select by type a list of restaurants:</h2>
-        <small> types selected: {{ selectedTypesLenght }}</small>
+    <div class="cont">
+        <h2>Ti va qualcosa?</h2>
+        <!-- <small> Generi selezionati: {{ selectedTypesLenght }}</small> -->
         <div class="types-container">
             <ul>
                 <li v-for="type in alltypes" :key="`type_id${type.id}`">
@@ -55,5 +55,6 @@ h2 {
 
 small {
     font-size: 0.9rem;
+    margin: 0px 5px 20px;
 }
 </style>
