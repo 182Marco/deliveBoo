@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="cont">
         <a :class="{ clicked: checked }" @click="toggle(type.id)" href="#">{{
             type.name
         }}</a>
@@ -43,21 +43,19 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-h2 {
-    font-size: 40px;
-}
-
-a {
-    font-size: 28px;
-    font-weight: 600;
-    text-decoration: none;
-    background: #f9fafa;
-    color: #2e3333;
-    margin-right: 10px;
-    padding: 5px;
-    margin-bottom: 10px;
-    &.clicked {
-        color: blue;
+div.cont {
+    a {
+        font-size: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        background: #f9fafa;
+        color: #2e3333;
+        margin-right: 10px;
+        padding: 5px;
+        margin-bottom: 10px;
+        &.clicked {
+            color: #691e8c;
+        }
     }
 }
 </style>

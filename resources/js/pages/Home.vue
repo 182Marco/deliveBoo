@@ -1,9 +1,9 @@
 <template>
     <div class="cont">
         <TypeSelection />
-        <h2>
-            All the restaurants by the types you chose:
-        </h2>
+        <!-- <h2>
+            Lista dei ristoranti selezionati:
+        </h2> -->
         <RestByTypes />
     </div>
 </template>
@@ -37,11 +37,14 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-a {
-    color: white;
-}
+div .container {
+    max-width: 1070px;
+    a {
+        color: white;
+    }
 
-h2 {
-    font-weight: bold;
+    h2 {
+        font-weight: bold;
+    }
 }
 </style>

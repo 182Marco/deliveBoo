@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="cont">
         <article
             v-show="selectedTypesLenght"
             class="my-4"
@@ -12,18 +12,20 @@
             <p class="my-2 d-inline-block">
                 {{ rest.city }}, {{ rest.address }}
             </p>
-            <router-link
-                @click.native="
-                    $store.dispatch('getMenuAndDetails', {
-                        id: rest.id
-                    })
-                "
-                v-show="restByTypes"
-                class="btn btn-success btn-small ml-3"
-                :to="{ name: 'restMenu' }"
-            >
-                menu and details</router-link
-            >
+            <div>
+                <router-link
+                    @click.native="
+                        $store.dispatch('getMenuAndDetails', {
+                            id: rest.id
+                        })
+                    "
+                    v-show="restByTypes"
+                    class="btn btn-success btn-small ml-3"
+                    :to="{ name: 'restMenu' }"
+                >
+                    Mostra
+                </router-link>
+            </div>
         </article>
     </div>
 </template>
@@ -52,11 +54,25 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-a {
-    color: white;
-}
+article {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0.3px 0.5px rgba(0, 0, 0, 0.022),
+        0 0.9px 1.3px rgba(0, 0, 0, 0.031), 0 1.8px 2.7px rgba(0, 0, 0, 0.039),
+        0 3.7px 5.5px rgba(0, 0, 0, 0.048), 0 10px 15px rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
 
-h2 {
-    font-weight: 700;
+    a {
+        color: white;
+    }
+
+    h2 {
+        font-weight: 700;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: -20px;
+    }
 }
 </style>

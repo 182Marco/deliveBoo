@@ -106,7 +106,7 @@
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </li>
                 </ul>
-                <div class="copyright">&copy; 2021 Deliveroo</div>
+                <div class="copyright">&copy; 2021 DeliveBoo</div>
             </div>
         </div>
     </footer>
@@ -146,19 +146,24 @@ footer.footer {
                 h3 {
                     color: white;
                     margin-bottom: 10px;
+                    font-size: 18px;
+                    font-weight: 700;
                 }
 
                 ul {
                     li {
                         margin-bottom: 5px;
                         display: block;
+
                         a {
                             color: white;
                             text-decoration: none;
+                            font-size: 15px;
 
                             div {
                                 height: 40px;
                                 width: 135px;
+                                margin-bottom: 10px;
                                 img {
                                     max-width: 100%;
                                     height: auto;
