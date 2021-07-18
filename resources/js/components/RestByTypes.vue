@@ -55,4 +55,8 @@ export default {
 a {
     color: white;
 }
+
+h2 {
+    font-weight: 700;
+}
 </style>
