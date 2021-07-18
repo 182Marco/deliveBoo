@@ -1,6 +1,6 @@
 <template>
     <div class="cont">
-        <h1>Restaurant {{ restaurant.name }}</h1>
+        <h2>Restaurant {{ restaurant.name }}</h2>
         <h2>the restaurant plates:</h2>
     </div>
 </template>
@@ -25,4 +25,8 @@ export default {
 @import "../../sass/mixins";
 @import "../../sass/reset";
 @import "../../sass/utilities";
+
+h2 {
+    font-weight: 700;
+}
 </style>
