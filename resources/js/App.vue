@@ -1,14 +1,13 @@
 <template>
-    <div>
+    <div class="app">
         <Header />
-        <router-view :types="types">
-            <!-- component matched by the route will be rendered here -->
-        </router-view>
-        <div class="cont">
-            <div v-if="typesSelected.length > 0">{{ RestByTypes }}</div>
-            <div v-else>you haven't selected any type</div>
+        <div class="wrap">
+            <router-view>
+                <!-- component matched by the route will be rendered here -->
+            </router-view>
+            <div class="cont"></div>
         </div>
-        <Footer />
+        <Footer class="footer" />
     </div>
 </template>
 
@@ -34,7 +33,7 @@ export default {
         this.$store.dispatch("getTypes");
     },
     computed: {
-        ...mapState(["Alltypes", "RestByTypes", "typesSelected"])
+        ...mapState(["alltypes", "restByTypes", "typesSelected"])
     },
     methods: {
         ...mapActions(["getTypes"])
@@ -47,6 +46,16 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 * {
     font-family: "Quicksand", sans-serif;
+}
+
+.app {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    .wrap {
+        flex-grow: 1;
+    }
 }
 
 // those are the reusable partial for very general

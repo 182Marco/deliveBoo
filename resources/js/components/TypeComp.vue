@@ -1,8 +1,7 @@
 <template>
     <div>
-        <span>{{ typesSelected }}</span>
-        <a :class="{ clicked: checked }" @click="toggle(typeId)" href="#">{{
-            typeName
+        <a :class="{ clicked: checked }" @click="toggle(type.id)" href="#">{{
+            type.name
         }}</a>
     </div>
 </template>
@@ -13,8 +12,7 @@ import { mapMutations, mapState } from "vuex";
 export default {
     name: "TypeComp",
     props: {
-        typeName: String,
-        typeId: Number
+        type: Object
     },
     data() {
         return {
@@ -29,6 +27,7 @@ export default {
             this.checked
                 ? this.$store.commit("addType", typeId)
                 : this.$store.commit("pullType", typeId);
+            //
             this.$store.dispatch("getRestaurants");
         }
     },

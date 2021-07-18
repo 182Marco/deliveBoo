@@ -7,13 +7,17 @@ Vue.use(Vuex);
 const store = () => {
     return new Vuex.Store({
         state: {
-            Alltypes: [],
+            alltypes: [],
             // types that user is currently selecting for getting restaurants
             typesSelected: [],
             // restaurant associated with selected types
-            RestByTypes: []
+            restByTypes: []
         },
-        getters: {},
+        getters: {
+            selectedTypesLenght: state => {
+                return state.typesSelected.length;
+            }
+        },
         mutations: {
             // accesso all'app
             addType(state, typeId) {
@@ -25,10 +29,10 @@ const store = () => {
                 ];
             },
             fillTypesArray(state, apiResult) {
-                state.Alltypes = apiResult;
+                state.alltypes = apiResult;
             },
             fillRestByTypesArray(state, apiResult) {
-                state.RestByTypes = apiResult;
+                state.restByTypes = apiResult;
             }
         },
         actions: {
@@ -40,10 +44,14 @@ const store = () => {
                     .catch(r => console.log(r));
             },
             // axicall for restaurant matching selected typesSelected array
-            getRestaurants({ state, commit }) {
+            getRestaurants({ state, getters, commit }) {
                 axios
                     .get(
-                        `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}`
+                        `http://127.0.0.1:8000/api/restaurants/${
+                            getters.selectedTypesLenght
+                                ? state.typesSelected
+                                : `0`
+                        }`
                     )
                     .then(r => commit("fillRestByTypesArray", r.data))
                     .catch(r => console.log(r));

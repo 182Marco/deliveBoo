@@ -16,7 +16,7 @@ class RestaurantsTableSeeder extends Seeder
         $restaurants =[
             [
                 "user_id" => "2",
-                "name" => "La_Pizza_Napoli",
+                "name" => "La Pizza Napoli",
                 "phone" => "329 5868797",
                 "city" => "Milano",
                 "address" => "via dei Pini 7",

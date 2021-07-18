@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Restaurant;
 use App\Type;
 
 
 class RestaurantController extends Controller
 {
-    public function index($ids){
+    public function restByTypes($ids){
     
+    if(!$ids){
+        return "";
+    }
     $Types_id_array = explode(",",$ids);
     
     $restaurants = [];
@@ -22,5 +26,16 @@ class RestaurantController extends Controller
     }
 
     return  response()->json($restaurants);
+    }
+
+
+
+    public function restMunu($id)
+    { 
+        $restaurants = Restaurant::query()->with('plates')->get();
+        $restaurant = $restaurants->find($id);
+
+      
+        return response()->json($restaurant);
     }
 }

@@ -1,10 +1,11 @@
 <template>
     <div class="container">
-        <h2>Cercavi qualcosa?</h2>
+        <h2>Select by type a list of restaurants:</h2>
+        <small> types selected: {{ selectedTypesLenght }}</small>
         <div class="types-container">
             <ul>
-                <li v-for="type in Alltypes" :key="type.id">
-                    <TypeComp :typeName="type.name" :typeId="type.id" />
+                <li v-for="type in alltypes" :key="`type_id${type.id}`">
+                    <TypeComp :type="type" />
                 </li>
             </ul>
         </div>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import TypeComp from "./TypeComp.vue";
 
 export default {
@@ -20,14 +21,12 @@ export default {
     components: {
         TypeComp
     },
-    props: {
-        types: Array
-    },
     data() {
         return {};
     },
     computed: {
-        ...mapState(["Alltypes"])
+        ...mapState(["alltypes"]),
+        ...mapGetters(["selectedTypesLenght"])
     },
     methods: {}
 };
@@ -40,11 +39,15 @@ export default {
 @import "../../sass/utilities";
 
 h2 {
-    font-size: 40px;
+    font-weight: bold;
 }
 
 .types-container {
     display: flex;
     padding: 20px 0px;
+}
+
+small {
+    font-size: 0.9rem;
 }
 </style>

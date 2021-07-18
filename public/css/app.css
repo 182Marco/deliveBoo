@@ -10955,6 +10955,7 @@ body {
 
 body.body-guest {
   padding-bottom: 0;
+  min-height: 100vh;
 }
 
 a {

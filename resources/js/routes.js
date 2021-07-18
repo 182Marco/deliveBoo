@@ -11,6 +11,7 @@ import Register from "./pages/Register.vue";
 import WorkWithUs from "./pages/WorkWithUs.vue";
 import Menu from "./pages/Menu.vue";
 import NotFound from "./pages/NotFound.vue";
+import RestMenu from "./pages/RestMenu.vue";
 
 // through a method vue"use" we tell Vue to work with router
 Vue.use(VueRouter);
@@ -40,6 +41,11 @@ const router = new VueRouter({
             path: "/collabora-con-noi",
             name: "collabora",
             component: WorkWithUs
+        },
+        {
+            path: "/chosen-restaurant-menu-and-details",
+            name: "restMenu",
+            component: RestMenu
         },
         {
             path: "/menu",

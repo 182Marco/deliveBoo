@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ Route::namespace('Api')->group(function(){
     // get all types
     Route::get('/types', 'TypeController@index');
     // get restaurants by chosen types
-    Route::get('/restaurants/{ids}', 'RestaurantController@index');
+    Route::get('/restaurants/{ids}', 'RestaurantController@restByTypes');
+    // retaurant menu
+    Route::get('/restaurantsMenu/{id}', 'RestaurantController@restMunu');
 });
-
