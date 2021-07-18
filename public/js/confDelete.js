@@ -138,7 +138,7 @@ function noShow() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/matteomeneguzzi/Boolean /deliveBoo-correct/deliveBoo/resources/js/jsBack/confDelete.js */"./resources/js/jsBack/confDelete.js");
+module.exports = __webpack_require__(/*! /Users/marco/Desktop/deliveBoo/resources/js/jsBack/confDelete.js */"./resources/js/jsBack/confDelete.js");
 
 
 /***/ })

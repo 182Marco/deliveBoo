@@ -10,3 +10,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+resources/js/pages/Menu.vue
+resources/js/components/ExampleComponent.vue
+public/js/app.js
+public/js/vue.js
+public/js/confDelete.js

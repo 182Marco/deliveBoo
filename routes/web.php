@@ -23,7 +23,7 @@ Route::prefix('admin')
       ->name('admin.')
       ->group(function() {
         // route home admin
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/', 'RestaurantController@index')->name('home');
 
         // rotte resource restaurants
         Route::resource('/restaurants', 'RestaurantController');

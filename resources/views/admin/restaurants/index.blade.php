@@ -13,6 +13,7 @@
 
     <h1 class="my-4">Your Restaurants</h1>
 
+
     <!--Create-->
     <a class=" mb-5 btn btn-primary" href="{{ route('admin.restaurants.create')}}">Create</a>
     
@@ -50,6 +51,8 @@
             @endforeach
         </tbody>
     </table>
+    {{-- message you are logged in --}}
+    @include('layouts/logged')
 </div>
 {{-- confirm box to avoid user clicks by mistake--}}
 @include('layouts/deleteConfirm')
