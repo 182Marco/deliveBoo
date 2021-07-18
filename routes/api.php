@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -18,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 
 Route::namespace('Api')->group(function(){
-    //temporarily Get all Restaurant
-    Route::get('/restaurants', 'RestaurantController@index');
+    // get all types
+    Route::get('/types', 'TypeController@index');
+    // get restaurants by chosen types
+    Route::get('/restaurants/{ids}', 'RestaurantController@restByTypes');
+    // retaurant menu
+    Route::get('/restaurantsMenu/{id}', 'RestaurantController@restMunu');
 });
-

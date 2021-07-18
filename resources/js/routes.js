@@ -9,8 +9,8 @@ import VueRouter from "vue-router";
 import Home from "./pages/Home.vue";
 import Register from "./pages/Register.vue";
 import WorkWithUs from "./pages/WorkWithUs.vue";
-import Menu from "./pages/Menu.vue";
 import NotFound from "./pages/NotFound.vue";
+import RestMenu from "./pages/RestMenu.vue";
 
 // through a method vue"use" we tell Vue to work with router
 Vue.use(VueRouter);
@@ -26,9 +26,10 @@ const router = new VueRouter({
         {
             path: "/",
             // what I use to call it in attribute to of router-link tag
-            // SYNTAX TO CALL IT->  :to="{ name: 'home' }"
+            // SYNTAX TO CALL IT ->  :to="{ name: 'home' }"
             name: "home",
-            component: Home
+            component: Home,
+            props: true
         },
         {
             path: "/registrati-o-accedi",
@@ -41,9 +42,9 @@ const router = new VueRouter({
             component: WorkWithUs
         },
         {
-            path: "/menu",
-            name: "plates",
-            component: Menu
+            path: "/chosen-restaurant-menu-and-details",
+            name: "restMenu",
+            component: RestMenu
         },
         // to go in component 404 if you write
         // in browser routes that don't exist
@@ -56,4 +57,4 @@ const router = new VueRouter({
 
 // necessary to see this var in the App.vue ->
 // in other files in general
-export default router; //
+export default router;

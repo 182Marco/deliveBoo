@@ -19,10 +19,11 @@ class PlateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $r)
-    {      
+    {   
         // got the restaurant id from query ($r->fullUrl() ) 
         // than worked with string through php method to have just restaurant id
-        $restaurant_id = chop(substr( $r->fullUrl(), 35) ,"=");
+        $restaurant_id = chop(substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1), "=");  
+        // substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1)  
 
         if(Restaurant::find($restaurant_id)){
             $restaurant = Restaurant::find($restaurant_id);

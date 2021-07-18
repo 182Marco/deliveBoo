@@ -1,28 +1,31 @@
 <template>
     <div class="cont">
-        <h4>
-            The home component and route follows...
-        </h4>
-        <br />
-        <br />
-        <h1>
-            This is the view you will get with any route that does not match the
-            admin prefix...from here it strat's the singol page application.
-            <br />
-            <br />
-            <em> Already scaffolded with love &hearts; Vue.js</em>
-        </h1>
         <TypeSelection />
+        <h2>
+            All the restaurants by the types you chose:
+        </h2>
+        <RestByTypes />
     </div>
 </template>
 
 <script>
-import TypeSelection from "./TypeSelection.vue";
+import TypeSelection from "../components/TypeSelection.vue";
+import RestByTypes from "../components/RestByTypes.vue";
+import { mapGetters } from "vuex";
+
 export default {
     name: "Home",
     components: {
-        TypeSelection
-    }
+        TypeSelection,
+        RestByTypes
+    },
+    computed: {
+        ...mapGetters(["selectedTypesLenght"])
+    },
+    data() {
+        return {};
+    },
+    methods: {}
 };
 </script>
 
@@ -33,4 +36,12 @@ export default {
 @import "../../sass/mixins";
 @import "../../sass/reset";
 @import "../../sass/utilities";
+
+a {
+    color: white;
+}
+
+h2 {
+    font-weight: bold;
+}
 </style>

@@ -14,9 +14,6 @@
                             >Registrati o accedi</router-link
                         >
                     </li>
-                    <li>
-                        <router-link :to="{ name: 'plates' }">Menu</router-link>
-                    </li>
                 </ul>
             </nav>
         </div>
@@ -62,3 +59,4 @@ header {
     color: $col2;
 }
 </style>
+plates

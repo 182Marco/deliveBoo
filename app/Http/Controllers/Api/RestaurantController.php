@@ -3,15 +3,40 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Restaurant;
+use App\Type;
+
 
 class RestaurantController extends Controller
 {
-    //temporarily Get all Restaurant
-    public function index(){
-        $restaurants=Restaurant::all();
+    public function restByTypes($ids){
+    
+    if(!$ids){
+        return response()->json();
+    }
+    $Types_id_array = explode(",",$ids);
+    
+    $restaurants = [];
 
-        return response()->json($restaurants);
+     foreach ($Types_id_array as $id) {
+        $type = Type::find($id);
+        foreach ($type->restaurants as $restaurant) {
+            array_push($restaurants, $restaurant);
+        }
+    }
+
+    return  response()->json($restaurants);
+    }
+
+
+
+    public function restMunu($id)
+    {   
+
+        $restaurants = Restaurant::query()->with('plates','types')->get();
+        $restaurant = $restaurants->find($id);
+
+      
+        return response()->json($restaurant);
     }
 }

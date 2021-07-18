@@ -13,9 +13,22 @@ window.axios = require("axios");
 import App from "./App.vue";
 // import the router
 import router from "./routes";
+import Vuex from "vuex";
+import store from "./store.js";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue);
+
+Vue.use(Vuex);
 
 const root = new Vue({
     el: "#root",
+    store,
     // keyword already register in Vue.js (router)-> assigned with var router
     //  (match which is possible thanks to "export default" at last line of routes file)
     // LONG SINTAX
