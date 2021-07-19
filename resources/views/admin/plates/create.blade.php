@@ -94,11 +94,12 @@
                         @enderror
                     </div>
                     
+                    {{-- slect restaurant (the one of previous view default) --}}
                     <div class="my-3 form-group">
                     <label for="select">Which restaurant offers this plate ?</label>
                         <select class="form-control" id="select" name="restaurant_id">
                             @foreach ($res_of_user as $res)                        
-                            <option value="{{$res->id}}">{{$res->name}}</option>
+                            <option value="{{$res->id}} @if($prev_view_res_id == $res->id) "selected" @endif>{{$res->name}}</option>
                             @endforeach
                         </select>
                     </div>

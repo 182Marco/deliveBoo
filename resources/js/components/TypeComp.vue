@@ -54,7 +54,7 @@ div.cont {
         padding: 5px;
         margin-bottom: 10px;
         &.clicked {
-            color: #691e8c;
+            color: $brand;
         }
     }
 }

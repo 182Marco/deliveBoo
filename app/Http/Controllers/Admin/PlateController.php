@@ -38,7 +38,7 @@ class PlateController extends Controller
             return view('admin.plates.index', compact('res_plates','restaurant_id'));
         }
         // else we wouldn't show him competitors plates
-            return "Here there are plates that do not belong to one of your restaurant...
+            return "Here there are plates that do not belong to one of yours restaurants...
             we're sure it was just a mistake happened by accident :-) ";
     }
 
@@ -47,12 +47,15 @@ class PlateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $r)
     {
+        // get restaurant from which user arrives 
+        // ->request->fullUrl + with strings to get query
+        $prev_view_res_id = chop(substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1), "=");
         //  get the restaurants associated with the logged user
         $res_of_user = Restaurant::where('user_id', Auth::id())->get();
 
-        return view ('admin.plates.create', compact('res_of_user'));
+        return view ('admin.plates.create', compact('res_of_user', 'prev_view_res_id'));
     }
 
     /**

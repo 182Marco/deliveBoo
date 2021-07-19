@@ -17,30 +17,23 @@
         >
         <!-- ****** menu ********* -->
         <h2>Menu:</h2>
-        <article
-            class="plate"
+        <Plate
             v-for="(plate, i) in restaurant.plates"
             :key="`_${i}`"
-        >
-            <h4>{{ plate.name }}</h4>
-            <img :src="plate.img" :alt="plate.name" />
-            <p>{{ plate.description }}</p>
-            <!-- <p>{{ plate.ingredients }}</p> -->
-            <p>
-                <strong>available: </strong>
-                <span v-if="plate.visible"> yes</span>
-                <span v-else>no</span>
-            </p>
-            <p>{{ plate.price }}€</p>
-        </article>
+            :plate="plate"
+        />
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
+import Plate from "../components/Plate.vue";
 
 export default {
     name: "RestMenu",
+    components: {
+        Plate
+    },
     computed: {
         ...mapState(["restaurant"])
     }
@@ -63,18 +56,6 @@ h1 {
 h2 {
     font-weight: 700;
     margin-bottom: 50px;
-}
-
-.plate {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0px;
-}
-
-.plate:last-child {
-    margin-bottom: 20px;
-    border-bottom: none;
-    padding: 10px 0px;
 }
 
 h4 {

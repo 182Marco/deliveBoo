@@ -13,11 +13,15 @@ const store = () => {
             // restaurant associated with selected types
             restByTypes: [],
             // restaurant  menu and detail
-            restaurant: {}
+            restaurant: {},
+            cart: []
         },
         getters: {
             selectedTypesLenght: state => {
                 return state.typesSelected.length;
+            },
+            cartLenght: state => {
+                return state.cart.length;
             }
         },
         mutations: {
@@ -47,6 +51,18 @@ const store = () => {
             //  with results from axicall in action
             fillRest(state, apiResult) {
                 state.restaurant = apiResult;
+            },
+            // manage array of plate in cart
+            addPlate(state, plateObj) {
+                state.cart.push(plateObj);
+            },
+            removePlate(state, plateObj) {
+                if (state.cart.filter(e => e.id == plateObj.id).length) {
+                    const idx = state.cart.indexOf(plateObj);
+                    if (idx >= 0) {
+                        state.cart.splice(idx, 1);
+                    }
+                }
             }
         },
         actions: {

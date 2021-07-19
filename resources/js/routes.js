@@ -11,6 +11,7 @@ import Register from "./pages/Register.vue";
 import WorkWithUs from "./pages/WorkWithUs.vue";
 import NotFound from "./pages/NotFound.vue";
 import RestMenu from "./pages/RestMenu.vue";
+import Cart from "./pages/Cart.vue";
 
 // through a method vue"use" we tell Vue to work with router
 Vue.use(VueRouter);
@@ -42,9 +43,14 @@ const router = new VueRouter({
             component: WorkWithUs
         },
         {
-            path: "/chosen-restaurant-menu-and-details",
+            path: `/chosen-restaurant-menu-and-details`,
             name: "restMenu",
             component: RestMenu
+        },
+        {
+            path: `/your-cart`,
+            name: "cart",
+            component: Cart
         },
         // to go in component 404 if you write
         // in browser routes that don't exist

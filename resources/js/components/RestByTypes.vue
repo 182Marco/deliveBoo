@@ -74,5 +74,10 @@ article {
         margin-top: 20px;
         margin-left: -20px;
     }
+
+    .btn.btn-success.btn-small {
+        background-color: $brand;
+        font-weight: 700;
+    }
 }
 </style>
