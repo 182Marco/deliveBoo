@@ -8,7 +8,6 @@ import VueRouter from "vue-router";
 // here we import the components for the pages
 import Home from "./pages/Home.vue";
 import Register from "./pages/Register.vue";
-import WorkWithUs from "./pages/WorkWithUs.vue";
 import NotFound from "./pages/NotFound.vue";
 import RestMenu from "./pages/RestMenu.vue";
 import Cart from "./pages/Cart.vue";
@@ -36,11 +35,6 @@ const router = new VueRouter({
             path: "/registrati-o-accedi",
             name: "log",
             component: Register
-        },
-        {
-            path: "/collabora-con-noi",
-            name: "collabora",
-            component: WorkWithUs
         },
         {
             path: `/chosen-restaurant-menu-and-details`,

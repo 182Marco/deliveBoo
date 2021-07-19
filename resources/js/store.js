@@ -1,11 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 const store = () => {
     return new Vuex.Store({
+        plugins: [createPersistedState()],
         state: {
             alltypes: [],
             // types that user is currently selecting for getting restaurants
@@ -41,11 +43,6 @@ const store = () => {
             // fiil restbytypes with results from axicall in action
             fillRestByTypesArray(state, apiResult) {
                 state.restByTypes = apiResult;
-            },
-            // when user goes back from restaurant menu page
-            // to home->clean selectedTypes array
-            cleanTypesSelected(state) {
-                state.typesSelected = [];
             },
             // fiil state obj restaurant(single restaurant detail and menu)
             //  with results from axicall in action

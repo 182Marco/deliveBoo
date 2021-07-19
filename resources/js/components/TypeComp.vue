@@ -1,8 +1,11 @@
 <template>
     <div class="cont">
-        <a :class="{ clicked: checked }" @click="toggle(type.id)" href="#">{{
-            type.name
-        }}</a>
+        <a
+            :class="{ clicked: typesSelected.includes(this.type.id) }"
+            @click="toggle(type.id)"
+            href="#"
+            >{{ type.name }}</a
+        >
     </div>
 </template>
 
@@ -14,19 +17,14 @@ export default {
     props: {
         type: Object
     },
-    data() {
-        return {
-            checked: false
-        };
-    },
     created() {},
     methods: {
         ...mapMutations(["addType", "pullType"]),
         toggle(typeId) {
-            this.checked = !this.checked;
-            this.checked
-                ? this.$store.commit("addType", typeId)
-                : this.$store.commit("pullType", typeId);
+            // this.checked = !this.checked;
+            this.typesSelected.includes(this.type.id)
+                ? this.$store.commit("pullType", typeId)
+                : this.$store.commit("addType", typeId);
             //
             this.$store.dispatch("getRestaurants");
         }
@@ -49,10 +47,14 @@ div.cont {
         font-weight: 600;
         text-decoration: none;
         background: #f9fafa;
-        color: #2e3333;
+        color: $txt-col;
         margin-right: 10px;
         padding: 5px;
         margin-bottom: 10px;
+        transition: transform 0.25;
+        &:hover {
+            transform: scale(1.05);
+        }
         &.clicked {
             color: $brand;
         }

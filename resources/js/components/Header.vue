@@ -8,11 +8,6 @@
                         <router-link :to="{ name: 'home' }">Home</router-link>
                     </li>
                     <li>
-                        <router-link :to="{ name: 'collabora' }"
-                            >Collabora con noi</router-link
-                        >
-                    </li>
-                    <li>
                         <router-link :to="{ name: 'log' }"
                             >Registrati o accedi</router-link
                         >

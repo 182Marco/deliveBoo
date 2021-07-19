@@ -1,9 +1,6 @@
 <template>
     <div class="cont">
         <TypeSelection />
-        <!-- <h2>
-            Lista dei ristoranti selezionati:
-        </h2> -->
         <RestByTypes />
     </div>
 </template>

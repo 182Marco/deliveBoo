@@ -1,11 +1,11 @@
 <template>
     <ul class="cont">
         <li v-for="(plate, i) in cartNoDuplicates" :key="`index_in_cart${i}`">
-            <article v-if="sameInCartlength(plate)">
+            <article v-show="sameInCartlength(plate)">
                 <h2>{{ plate.name }}</h2>
                 <h3>
                     <strong
-                        >protions:
+                        >portions:
                         {{ sameInCartlength(plate) }}
                     </strong>
                 </h3>

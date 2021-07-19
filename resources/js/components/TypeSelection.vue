@@ -22,13 +22,9 @@ export default {
         TypeComp
     },
     created() {
-        // if user press back in history routes get
-        // a clean response api in restaurant by types
-        this.$store.commit("cleanTypesSelected");
         this.$store.dispatch("getRestaurants");
     },
     methods: {
-        ...mapMutations["cleanTypesSelected"],
         ...mapActions["getRestaurants"]
     },
     computed: {
