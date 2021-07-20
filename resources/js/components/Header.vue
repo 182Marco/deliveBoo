@@ -8,8 +8,8 @@
                         <router-link :to="{ name: 'home' }">Home</router-link>
                     </li>
                     <li class="desktop">
-                        <router-link :to="{ name: 'log' }"
-                            >Register o access</router-link
+                        <a href="http://127.0.0.1:8000/register"
+                            >Register o access</a
                         >
                     </li>
                     <li>

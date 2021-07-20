@@ -11,10 +11,10 @@
             <ul>
                 <li>
                     <div>
-                        <a href="#">
+                        <a href="http://127.0.0.1:8000/register">
                             <i class="fas fa-utensils"></i>Aggiungi il tuo
-                            ristorante</a
-                        >
+                            ristorante
+                        </a>
                     </div>
                     <p>
                         >
@@ -22,10 +22,10 @@
                 </li>
                 <li>
                     <div>
-                        <a href="#"
+                        <a href="http://127.0.0.1:8000/register"
                             ><i class="fas fa-store-alt"></i>Crea un account
-                            aziendale</a
-                        >
+                            aziendale
+                        </a>
                     </div>
                     <p>
                         >

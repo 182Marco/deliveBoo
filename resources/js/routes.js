@@ -7,7 +7,6 @@ import VueRouter from "vue-router";
 
 // here we import the components for the pages
 import Home from "./pages/Home.vue";
-import Register from "./pages/Register.vue";
 import NotFound from "./pages/NotFound.vue";
 import RestMenu from "./pages/RestMenu.vue";
 import Cart from "./pages/Cart.vue";
@@ -30,11 +29,6 @@ const router = new VueRouter({
             name: "home",
             component: Home,
             props: true
-        },
-        {
-            path: "/registrati-o-accedi",
-            name: "log",
-            component: Register
         },
         {
             path: `/chosen-restaurant-menu-and-details/:id`,
