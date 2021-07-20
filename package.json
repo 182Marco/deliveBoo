@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.21.2",
+        "braintree-web": "^3.79.1",
         "jw-vue-pagination": "^1.0.3",
         "vue-router": "^3.5.2",
         "vuex": "^3.6.2",

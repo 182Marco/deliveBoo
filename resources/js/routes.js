@@ -8,10 +8,11 @@ import VueRouter from "vue-router";
 // here we import the components for the pages
 import Home from "./pages/Home.vue";
 import Register from "./pages/Register.vue";
-import NotFound from "./pages/NotFound.vue";
+
 import RestMenu from "./pages/RestMenu.vue";
 import Cart from "./pages/Cart.vue";
-
+import Payment from "./pages/Payment.vue";
+import NotFound from "./pages/NotFound.vue";
 // through a method vue"use" we tell Vue to work with router
 Vue.use(VueRouter);
 // ****
@@ -45,6 +46,11 @@ const router = new VueRouter({
             path: `/your-cart`,
             name: "cart",
             component: Cart
+        },
+        {
+            path: `/payment`,
+            name: "payment",
+            component: Payment
         },
         // to go in component 404 if you write
         // in browser routes that don't exist
