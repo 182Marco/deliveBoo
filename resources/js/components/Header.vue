@@ -9,7 +9,7 @@
                     </li>
                     <li>
                         <router-link :to="{ name: 'log' }"
-                            >Registrati o accedi</router-link
+                            >Register o access</router-link
                         >
                     </li>
                     <li>

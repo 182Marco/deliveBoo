@@ -1,7 +1,7 @@
 <template>
     <div class="cont">
-        <h2>Ti va qualcosa?</h2>
-        <!-- <small> Generi selezionati: {{ selectedTypesLenght }}</small> -->
+        <h2>would you like something?</h2>
+        <small> Types Selected: {{ selectedTypesLenght }}</small>
         <div class="types-container">
             <ul>
                 <li v-for="type in alltypes" :key="`type_id${type.id}`">
@@ -20,12 +20,6 @@ export default {
     name: "TypeSelection",
     components: {
         TypeComp
-    },
-    created() {
-        this.$store.dispatch("getRestaurants");
-    },
-    methods: {
-        ...mapActions["getRestaurants"]
     },
     computed: {
         ...mapState(["alltypes"]),

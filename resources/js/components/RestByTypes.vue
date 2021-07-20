@@ -14,14 +14,9 @@
             </p>
             <div>
                 <router-link
-                    @click.native="
-                        $store.dispatch('getMenuAndDetails', {
-                            id: rest.id
-                        })
-                    "
                     v-show="restByTypes"
                     class="btn btn-success btn-small ml-3"
-                    :to="{ name: 'restMenu' }"
+                    :to="{ name: 'restMenu', params: { id: rest.id } }"
                 >
                     Mostra
                 </router-link>

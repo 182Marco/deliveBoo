@@ -23,12 +23,6 @@ export default {
         Header,
         Footer
     },
-    data() {
-        return {
-            types: [],
-            query: [1, 2, 3]
-        };
-    },
     created() {
         this.$store.dispatch("getTypes");
     },

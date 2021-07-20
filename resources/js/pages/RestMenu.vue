@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import Plate from "../components/Plate.vue";
 
 export default {
@@ -34,8 +34,19 @@ export default {
     components: {
         Plate
     },
+    created() {
+        this.callDetailAndMenuAction();
+    },
     computed: {
         ...mapState(["restaurant"])
+    },
+    methods: {
+        ...mapActions["getMenuAndDetails"],
+        callDetailAndMenuAction() {
+            this.$store.dispatch("getMenuAndDetails", {
+                id: this.$route.params.id
+            });
+        }
     }
 };
 </script>
