@@ -1,14 +1,27 @@
 <template>
-    <div class="hamburger">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
+    <div @click="open = !open">
+        <div class="hamburger">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+        <Menumobile :open="open" />
     </div>
 </template>
 
 <script>
+import Menumobile from "./Menumobile.vue";
+
 export default {
-    name: "Hamburger"
+    name: "Hamburger",
+    components: {
+        Menumobile
+    },
+    data() {
+        return {
+            open: false
+        };
+    }
 };
 </script>
 
