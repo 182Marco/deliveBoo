@@ -24,7 +24,7 @@
             @content;
         }
     } @else if $breakpoint == xs-tablet {
-        @media screen and (max-width: 420px) {
+        @media screen and (max-width: 430px) {
             @content;
         }
     } @else if $breakpoint == s-tablet {
