@@ -134,7 +134,12 @@ footer.footer {
         .card-container {
             display: flex;
             width: 100%;
-            padding: 20px 0px;
+            padding: 15px 0;
+            @include media-desk-first(xs-desktop) {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
             .card {
                 text-align: left;
                 width: calc((100% / 4) - 10px);
@@ -142,12 +147,21 @@ footer.footer {
                 background: #434848;
                 padding: 20px;
                 border-radius: 5px;
+                @include media-desk-first(xs-desktop) {
+                    width: 94vw;
+                    text-align: center;
+                    margin-bottom: 15px;
+                    font-size: 1.3rem;
+                }
 
                 h3 {
                     color: white;
                     margin-bottom: 10px;
                     font-size: 18px;
                     font-weight: 700;
+                    @include media-desk-first(xs-desktop) {
+                        font-size: 1.6rem;
+                    }
                 }
 
                 ul {
@@ -159,6 +173,9 @@ footer.footer {
                             color: white;
                             text-decoration: none;
                             font-size: 15px;
+                            @include media-desk-first(xs-desktop) {
+                                font-size: 1.3rem;
+                            }
 
                             div {
                                 height: 40px;
@@ -183,6 +200,9 @@ footer.footer {
             justify-content: space-between;
             align-items: center;
             padding: 0px 5px 20px;
+            @include media-desk-first(xs-desktop) {
+                padding: 0px 20px 20px;
+            }
             .icons {
                 display: flex;
                 li {
