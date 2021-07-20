@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Restaurant;
 use App\Type;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class RestaurantController extends Controller
@@ -16,6 +17,7 @@ class RestaurantController extends Controller
     }
     $Types_id_array = explode(",",$ids);
     
+    // initialized as obj
     $restaurants = [];
 
      foreach ($Types_id_array as $id) {
@@ -24,6 +26,15 @@ class RestaurantController extends Controller
             array_push($restaurants, $restaurant);
         }
     }
+
+    // $rests = Restaurant::paginate(3)->where(types.id);
+
+
+    // $restaurants = DB::table('restaurants')->where('name', 'John')
+
+    // $rests = (object) $restaurants;
+    // $restaurantsObj->paginate(3);
+
 
     return  response()->json($restaurants);
     }

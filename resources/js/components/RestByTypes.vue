@@ -3,14 +3,14 @@
         <article
             v-show="selectedTypesLenght"
             class="my-4"
-            v-for="(rest, i) in restByTypes"
+            v-for="(rest, i) in pageOfItems"
             :key="`restaurant_index${i}`"
         >
             <h2 class="my-2">{{ rest.name }}</h2>
             <img class="my-2" :src="rest.img" :alt="rest.name" />
             <br />
             <p class="my-2 d-inline-block">
-                {{ rest.city }}, {{ rest.address }}
+                <strong>adress: </strong> {{ rest.city }}, {{ rest.address }}
             </p>
             <div>
                 <router-link
@@ -22,6 +22,14 @@
                 </router-link>
             </div>
         </article>
+        <!-- pagination element -->
+        <div class="card-footer pb-0 pt-3">
+            <jw-pagination
+                :pageSize="4"
+                :items="restByTypes"
+                @changePage="onChangePage"
+            ></jw-pagination>
+        </div>
     </div>
 </template>
 
@@ -32,14 +40,23 @@ export default {
     name: "RestByTypes",
     props: {},
     data() {
-        return {};
+        return {
+            // pagination data
+            pageOfItems: []
+        };
     },
     created() {},
     computed: {
         ...mapState(["restByTypes"]),
         ...mapGetters(["selectedTypesLenght"])
     },
-    methods: {}
+    methods: {
+        // pagination method
+        onChangePage(pageOfItems) {
+            // update page of items
+            this.pageOfItems = pageOfItems;
+        }
+    }
 };
 </script>
 

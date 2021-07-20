@@ -27,6 +27,10 @@ Vue.config.productionTip = false;
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 
+// register jw pagination component globally
+import JwPagination from "jw-vue-pagination";
+Vue.component("jw-pagination", JwPagination);
+
 Vue.use(Vuex);
 
 const root = new Vue({

@@ -18,10 +18,18 @@
         <!-- ****** menu ********* -->
         <h2>Menu:</h2>
         <Plate
-            v-for="(plate, i) in restaurant.plates"
+            v-for="(plate, i) in pageOfItems"
             :key="`_${i}`"
             :plate="plate"
         />
+        <!-- pagination element -->
+        <div class="card-footer pb-0 pt-3">
+            <jw-pagination
+                :pageSize="4"
+                :items="restaurant.plates"
+                @changePage="onChangePage"
+            ></jw-pagination>
+        </div>
     </div>
 </template>
 
@@ -34,6 +42,12 @@ export default {
     components: {
         Plate
     },
+    data() {
+        return {
+            // pagination data
+            pageOfItems: []
+        };
+    },
     created() {
         this.callDetailAndMenuAction();
     },
@@ -42,10 +56,16 @@ export default {
     },
     methods: {
         ...mapActions["getMenuAndDetails"],
+        //
         callDetailAndMenuAction() {
             this.$store.dispatch("getMenuAndDetails", {
                 id: this.$route.params.id
             });
+        },
+        // pagination method
+        onChangePage(pageOfItems) {
+            // update page of items
+            this.pageOfItems = pageOfItems;
         }
     }
 };

@@ -2,14 +2,14 @@
     <article class="plate">
         <h4>{{ plate.name }}</h4>
         <img :src="plate.img" :alt="plate.name" />
-        <p>{{ plate.description }}</p>
-        <p>{{ plate.ingredients }}</p>
+        <p><strong>description: </strong> {{ plate.description }}</p>
+        <p><strong>ingredients: </strong> {{ plate.ingredients }}</p>
         <p>
             <strong>available: </strong>
             <span v-if="plate.visible"> yes</span>
             <span v-else>no</span>
         </p>
-        <p>{{ plate.price }}€</p>
+        <p><strong>price: </strong>{{ plate.price }} €</p>
         <div class="btns-box">
             <button
                 @click="addToCart(plate)"
@@ -44,9 +44,6 @@ export default {
     name: "Plate",
     props: {
         plate: Object
-    },
-    data() {
-        return {};
     },
     computed: {
         ...mapState(["cart"]),
@@ -85,15 +82,33 @@ export default {
     padding: 10px 0px;
 }
 
+h4 {
+    font-weight: 700;
+}
+
+p {
+    margin: 8px 0;
+}
+
+button,
+a {
+    transition: transform 0.2s;
+    &:hover {
+        transform: scale(1.01);
+    }
+}
+
 .btns-box {
     position: relative;
     .btn.btn-success.btn-small {
         margin-top: 10px;
         background-color: $brand;
+        border-color: $brand;
         font-weight: 700;
         &.cart-btn {
             color: $white;
             background-color: $col2;
+            border-color: $col2;
             position: absolute;
             right: 0;
         }

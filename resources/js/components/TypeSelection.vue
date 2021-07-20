@@ -1,6 +1,6 @@
 <template>
     <div class="cont">
-        <h2>would you like something?</h2>
+        <h1>Would you like something?</h1>
         <small> Types Selected: {{ selectedTypesLenght }}</small>
         <div class="types-container">
             <ul>
@@ -34,7 +34,7 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-h2 {
+h1 {
     font-weight: bold;
 }
 
