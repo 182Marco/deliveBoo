@@ -1,28 +1,39 @@
 <template>
-    <ul class="cont">
-        <li v-for="(plate, i) in cartNoDuplicates" :key="`index_in_cart${i}`">
-            <article v-show="sameInCartlength(plate)">
-                <h2>{{ plate.name }}</h2>
-                <h3>
-                    <strong
-                        >portions:
-                        {{ sameInCartlength(plate) }}
-                    </strong>
-                </h3>
-                <img :src="plate.img" :alt="plate.name" />
-                <p><strong>description: </strong>{{ plate.description }}</p>
-                <p><strong>ingredients: </strong>{{ plate.ingredients }}</p>
-                <p><strong>price: </strong>{{ plate.price }} €</p>
-                <button
-                    @click="removeFromCart(plate)"
-                    class="btn btn-success btn-small mr-3"
-                >
-                    Remove a portion from cart
-                </button>
-            </article>
-        </li>
+    <div>
+        <ul class="cont">
+            <li
+                v-for="(plate, i) in cartNoDuplicates"
+                :key="`index_in_cart${i}`"
+            >
+                <article v-show="sameInCartlength(plate)">
+                    <h2>{{ plate.name }}</h2>
+                    <h3>
+                        <strong
+                            >portions:
+                            {{ sameInCartlength(plate) }}
+                        </strong>
+                    </h3>
+                    <img :src="plate.img" :alt="plate.name" />
+                    <p><strong>description: </strong>{{ plate.description }}</p>
+                    <p><strong>ingredients: </strong>{{ plate.ingredients }}</p>
+                    <p><strong>price: </strong>{{ plate.price }} €</p>
+                    <button
+                        @click="removeFromCart(plate)"
+                        class="btn btn-success btn-small mr-3"
+                    >
+                        Remove a portion from cart
+                    </button>
+                </article>
+            </li>
+        </ul>
         <h2><strong>TOTAL PRICE: </strong>{{ total.toFixed(2) }} €</h2>
-    </ul>
+        <router-link
+            :to="{ name: 'payment' }"
+            class="btn btn-success btn-lg mt-4"
+        >
+            pay! you whore
+        </router-link>
+    </div>
 </template>
 
 <script>
@@ -93,5 +104,9 @@ article {
         background-color: $brand;
         font-weight: 700;
     }
+}
+.btn-lg.mt-4 {
+    color: white;
+    background-color: $brand;
 }
 </style>
