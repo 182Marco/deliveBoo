@@ -16,7 +16,9 @@ const store = () => {
             restByTypes: [],
             // restaurant  menu and detail
             restaurant: {},
-            cart: []
+            cart: [],
+            // show warn (can't purchase more than one restaurant)
+            warn: false
         },
         getters: {
             selectedTypesLenght: state => {
@@ -60,6 +62,12 @@ const store = () => {
                         state.cart.splice(idx, 1);
                     }
                 }
+            },
+            emptyCart(state) {
+                state.cart = [];
+            },
+            changeWarn(state) {
+                state.warn = !state.warn;
             }
         },
         actions: {
