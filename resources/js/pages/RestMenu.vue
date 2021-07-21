@@ -22,8 +22,9 @@
             :key="`_${i}`"
             :plate="plate"
         />
+        <!-- do not display if there's the warn (you can't purchese from to restaurant in the same order) -->
         <!-- pagination element -->
-        <div class="card-footer pb-0 pt-3">
+        <div v-show="!warn" class="card-footer pb-0 pt-3">
             <jw-pagination
                 :pageSize="4"
                 :items="restaurant.plates"
@@ -52,7 +53,7 @@ export default {
         this.callDetailAndMenuAction();
     },
     computed: {
-        ...mapState(["restaurant"])
+        ...mapState(["restaurant", "cart", "warn"])
     },
     methods: {
         ...mapActions["getMenuAndDetails"],

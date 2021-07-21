@@ -1,5 +1,6 @@
 <template>
-    <footer class="footer">
+    <!-- do not display if there's the warn (you can't purchese from to restaurant in the same order) -->
+    <footer v-show="!warn" class="footer">
         <div class="cont">
             <div class="card-container">
                 <div class="card">
@@ -113,8 +114,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-    name: "Footer"
+    name: "Footer",
+    computed: {
+        ...mapState(["warn"])
+    }
 };
 </script>
 

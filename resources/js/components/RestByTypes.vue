@@ -18,7 +18,7 @@
                     class="btn btn-success btn-small ml-3"
                     :to="{ name: 'restMenu', params: { id: rest.id } }"
                 >
-                    Mostra
+                    show
                 </router-link>
             </div>
         </article>

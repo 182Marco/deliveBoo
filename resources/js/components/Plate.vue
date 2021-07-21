@@ -1,59 +1,76 @@
 <template>
-    <article class="plate">
-        <h4>{{ plate.name }}</h4>
-        <img :src="plate.img" :alt="plate.name" />
-        <p><strong>description: </strong> {{ plate.description }}</p>
-        <p><strong>ingredients: </strong> {{ plate.ingredients }}</p>
-        <p>
-            <strong>available: </strong>
-            <span v-if="plate.visible"> yes</span>
-            <span v-else>no</span>
-        </p>
-        <p><strong>price: </strong>{{ plate.price }} €</p>
-        <div class="btns-box">
-            <button
-                @click="addToCart(plate)"
-                class="btn btn-success btn-small mr-3"
-            >
-                Add a portion to cart
-            </button>
-            <button
-                v-show="cart.filter(e => e.id == plate.id).length"
-                @click="removeFromCart(plate)"
-                class="btn btn-success btn-small mr-3"
-            >
-                Remove a portion from cart
-            </button>
-            <router-link
-                :to="{ name: 'cart' }"
-                class="cart-btn btn-success btn btn-small"
-            >
-                check the cart
-            </router-link>
+    <div>
+        <article class="plate">
+            <h4>{{ plate.name }}</h4>
+            <img :src="plate.img" :alt="plate.name" />
+            <p><strong>description: </strong> {{ plate.description }}</p>
+            <p><strong>ingredients: </strong> {{ plate.ingredients }}</p>
             <p>
-                <strong>portions already in cart: </strong>
-                {{ cart.filter(e => e.id == plate.id).length }}
+                <strong>available: </strong>
+                <span v-if="plate.visible"> yes</span>
+                <span v-else>no</span>
             </p>
-        </div>
-    </article>
+            <p><strong>price: </strong>{{ plate.price }} €</p>
+            <div class="btns-box">
+                <button
+                    @click="addToCart(plate)"
+                    class="btn btn-success btn-small mr-3"
+                >
+                    Add a portion to cart
+                </button>
+                <button
+                    v-if="cart.filter(e => e.id == plate.id).length"
+                    @click="removeFromCart(plate)"
+                    class="btn btn-success btn-small mr-3"
+                >
+                    Remove a portion from cart
+                </button>
+                <router-link
+                    :to="{ name: 'cart' }"
+                    class="cart-btn btn-success btn btn-small"
+                >
+                    check the cart
+                </router-link>
+                <p>
+                    <strong>portions already in cart: </strong>
+                    {{ cart.filter(e => e.id == plate.id).length }}
+                </p>
+            </div>
+        </article>
+        <Warning v-if="warn" />
+    </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations, mapState } from "vuex";
+import Warning from "./Warning.vue";
+
 export default {
     name: "Plate",
     props: {
         plate: Object
     },
+    components: {
+        Warning
+    },
     computed: {
-        ...mapState(["cart"]),
+        ...mapState(["cart", "warn"]),
         ...mapGetters(["cartLenght"])
     },
     methods: {
         ...mapMutations(["addPlate", "removePlate"]),
         //
         addToCart(plateObj) {
-            this.$store.commit("addPlate", plateObj);
+            // if cart empty or contains just obj from same restaurant
+            if (
+                !this.cart.length ||
+                this.cart.filter(e => e.restaurant_id == plateObj.restaurant_id)
+                    .length
+            ) {
+                this.$store.commit("addPlate", plateObj);
+            } else {
+                this.$store.commit("changeWarn");
+            }
         },
         removeFromCart(plateObj) {
             this.$store.commit("removePlate", plateObj);
