@@ -1,38 +1,52 @@
 <template>
     <div>
-        <ul class="cont">
-            <li
-                v-for="(plate, i) in cartNoDuplicates"
-                :key="`index_in_cart${i}`"
-            >
-                <article v-show="sameInCartlength(plate)">
-                    <h2>{{ plate.name }}</h2>
-                    <h3>
-                        <strong
-                            >portions:
-                            {{ sameInCartlength(plate) }}
-                        </strong>
-                    </h3>
-                    <img :src="plate.img" :alt="plate.name" />
-                    <p><strong>description: </strong>{{ plate.description }}</p>
-                    <p><strong>ingredients: </strong>{{ plate.ingredients }}</p>
-                    <p><strong>price: </strong>{{ plate.price }} €</p>
-                    <button
-                        @click="removeFromCart(plate)"
-                        class="btn btn-success btn-small mr-3"
-                    >
-                        Remove a portion from cart
-                    </button>
-                </article>
-            </li>
-        </ul>
-        <h2><strong>TOTAL PRICE: </strong>{{ total.toFixed(2) }} €</h2>
-        <router-link
-            :to="{ name: 'payment' }"
-            class="btn btn-success btn-lg mt-4"
-        >
-            pay! you whore
-        </router-link>
+        <div class="cont">
+            <ul>
+                <li
+                    v-for="(plate, i) in cartNoDuplicates"
+                    :key="`index_in_cart${i}`"
+                >
+                    <article v-show="sameInCartlength(plate)">
+                        <h2>{{ plate.name }}</h2>
+                        <h3>
+                            <strong
+                                >portions:
+                                {{ sameInCartlength(plate) }}
+                            </strong>
+                        </h3>
+                        <img :src="plate.img" :alt="plate.name" />
+                        <p>
+                            <strong>description: </strong
+                            >{{ plate.description }}
+                        </p>
+                        <p>
+                            <strong>ingredients: </strong
+                            >{{ plate.ingredients }}
+                        </p>
+                        <p><strong>price: </strong>{{ plate.price }} €</p>
+                        <button
+                            @click="removeFromCart(plate)"
+                            class="btn btn-success btn-small mr-3"
+                        >
+                            Remove a portion from cart
+                        </button>
+                    </article>
+                </li>
+            </ul>
+            <div class="mt-5 priceBtn-box">
+                <h2>
+                    <strong class="mr-3">TOTAL PRICE: </strong
+                    ><em> {{ total.toFixed(2) }} € </em>
+                </h2>
+                <router-link
+                    v-show="cart.length"
+                    :to="{ name: 'payment' }"
+                    class="btn btn-success btn-lg ml-5"
+                >
+                    pay! you whore
+                </router-link>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -42,19 +56,16 @@ export default {
     name: "Cart",
     components: {},
     computed: {
-        ...mapState(["cart"])
+        ...mapState(["cart", "total"])
     },
     data() {
         return {
-            total: 0,
             cartNoDuplicates: []
         };
     },
     watch: {
         cart() {
-            let sum = 0;
-            this.cart.forEach(e => (sum += e.price));
-            this.total = sum;
+            this.$store.commit("changeTotal");
         }
     },
     created() {
@@ -62,9 +73,10 @@ export default {
         this.cartRemoveDuplicate();
     },
     methods: {
-        ...mapMutations(["removePlate"]),
+        ...mapMutations(["removePlate", "changeTotal"]),
+        //
         sum() {
-            this.cart.forEach(e => (this.total += e.price));
+            this.$store.commit("changeTotal");
         },
         removeFromCart(plateObj) {
             this.$store.commit("removePlate", plateObj);
@@ -105,8 +117,27 @@ article {
         font-weight: 700;
     }
 }
-.btn-lg.mt-4 {
-    color: white;
-    background-color: $brand;
+
+h2 {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    strong,
+    em {
+        display: inline-block;
+    }
+}
+
+.priceBtn-box {
+    display: flex;
+    .btn-lg {
+        color: white;
+        background-color: $col2;
+        transition: transform 0.3s;
+        &:hover {
+            background-color: $col2;
+            transform: scale(1.02);
+        }
+    }
 }
 </style>

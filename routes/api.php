@@ -25,4 +25,6 @@ Route::namespace('Api')->group(function(){
     Route::get('/restaurants/{ids}', 'RestaurantController@restByTypes');
     // retaurant menu
     Route::get('/restaurantsMenu/{id}', 'RestaurantController@restMunu');
+    // recive orders
+    Route::post('/orders', 'OrdersController@store'); 
 });
