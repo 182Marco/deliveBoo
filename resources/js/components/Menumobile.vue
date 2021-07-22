@@ -1,8 +1,8 @@
 <template>
-    <section :class="{ show: open }">
+    <section v-if="open">
         <header>
             <img src="/../../images/logoColBrand.png" alt="delivero Logo" />
-            <p class="x" @click="open = !open">x</p>
+            <p class="x" @click="$emit('closeMen')">x</p>
         </header>
         <div class="btn-box">
             <button>Registrati o accedi</button>
@@ -83,9 +83,9 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-.show {
-    display: block;
-}
+// .show {
+//     display: block;
+// }
 section {
     display: none;
     position: fixed;
@@ -131,7 +131,6 @@ section {
             border: none;
         }
     }
-
     li {
         padding: 30px 20px;
         display: flex;

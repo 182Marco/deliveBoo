@@ -18,7 +18,8 @@ const store = () => {
             restaurant: {},
             cart: [],
             // show warn (can't purchase more than one restaurant)
-            warn: false
+            warn: false,
+            total: 0
         },
         getters: {
             selectedTypesLenght: state => {
@@ -68,6 +69,10 @@ const store = () => {
             },
             changeWarn(state) {
                 state.warn = !state.warn;
+            },
+            changeTotal(state) {
+                state.total = 0;
+                state.cart.forEach(e => (state.total += e.price));
             }
         },
         actions: {

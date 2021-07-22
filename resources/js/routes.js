@@ -10,6 +10,7 @@ import Home from "./pages/Home.vue";
 import RestMenu from "./pages/RestMenu.vue";
 import Cart from "./pages/Cart.vue";
 import Payment from "./pages/Payment.vue";
+import SuccessPage from "./pages/SuccessPage.vue";
 import NotFound from "./pages/NotFound.vue";
 
 // through a method vue"use" we tell Vue to work with router
@@ -45,6 +46,12 @@ const router = new VueRouter({
             path: "/payment",
             name: "payment",
             component: Payment
+        },
+        {
+            path:
+                "/well-done!Successfull-payment!Your-order-has-been-confirmed",
+            name: "success",
+            component: SuccessPage
         },
         // to go in component 404 if you write
         // in browser routes that don't exist

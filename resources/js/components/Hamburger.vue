@@ -5,7 +5,7 @@
             <span class="line"></span>
             <span class="line"></span>
         </div>
-        <Menumobile :open="open" />
+        <Menumobile @closeMen="porcoDio" :open="open" />
     </div>
 </template>
 
@@ -21,6 +21,13 @@ export default {
         return {
             open: false
         };
+    },
+    methods: {
+        porcoDio() {
+            console.log(this.open);
+            this.open = !open;
+            console.log(this.open);
+        }
     }
 };
 </script>
