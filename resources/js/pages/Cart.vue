@@ -1,35 +1,48 @@
 <template>
     <div>
         <div class="cont">
-            <ul>
+            <ul v-if="cartNoDuplicates.length">
                 <li
                     v-for="(plate, i) in cartNoDuplicates"
                     :key="`index_in_cart${i}`"
                 >
                     <article v-show="sameInCartlength(plate)">
-                        <h2>{{ plate.name }}</h2>
-                        <h3>
-                            <strong
-                                >portions:
+                        <h3>{{ plate.name }}</h3>
+                        <div class="portions-box">
+                            <button
+                                @click="removeFromCart(plate)"
+                                class="btn btn-success btn-small mr-1"
+                            >
+                                <strong>-</strong>
+                            </button>
+                            <p>
+                                <strong>portions: </strong>
                                 {{ sameInCartlength(plate) }}
-                            </strong>
-                        </h3>
+                                <strong>
+                                    for:
+                                </strong>
+
+                                {{
+                                    (
+                                        sameInCartlength(plate) * plate.price
+                                    ).toFixed(2)
+                                }}
+                                €
+                            </p>
+                        </div>
                         <img :src="plate.img" :alt="plate.name" />
-                        <p>
+                        <!-- <p>
                             <strong>description: </strong
                             >{{ plate.description }}
                         </p>
                         <p>
                             <strong>ingredients: </strong
                             >{{ plate.ingredients }}
+                        </p> -->
+                        <p>
+                            <strong>single item price: </strong
+                            >{{ plate.price }} €
                         </p>
-                        <p><strong>price: </strong>{{ plate.price }} €</p>
-                        <button
-                            @click="removeFromCart(plate)"
-                            class="btn btn-success btn-small mr-3"
-                        >
-                            Remove a portion from cart
-                        </button>
                     </article>
                 </li>
             </ul>
@@ -102,19 +115,21 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+ul {
+    li {
+        display: block;
+        margin: 30px 0;
+    }
+}
 article {
-    margin: 30px 0;
-    h2 {
+    padding: 10px;
+    h2,
+    h3 {
         font-weight: 700;
     }
     p,
     h3 {
-        margin: 10px 0;
-    }
-    .btn.btn-success.btn-small {
-        margin-top: 10px;
-        background-color: $brand;
-        font-weight: 700;
+        margin: 8px 0;
     }
 }
 
@@ -133,11 +148,66 @@ h2 {
     .btn-lg {
         color: white;
         background-color: $col2;
-        transition: transform 0.3s;
+        transition: transform 0.3s, background-color 0.3s;
+        font-weight: 700;
+        border: none;
+        &:hover {
+            background-color: $brand;
+            transform: scale(1.03);
+            animation: tremble 0.4s;
+        }
+    }
+}
+
+@keyframes tremble {
+    0% {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(3deg);
+    }
+    40% {
+        transform: rotate(-3deg);
+    }
+    60% {
+        transform: rotate(3deg);
+    }
+    80% {
+        transform: rotate(-3deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.portions-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    button.btn.btn-success.btn-small.mr-1 {
+        border: none;
+        display: inline-flex;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: none;
+        background-color: $brand;
+        font-weight: 700;
+        transition: background-color 0.3s;
         &:hover {
             background-color: $col2;
-            transform: scale(1.02);
         }
+        strong {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+    }
+    p {
+        display: inline-block;
+        font-size: 1.1rem;
     }
 }
 </style>

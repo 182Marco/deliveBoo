@@ -1,5 +1,5 @@
 <template>
-    <section v-if="open">
+    <section v-if="menuMobile">
         <header>
             <img src="/../../images/logoColBrand.png" alt="delivero Logo" />
             <p class="x" @click="$emit('closeMen')">x</p>
@@ -64,13 +64,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     name: "MenuMobile",
-    props: {
-        open: Boolean
-    },
+    props: {},
     data() {
         return {};
+    },
+    computed: {
+        ...mapState(["menuMobile"])
     }
 };
 </script>
@@ -83,11 +85,8 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-// .show {
-//     display: block;
-// }
 section {
-    display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;

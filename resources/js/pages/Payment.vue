@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
+    <div>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossorigin="anonymous"
         />
-        <div class="col-6 offset-3">
+        <div class="col-md-6 offset-md-3">
             <div class="card bg-light">
                 <div class="card-header">
                     <h5>Payment Information</h5>
@@ -254,7 +254,6 @@ export default {
         },
         // POST THE FORM
         postForm() {
-            console.log(`Mi hanno chiamato....dio`);
             this.sending = true;
             axios
                 .post("http://127.0.0.1:8000/api/orders", {

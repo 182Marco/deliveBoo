@@ -38,7 +38,7 @@
                 <td>{{ $order->customer_address }}</td>
                 <td>{{ $order->price }} €</td>
                   
-                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id) }}">SHOW</a> </td>
+                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id, $restaurant_id) }}">SHOW</a> </td>
                 {{-- <td> <a class="btn btn-warning btn-sm font-weight-bold" href="{{ route('admin.plates.edit', $order->id)}}">EDIT</a> </td>
                 <td><form class="delete-post-form font-weight-bold" action="{{ route('admin.plates.destroy', $order->id )}}" method="POST"> --}}
                     {{-- @csrf

@@ -1,15 +1,16 @@
 <template>
-    <div @click="open = !open">
+    <div @click="open">
         <div class="hamburger">
             <span class="line"></span>
             <span class="line"></span>
             <span class="line"></span>
         </div>
-        <Menumobile @closeMen="porcoDio" :open="open" />
+        <Menumobile />
     </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import Menumobile from "./Menumobile.vue";
 
 export default {
@@ -18,15 +19,13 @@ export default {
         Menumobile
     },
     data() {
-        return {
-            open: false
-        };
+        return {};
     },
     methods: {
-        porcoDio() {
-            console.log(this.open);
-            this.open = !open;
-            console.log(this.open);
+        ...mapMutations(["toggleMenuMobile"]),
+        //
+        open() {
+            this.$store.commit("toggleMenuMobile");
         }
     }
 };

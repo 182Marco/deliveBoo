@@ -19,7 +19,8 @@ const store = () => {
             cart: [],
             // show warn (can't purchase more than one restaurant)
             warn: false,
-            total: 0
+            total: 0,
+            menuMobile: false
         },
         getters: {
             selectedTypesLenght: state => {
@@ -73,6 +74,9 @@ const store = () => {
             changeTotal(state) {
                 state.total = 0;
                 state.cart.forEach(e => (state.total += e.price));
+            },
+            toggleMenuMobile(state) {
+                state.menuMobile = !state.menuMobile;
             }
         },
         actions: {

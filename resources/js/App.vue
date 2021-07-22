@@ -58,4 +58,9 @@ export default {
         flex-grow: 1;
     }
 }
+
+article {
+    box-shadow: 3px 4px 6px 4px #5acdbe18;
+    padding: 20px 10px;
+}
 </style>

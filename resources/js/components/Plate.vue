@@ -1,29 +1,29 @@
 <template>
     <div>
-        <article class="plate">
-            <h4>{{ plate.name }}</h4>
+        <article class="plate card">
+            <h3 class="mb-3">{{ plate.name }}</h3>
             <img :src="plate.img" :alt="plate.name" />
-            <p><strong>description: </strong> {{ plate.description }}</p>
-            <p><strong>ingredients: </strong> {{ plate.ingredients }}</p>
+            <p><strong>Description: </strong> {{ plate.description }}</p>
+            <p><strong>Ingredients: </strong> {{ plate.ingredients }}</p>
             <p>
-                <strong>available: </strong>
+                <strong>Available: </strong>
                 <span v-if="plate.visible"> yes</span>
                 <span v-else>no</span>
             </p>
-            <p><strong>price: </strong>{{ plate.price }} €</p>
+            <p><strong>Price: </strong>{{ plate.price }} €</p>
             <div class="btns-box">
                 <button
                     @click="addToCart(plate)"
-                    class="btn btn-success btn-small mr-3"
+                    class="btn btn-success btn-small"
                 >
-                    Add a portion to cart
+                    + Add a portion to cart
                 </button>
                 <button
                     v-if="cart.filter(e => e.id == plate.id).length"
                     @click="removeFromCart(plate)"
-                    class="btn btn-success btn-small mr-3"
+                    class="btn btn-success btn-small"
                 >
-                    Remove a portion from cart
+                    - Remove a portion from cart
                 </button>
                 <router-link
                     :to="{ name: 'cart' }"
@@ -31,11 +31,13 @@
                 >
                     check the cart
                 </router-link>
-                <p>
-                    <strong>portions already in cart: </strong>
-                    {{ cart.filter(e => e.id == plate.id).length }}
-                </p>
             </div>
+            <p>
+                <strong class="item-in-cart"
+                    >portions already in cart:
+                    {{ cart.filter(e => e.id == plate.id).length }}
+                </strong>
+            </p>
         </article>
         <Warning v-if="warn" />
     </div>
@@ -87,19 +89,20 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-.plate {
+.plate.card {
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
-    padding: 10px 0px;
+    padding: 20px;
+    margin-bottom: 30px;
 }
 
-.plate:last-child {
-    margin-bottom: 20px;
-    border-bottom: none;
-    padding: 10px 0px;
-}
+// .plate:last-child {
+//     margin-bottom: 20px;
+//     border-bottom: none;
+//     padding: 10px 0px;
+// }
 
-h4 {
+h3 {
     font-weight: 700;
 }
 
@@ -117,18 +120,33 @@ a {
 
 .btns-box {
     position: relative;
+    display: flex;
+    @include media-desk-first(l-tablet) {
+        flex-direction: column;
+    }
     .btn.btn-success.btn-small {
         margin-top: 10px;
+        margin-right: 10px;
         background-color: $brand;
         border-color: $brand;
         font-weight: 700;
+        @include media-desk-first(l-tablet) {
+            margin-right: 0;
+        }
         &.cart-btn {
             color: $white;
             background-color: $col2;
             border-color: $col2;
             position: absolute;
             right: 0;
+            @include media-desk-first(l-tablet) {
+                position: static;
+            }
         }
     }
+}
+
+article p .item-in-cart {
+    color: $col2;
 }
 </style>

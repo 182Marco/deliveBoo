@@ -13,7 +13,7 @@
                         >
                     </li>
                     <li>
-                        <router-link :to="{ name: 'cart' }"
+                        <router-link :to="{ name: 'cart' }" class="cart"
                             ><i class="fas fa-shopping-cart">
                                 <div class="cart-length">
                                     {{ $store.getters.cartLenght }}
@@ -64,9 +64,9 @@ header {
         }
         ul {
             li {
-                margin-right: 20px;
+                margin-left: 20px;
                 &:last-child {
-                    margin-right: 0;
+                    margin-left: 0;
                     display: none;
                     @include media-desk-first(tablet) {
                         display: inline-block;
@@ -76,16 +76,32 @@ header {
                     display: inline-block;
                     font-weight: 700;
                     color: $white;
-                    transition: transform 0.25s;
+                    transition: all 0.25s;
                     &:hover {
                         text-decoration: none;
                         transform: scale(1.05);
+                        color: $col2;
+                    }
+                    &.cart {
+                        position: fixed;
+                        right: 11.5%;
+                        top: 14%;
+                        transition: all 0.3s;
+                        z-index: 10;
+                        &:hover {
+                            transform: scale(1.03);
+                        }
                     }
                     i {
                         display: inline-block;
                         color: white;
                         font-size: 2.2rem;
                         position: relative;
+                        color: $col4;
+                        transition: all 0.3s;
+                        &:hover {
+                            color: $col2;
+                        }
                         .cart-length {
                             display: flex;
                             justify-content: center;
