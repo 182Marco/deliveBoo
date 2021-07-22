@@ -43,7 +43,7 @@
                     :to="{ name: 'payment' }"
                     class="btn btn-success btn-lg ml-5"
                 >
-                    pay! you whore
+                    checkout
                 </router-link>
             </div>
         </div>

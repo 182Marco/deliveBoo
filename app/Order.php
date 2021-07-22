@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-         'price','address','customer_name','customer_lastName','customer_phone','customer_address'
+         'price','customer_name','customer_lastName','customer_phone','customer_address','restaurant_id','customer_email'
     ];
     // define relationship with restaurant
     public function restaurant(){

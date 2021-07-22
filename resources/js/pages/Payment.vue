@@ -30,10 +30,10 @@
                             <input
                                 minlength="3"
                                 maxlength="20"
-                                required
                                 type="text"
                                 v-model="customer_name"
                                 class="form-control"
+                                required
                             />
                         </div>
                         <!-- LAST NAME -->
@@ -49,10 +49,10 @@
                             <input
                                 minlength="3"
                                 maxlength="20"
-                                required
                                 type="text"
                                 v-model="customer_lastName"
                                 class="form-control"
+                                required
                             />
                         </div>
                         <!-- EMAIL -->
@@ -66,10 +66,10 @@
                                 {{ er }}</span
                             >
                             <input
-                                required
                                 type="email"
                                 v-model="customer_email"
                                 class="form-control"
+                                required
                             />
                         </div>
                         <div class="form-group">
@@ -85,10 +85,10 @@
                             <input
                                 minlength="9"
                                 maxlength="11"
-                                required
                                 type="text"
                                 v-model="customer_phone"
                                 class="form-control"
+                                required
                             />
                         </div>
                         <!-- ADDRESS -->
@@ -103,10 +103,10 @@
                             >
                             <input
                                 minlength="3"
-                                required
                                 type="text"
                                 v-model="customer_address"
                                 class="form-control"
+                                required
                             />
                         </div>
                         <!-- AMMOUNT -->
@@ -155,6 +155,7 @@
             <button
                 class="btn btn-primary btn-block"
                 @click.prevent="payWithCreditCard"
+                type="submit"
             >
                 {{ sending ? "sending..." : "Pay with Credit Card" }}
             </button>
@@ -228,7 +229,14 @@ export default {
     methods: {
         ...mapMutations(["emptyCart"]),
         payWithCreditCard() {
-            if (this.hostedFieldInstance) {
+            if (
+                this.hostedFieldInstance &&
+                this.customer_name &&
+                this.customer_lastName &&
+                this.customer_email &&
+                this.customer_phone &&
+                this.customer_address
+            ) {
                 this.error = "";
                 this.nonce = "";
                 this.hostedFieldInstance
@@ -246,6 +254,7 @@ export default {
         },
         // POST THE FORM
         postForm() {
+            console.log(`Mi hanno chiamato....dio`);
             this.sending = true;
             axios
                 .post("http://127.0.0.1:8000/api/orders", {
