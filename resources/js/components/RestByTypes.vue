@@ -7,7 +7,14 @@
             :key="`restaurant_index${i}`"
         >
             <h2 class="my-2">{{ rest.name }}</h2>
-            <img class="my-2" :src="rest.img" :alt="rest.name" />
+            <!-- <img class="my-2" :src="rest.img" :alt="rest.name" /> -->
+            
+            <!-- <img class="my-2 img-fluid"
+            v-show="rest.img" :src="rest.img" :alt="rest.name"/> -->
+
+            <!-- Add Cover Image -->
+            <img :src="`http://127.0.0.1:8000/storage/${rest.img}`" :alt="rest.name">
+            
             <br />
             <p class="my-2 d-inline-block">
                 <strong>adress: </strong> {{ rest.city }}, {{ rest.address }}
