@@ -24,17 +24,14 @@ class RestaurantController extends Controller
         $type = Type::find($id);
         foreach ($type->restaurants as $restaurant) {
             array_push($restaurants, $restaurant);
-        }
+
+        }    
     }
 
-    // $rests = Restaurant::paginate(3)->where(types.id);
-
-
-    // $restaurants = DB::table('restaurants')->where('name', 'John')
-
-    // $rests = (object) $restaurants;
-    // $restaurantsObj->paginate(3);
-
+    //img
+    if ($restaurant->img) {
+        $restaurant->img = url('storage/' . $restaurant->img);
+    }
 
     return  response()->json($restaurants);
     }
