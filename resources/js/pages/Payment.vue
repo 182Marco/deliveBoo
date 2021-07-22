@@ -121,7 +121,7 @@
                                     id="amount"
                                     class="form-control not-allowed"
                                     placeholder="Enter Amount"
-                                    :value="total"
+                                    :value="total.toFixed(2)"
                                     disabled
                                 />
                             </div>
@@ -156,7 +156,7 @@
                 class="btn btn-primary btn-block"
                 @click.prevent="payWithCreditCard"
             >
-                Pay with Credit Card
+                {{ sending ? "sending..." : "Pay with Credit Card" }}
             </button>
             <div class="alert alert-danger" v-if="error">
                 {{ error }}
@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import braintree from "braintree-web";
 export default {
     name: "Payment",
@@ -181,7 +181,7 @@ export default {
             customer_phone: "",
             customer_address: "",
             errors: {},
-            success: false
+            sending: false
         };
     },
     mounted() {
@@ -226,6 +226,7 @@ export default {
         ...mapState(["total", "cart"])
     },
     methods: {
+        ...mapMutations(["emptyCart"]),
         payWithCreditCard() {
             if (this.hostedFieldInstance) {
                 this.error = "";
@@ -235,16 +236,17 @@ export default {
                     .then(payload => {
                         console.log(payload);
                         this.nonce = payload.nonce;
+                        this.postForm();
                     })
                     .catch(err => {
                         console.error(err);
                         this.error = err.message;
                     });
             }
-            this.postForm();
         },
         // POST THE FORM
         postForm() {
+            this.sending = true;
             axios
                 .post("http://127.0.0.1:8000/api/orders", {
                     restaurant_id: this.cart[0].restaurant_id,
@@ -258,10 +260,10 @@ export default {
                 })
                 .then(r => {
                     console.log(r.data);
+                    this.sending = false;
                     if (r.data.errors) {
                         this.errors = r.data.errors;
                         //
-                        this.success = false;
                     } else {
                         // clean errors
                         this.errors = {};
@@ -272,7 +274,8 @@ export default {
                         this.customer_phone = "";
                         this.customer_address = "";
                         //
-                        this.success = true;
+                        this.$store.commit("emptyCart");
+                        this.$router.push({ name: "success" });
                     }
                 })
                 .catch(er => console.log(er));

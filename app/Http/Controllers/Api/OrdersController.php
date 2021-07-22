@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\orderedMessage;
+use Illuminate\Support\Facades\Mail;
+
 
 class OrdersController extends Controller
 {
@@ -40,6 +43,9 @@ class OrdersController extends Controller
         // relationship many to manysave
         // remember you can associate with syn only when new istance is already saved
         $new_order->plates()->sync($r->plates); 
+
+        // MAIL
+        // Mail::to($r->customer_email)->send(new orderedMessage());
             
         return response()->json($new_order);
     }

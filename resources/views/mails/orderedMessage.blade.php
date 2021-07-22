@@ -1,0 +1,1 @@
+<h1>Well done! You successfully send your payment!Your order has been confirmed</h1>
