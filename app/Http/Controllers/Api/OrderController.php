@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Mail\orderedMessage;
 use Illuminate\Support\Facades\Mail;
+use App\Order;
+use App\Mail\OrderedMessage;
+
+
 
 
 class OrderController extends Controller
@@ -27,17 +29,13 @@ class OrderController extends Controller
             return response()->json(['errors' => $validator->errors() ]);
         }
 
+        $data = $r->all();
+
         // create instance
         $new_order = new Order();
-        // FILLABLE NOT WORKING
-        // $new_order->fill($data);
-        $new_order->restaurant_id = $r->restaurant_id;
-        $new_order->price = $r->price;
-        $new_order->customer_name = $r->customer_name;
-        $new_order->customer_lastName = $r->customer_lastName;
-        $new_order->customer_email = $r->customer_email;
-        $new_order->customer_phone = $r->customer_phone;
-        $new_order->customer_address = $r->customer_address;
+        // FILLABLE
+        $new_order->fill($data);
+
         // save in db
         $new_order->save();
         // relationship many to manysave
@@ -45,8 +43,12 @@ class OrderController extends Controller
         $new_order->plates()->sync($r->plates); 
 
         // MAIL
-        // Mail::to($r->customer_email)->send(new orderedMessage());
+        Mail::to($r->customer_email)->send(new orderedmessage($data));
             
-        return response()->json($new_order);
+        return response()->json($data);
     }
 }
+
+
+        //Send email to admin
+        //Mail::to('admin@site.it')->send(new ContactMessage($data));
