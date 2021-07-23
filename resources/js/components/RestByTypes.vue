@@ -14,11 +14,7 @@
 
             <!-- Add Cover Image -->
             <div class="img-box">
-                <img
-                    :src="`http://127.0.0.1:8000/storage/${rest.img}`"
-                    :alt="rest.name"
-                    class="img-fluid my-2"
-                />
+                <img :src="rest.img" :alt="rest.name" class="ml-4" />
             </div>
 
             <br />
@@ -82,10 +78,9 @@ export default {
 article.article.card {
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
-    padding: 30px;
+    padding: 15px 35px;
     margin-bottom: 30px;
     box-shadow: 3px 4px 6px 4px #5acdbe18;
-    padding: 20px 10px;
     border-radius: 5px;
     a {
         color: white;
@@ -99,9 +94,19 @@ article.article.card {
         margin-top: 20px;
         margin-left: -20px;
     }
+}
 
-    .img-box {
-        width: 350px;
+.img-box {
+    // border: 1px solid red;
+    width: 400px;
+    height: 200px;
+    display: inline-flex;
+    width: 300px;
+    @include media-desk-first(tablet) {
+        width: 200px;
+    }
+    img {
+        width: 100%;
     }
 }
 

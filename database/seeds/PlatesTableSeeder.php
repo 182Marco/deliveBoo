@@ -93,7 +93,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "100% chicken meat in a deliciously crispy coating, just waiting to be dipped. A firm favourite with everyone. Chicken McNuggets are available in portions of 4 with the Happy Meal.",
                 "visible" => true,
                 "price" => 4.2,
-                "img" => "",
+                "img" => "https://static.wikia.nocookie.net/ronaldmcdonald/images/7/70/Mcnugget6lg.jpg/revision/latest/scale-to-width-down/300?cb=20190601014652",
             ],
             [
                 "restaurant_id" => "14",
@@ -102,7 +102,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A freshly toasted bun served with a slice of melted cheese and two slices of juicy ham",
                 "visible" => true,
                 "price" => 2.5,
-                "img" => "",
+                "img" => "https://content.api.news/v3/images/bin/3b2afc8182d811d34e13a1bee51edcd3?width=650",
             ],
             [
                 "restaurant_id" => "14",
@@ -111,7 +111,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A tangy orange soda to complement all of our meals!",
                 "visible" => true,
                 "price" => 2,
-                "img" => "",
+                "img" => "https://www.ilpiaceredellacqua.com/wp-content/uploads/2018/07/fanta-lattina-33.jpg",
             ],
             [
                 "restaurant_id" => "14",
@@ -120,7 +120,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Coca-Cola Zero",
                 "visible" => true,
                 "price" => 2,
-                "img" => "",
+                "img" => "https://i1.wp.com/www.miziostreetfood.it/wp-content/uploads/2020/05/fanta.png?fit=614%2C920&ssl=1",
             ],
             [
                 "restaurant_id" => "14",
@@ -129,7 +129,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Looking to start your day with a smile? Try our scrambled eggs, also available with a side of mouth-watering crispy bacon. This breakfast option is also served as a combo with a choice of two drinks or a drink and a hash brown.",
                 "visible" => true,
                 "price" => 4.7,
-                "img" => "",
+                "img" => "https://d1nqx6es26drid.cloudfront.net/app/uploads/2015/04/04031748/product-big-breakfast.png",
             ],
             [
                 "restaurant_id" => "14",
@@ -138,7 +138,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The ultimate side snack! Cheesy, chilli, goodness that melt in your mouth.",
                 "visible" => true,
                 "price" => 3.5,
-                "img" => "",
+                "img" => "https://lh3.googleusercontent.com/proxy/tZUopSbWiyVja2IWUQpnaW6JJVe1KW3RN3Du3spMiG8RhLy9DqCWDtHrFdfxSmfPPcpceWeWiYap7LYbMi7sbmIoYoFaNoUk1pJL-283bEJ5KSab2Ro5oUYRrmWL6WGT",
             ],
             [
                 "restaurant_id" => "14",
@@ -147,7 +147,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Enjoy the healthy alternative with the Happy Meal! Our apples are fresh, sweet and incredibly crunchy keeping both you and your child happy thanks to their delicate flavour and high vitamin boosts!",
                 "visible" => true,
                 "price" => 2.2,
-                "img" => "",
+                "img" => "https://i.pinimg.com/originals/cf/2e/4b/cf2e4bc0c4e89ba937dcb8c5b5b0b4a7.png",
             ],
             [
                 "restaurant_id" => "14",
@@ -156,7 +156,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A deliciously rich and creamy vanilla dairy milkshake that will leave you longing for more! Milkshake comes in regular size (25cl) and large size (40cl).",
                 "visible" => true,
                 "price" => 1.8,
-                "img" => "",
+                "img" => "https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/hero/desktop/t-mcdonalds-Vanilla-McCafe-Shake-Medium.jpg",
             ],
             [
                 "restaurant_id" => "14",
@@ -165,7 +165,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our signature creamy vanilla ice cream swirled to perfection into a crispy cone.",
                 "visible" => true,
                 "price" => 1.8,
-                "img" => "",
+                "img" => "http://www.cheaponana.com/wp-content/uploads/2016/03/cone.gif",
             ],
             [
                 "restaurant_id" => "14",
@@ -174,17 +174,17 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our potato hash browns are crispy and toasty on the outside while soft and fluffy inside. These crispy delights are a perfect addition to start off your day with a smile.",
                 "visible" => true,
                 "price" => 1.8,
-                "img" => "",
+                "img" => "https://149449860.v2.pressablecdn.com/wp-content/uploads/2019/02/RC-NEWS-Hashbrown-or-cellphone-0319.png",
             ],
             // Mc Burger King Plates
             [
                 "restaurant_id" => "13",
-                "name" => "CRAZY CHEESE BBQ",
+                "name" => "DOUBLE CHICKEN BBQ",
                 "ingredients" => "2 slices of cheddar, 4 slices of bacon, crunchy onion, Cheddar sauce and a yummy Bull's Eye BBQ sauce. Crazy Cheese BBQ is here, only for true cheese lovers.",
                 "description" => "A classic combination of a 100% pure beef patty, pickles, onion, mustard and ketchup and of course a slice of melted cheese in a freshly toasted bun make our cheeseburger a classic delight.",
                 "visible" => true,
                 "price" => 4.6,
-                "img" => "",
+                "img" => "https://i.pinimg.com/originals/7f/aa/2a/7faa2a995bb9582c80adf84d6ac399d9.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -193,7 +193,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two soft slices of corn bread contain 3 layers of grilled meat accompanied by American cheddar, 8 slices of bacon and the unmistakable smoky taste of the BBQ sauce. Great hunger? Epic sandwich.",
                 "visible" => true,
                 "price" => 4.9,
-                "img" => "",
+                "img" => "https://d1ralsognjng37.cloudfront.net/39e57b90-6583-4054-9c20-eb3c229d2fe6.jpeg",
             ],
             [
                 "restaurant_id" => "13",
@@ -202,7 +202,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Extra-Extra-Large! It is not just a maxi size, but a real challenge! With its double serving of juicy grilled meat, unique taste of the special sauce and not one, not two, but four slices of tasty Cheddar cheese the BIG KING® XXL wants to be tamed. Simply irresistible.",
                 "visible" => true,
                 "price" => 5.3,
-                "img" => "",
+                "img" => "https://www.burgerking.it/site/assets/files/8949396/bronx_steakhouse.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -211,7 +211,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "We know it's hard to get tired of our WHOPPER®, but for those who want more, we created the WHOPPER® Triple. Tomato, onion, cucumber and lettuce with our most famous burger, multiplied by three. A real treat with every bite!",
                 "visible" => true,
                 "price" => 4.7,
-                "img" => "",
+                "img" => "https://burgerking.com.mt/wp-content/uploads/2020/03/5.TRIPLE-WHOPPER.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -220,7 +220,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "For the nonconformists by nature, this burger has it all. Double burger, cheddar cheese and bacon. What more can you ask for?",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "",
+                "img" => "https://opinioni.it/Uploads/Products/22852/Screenshot_2017-03-11-22-57-45-1_large.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -229,7 +229,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Only 40 calories. This salad is a delight for everyone. Don't give up on taste and enjoy a blend of ingredients that explode in your mouth like fireworks.",
                 "visible" => true,
                 "price" => 2.1,
-                "img" => "",
+                "img" => "https://burgerking.com.mt/wp-content/uploads/2020/03/5.Green-Salad.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -238,7 +238,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "KING FUSION® Perugina®. Dolci praline al cioccolato nel nostro delizioso gelato con aroma di vaniglia.",
                 "visible" => true,
                 "price" => 4.3,
-                "img" => "",
+                "img" => "https://www.bidibee.com/file/5f76037f10000025eeb0c8b5/MARKETS/5f76044f1000002beeb0c8b6/ITEMS/60376743110000c876b699b6/small_BnaFah2XuxvGVcP.jpg",
             ],
             [
                 "restaurant_id" => "13",
@@ -247,7 +247,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Here we come full circle for all onion ring fans. Dip them in a sauce and enjoy. Or munch on the golden breading first and then the onion. Exactly how you want!",
                 "visible" => true,
                 "price" => 4,
-                "img" => "",
+                "img" => "https://www.seekpng.com/png/detail/52-522297_onion-rings-burger-king-onion-rings.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -256,7 +256,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Juicy 100% vegetable burger grilled on our flame, fresh tomato, onion cut at the moment, lettuce, gherkins, ketchup and mayonnaise. Taste? 100% Whopper. Try it, but you won't believe it.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "",
+                "img" => "https://funnyvegan.com/wp-content/uploads/2021/03/Funny-Vegan-news-plant-based-Whooper.png",
             ],
             [
                 "restaurant_id" => "13",
@@ -265,7 +265,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our KING Chips are worthy of a king: delicious potatoes, golden color and crunchiness are the characteristics that make them unique.",
                 "visible" => true,
                 "price" => 3.5,
-                "img" => "",
+                "img" => "https://fastfoodnutrition.org/item-photos/full/1470_s.jpg",
             ],
             // the garage plates
             [
@@ -275,7 +275,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Margherita pizza is the typical Neapolitan pizza, topped with tomato, mozzarella (traditionally the fior di latte is used, not that of buffalo), fresh basil, salt and oil; it is, together with pizza marinara, the most popular Italian pizza. ...",
                 "visible" => true,
                 "price" => 4.5,
-                "img" => "",
+                "img" => "https://lh3.googleusercontent.com/proxy/Cxp-jAC5ZOItRhTe1w0dcibFqRoC5EqCEE9YC7XqqSPgdIPQFT-488SkYX40L0SxXMT6nSExGE5dkmGAZ9rcZp7aI1HmtNb8qG30xV__GfhG9eDcwLKYgmC8",
             ],
             [
                 "restaurant_id" => "8",
@@ -284,7 +284,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "also known as pizza alla marinara, is a style of Neapolitan pizza in Italian cuisine seasoned with only tomato sauce, extra virgin olive oil, oregano and garlic. The name has little to do with the marinara sauce, besides sharing a similar origin. It is supposedly the most ancient tomato-topped pizza",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "",
+                "img" => "https://www.donnamoderna.com/content/uploads/2012/03/Pizza-alla-marinara-725x545.jpg",
             ],
             [
                 "restaurant_id" => "8",
@@ -293,7 +293,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "In Italian, pizza diavola means “deviled” pizza. And in this case, deviled means one thing: spicy.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "",
+                "img" => "https://www.pizzeriabraceriafuego.it/images/2020/08/28/71_main.png",
             ],
             [
                 "restaurant_id" => "8",
@@ -302,7 +302,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Tuna and Onion Pizza is a pizza rich in seasoning with a strong flavor, a crunchy pizza dough base stuffed with tomato sauce, onions, tuna and stringy mozzarella. The Pizza with tuna and onions is ideal when you want to enjoy a very tasty single dish excellent to bring to the table with a nice iced beer for a dinner with friends.",
                 "visible" => true,
                 "price" => 5.5,
-                "img" => "",
+                "img" => "https://media.gettyimages.com/photos/pizza-tuna-onion-herbs-on-plate-picture-id182878095?s=170667a",
             ],
             [
                 "restaurant_id" => "8",
@@ -329,7 +329,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "This crusty sandwich only calls for a handful of ingredients—pecorino, parsley, and anchovy—but has big flavors.",
                 "visible" => true,
                 "price" => 7.2,
-                "img" => "",
+                "img" => "https://image.freepik.com/free-photo/italian-pizza-four-seasons-isolated-white_136401-2328.jpg",
             ],
             [
                 "restaurant_id" => "8",
@@ -338,7 +338,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A crisp collard slaw and tangy tartar and cocktail sauces top pan-fried softshell crabs in this classic sandwich.",
                 "visible" => true,
                 "price" => 7.6,
-                "img" => "",
+                "img" => "https://www.saveur.com/uploads/2019/01/03/XSPPKHJVFUKJQDJNOPDH7CZZJ4.jpg?width=785",
             ],
             [
                 "restaurant_id" => "8",
@@ -347,7 +347,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "This specialty of Çesme, a small beach town in Turkey, is one of the world’s great grilled cheese sandwiches, in which the cheese itself is grilled before getting slipped into toasted bread with raw tomato and optional (but highly recommended) toppings of griddled sausage and pickled cucumbers and chiles",
                 "visible" => true,
                 "price" => 7.2,
-                "img" => "",
+                "img" => "https://lh3.googleusercontent.com/proxy/os5Gv68ERBJ2vXYzMiHsB3W-ifCb-melgpWNibGA-TKi_HR4koerxNgGKVbqsq2zYZcNB4t3UMzANdVxW6L8MTuhyXVkwRFNHBidSQB1ocC_kA",
             ],
             [
                 "restaurant_id" => "8",
@@ -358,6 +358,107 @@ class PlatesTableSeeder extends Seeder
                 "price" => 6.7,
                 "img" => "",
             ],
+            // mexican
+            [
+                "restaurant_id" => "2",
+                "name" => "beef burritos",
+                "ingredients" => "Beef Burrito Filling – juicy and packed with flavour! Plain white rice – or try brown rice, quinoa, or this Mexican Red Rice!)Corn. Black beans. Cabbage or lettuce. Diced tomato. Red onion. Cheese",
+                "description" => "The word burrito means 'little donkey' in Spanish, being the diminutive form of burro, or 'donkey'. The name burrito, as applied to the dish, possibly derives from the tendency for burritos to contain a lot of different things similar to how a donkey would be able to carry a lot.",
+                "visible" => true,
+                "price" => 18,
+                "img" => "https://images-gmi-pmc.edge-generalmills.com/3f2a43ee-fbec-46bc-b26a-0e6f64d85a41.jpg",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "tortillas",
+                "ingredients" => "Massa, Nixtamal",
+                "description" => "Tortillas made from nixtamalized maize meal—masa de maíz— are the oldest variety of tortilla. They originated in Mexico, and remain popular throughout the Americas. Peoples of the Oaxaca region in Mexico first made tortillas at the end of the Villa Stage (1500 to 500 BC)",
+                "visible" => true,
+                "price" => 7.5,
+                "img" => "https://lh3.googleusercontent.com/proxy/X3HdVmIAm3vV3NxbshJsW27Efy_kArzXTrvQVAvJAOKP2jE3h3-FnlERJVXcyaFymdyzAIgnr-Cr-nDPL-ZoJSjXBKIIO4A-NHAi5A_x5dv2FfDr2dFAbFl-PL7TjbE",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "tacos",
+                "ingredients" => "Olive oil – helps brown the beef better. Lean ground beef – I like to use 85% lean angus. ... Garlic – use fresh chopped. ...Spices – chili powder, cumin, onion powder, salt and pepper. Tomato sauce – this makes the taco filling rich and saucy.",
+                "description" => "The origins of the taco are not precisely known, and etymologies for the culinary usage of the word are generally theoretical.Taco in the sense of a typical Mexican dish comprising a maize tortilla folded around food is just one of the meanings connoted by the word, according to the Real Academia Española, publisher of Diccionario de la Lengua Española",
+                "visible" => true,
+                "price" => 6,
+                "img" => "https://www.giallozafferano.it/images/175-17533/Tacos-veloci_650x433_wm.jpg",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Guacamole",
+                "ingredients" => "avocados - peeled, pitted, and mashed, lime, juiced teaspoon salt, cup diced onion, tablespoons chopped fresh cilantro, roma (plum) tomatoes, diced, teaspoon minced garlic, pinch ground cayenne pepper",
+                "description" => "Guacamole (called Guacamol in Central America and Cuba) is a Mexican dip made of avocados, salt and sometimes tomatoes. Various herbs can be added too, such as chives. It is depicted as a green, creamy dip or garnish. It is often served as a dip or garnish with Mexican foods such as tacos and tortilla chips.",
+                "visible" => true,
+                "price" => 16,
+                "img" => "https://freepikpsd.com/media/2019/10/guacamole-png-Transparent-Images.png",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Pozole",
+                "ingredients" => "ounces dried guajillo, ancho, or a combination of both, chili pods, Salt, large (108 ounce, 6 lb 12 oz, 3 kg) can white hominy, drained and rinsed, pounds pork shoulder (preferably with bone), cut into 1 to 1 1/2 inch cubes (can also use pork shanks), make sure to use a cut well marbled with fat, cloves garlic, cloves roughly chopped, and whole cloves, bay leaves, teaspoon ground cumin, tablespoons of dry oregano (Mexican oregano if available)",
+                "description" => "Pozole can be prepared in many ways, but all variations include a base of cooked hominy in broth. Typically pork, or sometimes chicken, is included in the base. Vegetarian recipes substitute beans for the meat.",
+                "visible" => true,
+                "price" => 13,
+                "img" => "https://www.muydelish.com/wp-content/uploads/2020/12/How-To-Make-Pozole-500x500.jpg",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Chiles en nogada",
+                "ingredients" => "pounds ground turkey thigh meat, Kosher salt, Tbsp olive oil or canola oil, medium onion, finely chopped, cloves garlic, peeled and finely chopped, Tbsp butter, teaspoon ground cinnamon, teaspoon freshly ground black pepper,teaspoon ground cloves, crushed, fire roasted tomatoes, cup of golden raisins, Tbsp blanched and slivered almonds, roughly chopped, apple, peeled, cored, chopped",
+                "description" => "We make our chiles en nogada based on an old family recipe from Yuriria, Guanajuato that dates back at least until the 1950s. Chiles en nogada are meat stuffed poblano chiles bathed in nogada, a walnut cream sauce and garnished with pomegranate seeds and parsley.",
+                "visible" => true,
+                "price" => 11,
+                "img" => "https://www.vitamix.com/media/other/images/Chiles-en-Nogado-470x449.jpg",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Corn on the cob",
+                "ingredients" => "corn",
+                "description" => "Corn on the cob is a culinary term used for a cooked ear of freshly picked maize from a cultivar of sweet corn. Sweet corn is the most common variety of maize eaten directly off the cob",
+                "visible" => true,
+                "price" => 5,
+                "img" => "http://farm6.static.flickr.com/5134/5466418950_2df6f56bb7.jpg",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Enchilada",
+                "ingredients" => "Chicken, onion, Onion and diced green chiles, tortillas, Cheese, Toppings",
+                "description" => "The Royal Spanish Academy defines the word enchilada, as used in Mexico, as a rolled maize tortilla stuffed with meat and covered with a tomato and chili sauce.",
+                "visible" => true,
+                "price" => 12,
+                "img" => "https://www.pngkey.com/png/full/193-1931777_1-two-green-sauce-enchiladas-enchilada.png",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Yellow mole",
+                "ingredients" => "10 dried guajillo chiles, washed. annatto seeds (achiote),  ground canela (Mexican cinnamon), whole cloves., tsp. cumin seed., tsp. dry Mexican oregano, toasted., Mexican saffron, corn oil.",
+                "description" => "a traditional sauce and marinade originally used in Mexican cuisine",
+                "visible" => true,
+                "price" => 4,
+                "img" => "https://cdn.kiwilimon.com/recetaimagen/32150/th5-640x426-37045.jpg",
+            ],
+            [
+                "restaurant_id" => "2",
+                "name" => "Tostadas",
+                "ingredients" => " refried beans, shredded cheese, salsa",
+                "description" => "What should you do with stale tortillas? Why, fry them of course! Literally meaning toasted, tostadas are a simple but delicious dish involving corn tortillas fried in boiling oil until they become crunchy and golden. These are then served alone or piled high with any number of garnishes. Popular toppings include frijoles (refried beans), cheese, cooked meat, seafood and ceviche.",
+                "visible" => true,
+                "price" => 6.7,
+                "img" => "https://tastesbetterfromscratch.com/wp-content/uploads/2020/01/Tostadas-5-500x500.jpg",
+            ],
+            // [
+            //     "restaurant_id" => "2",
+            //     "name" => "",
+            //     "ingredients" => "",
+            //     "description" => "",
+            //     "visible" => true,
+            //     "price" => 7.5,
+            //     "img" => "",
+            // ],
+
             // fajke plates of restaurant 1
             [
                 "restaurant_id" => "1",
@@ -366,7 +467,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "someone else",
                 "visible" => true,
                 "price" => 56.5,
-                "img" => "",
+                "img" => "https://w7.pngwing.com/pngs/768/586/png-transparent-cooked-meat-with-tomatoes-and-flat-bread-gyro-buffalo-wing-chicken-sandwich-cheeseburger-french-fries-tzatziki-food-recipe-chicken-meat.png",
             ],
             [
                 "restaurant_id" => "1",
