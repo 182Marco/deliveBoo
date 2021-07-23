@@ -1,8 +1,10 @@
 <template>
     <div>
         <article class="plate card">
-            <h3 class="mb-3">{{ plate.name }}</h3>
-            <img :src="plate.img" :alt="plate.name" />
+            <h3 class="mb-1">{{ plate.name }}</h3>
+            <div class="img-box">
+                <img :src="plate.img" :alt="plate.name" />
+            </div>
             <p><strong>Description: </strong> {{ plate.description }}</p>
             <p><strong>Ingredients: </strong> {{ plate.ingredients }}</p>
             <p>
@@ -145,10 +147,19 @@ a {
         }
     }
 }
-img {
+
+.img-box {
+    // border: 1px solid red;
+    width: 300px;
+    height: 200px;
+    display: flex;
     width: 300px;
     @include media-desk-first(tablet) {
         width: 200px;
+    }
+    img {
+        width: 100%;
+        object-fit: contain;
     }
 }
 
