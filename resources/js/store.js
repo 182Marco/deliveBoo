@@ -17,6 +17,7 @@ const store = () => {
             // restaurant  menu and detail
             restaurant: {},
             cart: [],
+            // remove duplicate from cart
             // show warn (can't purchase more than one restaurant)
             warn: false,
             total: 0,

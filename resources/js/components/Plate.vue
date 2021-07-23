@@ -121,7 +121,7 @@ a {
 .btns-box {
     position: relative;
     display: flex;
-    @include media-desk-first(l-tablet) {
+    @include media-desk-first(xs-desktop) {
         flex-direction: column;
     }
     .btn.btn-success.btn-small {
@@ -130,7 +130,7 @@ a {
         background-color: $brand;
         border-color: $brand;
         font-weight: 700;
-        @include media-desk-first(l-tablet) {
+        @include media-desk-first(xs-desktop) {
             margin-right: 0;
         }
         &.cart-btn {
@@ -139,10 +139,16 @@ a {
             border-color: $col2;
             position: absolute;
             right: 0;
-            @include media-desk-first(l-tablet) {
+            @include media-desk-first(xs-desktop) {
                 position: static;
             }
         }
+    }
+}
+img {
+    width: 300px;
+    @include media-desk-first(tablet) {
+        width: 200px;
     }
 }
 

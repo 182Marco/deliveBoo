@@ -10,7 +10,7 @@ use App\Mail\orderedMessage;
 use Illuminate\Support\Facades\Mail;
 
 
-class OrdersController extends Controller
+class OrderController extends Controller
 {
     // save orders on db and notify with email
     public function store(Request $r){

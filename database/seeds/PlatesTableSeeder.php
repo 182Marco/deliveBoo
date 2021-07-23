@@ -21,7 +21,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two 100% beef patties are combined with bacon, a slice of melted cheese and bacon sauce in a fresh bun, toasted for the right amount of crisp!",
                 "visible" => true,
                 "price" => 4,
-                "img" => "",
+                "img" => "https://www.mcdonalds.it/sites/default/files/styles/compressed/public/element/2020-08/crispy-20anni--prod-02.png.webp?itok=-L3Ku-tF",
             ],
             [
                 "restaurant_id" => "14",
@@ -30,7 +30,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "This legendary American burger is a true all-rounder! A 100% beef patty, Emmental cheese, onions, juicy tomatoes and a unique smoky flavoured sauce all nested in a freshly toasted bun. Make it even better - add crispy bacon.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "",
+                "img" => "https://www.mcdonalds.it/sites/default/files/styles/product_isolated_preview/public/products/myselection-bbq_isolated_0.png.webp?itok=Nib8-cBR",
             ],
             [
                 "restaurant_id" => "14",
@@ -39,7 +39,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two 100% beef patties, melted cheese, onions, pickles, lettuce and the signature Big Mac sauce make this an icon.",
                 "visible" => true,
                 "price" => 6,
-                "img" => "",
+                "img" => "https://www.mcdonalds.it/sites/default/files/styles/product_isolated_preview/public/products/bigmac_isolated_0.png.webp?itok=bRODxB7w",
             ],
             [
                 "restaurant_id" => "14",
@@ -48,7 +48,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A classic combination of a 100% pure beef patty, pickles, onion, mustard and ketchup and of course a slice of melted cheese in a freshly toasted bun make our cheeseburger a classic delight.",
                 "visible" => true,
                 "price" => 6,
-                "img" => "",
+                "img" => "https://www.mcdonalds.it/sites/default/files/styles/product_isolated_preview/public/products/cheeseburger_isolated.png.webp?itok=m6DdWfU1",
             ],
             [
                 "restaurant_id" => "14",
@@ -57,7 +57,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A crispy 100% chicken patty nestled inside a freshly toasted bun with lettuce and a mayo sauce.",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "",
+                "img" => "https://www.mcdonalds.com.mt/wp-content/uploads/2018/05/chicken-mayo-classic.jpg",
             ],
             [
                 "restaurant_id" => "14",
@@ -66,7 +66,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A portion of delicious fries, cooked to golden perfection and seasoned with just the right amount of salt.",
                 "visible" => true,
                 "price" => 3,
-                "img" => "",
+                "img" => "https://www.mcdonalds.it/sites/default/files/product_category/thumb/patatine_thumb_search.jpg",
             ],
             [
                 "restaurant_id" => "14",
@@ -75,7 +75,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Ice cream is sweet, and is usually flavored with fruit, spices, or candy- the flavor often influences the color (that is, chocolate ice cream is brown, strawberry and cherry flavors are pink, pistachio is green)",
                 "visible" => true,
                 "price" => 3.4,
-                "img" => "",
+                "img" => "https://www.mcdonalds.it/sites/default/files/styles/compressed/public/products/mcflurry-bounty--hero-mob.jpg.webp?itok=rMJ0uLKT",
             ],
             [
                 "restaurant_id" => "14",
@@ -84,7 +84,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Doesn’t matters if you want to be Wonder Woman or Batman… Or maybe secretly you love the Joker, come to your nearest McDonald’s and find them inside your Happy Meal!",
                 "visible" => true,
                 "price" => 3.4,
-                "img" => "",
+                "img" => "https://image.shutterstock.com/image-photo/kuala-lumpur-malaysia-february-17th-260nw-253256875.jpg",
             ],
             [
                 "restaurant_id" => "14",
