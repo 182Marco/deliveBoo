@@ -11,14 +11,18 @@ class OrderedMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $contact;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($contact)
     {
-        //
+        //property/Array
+        $this->contact=$contact;
+
     }
 
     /**
@@ -28,6 +32,9 @@ class OrderedMessage extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.orderedmessage');
+        return $this->markdown('mails.orderedmessage')
+                    ->with([
+                        'contact' => $this->contact
+                    ]);
     }
 }
