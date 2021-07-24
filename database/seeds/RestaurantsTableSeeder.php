@@ -32,11 +32,11 @@ class RestaurantsTableSeeder extends Seeder
             ],
             [
                 "user_id" => "5",
-                "name" => "Thai Tastic",
+                "name" => "Hyack",
                 "phone" => "333 7893098",
                 "city" => "Milano",
                 "address" => "via Manzoni 87",
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/0e/df/dd/db/the-front-of-thaitastic.jpg",
+                "img" => "https://farm5.staticflickr.com/4526/25012994008_7cd8dba11b_z.jpg",
             ],
             [
                 "user_id" => "3",
@@ -134,6 +134,14 @@ class RestaurantsTableSeeder extends Seeder
                 "address" => "via De Gasperi 52",
                 "img" => "https://i.pinimg.com/originals/31/35/53/313553bc8b3f4bbf9c1b3dc8bed1b4dd.jpg",
             ],
+            [
+                "user_id" => "6",
+                "name" => "Esencia",
+                "phone" => "333 3578540",
+                "city" => "Milano",
+                "address" => "via Fransisco Goya 52",
+                "img" => "https://live.staticflickr.com/4832/45987052051_d7341d60e6_b.jpg",
+            ],
         ];
 
         foreach($restaurants as $restaurant){
@@ -154,26 +162,26 @@ class RestaurantsTableSeeder extends Seeder
         
         //    seedind the many to many with types
 
-           $La_Pizza_Napoli = Restaurant::find(1);
-           $La_Pizza_Napoli ->types()->attach(6); //pizzeria
+           $vesuvio = Restaurant::find(1);
+           $vesuvio ->types()->attach(6); //pizzeria
 
-           $My_mexican_pal = Restaurant::find(2);
-           $My_mexican_pal ->types()->sync([1,6]); //messicano //pizzeria
+           $Guadalajara= Restaurant::find(2);
+           $Guadalajara->types()->attach(1); //pizzeria
 
-           $Sushi_Li = Restaurant::find(3);
-           $Sushi_Li ->types()->attach(3); //giapponese
+           $hayack = Restaurant::find(3);
+           $hayack ->types()->attach(3); //giapponese
 
            $thai_food = Restaurant::find(4);
-           $thai_food ->types()->sync([6,7]);  //pizzeria // ethnic
+           $thai_food ->types()->attach(7);  // ethnic
 
            $il_cacciatore = Restaurant::find(5);
            $il_cacciatore ->types()->attach(4); //stellato
 
-           $Il_gabbiano = Restaurant::find(6);
-           $Il_gabbiano ->types()->attach(4); //stellato
+           $IPeri = Restaurant::find(6);
+           $IPeri ->types()->attach(4); //stellato
 
-           $El_Gaucho = Restaurant::find(7);
-           $El_Gaucho ->types()->sync([7, 5]); //ethnic //fast food
+           $cabrera = Restaurant::find(7);
+           $cabrera ->types()->sync([7, 5]); //ethnic //fast food
 
            $the_garage = Restaurant::find(8);
            $the_garage ->types()->sync([6, 5]); //pizzeria // fast food
@@ -182,10 +190,10 @@ class RestaurantsTableSeeder extends Seeder
            $La_lanterna ->types()->attach(4); //stellato
 
            $Green_food = Restaurant::find(10);
-           $Green_food ->types()->sync([2,6]); //vegano //pizzeria
+           $Green_food ->types()->sync([2]); //vegano
 
            $La_gondola = Restaurant::find(11);
-           $La_gondola ->types()->attach(4); //stellato
+           $La_gondola ->types()->sync([4,8]); //stellato //italiano
 
            $Il_Rancio = Restaurant::find(12);
            $Il_Rancio ->types()->attach(4); //stellato  
@@ -197,6 +205,9 @@ class RestaurantsTableSeeder extends Seeder
            $Mc_Donald ->types()->attach(5); //fast food   
 
            $StarBucks = Restaurant::find(15);
-           $StarBucks ->types()->attach(5); //fast food        
+           $StarBucks ->types()->attach(5); //fast food   
+
+           $Esencia = Restaurant::find(16);
+           $Esencia ->types()->attach(9); //Spanish      
     }
 }

@@ -2,24 +2,26 @@
     <div class="cont">
         <article
             v-show="selectedTypesLenght"
-            class="my-4 article card"
+            class="article card"
             v-for="(rest, i) in pageOfItems"
             :key="`restaurant_index${i}`"
         >
-            <h2 class="my-2">{{ rest.name }}</h2>
-            <!-- Add Cover Image -->
-            <div class="img-box">
-                <img :src="rest.img" :alt="rest.name" class="ml-4" />
-            </div>
-
-            <br />
-            <p class="my-2 d-inline-block">
-                <strong>adress: </strong> {{ rest.city }}, {{ rest.address }}
-            </p>
-            <div>
+            <router-link
+                class="img-box"
+                :to="{ name: 'restMenu', params: { id: rest.id } }"
+            >
+                <img :src="rest.img" :alt="rest.name" />
+            </router-link>
+            <div class="txt-box">
+                <h2>{{ rest.name }}</h2>
+                <!-- Add Cover Image -->
+                <p class="d-inline-block txt">
+                    <strong>address: </strong> {{ rest.city }},
+                    {{ rest.address }}
+                </p>
                 <router-link
                     v-show="restByTypes"
-                    class="btn btn-success btn-small ml-3"
+                    class="btn btn-success btn-small txt"
                     :to="{ name: 'restMenu', params: { id: rest.id } }"
                 >
                     show
@@ -27,7 +29,7 @@
             </div>
         </article>
         <!-- pagination element -->
-        <div class="card-footer pb-0 pt-3">
+        <div class="card-footer pagination tool pb-0 pt-3">
             <jw-pagination
                 :pageSize="4"
                 :items="restByTypes"
@@ -49,11 +51,6 @@ export default {
             pageOfItems: []
         };
     },
-    created() {
-        console.warn(
-            `This the http for the fist img:  ${this.restByTypes[0].img}`
-        );
-    },
     computed: {
         ...mapState(["restByTypes"]),
         ...mapGetters(["selectedTypesLenght"])
@@ -74,12 +71,38 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.cont {
+    @include media-desk-first(l-tablet) {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+}
+
 article.article.card {
+    @include media-desk-first(l-tablet) {
+        margin-right: 15px;
+        width: calc(100% / 2 - 15px);
+    }
+    @include media-desk-first(s-tablet) {
+        margin-right: 0;
+        width: 100%;
+        align-items: flex-start;
+        padding-bottom: 25px;
+    }
+    background-color: $foft-back;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    @include media-desk-first(l-tablet) {
+        flex-direction: column;
+    }
     margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 35px;
+    padding: 10px 0;
     margin-bottom: 30px;
-    box-shadow: 3px 4px 6px 4px #5acdbe18;
+    box-shadow: 15px 15px 10px -10px rgba($color: #000, $alpha: 0.2);
     border-radius: 5px;
     a {
         color: white;
@@ -87,25 +110,51 @@ article.article.card {
 
     h2 {
         font-weight: 700;
-    }
-
-    div {
-        margin-top: 20px;
-        margin-left: -20px;
+        @include media-desk-first(l-tablet) {
+            margin-top: 10px;
+        }
     }
 }
 
 .img-box {
-    // border: 1px solid red;
+    margin-left: 10px;
     width: 400px;
     height: 200px;
     display: inline-flex;
     width: 300px;
-    @include media-desk-first(tablet) {
-        width: 200px;
+    @include media-desk-first(l-tablet) {
+        width: 80%;
+        height: 60%;
+        margin-left: 0;
+    }
+    @include media-desk-first(s-tablet) {
+        width: 96%;
+        height: 70%;
+        margin-left: 10px;
     }
     img {
         width: 100%;
+        border-radius: 5px;
+    }
+}
+
+.txt-box {
+    position: relative;
+    padding: 7px;
+    margin-left: 60px;
+    padding-right: 10px;
+    @include media-desk-first(l-tablet) {
+        margin-left: 10px;
+    }
+    @include media-desk-first(s-tablet) {
+        width: 100%;
+    }
+    .txt {
+        padding-right: 15px;
+        margin: 10px 0;
+        @include media-desk-first(s-tablet) {
+            margin-top: 0px;
+        }
     }
 }
 
@@ -114,6 +163,12 @@ article.article.card {
     font-weight: 700;
     border: none;
     transition: background-color 0.4s;
+    margin-bottom: 21px;
+    @include media-desk-first(s-phone) {
+        position: absolute;
+        top: 80%;
+        right: 20%;
+    }
     &:hover {
         animation: tremble 0.4s;
         background-color: $col2;

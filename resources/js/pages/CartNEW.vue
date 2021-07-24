@@ -21,8 +21,6 @@ export default {
     created() {
         this.cartNoDouble();
         this.sum();
-        console.log(this.cartSingleEl);
-        // console.log(this.$store.getters(removeCartDuplicates));
     },
     data() {
         return {

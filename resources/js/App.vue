@@ -7,7 +7,7 @@
             </router-view>
             <div class="cont"></div>
         </div>
-        <Content class="main-content"/>
+        <Content class="main-content" />
         <Footer class="footer" />
     </div>
 </template>
@@ -45,7 +45,11 @@ export default {
 @import "./../sass/mixins";
 @import "./../sass/reset";
 @import "./../sass/utilities";
+// pagination tool bellow
+// classes from framewor
+// visibile in dev tools
 // font import from google font
+@import "./../sass/paginationFooterFront";
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 * {
     font-family: "Quicksand", sans-serif;

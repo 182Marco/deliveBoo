@@ -1,47 +1,49 @@
 <template>
     <div>
-        <article class="plate card">
-            <h3 class="mb-1">{{ plate.name }}</h3>
-            <div class="img-box">
-                <img :src="plate.img" :alt="plate.name" />
-            </div>
-            <p><strong>Description: </strong> {{ plate.description }}</p>
-            <p><strong>Ingredients: </strong> {{ plate.ingredients }}</p>
-            <p>
-                <strong>Available: </strong>
-                <span v-if="plate.visible"> yes</span>
-                <span v-else>no</span>
-            </p>
-            <p><strong>Price: </strong>{{ plate.price }} €</p>
-            <div class="btns-box">
-                <button
-                    @click="addToCart(plate)"
-                    class="btn btn-success btn-small"
-                >
-                    + Add a portion to cart
-                </button>
-                <button
-                    v-if="cart.filter(e => e.id == plate.id).length"
-                    @click="removeFromCart(plate)"
-                    class="btn btn-success btn-small"
-                >
-                    - Remove a portion from cart
-                </button>
-                <router-link
-                    :to="{ name: 'cart' }"
-                    class="cart-btn btn-success btn btn-small"
-                >
-                    check the cart
-                </router-link>
-            </div>
-            <p>
-                <strong class="item-in-cart"
-                    >portions already in cart:
-                    {{ cart.filter(e => e.id == plate.id).length }}
-                </strong>
-            </p>
-        </article>
-        <Warning v-if="warn" />
+        <div class="menu-wrap">
+            <article class="plate card">
+                <h3 class="mb-1">{{ plate.name }}</h3>
+                <div class="img-box">
+                    <img :src="plate.img" :alt="plate.name" />
+                </div>
+                <p><strong>Description: </strong> {{ plate.description }}</p>
+                <p><strong>Ingredients: </strong> {{ plate.ingredients }}</p>
+                <p>
+                    <strong>Available: </strong>
+                    <span v-if="plate.visible"> yes</span>
+                    <span v-else>no</span>
+                </p>
+                <p><strong>Price: </strong>{{ plate.price }} €</p>
+                <div class="btns-box">
+                    <button
+                        @click="addToCart(plate)"
+                        class="btn btn-success btn-small"
+                    >
+                        + Add a portion to cart
+                    </button>
+                    <button
+                        v-if="cart.filter(e => e.id == plate.id).length"
+                        @click="removeFromCart(plate)"
+                        class="btn btn-success btn-small"
+                    >
+                        - Remove a portion from cart
+                    </button>
+                    <router-link
+                        :to="{ name: 'cart' }"
+                        class="cart-btn btn-success btn btn-small"
+                    >
+                        check the cart
+                    </router-link>
+                </div>
+                <p>
+                    <strong class="item-in-cart"
+                        >portions already in cart:
+                        {{ cart.filter(e => e.id == plate.id).length }}
+                    </strong>
+                </p>
+            </article>
+            <Warning v-if="warn" />
+        </div>
     </div>
 </template>
 
@@ -91,11 +93,20 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.menu-wrap {
+    background-color: rgb(247, 247, 247);
+    padding: 30px 30px 0px 20px;
+}
+
 .plate.card {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     border-bottom: 1px solid #ddd;
     padding: 20px;
-    margin-bottom: 30px;
+}
+
+.card {
+    border: none;
+    box-shadow: 15px 15px 10px -10px rgba($color: #000, $alpha: 0.3);
 }
 
 // .plate:last-child {
@@ -106,6 +117,7 @@ export default {
 
 h3 {
     font-weight: 700;
+    font-size: 1.6rem;
 }
 
 p {

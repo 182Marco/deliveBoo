@@ -1,30 +1,41 @@
 <template>
     <div class="cont">
-        <h1>
-            Restaurant: <em>{{ restaurant.name }}</em>
-        </h1>
-        <img :src="restaurant.img" :alt="restaurant.name" />
-        <p>
-            <strong>address: </strong> {{ restaurant.address }},
-            {{ restaurant.city }}
-        </p>
-        <p><strong>phone: </strong> {{ restaurant.phone }}</p>
-        <span
-            class="label"
-            v-for="type in restaurant.types"
-            :key="`tId${type.id}`"
-            >{{ type.name }}</span
-        >
-        <!-- ****** menu ********* -->
+        <div class="items-box">
+            <div class="img-box">
+                <img :src="restaurant.img" :alt="restaurant.name" />
+            </div>
+            <div class="txt box">
+                <h1>
+                    Restaurant: <em>{{ restaurant.name }}</em>
+                </h1>
+                <p>
+                    <strong class="little-title">address: </strong>
+                    {{ restaurant.address }},
+                    {{ restaurant.city }}
+                </p>
+                <p>
+                    <strong class="little-title">phone: </strong>
+                    {{ restaurant.phone }}
+                </p>
+                <strong class="little-title">Types: </strong>
+                <span
+                    class="label"
+                    v-for="type in restaurant.types"
+                    :key="`tId${type.id}`"
+                    >{{ type.name }}</span
+                >
+                <!-- do not display if there's the warn (you can't purchese from to restaurant in the same order) -->
+                <!-- pagination element -->
+            </div>
+        </div>
         <h2>Menu:</h2>
+        <!-- ****** menu ********* -->
         <Plate
             v-for="(plate, i) in pageOfItems"
             :key="`_${i}`"
             :plate="plate"
         />
-        <!-- do not display if there's the warn (you can't purchese from to restaurant in the same order) -->
-        <!-- pagination element -->
-        <div v-show="!warn" class="card-footer pb-0 pt-3">
+        <div v-show="!warn" class="card-footer pagination tool pb-0 pt-3">
             <jw-pagination
                 :pageSize="4"
                 :items="restaurant.plates"
@@ -80,14 +91,25 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.items-box {
+    display: flex;
+    align-items: center;
+}
+
 h1 {
+    margin-bottom: 20px;
     font-weight: 700;
-    margin-bottom: 40px;
+    font-size: 2.3rem;
 }
 
 h2 {
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 50px;
+    margin-top: 10px 0;
+    background-color: #f7f7f7;
+    padding-bottom: 0px;
+    padding-left: 30px;
+    padding-top: 20px;
 }
 
 h4 {
@@ -95,18 +117,34 @@ h4 {
     margin-bottom: 20px;
 }
 
-img {
+.img-box {
+    margin-right: 30px;
+    width: 370px;
+    height: 280px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 10px;
+    overflow: hidden;
+    @include media-desk-first(tablet) {
+        width: 200px;
+    }
+    img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 }
 
 p {
     max-width: 10px 0;
     margin-bottom: 10px;
-    color: #777;
+}
 
-    strong {
-        color: #888;
-    }
+.little-title {
+    display: inline-block;
+    margin-right: 20px;
+    color: #888;
 }
 
 .label {
@@ -115,6 +153,6 @@ p {
     color: white;
     border-radius: 5px;
     padding: 5px 10px;
-    margin: 8px 15px 50px 0;
+    margin: 8px 15px 0 0;
 }
 </style>

@@ -10,12 +10,11 @@
             Order deleted!
         </div>
     @endif
+    
+    <a class="btn btn-primary btn-sm font-weight-bold my-3" href="{{ route('admin.restaurants.index', $restaurant_id) }}">BACK TO RESTAURANTS INDEX</a> 
 
     <h2 class="my-3 font-weight-bold">All your orders</h2>
 
-    {{-- <!--Create-->
-    <a class=" mb-5 btn btn-primary font-weight-bold" href="{{ route('admin.orders.create', $restaurant_id)}}">Create</a> --}}
-    
     <table class="table"> 
         <thead>
             <tr>
@@ -38,20 +37,16 @@
                 <td>{{ $order->customer_lastName }}</td>
                 <td>{{ $order->customer_address }}</td>
                 <td>{{ $order->created_at->toDateString() }}</td>
-                <td>{{ $order->price }} €</td>
-                  
+                <td>{{number_format($order->price,2)}} €</td>         
                 <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id, $restaurant_id) }}">SHOW</a> </td>
-                {{-- <td> <a class="btn btn-warning btn-sm font-weight-bold" href="{{ route('admin.plates.edit', $order->id)}}">EDIT</a> </td>
-                <td><form class="delete-post-form font-weight-bold" action="{{ route('admin.plates.destroy', $order->id )}}" method="POST"> --}}
-                    {{-- @csrf
-                    @method('DELETE')
-                    <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
-                    </form> --}}
                 </td>
               </tr>  
             @endforeach
         </tbody>
     </table>
+
+   {{-- {{$oder->prepend(['restaurant_id' => $restaurant_id])->links()}}  --}}
+    {{-- {{ $orders->links() }} --}}
 </div>
 {{-- confirm box to avoid user clicks by mistake--}}
 @include('layouts/deleteConfirm')

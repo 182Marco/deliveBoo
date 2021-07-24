@@ -29,9 +29,9 @@ class RestaurantController extends Controller
     }
 
     //img
-    if ($restaurant->img) {
-        $restaurant->img = url('storage/' . $restaurant->img);
-    }
+    // if ($restaurant->img) {
+    //     $restaurant->img = url('storage/' . $restaurant->img);
+    // }
 
     return  response()->json($restaurants);
     }

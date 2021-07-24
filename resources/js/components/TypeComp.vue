@@ -46,7 +46,7 @@ div.cont {
         font-size: 25px;
         font-weight: 600;
         text-decoration: none;
-        background: #f9fafa;
+        background: $foft-back;
         color: $txt-col;
         margin-right: 10px;
         padding: 5px;

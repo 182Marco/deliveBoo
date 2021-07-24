@@ -1,0 +1,21 @@
+.card-footer.pagination.tool {
+    background-color: #fff;
+    .page-link {
+        color: $col2;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        border: none;
+        border-radius: 5px;
+        &:hover {
+            background-color: $col2;
+            color: white;
+        }
+    }
+    .page-item.active {
+        .page-link {
+            background-color: $col2;
+            border-color: $col2;
+            color: white;
+        }
+    }
+}
