@@ -23,6 +23,7 @@
                 <th>Customer Name</th>
                 <th>Customer Last Name</th>
                 <th>Customer Address</th>
+                <th>Date</th>
                 <th>Price</th>
                 {{-- <th colspan="3">Buttons</th> --}}
                 <th>Buttons</th>
@@ -36,6 +37,7 @@
                 <td>{{ $order->customer_name }}</td>
                 <td>{{ $order->customer_lastName }}</td>
                 <td>{{ $order->customer_address }}</td>
+                <td>{{ $order->created_at->toDateString() }}</td>
                 <td>{{ $order->price }} €</td>
                   
                 <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id, $restaurant_id) }}">SHOW</a> </td>
