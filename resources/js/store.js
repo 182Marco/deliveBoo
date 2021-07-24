@@ -90,16 +90,14 @@ const store = () => {
             },
             // axicall for restaurant matching selected typesSelected array
             getRestaurants({ state, getters, commit }) {
-                axios
-                    .get(
-                        `http://127.0.0.1:8000/api/restaurants/${
-                            getters.selectedTypesLenght
-                                ? state.typesSelected
-                                : `0`
-                        }`
-                    )
-                    .then(r => commit("fillRestByTypesArray", r.data))
-                    .catch(r => console.log(r));
+                if (getters.selectedTypesLenght) {
+                    axios
+                        .get(
+                            `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}`
+                        )
+                        .then(r => commit("fillRestByTypesArray", r.data))
+                        .catch(r => console.log(r));
+                }
             },
             getMenuAndDetails({ commit }, rest) {
                 axios

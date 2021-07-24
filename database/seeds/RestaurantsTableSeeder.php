@@ -182,8 +182,7 @@ class RestaurantsTableSeeder extends Seeder
            $La_lanterna ->types()->attach(4); //stellato
 
            $Green_food = Restaurant::find(10);
-           $Green_food ->types()->attach(2); //vegano
-           $Green_food ->types()->attach(6); //pizzeria
+           $Green_food ->types()->sync([2,6]); //vegano //pizzeria
 
            $La_gondola = Restaurant::find(11);
            $La_gondola ->types()->attach(4); //stellato

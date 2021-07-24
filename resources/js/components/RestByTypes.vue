@@ -7,11 +7,6 @@
             :key="`restaurant_index${i}`"
         >
             <h2 class="my-2">{{ rest.name }}</h2>
-            <!-- <img class="my-2" :src="rest.img" :alt="rest.name" /> -->
-
-            <!-- <img class="my-2 img-fluid"
-            v-show="rest.img" :src="rest.img" :alt="rest.name"/> -->
-
             <!-- Add Cover Image -->
             <div class="img-box">
                 <img :src="rest.img" :alt="rest.name" class="ml-4" />
@@ -54,7 +49,11 @@ export default {
             pageOfItems: []
         };
     },
-    created() {},
+    created() {
+        console.warn(
+            `This the http for the fist img:  ${this.restByTypes[0].img}`
+        );
+    },
     computed: {
         ...mapState(["restByTypes"]),
         ...mapGetters(["selectedTypesLenght"])

@@ -1,67 +1,28 @@
 <template>
     <div>
-        <div class="cont">
-            <article
-                v-for="(plate, i) in cartSingleEl"
-                :key="`index_in_cart${i}`"
-            >
-                <div class="img-box">
-                    <img :src="plate.img" :alt="plate.name" />
-                </div>
-                <div class="txt-box ml-3">
-                    <h3>{{ plate.name }}</h3>
-                    <div class="portions-box">
-                        <button
-                            @click="removeFromCart(plate)"
-                            class="btn btn-success btn-small mr-3"
-                        >
-                            <strong>-</strong>
-                        </button>
-                        <p>
-                            <strong>portions: </strong>
-                            {{ sameInCartlength(plate) }}
-                            <strong>
-                                for:
-                            </strong>
-
-                            {{
-                                (sameInCartlength(plate) * plate.price).toFixed(
-                                    2
-                                )
-                            }}
-                            €
-                        </p>
-                    </div>
-                    <p>
-                        <strong>single item price: </strong>{{ plate.price }} €
-                    </p>
-                </div>
-            </article>
-
-            <div class="mt-5 priceBtn-box">
-                <h2>
-                    <strong class="mr-3">TOTAL PRICE: </strong
-                    ><em> {{ total.toFixed(2) }} € </em>
-                </h2>
-                <router-link
-                    v-show="cart.length"
-                    :to="{ name: 'payment' }"
-                    class="btn btn-success btn-lg ml-5"
-                >
-                    checkout
-                </router-link>
-            </div>
-        </div>
+        <article
+            v-for="(plate, i) in removeCartDuplicates"
+            :key="`cart_index:${i}`"
+        >
+            <h1>{{ plate.name }}</h1>
+        </article>
     </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapGetters } from "vuex";
 export default {
     name: "Cart",
     components: {},
     computed: {
-        ...mapState(["cart", "total"])
+        ...mapState(["cart", "total"]),
+        ...mapGetters(["cartRemoveDuplicate"])
+    },
+    created() {
+        this.cartNoDouble();
+        this.sum();
+        console.log(this.cartSingleEl);
+        // console.log(this.$store.getters(removeCartDuplicates));
     },
     data() {
         return {
@@ -71,22 +32,11 @@ export default {
     watch: {
         cart() {
             this.$store.commit("changeTotal");
-            this.cartNoDouble();
         }
-    },
-    created() {
-        this.cartNoDouble();
-        this.sum();
     },
     methods: {
         ...mapMutations(["removePlate", "changeTotal"]),
         //
-        sum() {
-            this.$store.commit("changeTotal");
-        },
-        removeFromCart(plateObj) {
-            this.$store.commit("removePlate", plateObj);
-        },
         cartNoDouble() {
             this.cartSingleEl = this.cart.reduce((acc, current) => {
                 const x = acc.find(item => item.id === current.id);
@@ -96,6 +46,12 @@ export default {
                     return acc;
                 }
             }, []);
+        },
+        sum() {
+            this.$store.commit("changeTotal");
+        },
+        removeFromCart(plateObj) {
+            this.$store.commit("removePlate", plateObj);
         },
         // array of same element in cart.length
         sameInCartlength(plate) {
@@ -120,12 +76,7 @@ ul {
     }
 }
 article {
-    box-shadow: 3px 4px 6px 4px #49494918;
-    display: flex;
-    align-items: center;
     padding: 10px;
-    margin-bottom: 27px;
-    border-radius: 5px;
     h2,
     h3 {
         font-weight: 700;
@@ -187,7 +138,7 @@ h2 {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    button.btn.btn-success.btn-small {
+    button.btn.btn-success.btn-small.mr-1 {
         border: none;
         display: inline-flex;
         height: 30px;
@@ -211,24 +162,6 @@ h2 {
     p {
         display: inline-block;
         font-size: 1.1rem;
-    }
-}
-
-.img-box {
-    width: 200px;
-    height: 170px;
-    display: inline-flex;
-    justify-content: center;
-    border-radius: 10px;
-    overflow: hidden;
-    align-items: center;
-    width: 300px;
-    @include media-desk-first(tablet) {
-        width: 200px;
-    }
-    img {
-        width: 100%;
-        object-fit: cover;
     }
 }
 </style>
