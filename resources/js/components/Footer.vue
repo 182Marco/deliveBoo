@@ -4,48 +4,48 @@
         <div class="cont">
             <div class="card-container">
                 <div class="card">
-                    <h3>Scopri Deliveroo</h3>
+                    <h3>Explore Deliveroo</h3>
                     <ul>
                         <li>
-                            <a href="#">Investitori</a>
+                            <a href="#">Investors</a>
                         </li>
                         <li>
-                            <a href="#">Chi siamo</a>
+                            <a href="#">About Us</a>
                         </li>
                         <li>
-                            <a href="#">Ristoranti</a>
+                            <a href="#">Takeaway</a>
                         </li>
                         <li>
-                            <a href="#">Altro</a>
+                            <a href="#">More</a>
                         </li>
                         <li>
                             <a href="#">Pressroom</a>
                         </li>
                         <li>
-                            <a href="#">Il nostro blog</a>
+                            <a href="#">Foodscene blog</a>
                         </li>
                         <li>
-                            <a href="#">Programmazione</a>
+                            <a href="#">Engineering blog</a>
                         </li>
                         <li>
                             <a href="#">Design</a>
                         </li>
                         <li>
-                            <a href="#">Lavora con noi</a>
+                            <a href="#">Careers</a>
                         </li>
                         <li>
-                            <a href="#">Diventa nostro partner</a>
+                            <a href="#">Become a rider</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card">
-                    <h3>Note legali</h3>
+                    <h3>Legal</h3>
                     <ul>
                         <li>
-                            <a href="#">Termini & condizioni</a>
+                            <a href="#">Terms and conditions</a>
                         </li>
                         <li>
-                            <a href="#">Informativa sulla privacy</a>
+                            <a href="#">Privacy</a>
                         </li>
                         <li>
                             <a href="#">Cookies</a>
@@ -53,24 +53,24 @@
                     </ul>
                 </div>
                 <div class="card">
-                    <h3>Aiuto</h3>
+                    <h3>Help</h3>
                     <ul>
                         <li>
-                            <a href="#">Contatti</a>
+                            <a href="#">Contact</a>
                         </li>
                         <li>
-                            <a href="#">FAQ</a>
+                            <a href="#">FAQs</a>
                         </li>
                         <li>
-                            <a href="#">Tipi di cucina</a>
+                            <a href="#">Cuisines</a>
                         </li>
                         <li>
-                            <a href="#">Mappa del sito</a>
+                            <a href="#">Site map</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card">
-                    <h3>Porta Deliveroo con te</h3>
+                    <h3>Take Deliveroo with you</h3>
                     <ul>
                         <li>
                             <a href="#" class="store">
@@ -107,7 +107,7 @@
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </li>
                 </ul>
-                <div class="copyright">&copy; 2021 DeliveBoo</div>
+                <div class="copyright">&copy; 2021 Deliveroo</div>
             </div>
         </div>
     </footer>
