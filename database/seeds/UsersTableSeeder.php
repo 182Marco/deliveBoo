@@ -74,7 +74,7 @@ class UsersTableSeeder extends Seeder
                 "name" => "Federico",
                 "last_name" => "Romiti",
                 "email" => "federico_romiti@gmail.com",
-                "password" => "vth3458w",
+                "password" => "12345678",
                 "vat_number" => "56712099077",
             ],
             [
