@@ -133,7 +133,6 @@ export default {
 
 footer.footer {
     text-align: center;
-    margin-top: 100px;
     background: #2e3333;
     .cont {
         .card-container {

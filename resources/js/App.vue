@@ -7,12 +7,14 @@
             </router-view>
             <div class="cont"></div>
         </div>
+        <Content class="main-content"/>
         <Footer class="footer" />
     </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import Content from "./components/Content.vue";
 import Footer from "./components/Footer.vue";
 import { mapState, mapActions } from "vuex";
 
@@ -21,6 +23,7 @@ export default {
     name: "App",
     components: {
         Header,
+        Content,
         Footer
     },
     created() {
