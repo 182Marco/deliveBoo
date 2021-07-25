@@ -128,6 +128,10 @@ section {
             font-size: 1.2rem;
             font-weight: 700;
             border: none;
+            transition: background-color 0.4s;
+            &:hover {
+                background-color: $col2;
+            }
         }
     }
     li {

@@ -13,7 +13,10 @@
                         >
                     </li>
                     <li>
-                        <router-link :to="{ name: 'cart' }" class="cart"
+                        <router-link
+                            :to="{ name: 'cart' }"
+                            class="cart"
+                            @click.native="windowScroll"
                             ><i class="fas fa-shopping-cart">
                                 <div class="cart-length">
                                     {{ $store.getters.cartLenght }}
@@ -41,6 +44,11 @@ export default {
     },
     computed: {
         ...mapGetters(["cartLenght"])
+    },
+    methods: {
+        windowScroll() {
+            window.scrollTo(0, 0);
+        }
     }
 };
 </script>

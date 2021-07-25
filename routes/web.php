@@ -26,10 +26,12 @@ Route::prefix('admin')
         Route::get('/', 'RestaurantController@index')->name('home');
         // routes resource restaurants
         Route::resource('/restaurants', 'RestaurantController');
-        // routes resource restaurants
+        // routes resource plates
         Route::resource('/plates', 'PlateController');
         // routes resource orders
         Route::resource('/orders', 'OrderController');
+        // stats
+        Route::resource('/stats', 'StatsController');
       });
 
 // front office

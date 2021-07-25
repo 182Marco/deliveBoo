@@ -31,6 +31,7 @@
                     <router-link
                         :to="{ name: 'cart' }"
                         class="cart-btn btn-success btn btn-small"
+                        @click.native="windowScroll"
                     >
                         check the cart
                     </router-link>
@@ -80,6 +81,9 @@ export default {
         },
         removeFromCart(plateObj) {
             this.$store.commit("removePlate", plateObj);
+        },
+        windowScroll() {
+            window.scrollTo(0, 0);
         }
     }
 };
@@ -95,7 +99,7 @@ export default {
 
 .menu-wrap {
     background-color: rgb(247, 247, 247);
-    padding: 30px 30px 0px 20px;
+    padding: 30px;
 }
 
 .plate.card {

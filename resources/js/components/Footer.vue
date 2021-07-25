@@ -135,27 +135,25 @@ footer.footer {
     text-align: center;
     background: #2e3333;
     .cont {
+        padding: 0 20px;
         .card-container {
             display: flex;
+            flex-wrap: wrap;
             width: 100%;
-            padding: 15px 0;
-            @include media-desk-first(xs-desktop) {
-                flex-direction: column;
-                align-items: center;
-                padding: 10px;
-            }
             .card {
                 text-align: left;
                 width: calc((100% / 4) - 10px);
-                margin: 0 5px;
+                margin: 15px 0;
+                margin-right: 8px;
                 background: #434848;
                 padding: 20px;
                 border-radius: 5px;
                 @include media-desk-first(xs-desktop) {
-                    width: 94vw;
-                    text-align: center;
-                    margin-bottom: 15px;
+                    width: calc((100% / 2) - 8px);
                     font-size: 1.3rem;
+                }
+                @include media-desk-first(s-tablet) {
+                    width: 94%;
                 }
 
                 h3 {

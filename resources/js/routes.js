@@ -12,6 +12,7 @@ import Cart from "./pages/Cart.vue";
 import Payment from "./pages/Payment.vue";
 import SuccessPage from "./pages/SuccessPage.vue";
 import NotFound from "./pages/NotFound.vue";
+import singleTypeRest from "./pages/singleTypeRest.vue";
 
 // through a method vue"use" we tell Vue to work with router
 Vue.use(VueRouter);
@@ -36,6 +37,11 @@ const router = new VueRouter({
             path: `/chosen-restaurant-menu-and-details/:id`,
             name: "restMenu",
             component: RestMenu
+        },
+        {
+            path: `/Restaurants-matching-the-single-type-you-choose/:id`,
+            name: "singleType",
+            component: singleTypeRest
         },
         {
             path: `/your-cart`,

@@ -53,6 +53,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 * {
     font-family: "Quicksand", sans-serif;
+    color: $txt-col;
 }
 
 .app {

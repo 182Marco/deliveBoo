@@ -99,6 +99,13 @@ const store = () => {
                         .catch(r => console.log(r));
                 }
             },
+            // axicall to get restaurant matching only the single type restaurant
+            getRestsSingleType({ commit }, obj) {
+                axios
+                    .get(`http://127.0.0.1:8000/api/restaurants/${obj.id}`)
+                    .then(r => commit("fillRestByTypesArray", r.data))
+                    .catch(r => console.log(r));
+            },
             getMenuAndDetails({ commit }, rest) {
                 axios
                     .get(`http://127.0.0.1:8000/api/restaurantsMenu/${rest.id}`)

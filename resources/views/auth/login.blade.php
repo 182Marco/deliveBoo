@@ -53,12 +53,12 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" id="logBtn" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link"  href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
@@ -70,4 +70,7 @@
         </div>
     </div>
 </div>
+{{-- js to manage login feedback for user,  related also with view restautant.index 
+    (in layout templarte whitch is included in restaurant.index) --}}
+<script type='text/javascript' src="{{asset('js/logListen.js')}}"></script>
 @endsection

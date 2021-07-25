@@ -94,12 +94,18 @@ export default {
 .items-box {
     display: flex;
     align-items: center;
+    @include media-desk-first(l-tablet) {
+        flex-direction: column;
+        margin: 0;
+        margin-bottom: 30px;
+    }
 }
 
 h1 {
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 2.3rem;
+    line-height: 36px;
 }
 
 h2 {
@@ -127,7 +133,8 @@ h4 {
     margin-bottom: 10px;
     overflow: hidden;
     @include media-desk-first(tablet) {
-        width: 200px;
+        width: 80vw;
+        height: 190px;
     }
     img {
         width: 100%;

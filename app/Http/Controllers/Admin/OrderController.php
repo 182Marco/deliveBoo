@@ -73,5 +73,4 @@ class OrderController extends Controller
         }
         return 'this order doesn\'t belongs to one of your restaurants!';
     }
-
 }

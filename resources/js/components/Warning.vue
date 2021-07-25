@@ -40,12 +40,14 @@ export default {
         empty() {
             this.$store.commit("changeWarn");
             this.$store.commit("emptyCart");
+            window.scrollTo(0, 0);
         },
         ridirect() {
             this.$store.commit("changeWarn");
             this.$store.dispatch("getMenuAndDetails", {
                 id: this.$route.params.id
             });
+            window.scrollTo(0, 0);
         }
     }
 };
@@ -61,40 +63,55 @@ export default {
 
 // ******************
 section {
-    height: 100%;
-    width: 100vw;
     position: fixed;
     top: 0;
     left: 0;
     background-color: rgba(255, 255, 255, 0.25);
+    z-index: 100;
+    height: 100%;
+    width: 100vw;
     div {
+        width: 58%;
         border-radius: 10px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 70%;
-        padding: 40px;
         background-color: #fff;
         opacity: 1;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
             0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
             0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+        padding: 40px;
+        @include media-desk-first(phone) {
+            padding: 30px 20px;
+            width: 85%;
+        }
         h1 {
             font-weight: 700;
             color: #444;
+            @include media-desk-first(xs-tablet) {
+                font-size: 1.7rem;
+            }
+            @include media-desk-first(phone) {
+                font-size: 1.4rem;
+            }
         }
     }
     .btn {
+        color: #fff;
+        font-weight: 700;
+        transition: transform 0.4s;
+        @include media-desk-first(phone) {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
         &.btn-col2 {
             background: $col2;
         }
         &.btn-brand {
             background: $brand;
         }
-        color: #fff;
-        font-weight: 700;
-        transition: transform 0.4s;
         &:hover {
             transform: scale(1.01);
             color: #fff;

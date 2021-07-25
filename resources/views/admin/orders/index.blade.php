@@ -2,16 +2,9 @@
 
 @section('content')
 <div class="container">
-
-    {{-- Session Deleted --}}
-    @if (session('deleted'))
-        <div class="alert alert-success">
-            <strong>{{ session('deleted') }}</strong>
-            Order deleted!
-        </div>
-    @endif
     
-    <a class="btn btn-primary btn-sm font-weight-bold my-3" href="{{ route('admin.restaurants.index', $restaurant_id) }}">BACK TO RESTAURANTS INDEX</a> 
+    <a class="btn btn-warning btn-sm font-weight-bold my-3 mr-4" href="{{ route('admin.restaurants.index', $restaurant_id) }}">BACK TO RESTAURANTS INDEX</a> 
+    <a class="btn btn-primary btn-sm font-weight-bold my-3" href="{{ route('admin.stats.show', $restaurant_id) }}">SHOW ME GRAPHS</a> 
 
     <h2 class="my-3 font-weight-bold">All your orders</h2>
 
@@ -44,11 +37,7 @@
             @endforeach
         </tbody>
     </table>
-
-   {{-- {{$oder->prepend(['restaurant_id' => $restaurant_id])->links()}}  --}}
-    {{-- {{ $orders->links() }} --}}
 </div>
-{{-- confirm box to avoid user clicks by mistake--}}
-@include('layouts/deleteConfirm')
+{{-- template to display graphs
+@include('layouts/graphs') --}}
 @endsection
-

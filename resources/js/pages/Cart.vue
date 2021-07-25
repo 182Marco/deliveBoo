@@ -40,13 +40,13 @@
 
             <div class="mt-5 priceBtn-box">
                 <h2>
-                    <strong class="mr-3">TOTAL PRICE: </strong
+                    <strong>TOTAL PRICE: </strong
                     ><em> {{ total.toFixed(2) }} € </em>
                 </h2>
                 <router-link
                     v-show="cart.length"
                     :to="{ name: 'payment' }"
-                    class="btn btn-success btn-lg ml-5"
+                    class="btn btn-success btn-lg"
                 >
                     checkout
                 </router-link>
@@ -140,20 +140,38 @@ h2 {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    @include media-desk-first(tablet) {
+        font-size: 1.6rem;
+        margin-right: 15px;
+        margin-bottom: 13px;
+    }
     strong,
     em {
         display: inline-block;
+        margin-right: 1rem;
     }
 }
 
 .priceBtn-box {
     display: flex;
+    @include media-desk-first(tablet) {
+        flex-direction: column;
+        align-items: center;
+    }
     .btn-lg {
         color: white;
         background-color: $col2;
         transition: transform 0.3s, background-color 0.3s;
         font-weight: 700;
         border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 3rem;
+        @include media-desk-first(tablet) {
+            margin-left: 0;
+            width: 50%;
+        }
         &:hover {
             background-color: $brand;
             transform: scale(1.03);
