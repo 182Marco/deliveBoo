@@ -64,7 +64,7 @@ export default {
 header {
     background-color: $brand;
     padding: 30px 20px;
-    margin-bottom: 80px;
+    
     nav {
         @include flex(row, space-between, center);
         img {

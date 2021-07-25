@@ -1,6 +1,7 @@
 <template>
     <div class="app">
         <Header />
+        <Jumbotron />
         <div class="wrap">
             <router-view>
                 <!-- component matched by the route will be rendered here -->
@@ -14,6 +15,7 @@
 
 <script>
 import Header from "./components/Header.vue";
+import Jumbotron from "./components/Jumbotron.vue";
 import Content from "./components/Content.vue";
 import Footer from "./components/Footer.vue";
 import { mapState, mapActions } from "vuex";
@@ -23,6 +25,7 @@ export default {
     name: "App",
     components: {
         Header,
+        Jumbotron,
         Content,
         Footer
     },
