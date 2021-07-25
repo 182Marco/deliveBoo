@@ -54,6 +54,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $auth_restaurants->appends(request()->query())->links() }}
     {{-- message you are logged in --}}
     @include('layouts/logged')
 </div>

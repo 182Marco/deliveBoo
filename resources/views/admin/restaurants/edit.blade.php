@@ -3,10 +3,14 @@
 @section('content')
 
     <div class="container">
-        <h1 class="mb-5">EDIT RESTAURANT</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+               <h1 class="my-3">EDIT RESTAURANT</h1>
+            </div >
+        </div >
 
         <div class="row">
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-6 offset-md-3">
 
 
                 <form action="{{ route('admin.restaurants.update', $restaurant->id)}}" method="POST" enctype="multipart/form-data">
@@ -113,9 +117,11 @@
                             <div>{{ $message }}</div>
                         @enderror
                     </div>
-
-                    <button class="mt-5 btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-success btn-block my-5" type="submit">Update</button>    
                 </form>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary text-right" href="{{ route('admin.restaurants.index') }}">Restaurants</a>
+                </div>
             </div>
         </div>
     </div>

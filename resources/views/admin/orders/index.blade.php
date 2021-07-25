@@ -25,7 +25,7 @@
             @foreach ($orders as $order)              
               <tr>
                   
-                <td>{{ str_replace("_"," ", $order->id)}}</td>
+                <td>{{ $order->id}}</td>
                 <td>{{ $order->customer_name }}</td>
                 <td>{{ $order->customer_lastName }}</td>
                 <td>{{ $order->customer_address }}</td>
@@ -37,6 +37,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $orders->appends(request()->query())->links() }}
 </div>
 {{-- template to display graphs
 @include('layouts/graphs') --}}
