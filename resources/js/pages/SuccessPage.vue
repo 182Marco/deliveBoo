@@ -24,15 +24,13 @@ export default {
 @import "../../sass/mixins";
 @import "../../sass/reset";
 @import "../../sass/utilities";
-div .container {
-    max-width: 1070px;
-    a {
-        color: white;
-    }
-    h2 {
-        font-weight: bold;
-    }
+
+
+.cont {
+    margin-top: 80px;
+    margin-bottom: 80px;
 }
+
 .thanks {
     padding: 30px;
     text-align: center;

@@ -113,6 +113,10 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.cont {
+    margin-top: 80px;
+}
+
 ul {
     li {
         display: block;

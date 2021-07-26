@@ -32,7 +32,7 @@ class OrderController extends Controller
         // User_id colum in the restaurant I've found must be the same id of who's logged
         if($restaurant['user_id'] == auth()->id()){
             // comparison of fy and restaurant id 
-            $orders = Order::where('restaurant_id', $restaurant_id)->get();
+            $orders = Order::where('restaurant_id', $restaurant_id)->orderBy('created_at', 'DESC')->get();
 
             return view('admin.orders.index', compact('restaurant_id','orders'));
         }

@@ -1,11 +1,17 @@
 <template>
-    <div class="cont">
-        <TypeSelection />
-        <RestByTypes />
-    </div>
+    <section>
+        <Jumbotron />
+        <div class="cont">
+            <div class="main">
+                <TypeSelection />
+                <RestByTypes />
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
+import Jumbotron from "../components/Jumbotron.vue";
 import TypeSelection from "../components/TypeSelection.vue";
 import RestByTypes from "../components/RestByTypes.vue";
 import { mapGetters } from "vuex";
@@ -13,6 +19,7 @@ import { mapGetters } from "vuex";
 export default {
     name: "Home",
     components: {
+        Jumbotron,
         TypeSelection,
         RestByTypes
     },
@@ -30,6 +37,11 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.main {
+    @include media-desk-first(desktop) {
+        padding: 0 20px;
+    }
+}
 div .container {
     max-width: 1070px;
     a {

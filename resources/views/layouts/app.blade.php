@@ -30,11 +30,6 @@
                     <img class="nav-logo" src="{{ asset('/images/logoColBrand.png') }}">
                 </a>
 
-                <!--LINK HOME ADMIN-->
-                <a class="navbar-brand" href="{{ route('admin.home') }}">
-                    {{ config('app.name', 'Laravel') }} Admin
-                </a>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
