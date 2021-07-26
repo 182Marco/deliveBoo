@@ -13254,8 +13254,8 @@ var pricesChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](expe
     datasets: [{
       label: "expense",
       data: pricesData,
-      backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "#cfcfcf"],
-      borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "#000"],
+      backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)"],
+      borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)"],
       borderWidth: 1
     }]
   },
@@ -13391,7 +13391,7 @@ var companyFansChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"]
     plugins: {
       title: {
         display: true,
-        text: "All people who have bought more than once shown by the total expenses",
+        text: "People who bought more than once shown by total expenses",
         font: {
           weight: "bold",
           size: "30"
@@ -13658,7 +13658,7 @@ var incomeByMonth = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](in
     plugins: {
       title: {
         display: true,
-        text: "current month income as a percentage of annual income",
+        text: "Current month income compared to annual income",
         font: {
           weight: "bold",
           size: "30"
@@ -13677,7 +13677,7 @@ var incomeByMonth = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](in
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/marco/Desktop/deliveBoo/resources/js/jsBack/chart.js */"./resources/js/jsBack/chart.js");
+module.exports = __webpack_require__(/*! /Users/matteomeneguzzi/Boolean /deliveBoo-correct/deliveBoo/resources/js/jsBack/chart.js */"./resources/js/jsBack/chart.js");
 
 
 /***/ })
