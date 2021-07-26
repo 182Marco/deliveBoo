@@ -188,7 +188,7 @@ export default {
     mounted() {
         braintree.client
             .create({
-                authorization: "sandbox_9qxhxysb_gjbp8fn7ykny2xp2"
+                authorization: "sandbox_rzpfyzvh_dgt5rntdphpdzyhh"
             })
             .then(clientInstance => {
                 let options = {

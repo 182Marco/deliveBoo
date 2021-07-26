@@ -166,6 +166,7 @@
             </tr>
 <tr>
     <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color:#2E3333;">
+        <strong>Total: </strong> {{  $contact['price']}} €.
         <strong>Delivering to: </strong> {{  $contact['customer_address']}}.
         <br><br>
         <h2>Thank you for choosing Deliveroo!</h2>
@@ -179,54 +180,3 @@ Deliveroo
     </center>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-{{-- @component('mail::message')
-# Thank You {{  $contact['customer_name']}}!
-
-## Your favorite food is on its way!
-**Delivering to: **{{  $contact['customer_address']}}.
-
-**Total: ** {{  $contact['price']}}.
-
-
-
-@component('mail::button', ['url' => ''])
-View Order
-@endcomponent
-
-**Thank you for choosing Deliveroo!**
-
-{{ config('app.name') }}
-@endcomponent
-
-
-
-
-
-
-{{-- Name --}}
-{{-- <h1></h1>
-<h2></h2>
-
-
-<div>
-    <strong>Delivering to: </strong> {{  $contact['customer_address']}}.
-</div>
-
-
-<div>
-    <strong>Total: </strong> 
-</div>
-<div>
-    <strong>Thank you for choosing Deliveroo!</strong>
-</div> --}}
