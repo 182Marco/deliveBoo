@@ -43,7 +43,7 @@ const pricesChart = new Chart(expensessChart, {
                     "rgba(255, 99, 132, 0.2)",
                     "rgba(255, 159, 64, 0.2)",
                     "rgba(255, 205, 86, 0.2)",
-                    "#cfcfcf"
+                    
                 ],
                 borderColor: [
                     "rgb(255, 99, 132)",
@@ -63,7 +63,7 @@ const pricesChart = new Chart(expensessChart, {
                     "rgb(255, 99, 132)",
                     "rgb(255, 159, 64)",
                     "rgb(255, 205, 86)",
-                    "#000"
+                    
                 ],
                 borderWidth: 1
             }
@@ -216,7 +216,7 @@ const companyFansChart = new Chart(fansChartEl, {
             title: {
                 display: true,
                 text:
-                    "All people who have bought more than once shown by the total expenses",
+                    "People who bought more than once shown by total expenses",
                 font: {
                     weight: "bold",
                     size: "30"
@@ -454,7 +454,7 @@ const incomeByMonth = new Chart(incomeMonthEl, {
         plugins: {
             title: {
                 display: true,
-                text: "current month income as a percentage of annual income",
+                text: "Current month income compared to annual income",
                 font: {
                     weight: "bold",
                     size: "30"
