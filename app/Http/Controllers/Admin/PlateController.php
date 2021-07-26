@@ -34,7 +34,7 @@ class PlateController extends Controller
         // User_id colum in the restaurant I've found must be the same id of who's logged
         if($restaurant['user_id'] == auth()->id()){
             // comparison of fy and restaurant id 
-            $res_plates = Plate::where('restaurant_id', $restaurant_id)->paginate(5);
+            $res_plates = Plate::where('restaurant_id', $restaurant_id)->get();
             return view('admin.plates.index', compact('res_plates','restaurant_id'));
         }
         // else we wouldn't show him competitors plates

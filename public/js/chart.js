@@ -13218,6 +13218,18 @@ function styleChanged(style, prevStyle) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js/auto */ "./node_modules/chart.js/auto/auto.esm.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 var ordersLastName = relatedOrders.map(function (e) {
   return e.customer_lastName;
@@ -13228,7 +13240,7 @@ var expenses = relatedOrders.map(function (e) {
 var average = (expenses.reduce(function (acc, n) {
   return acc + n;
 }, 0) / expenses.length).toFixed(2);
-document.querySelector("#txtAverageEl").innerText = average;
+document.querySelector("#txtAverageEl").innerText = "".concat(average, " \u20AC");
 var expensessChart = document.querySelector("#expensessChart").getContext("2d"); // ADDING THE AVERAGE AS LABEL IN THE ARRAY OF NAMES
 
 var pricesData = expenses.concat(average); // ADDING THE AVERAGE AS NUMBER IN THE ARRAY OF NUMBERS
@@ -13242,8 +13254,8 @@ var pricesChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](expe
     datasets: [{
       label: "expense",
       data: pricesData,
-      backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "#dfdfdf"],
-      borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "#000"],
+      backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "#cfcfcf"],
+      borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "#000"],
       borderWidth: 1
     }]
   },
@@ -13254,6 +13266,399 @@ var pricesChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](expe
       title: {
         display: true,
         text: "Expenses of single orders in €",
+        font: {
+          weight: "bold",
+          size: "30"
+        }
+      }
+    }
+  }
+}); // getting data for nexts graphs
+
+var onlyPhonesInOrders = relatedOrders.map(function (e) {
+  return e.customer_phone;
+}); // get duplicate strating from something that is unique in population -> phone number
+
+var onlyDuplicatePhones = onlyPhonesInOrders.filter(function (e, i, a) {
+  return a.indexOf(e) !== i;
+}); // have phones just once
+
+var arDuplicatePhonesOnce = onlyDuplicatePhones.filter(function (e, i, a) {
+  return a.indexOf(e) === i;
+}); // expense amount of people that has purchase more than once
+
+var arOfExpenseMorePurchases = [];
+arDuplicatePhonesOnce.forEach(function (n) {
+  if (relatedOrders.filter(function (e) {
+    return e.customer_phone == n;
+  }).length) {
+    var duplicateOrdersAr = relatedOrders.filter(function (e) {
+      return e.customer_phone == n;
+    });
+    arOfExpenseMorePurchases.push(arrraySum(duplicateOrdersAr));
+  }
+});
+
+function arrraySum(a) {
+  var sum = 0;
+  a.forEach(function (e) {
+    return sum += e.price;
+  });
+  return sum;
+} // ****************************************
+// get array other array for purchase time
+
+
+var spendthriftsPurchasesTimes = [];
+arDuplicatePhonesOnce.forEach(function (e) {
+  var count = 0;
+  relatedOrders.forEach(function (obj) {
+    return obj.customer_phone == e ? count++ : null;
+  });
+  spendthriftsPurchasesTimes.push(count);
+}); // *****************************
+// spendthrifts names
+
+var names = [];
+arDuplicatePhonesOnce.forEach(function (e) {
+  relatedOrders.forEach(function (el) {
+    return e == el.customer_phone ? names.push(el.customer_name) : null;
+  });
+}); // get the name once
+
+names = _toConsumableArray(names.filter(function (e, i, a) {
+  return a.indexOf(e) === i;
+})); // spendthrifts lastNames
+
+var lastNames = [];
+arDuplicatePhonesOnce.forEach(function (e) {
+  relatedOrders.forEach(function (el) {
+    return e == el.customer_phone ? lastNames.push(el.customer_lastName) : null;
+  });
+}); // get the lastNames once
+
+lastNames = _toConsumableArray(lastNames.filter(function (e, i, a) {
+  return a.indexOf(e) === i;
+})); //  Array of obj of who has purchase more than once
+// {name: Lorem , expense: number, timeOfPurchase:number}
+
+var spendthrifts = arDuplicatePhonesOnce.map(function (e, i) {
+  return {
+    name: names[i],
+    lastName: lastNames[i],
+    puchaseTimes: spendthriftsPurchasesTimes[i],
+    totalExpenses: arOfExpenseMorePurchases[i]
+  };
+}); // get the spendthrift champion
+
+var biggestSpendthrift = spendthrifts[1];
+spendthrifts.forEach(function (e) {
+  return e.totalExpenses > biggestSpendthrift.totalExpenses ? biggestSpendthrift = e : null;
+}); // references to display written data
+
+var biggestFanEl = document.querySelector("#biggestFan");
+var purchaseTimesEl = document.querySelector("#purchaseTimes");
+var biggestFanExpenseEl = document.querySelector("#biggestFanExpense");
+biggestFanEl.innerHTML = "".concat(biggestSpendthrift.name, " ").concat(biggestSpendthrift.lastName);
+purchaseTimesEl.innerHTML = "".concat(biggestSpendthrift.puchaseTimes);
+biggestFanExpenseEl.innerHTML = "".concat(biggestSpendthrift.totalExpenses.toFixed(2), " \u20AC"); // CHART
+
+var fansChartEl = document.querySelector("#fansChart").getContext("2d"); // spendthrifts.lastName from array of obj to array
+
+var spendthriftsLastName = spendthrifts.map(function (e) {
+  return e.lastName;
+}); // spendthriftsTotalExpenses from array of obj to array
+
+var spendthriftsTotalExpenses = spendthrifts.map(function (e) {
+  return e.totalExpenses;
+});
+var companyFansChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](fansChartEl, {
+  type: "bar",
+  //bar, horizontalBar, pie, line, doughtnut, radar, polarArea
+  data: {
+    labels: spendthriftsLastName,
+    datasets: [{
+      label: "expense",
+      data: spendthriftsTotalExpenses,
+      backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)"],
+      borderColor: ["rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)"],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    indexAxis: "x",
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: "All people who have bought more than once shown by the total expenses",
+        font: {
+          weight: "bold",
+          size: "30"
+        }
+      }
+    }
+  }
+}); // devide all orders in array by mounth
+
+var gen = [];
+var feb = [];
+var mar = [];
+var apri = [];
+var may = [];
+var june = [];
+var july = [];
+var aug = [];
+var set = [];
+var ott = [];
+var nov = [];
+var dec = [];
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() ? null : gen.push(e.price);
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 1 ? feb.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 2 ? mar.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 3 ? apri.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 4 ? may.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 5 ? june.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 6 ? july.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 7 ? aug.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 8 ? set.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 9 ? ott.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 10 ? nov.push(e.price) : null;
+});
+relatedOrders.forEach(function (e) {
+  return new Date(e.created_at).getMonth() == 11 ? dec.push(e.price) : null;
+});
+gen = gen.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+feb = feb.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+mar = mar.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+apri = apri.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+may = may.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+june = june.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+july = july.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+aug = aug.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+set = set.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+ott = ott.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+nov = nov.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+dec = dec.reduce(function (acc, curr) {
+  return acc + curr;
+}, 0);
+var incomeMonth = [];
+var month = [];
+
+if (gen > 0) {
+  incomeMonth.push(gen);
+  month.push("January");
+}
+
+if (feb > 0) {
+  incomeMonth.push(feb);
+  month.push("February");
+}
+
+if (mar > 0) {
+  incomeMonth.push(mar);
+  month.push("March");
+}
+
+if (apri > 0) {
+  incomeMonth.push(apri);
+  month.push("April");
+}
+
+if (may > 0) {
+  incomeMonth.push(may);
+  month.push("May");
+}
+
+if (june > 0) {
+  incomeMonth.push(june);
+  month.push("June");
+}
+
+if (july > 0) {
+  incomeMonth.push(july);
+  month.push("July");
+}
+
+if (aug > 0) {
+  incomeMonth.push(aug);
+  month.push("August");
+}
+
+if (set > 0) {
+  incomeMonth.push(set);
+  month.push("September");
+}
+
+if (ott > 0) {
+  incomeMonth.push(ott);
+  month.push("October");
+}
+
+if (nov > 0) {
+  incomeMonth.push(nov);
+  month.push("November");
+}
+
+if (dec > 0) {
+  incomeMonth.push(dec);
+  month.push("December");
+} // CHART montly income by points
+
+
+var incomeByMonthPointsEl = document.querySelector("#incomeByMonthPoints").getContext("2d");
+var incomeByMonthWithPoints = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](incomeByMonthPointsEl, {
+  type: "line",
+  //bar, horizontalBar, pie, line, doughtnut, radar, polarArea
+  data: {
+    labels: month,
+    datasets: [{
+      data: incomeMonth,
+      borderColor: ["#198dcc"]
+    }]
+  },
+  options: {
+    indexAxis: "x",
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: "Incomes month by month in €",
+        font: {
+          weight: "bold",
+          size: "30"
+        }
+      }
+    }
+  }
+}); // const newDate = ;
+
+var currentMonth = new Date().getMonth();
+currentMonth++;
+var currentMonthIncome = 0;
+
+switch (currentMonth) {
+  case 1:
+    currentMonthIncome = gen;
+    break;
+
+  case 2:
+    currentMonthIncome = feb;
+    break;
+
+  case 3:
+    currentMonthIncome = mar;
+    break;
+
+  case 4:
+    currentMonthIncome = apri;
+    break;
+
+  case 5:
+    currentMonthIncome = may;
+    break;
+
+  case 6:
+    currentMonthIncome = june;
+    break;
+
+  case 7:
+    currentMonthIncome = july;
+
+  case 8:
+    currentMonthIncome = aug;
+
+  case 9:
+    currentMonthIncome = set;
+
+  case 10:
+    currentMonthIncome = ott;
+
+  case 11:
+    currentMonthIncome = nov;
+
+  case 12:
+    currentMonthIncome = dec;
+}
+
+var annualIncome = gen + feb + mar + apri + may + june + july + aug + set + ott + nov + dec; // resul of proportion month income year income in percentage
+
+var x = (currentMonthIncome * 100 / annualIncome).toFixed(2); // references to display written data
+
+var monthIncomeEL = document.querySelector("#monthIncomeEL");
+var monthYearEL = document.querySelector("#monthYearEL");
+var incomePercEl = document.querySelector("#incomePercEl");
+monthIncomeEL.innerText = "".concat(currentMonthIncome.toFixed(2), " \u20AC");
+monthYearEL.innerText = "".concat(annualIncome.toFixed(2), " \u20AC");
+incomePercEl.innerText = "".concat(x, " %"); // CHART
+
+var incomeMonthEl = document.querySelector("#incomeMonth").getContext("2d");
+var incomeByMonth = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](incomeMonthEl, {
+  type: "doughnut",
+  //bar, horizontalBar, pie, line, doughtnut, radar, polarArea
+  data: {
+    labels: ["current month income", "current year income"],
+    datasets: [{
+      label: "month income",
+      data: [currentMonthIncome, annualIncome],
+      backgroundColor: ["#198dcc", "#F1C40F96"],
+      borderColor: ["#fff"],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    indexAxis: "x",
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: "current month income as a percentage of annual income",
         font: {
           weight: "bold",
           size: "30"
