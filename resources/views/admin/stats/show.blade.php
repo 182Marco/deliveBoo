@@ -12,7 +12,7 @@
         <canvas id="incomeByMonthPoints" class="mt-5"></canvas>
         <p class="mt-5">Current month income is <span id="monthIncomeEL"></span></p>
         <p >Current year income is <span id="monthYearEL"></span></p>
-        <p >Current month income rapresents <span id="incomePercEl"></span> of annual income  </p> 
+        <p >Current month income represents <span id="incomePercEl"></span> of annual income  </p> 
         <canvas id="incomeMonth" ></canvas>
 </section>
 
