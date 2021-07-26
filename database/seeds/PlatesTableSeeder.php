@@ -88,15 +88,6 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "14",
-                "name" => "4 Piece Chicken McNuggets",
-                "ingredients" => "100% chicken meat",
-                "description" => "100% chicken meat in a deliciously crispy coating, just waiting to be dipped. A firm favourite with everyone. Chicken McNuggets are available in portions of 4 with the Happy Meal.",
-                "visible" => true,
-                "price" => 4.2,
-                "img" => "https://alimentarimorettishop.it/wp-content/uploads/2020/06/12o143.png",
-            ],
-            [
-                "restaurant_id" => "14",
                 "name" => "McToast with",
                 "ingredients" => "bread cheese ham",
                 "description" => "A freshly toasted bun served with a slice of melted cheese and two slices of juicy ham",
@@ -130,15 +121,6 @@ class PlatesTableSeeder extends Seeder
                 "visible" => true,
                 "price" => 4.7,
                 "img" => "https://d1nqx6es26drid.cloudfront.net/app/uploads/2015/04/04031748/product-big-breakfast.png",
-            ],
-            [
-                "restaurant_id" => "14",
-                "name" => "Chilli Cheese Nuggets",
-                "ingredients" => "Chilli, Cheese,spices",
-                "description" => "The ultimate side snack! Cheesy, chilli, goodness that melt in your mouth.",
-                "visible" => true,
-                "price" => 3.5,
-                "img" => "https://lh3.googleusercontent.com/proxy/tZUopSbWiyVja2IWUQpnaW6JJVe1KW3RN3Du3spMiG8RhLy9DqCWDtHrFdfxSmfPPcpceWeWiYap7LYbMi7sbmIoYoFaNoUk1pJL-283bEJ5KSab2Ro5oUYRrmWL6WGT",
             ],
             [
                 "restaurant_id" => "14",
