@@ -44,7 +44,8 @@ h1 {
 }
 
 small {
-    font-size: 0.9rem;
-    margin: 0px 5px 20px;
+    font-size: 1rem;
+    margin: 20px 5px 20px;
+    color: $col2;
 }
 </style>

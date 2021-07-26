@@ -10,6 +10,14 @@
             >
         </h1>
         <RestByTypes />
+        <div>
+            <router-link
+                :to="{ name: 'home' }"
+                class="btn btn-success btn-small txt"
+                @click.native="scroll()"
+                >Back home</router-link
+            >
+        </div>
     </div>
 </template>
 
@@ -42,6 +50,9 @@ export default {
             this.$store.dispatch("getRestaurants", {
                 id: this.$route.params.id
             });
+        },
+        scroll() {
+            window.scrollTo(500, 0);
         }
     }
 };
@@ -60,5 +71,31 @@ h1 {
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 2.2rem;
+}
+
+.btn.btn-success.btn-small {
+    background-color: $col2;
+    color: white;
+    font-weight: 700;
+    border: none;
+    transition: background-color 0.4s;
+    margin-bottom: 21px;
+    @include media-desk-first(s-phone) {
+        // position: absolute;
+        // top: 80%;
+        // right: 20%;
+        margin-left: 20px;
+    }
+    &:hover {
+        animation: tremble 0.4s;
+    }
+}
+
+.txt {
+    padding-right: 15px;
+    margin: 10px 0;
+    @include media-desk-first(s-tablet) {
+        margin-top: 0px;
+    }
 }
 </style>

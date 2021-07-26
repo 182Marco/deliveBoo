@@ -134,19 +134,21 @@ export default {
 footer.footer {
     text-align: center;
     background: #2e3333;
+    padding: 30px 40px;
     .cont {
         @include media-desk-first(s-desktop) {
-            padding: 0 40px;
+            padding: 40px;
         }
         .card-container {
             display: flex;
             flex-wrap: wrap;
             width: 100%;
+            margin-bottom: 20px;
             .card {
                 text-align: left;
                 width: calc((100% / 4) - 10px);
-                margin: 15px 0;
-                margin-right: 8px;
+                margin: 15px 5px;
+                // margin-right: 8px;
                 background: #434848;
                 padding: 20px;
                 border-radius: 5px;

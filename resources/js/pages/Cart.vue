@@ -33,7 +33,8 @@
                         </p>
                     </div>
                     <p>
-                        <strong>single item price: </strong>{{ plate.price }} €
+                        <strong>single item price: </strong
+                        >{{ plate.price.toFixed(2) }} €
                     </p>
                 </div>
             </article>
@@ -115,6 +116,7 @@ export default {
 
 .cont {
     margin-top: 80px;
+    margin-bottom: 80px;
 }
 
 ul {

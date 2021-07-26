@@ -8,10 +8,12 @@
                         <router-link :to="{ name: 'home' }">Home</router-link>
                     </li>
                     <li class="desktop">
-                        <a href="http://127.0.0.1:8000/register">Register</a>
+                        <a href="http://127.0.0.1:8000/register"
+                            >Register Partnership</a
+                        >
                     </li>
                     <li class="desktop">
-                        <a href="http://127.0.0.1:8000/login">access</a>
+                        <a href="http://127.0.0.1:8000/login">Partner Login</a>
                     </li>
                     <li>
                         <router-link
