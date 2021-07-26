@@ -36,9 +36,7 @@
               </tr>  
             @endforeach
         </tbody>
-    </table>
-    {{ $orders->appends(request()->query())->links() }}
+    </table>  
+    {{-- {{ $orders->withQueryString()->links() }} --}}
 </div>
-{{-- template to display graphs
-@include('layouts/graphs') --}}
 @endsection

@@ -22,7 +22,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "d'Amico",
                 "customer_address" => "via Cerretani, 14",
                 "customer_phone" => "334567882",
-                "price" => 4,        
+                "price" => 4,     
+                "created_at" => "2021-01-03 11:09:12",
             ],
             [
                 "restaurant_id" => "14",
@@ -31,8 +32,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Corradini",
                 "customer_address" => "via Visconti, 7",
                 "customer_phone" => "333824572",
-                "price" => 23.45,        
-                
+                "price" => 23.45,
+                "created_at" => "2021-01-10 8:05:12",           
             ],
             [
                 "restaurant_id" => "14",
@@ -40,18 +41,19 @@ class OrdersTableSeeder extends Seeder
                 "customer_name" => "Edoardo",
                 "customer_lastName" => "Anselmi",
                 "customer_address" => "via Turati, 25",
-                "customer_phone" => "333824572",
-                "price" => 37.22,          
-                
+                "customer_phone" => "3338904572",
+                "price" => 37.22, 
+                "created_at" => "2021-01-28 10:15:46",                        
             ],
             [
                 "restaurant_id" => "14",
-                "customer_email" => "giulio.bonomi@libero.com",
+                "customer_email" => "giulio.bonomi@libero.com", 
                 "customer_name" => "Giulio",
                 "customer_lastName" => "Bonomi",
                 "customer_address" => "via Vespri Siciliani, 12",
-                "customer_phone" => "333824572",
-                "price" => 24.75,                    
+                "customer_phone" => "333464572",
+                "price" => 24.75, 
+                "created_at" => "2021-02-13 17:53:08",                        
             ],
             [
                 "restaurant_id" => "14",
@@ -60,7 +62,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Schicchi",
                 "customer_address" => "via Pastrengo, 45",
                 "customer_phone" => "3478248972",
-                "price" => 9.7,                    
+                "price" => 9.7,    
+                "created_at" => "2021-03-19 11:23:01",                        
             ],
             [
                 "restaurant_id" => "14",
@@ -68,8 +71,9 @@ class OrdersTableSeeder extends Seeder
                 "customer_name" => "Marino",
                 "customer_lastName" => "Petacci",
                 "customer_address" => "via goito, 22",
-                "customer_phone" => "32982498772",
-                "price" => 22.3,                    
+                "customer_phone" => "32682678789",
+                "price" => 22.3,   
+                "created_at" => "2021-04-19 18:00:22",                        
             ],
             [
                 "restaurant_id" => "14",
@@ -78,7 +82,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Fracci",
                 "customer_address" => "via Matteotti, 55",
                 "customer_phone" => "32982498772",
-                "price" => 41,                    
+                "price" => 41,
+                "created_at" => "2021-04-26 20:00:00",                    
             ],
             [
                 "restaurant_id" => "14",
@@ -87,7 +92,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Meneguzzi",
                 "customer_address" => "via Rossi, 1",
                 "customer_phone" => "332537892",
-                "price" => 7,            
+                "price" => 7,       
+                "created_at" => "2021-05-06 05:10:03",                    
             ],
             [
                 "restaurant_id" => "14",
@@ -97,7 +103,7 @@ class OrdersTableSeeder extends Seeder
                 "customer_address" => "via Gialla, 8",
                 "customer_phone" => "332577982",
                 "price" => 9,        
-                
+                "created_at" => "2021-05-07 10:55:07",                         
             ],
             [
                 "restaurant_id" => "14",
@@ -106,8 +112,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Milza",
                 "customer_address" => "via Lunga, 4",
                 "customer_phone" => "334447892",
-                "price" => 28,         
-                
+                "price" => 28,    
+                "created_at" => "2021-06-01 07:23:29",                         
             ], 
             [
                 "restaurant_id" => "14",
@@ -116,8 +122,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Maltagliati",
                 "customer_address" => "via Lunga, 4",
                 "customer_phone" => "329997202",
-                "price" => 37.8,         
-                
+                "price" => 37.8,  
+                "created_at" => "2021-07-03 18:55:59",                         
             ], 
             [
                 "restaurant_id" => "14",
@@ -126,7 +132,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Vigano",
                 "customer_address" => "via Pascoli, 13",
                 "customer_phone" => "3998971892",
-                "price" => 34.75,                    
+                "price" => 34.75,
+                "created_at" => "2021-08-23 23:15:19",                         
             ], 
             [
                 "restaurant_id" => "14",
@@ -135,7 +142,8 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Linzari",
                 "customer_address" => "via Risorgimento, 36",
                 "customer_phone" => "33389790392",
-                "price" => 15.7,                    
+                "price" => 15.7,      
+                "created_at" => "2021-09-13 13:11:11",                         
             ], 
             [
                 "restaurant_id" => "14",
@@ -144,7 +152,38 @@ class OrdersTableSeeder extends Seeder
                 "customer_lastName" => "Donati",
                 "customer_address" => "via Mazzini, 11",
                 "customer_phone" => "32901798792",
-                "price" => 15.7,                    
+                "price" => 15.7, 
+                "created_at" => "2021-09-22 13:25:33",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "pinodonati@gmail.com",
+                "customer_name" => "Pino",
+                "customer_lastName" => "Donati",
+                "customer_address" => "via Mazzini, 11",
+                "customer_phone" => "32901798792",
+                "price" => 33.3, 
+                "created_at" => "2021-10-10 13:10:13",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "pinodonati@gmail.com",
+                "customer_name" => "Pino",
+                "customer_lastName" => "Donati",
+                "customer_address" => "via Mazzini, 11",
+                "customer_phone" => "32901798792",
+                "price" => 22.9, 
+                "created_at" => "2021-11-07 07:29:19",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "marta_linzari@gmail.com",
+                "customer_name" => "Marta",
+                "customer_lastName" => "Linzari",
+                "customer_address" => "via Risorgimento, 36",
+                "customer_phone" => "33389790392",
+                "price" => 30.5,      
+                "created_at" => "2021-12-13 10:34:21",                         
             ], 
         ];
 
@@ -159,6 +198,7 @@ class OrdersTableSeeder extends Seeder
             $new_order->customer_address = $order['customer_address'];
             $new_order->customer_phone = $order['customer_phone'];
             $new_order->price = $order['price'];
+            $new_order->created_at = $order['created_at'];
             
             // save
             $new_order->save();

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    // with this is possible to seed created-at
+    public $timestamps = true;
+
     protected $fillable = [
          'price','customer_name','customer_lastName','customer_email','customer_phone','customer_address','restaurant_id',
     ];

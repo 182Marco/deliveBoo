@@ -50,7 +50,7 @@
             @endforeach
         </tbody>
     </table>
-    {{ $res_plates->appends(request()->query())->links() }}
+    {{-- {{ $res_plates->appends(request()->query())->links() }} --}}
 </div>
 {{-- confirm box to avoid user clicks by mistake--}}
 @include('layouts/deleteConfirm')
