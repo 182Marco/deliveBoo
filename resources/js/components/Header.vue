@@ -8,9 +8,10 @@
                         <router-link :to="{ name: 'home' }">Home</router-link>
                     </li>
                     <li class="desktop">
-                        <a href="http://127.0.0.1:8000/register"
-                            >Register o access</a
-                        >
+                        <a href="http://127.0.0.1:8000/register">Register</a>
+                    </li>
+                    <li class="desktop">
+                        <a href="http://127.0.0.1:8000/login">access</a>
                     </li>
                     <li>
                         <router-link
@@ -64,7 +65,7 @@ export default {
 header {
     background-color: $brand;
     padding: 30px 20px;
-    
+
     nav {
         @include flex(row, space-between, center);
         img {

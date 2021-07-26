@@ -71,10 +71,7 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
-
-
 .cont {
-
     // margin-top: 80px;
 
     @include media-desk-first(l-tablet) {

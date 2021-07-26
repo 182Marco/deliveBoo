@@ -39,19 +39,21 @@ export default {
         };
     },
     computed: {
-        ...mapState(["alltypes", "typesSelected"])
+        ...mapState(["alltypes"])
     },
     methods: {
         // programmatic navigation with vue router
         selectSingleType(restTypeId) {
             if (this.selcetedId != restTypeId) {
-                this.selcetedId = restTypeId;
-                window.scrollTo(0, 0);
+                this.$store.commit("cleanSelectedTypes");
+                this.$store.commit("addType", restTypeId);
+
                 this.$router.push({
                     name: "singleType",
                     params: { id: restTypeId }
                 });
             }
+            window.scrollTo(0, 0);
         }
     }
 };

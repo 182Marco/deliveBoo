@@ -5,7 +5,9 @@
             <p class="x" @click="$emit('closeMen')">x</p>
         </header>
         <div class="btn-box">
-            <button>Registrati o accedi</button>
+            <a class="main-btn" href="http://127.0.0.1:8000/login">
+                Registrati o accedi
+            </a>
         </div>
         <main>
             <ul>
@@ -116,12 +118,14 @@ section {
         display: flex;
         justify-content: center;
         background: #f9fafa;
-        button {
+        .main-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 17px;
             margin-bottom: 30px;
             background-color: $brand;
             color: white;
-            display: block;
             width: 100%;
             height: 60px;
             border-radius: 5px;
@@ -130,6 +134,7 @@ section {
             border: none;
             transition: background-color 0.4s;
             &:hover {
+                text-decoration: none;
                 background-color: $col2;
             }
         }
