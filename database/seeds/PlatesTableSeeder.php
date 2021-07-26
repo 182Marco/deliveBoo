@@ -93,7 +93,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "100% chicken meat in a deliciously crispy coating, just waiting to be dipped. A firm favourite with everyone. Chicken McNuggets are available in portions of 4 with the Happy Meal.",
                 "visible" => true,
                 "price" => 4.2,
-                "img" => "https://static.wikia.nocookie.net/ronaldmcdonald/images/7/70/Mcnugget6lg.jpg/revision/latest/scale-to-width-down/300?cb=20190601014652",
+                "img" => "https://alimentarimorettishop.it/wp-content/uploads/2020/06/12o143.png",
             ],
             [
                 "restaurant_id" => "14",
@@ -113,14 +113,14 @@ class PlatesTableSeeder extends Seeder
                 "price" => 2,
                 "img" => "https://www.ilpiaceredellacqua.com/wp-content/uploads/2018/07/fanta-lattina-33.jpg",
             ],
-            [
+            [   
                 "restaurant_id" => "14",
                 "name" => "Coca-Cola Zero",
                 "ingredients" => "phosphoric acid",
                 "description" => "Coca-Cola Zero",
                 "visible" => true,
                 "price" => 2,
-                "img" => "https://i1.wp.com/www.miziostreetfood.it/wp-content/uploads/2020/05/fanta.png?fit=614%2C920&ssl=1",
+                "img" => "https://www.myamericanmarket.com/873/coca-cola-classic.jpg",
             ],
             [
                 "restaurant_id" => "14",
@@ -320,7 +320,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "this simple, rustic dish of shredded beef braised in tomatoes and onions make a great stew and a fantastic sandwich filling.",
                 "visible" => true,
                 "price" => 6.7,
-                "img" => "",
+                "img" => "https://www.ilariabarisi.it/wp-content/uploads/2019/03/carne-picchiapo-per-web.jpg",
             ],
             [
                 "restaurant_id" => "8",
