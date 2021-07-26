@@ -1,11 +1,15 @@
 <template>
-    <div class="cont">
+    <section>
+        <Jumbotron />
+        <div class="cont">
         <TypeSelection />
         <RestByTypes />
     </div>
+    </section>
 </template>
 
 <script>
+import Jumbotron from "../components/Jumbotron.vue";
 import TypeSelection from "../components/TypeSelection.vue";
 import RestByTypes from "../components/RestByTypes.vue";
 import { mapGetters } from "vuex";
@@ -13,6 +17,7 @@ import { mapGetters } from "vuex";
 export default {
     name: "Home",
     components: {
+        Jumbotron,
         TypeSelection,
         RestByTypes
     },
