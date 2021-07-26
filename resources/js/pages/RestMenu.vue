@@ -91,6 +91,10 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.cont {
+    margin-top: 80px;
+}
+
 .items-box {
     display: flex;
     align-items: center;

@@ -1,13 +1,9 @@
 <template>
     <div class="app">
         <Header />
-        <Jumbotron />
-        <div class="wrap">
             <router-view>
                 <!-- component matched by the route will be rendered here -->
             </router-view>
-            <div class="cont"></div>
-        </div>
         <Content class="main-content" />
         <Footer class="footer" />
     </div>
@@ -15,7 +11,6 @@
 
 <script>
 import Header from "./components/Header.vue";
-import Jumbotron from "./components/Jumbotron.vue";
 import Content from "./components/Content.vue";
 import Footer from "./components/Footer.vue";
 import { mapState, mapActions } from "vuex";
@@ -25,7 +20,6 @@ export default {
     name: "App",
     components: {
         Header,
-        Jumbotron,
         Content,
         Footer
     },
@@ -64,10 +58,6 @@ export default {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    .wrap {
-        padding: 0 20px;
-        flex-grow: 1;
-    }
 }
 
 article {

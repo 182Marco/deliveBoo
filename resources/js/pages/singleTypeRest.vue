@@ -54,9 +54,12 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+
+
 h1 {
+    margin-top: 80px;
+    margin-bottom: 20px;
     font-weight: 700;
     font-size: 2.2rem;
-    margin-bottom: 20px;
 }
 </style>

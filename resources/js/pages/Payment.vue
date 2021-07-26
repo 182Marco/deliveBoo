@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mrg">
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -293,6 +293,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.mrg {
+    margin-top: 80px;
+}
+
 .not-allowed {
     cursor: not-allowed;
 }
