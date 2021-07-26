@@ -18,11 +18,7 @@ export default {
     },
     computed: {
         ...mapGetters(["selectedTypesLenght"])
-    },
-    data() {
-        return {};
-    },
-    methods: {}
+    }
 };
 </script>
 

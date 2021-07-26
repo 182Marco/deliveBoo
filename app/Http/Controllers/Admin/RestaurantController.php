@@ -20,7 +20,7 @@ class RestaurantController extends Controller
     {
         // get authenticated user restaurant by comparing 
         // his id in UserTable with same Fk in restaurants table
-        $auth_restaurants = Restaurant::where('user_id', auth()->id())->get();   
+        $auth_restaurants = Restaurant::where('user_id', auth()->id())->paginate(5);   
 
         return view('admin.restaurants.index', compact('auth_restaurants'));
     }

@@ -26,6 +26,7 @@
                 <th>Address</th>
                 <th colspan="3">Buttons</th>
                 <th>plates list</th>
+                <th>orders</th>
             </tr>
         </thead>
         <tbody>
@@ -47,10 +48,13 @@
                 </td>
                   <td> <a class="btn btn-success btn-sm" href="{{ route('admin.plates.index', $auth_restaurant->id) }}">PLATES</a> </td>
                   </td>
+                  <td> <a class="btn btn-success btn-sm" href="{{ route('admin.orders.index', $auth_restaurant->id) }}">ORDERS</a> </td>
+                  </td>
               </tr>  
             @endforeach
         </tbody>
     </table>
+    {{ $auth_restaurants->appends(request()->query())->links() }}
     {{-- message you are logged in --}}
     @include('layouts/logged')
 </div>

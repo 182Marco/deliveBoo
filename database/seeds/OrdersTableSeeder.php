@@ -1,0 +1,252 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Order;
+
+class OrdersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+                // 'delivered','price','address','customer_name','customer_lastName','customer_phone','customer_address'
+        $orders =[
+            // Mc Downalds Plates
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "cristina.dami@gmail.com",
+                "customer_name" => "Cristina",
+                "customer_lastName" => "d'Amico",
+                "customer_address" => "via Cerretani, 14",
+                "customer_phone" => "334567882",
+                "price" => 4,     
+                "created_at" => "2021-01-03 11:09:12",
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "flavio.corradini@libero.com",
+                "customer_name" => "Flavio",
+                "customer_lastName" => "Corradini",
+                "customer_address" => "via Visconti, 7",
+                "customer_phone" => "333824572",
+                "price" => 23.45,
+                "created_at" => "2021-01-10 8:05:12",           
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "edoardo.anselmi@libero.com",
+                "customer_name" => "Edoardo",
+                "customer_lastName" => "Anselmi",
+                "customer_address" => "via Turati, 25",
+                "customer_phone" => "3338904572",
+                "price" => 37.22, 
+                "created_at" => "2021-01-28 10:15:46",                        
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "giulio.bonomi@libero.com", 
+                "customer_name" => "Giulio",
+                "customer_lastName" => "Bonomi",
+                "customer_address" => "via Vespri Siciliani, 12",
+                "customer_phone" => "333464572",
+                "price" => 24.75, 
+                "created_at" => "2021-02-13 17:53:08",                        
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "carlo.Schicchi@yhaoo.com",
+                "customer_name" => "Carlo",
+                "customer_lastName" => "Schicchi",
+                "customer_address" => "via Pastrengo, 45",
+                "customer_phone" => "3478248972",
+                "price" => 9.7,    
+                "created_at" => "2021-03-19 11:23:01",                        
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "marino.petacci@gmail.com",
+                "customer_name" => "Marino",
+                "customer_lastName" => "Petacci",
+                "customer_address" => "via goito, 22",
+                "customer_phone" => "32682678789",
+                "price" => 22.3,   
+                "created_at" => "2021-04-19 18:00:22",                        
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "luca.fracci@gmail.com",
+                "customer_name" => "Luca",
+                "customer_lastName" => "Fracci",
+                "customer_address" => "via Matteotti, 55",
+                "customer_phone" => "32982498772",
+                "price" => 41,
+                "created_at" => "2021-04-26 20:00:00",                    
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "matteo.mene@gmail.com",
+                "customer_name" => "Matteo",
+                "customer_lastName" => "Meneguzzi",
+                "customer_address" => "via Rossi, 1",
+                "customer_phone" => "332537892",
+                "price" => 7,       
+                "created_at" => "2021-05-06 05:10:03",                    
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "sarah.pro@gmail.com",
+                "customer_name" => "Sarah",
+                "customer_lastName" => "Proietti",
+                "customer_address" => "via Gialla, 8",
+                "customer_phone" => "332577982",
+                "price" => 9,        
+                "created_at" => "2021-05-07 10:55:07",                         
+            ],
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "marco.mi@gmail.com",
+                "customer_name" => "Marco",
+                "customer_lastName" => "Milza",
+                "customer_address" => "via Lunga, 4",
+                "customer_phone" => "334447892",
+                "price" => 28,    
+                "created_at" => "2021-06-01 07:23:29",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "giulia__malta@fastweb.com",
+                "customer_name" => "Giulia",
+                "customer_lastName" => "Maltagliati",
+                "customer_address" => "via Lunga, 4",
+                "customer_phone" => "329997202",
+                "price" => 37.8,  
+                "created_at" => "2021-07-03 18:55:59",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "sabrinaVigano@gmail.com",
+                "customer_name" => "Sabrina",
+                "customer_lastName" => "Vigano",
+                "customer_address" => "via Pascoli, 13",
+                "customer_phone" => "3998971892",
+                "price" => 34.75,
+                "created_at" => "2021-08-23 23:15:19",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "marta_linzari@gmail.com",
+                "customer_name" => "Marta",
+                "customer_lastName" => "Linzari",
+                "customer_address" => "via Risorgimento, 36",
+                "customer_phone" => "33389790392",
+                "price" => 15.7,      
+                "created_at" => "2021-09-13 13:11:11",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "pinodonati@gmail.com",
+                "customer_name" => "Pino",
+                "customer_lastName" => "Donati",
+                "customer_address" => "via Mazzini, 11",
+                "customer_phone" => "32901798792",
+                "price" => 15.7, 
+                "created_at" => "2021-09-22 13:25:33",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "pinodonati@gmail.com",
+                "customer_name" => "Pino",
+                "customer_lastName" => "Donati",
+                "customer_address" => "via Mazzini, 11",
+                "customer_phone" => "32901798792",
+                "price" => 33.3, 
+                "created_at" => "2021-10-10 13:10:13",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "pinodonati@gmail.com",
+                "customer_name" => "Pino",
+                "customer_lastName" => "Donati",
+                "customer_address" => "via Mazzini, 11",
+                "customer_phone" => "32901798792",
+                "price" => 22.9, 
+                "created_at" => "2021-11-07 07:29:19",                         
+            ], 
+            [
+                "restaurant_id" => "14",
+                "customer_email" => "marta_linzari@gmail.com",
+                "customer_name" => "Marta",
+                "customer_lastName" => "Linzari",
+                "customer_address" => "via Risorgimento, 36",
+                "customer_phone" => "33389790392",
+                "price" => 30.5,      
+                "created_at" => "2021-12-13 10:34:21",                         
+            ], 
+        ];
+
+        foreach($orders as $order){
+            // instance                               
+            $new_order = new Order();
+            // populate
+            $new_order->restaurant_id = $order['restaurant_id'];
+            $new_order->customer_email = $order['customer_email'];
+            $new_order->customer_name = $order['customer_name'];
+            $new_order->customer_lastName = $order['customer_lastName'];
+            $new_order->customer_address = $order['customer_address'];
+            $new_order->customer_phone = $order['customer_phone'];
+            $new_order->price = $order['price'];
+            $new_order->created_at = $order['created_at'];
+            
+            // save
+            $new_order->save();
+        } 
+
+        // seeding many to many with orders
+        //    seedind the many to many with types
+
+           $cristina_Dam = Order::find(1);
+           $cristina_Dam ->plates()->sync([2,5,6,8]); 
+
+           $flavio_corra = Order::find(2);
+           $flavio_corra ->plates()->sync([1,3,16,18]); 
+
+           $edo_anselmi = Order::find(3);
+           $edo_anselmi ->plates()->sync([10,14,15]);
+
+           $giulio_bonomi = Order::find(4);
+           $giulio_bonomi ->plates()->sync([5,6,12]);
+
+           $carlo_Schicchi= Order::find(5);
+           $carlo_Schicchi->plates()->sync([3,4,15,18]);
+
+           $marino_petacci= Order::find(6);
+           $marino_petacci->plates()->sync([9,12,15,17]);
+
+           $luca_fracci= Order::find(7);
+           $luca_fracci->plates()->sync([6,9,13,16]);
+
+           $matteo_mene= Order::find(8);
+           $matteo_mene->plates()->sync([10,13,15]);
+
+           $sarah_pro= Order::find(9);
+           $sarah_pro->plates()->sync([1,4,9]);
+
+           $marco_mi= Order::find(10);
+           $marco_mi->plates()->sync([5,6,10,15]);
+
+           $giulia_maltagliati= Order::find(11);
+           $giulia_maltagliati->plates()->sync([3,7,13,14,16,18]);
+     
+           $sabrina_vigano= Order::find(12);
+           $sabrina_vigano->plates()->sync([5,9,10,12]);
+
+           $marta_linzari= Order::find(13);
+           $marta_linzari->plates()->sync([4,10,13,18]);
+
+           $pino_donati= Order::find(14);
+           $pino_donati->plates()->sync([1,6,10]);
+        }
+}

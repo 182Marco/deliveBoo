@@ -10943,7 +10943,7 @@ a.text-dark:focus {
 }
 
 * {
-  color: #222;
+  color: #444;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -10954,7 +10954,7 @@ body {
 }
 
 body.body-guest {
-  padding-bottom: 0;
+  padding: 0;
   min-height: 100vh;
 }
 

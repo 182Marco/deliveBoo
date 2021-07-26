@@ -15,16 +15,20 @@
 //media queries
 //media queries se si lavora desktop first
 @mixin media-desk-first($breakpoint: $tablet) {
-    @if $breakpoint == s-phone {
-        @media screen and (max-width: 360px) {
+    @if $breakpoint == xs-phone {
+        @media screen and (max-width: 330px) {
+            @content;
+        }
+    } @else if $breakpoint == s-phone {
+        @media screen and (max-width: 340px) {
             @content;
         }
     } @else if $breakpoint == phone {
-        @media screen and (max-width: 385px) {
+        @media screen and (max-width: 360px) {
             @content;
         }
     } @else if $breakpoint == xs-tablet {
-        @media screen and (max-width: 420px) {
+        @media screen and (max-width: 430px) {
             @content;
         }
     } @else if $breakpoint == s-tablet {
@@ -40,11 +44,11 @@
             @content;
         }
     } @else if $breakpoint == xs-desktop {
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 805px) {
             @content;
         }
     } @else if $breakpoint == s-desktop {
-        @media screen and (max-width: 850px) {
+        @media screen and (max-width: 900px) {
             @content;
         }
     } @else if $breakpoint == desktop {
@@ -64,7 +68,7 @@
         @media screen and (min-width: 380px) {
             @content;
         }
-    } @else if $breakpoint == m-phone {
+    } @else if $breakpoint == s-phone {
         @media screen and (min-width: 400px) {
             @content;
         }
@@ -85,7 +89,7 @@
             @content;
         }
     } @else if $breakpoint == desktop {
-        @media screen and (min-width: 850px) {
+        @media screen and (min-width: 700px) {
             @content;
         }
     } @else if $breakpoint == full-desktop {

@@ -7,7 +7,8 @@
 
     <div class="my-5">
         <a class="btn btn-warning font-weight-bold" href="{{ route('admin.plates.edit', $plate->id) }}">Edit</a>
-        <a class="btn btn-primary ml-3 font-weight-bold" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
+        <a class="btn btn-primary font-weight-bold ml-3" href="{{ route('admin.restaurants.index') }}"> back to Restaurants</a>
+        <a class="btn btn-primary font-weight-bold ml-3" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
     </div>
 
     {{-- plate Image --}}

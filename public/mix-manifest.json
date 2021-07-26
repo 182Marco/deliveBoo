@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/chart.js": "/js/chart.js",
     "/js/confDelete.js": "/js/confDelete.js",
+    "/js/logListen.js": "/js/logListen.js",
     "/js/vue.js": "/js/vue.js"
 }

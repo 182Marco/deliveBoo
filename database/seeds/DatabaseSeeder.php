@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
                 TypesTableSeeder::class,
                 RestaurantsTableSeeder::class,
                 PlatesTableSeeder::class, 
+                OrdersTableSeeder::class, 
             ]);
         }
     }

@@ -24,12 +24,14 @@ Route::prefix('admin')
       ->group(function() {
         // route home admin
         Route::get('/', 'RestaurantController@index')->name('home');
-
-        // rotte resource restaurants
+        // routes resource restaurants
         Route::resource('/restaurants', 'RestaurantController');
-
-        // rotte resource restaurants
+        // routes resource plates
         Route::resource('/plates', 'PlateController');
+        // routes resource orders
+        Route::resource('/orders', 'OrderController');
+        // stats
+        Route::resource('/stats', 'StatsController');
       });
 
 // front office

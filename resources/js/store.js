@@ -16,7 +16,12 @@ const store = () => {
             restByTypes: [],
             // restaurant  menu and detail
             restaurant: {},
-            cart: []
+            cart: [],
+            // remove duplicate from cart
+            // show warn (can't purchase more than one restaurant)
+            warn: false,
+            total: 0,
+            menuMobile: false
         },
         getters: {
             selectedTypesLenght: state => {
@@ -60,6 +65,19 @@ const store = () => {
                         state.cart.splice(idx, 1);
                     }
                 }
+            },
+            emptyCart(state) {
+                state.cart = [];
+            },
+            changeWarn(state) {
+                state.warn = !state.warn;
+            },
+            changeTotal(state) {
+                state.total = 0;
+                state.cart.forEach(e => (state.total += e.price));
+            },
+            toggleMenuMobile(state) {
+                state.menuMobile = !state.menuMobile;
             }
         },
         actions: {
@@ -72,14 +90,19 @@ const store = () => {
             },
             // axicall for restaurant matching selected typesSelected array
             getRestaurants({ state, getters, commit }) {
+                if (getters.selectedTypesLenght) {
+                    axios
+                        .get(
+                            `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}`
+                        )
+                        .then(r => commit("fillRestByTypesArray", r.data))
+                        .catch(r => console.log(r));
+                }
+            },
+            // axicall to get restaurant matching only the single type restaurant
+            getRestsSingleType({ commit }, obj) {
                 axios
-                    .get(
-                        `http://127.0.0.1:8000/api/restaurants/${
-                            getters.selectedTypesLenght
-                                ? state.typesSelected
-                                : `0`
-                        }`
-                    )
+                    .get(`http://127.0.0.1:8000/api/restaurants/${obj.id}`)
                     .then(r => commit("fillRestByTypesArray", r.data))
                     .catch(r => console.log(r));
             },

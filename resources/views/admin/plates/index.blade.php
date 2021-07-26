@@ -14,7 +14,8 @@
     <h2 class="my-3 font-weight-bold">All your plates</h2>
 
     <!--Create-->
-    <a class=" mb-5 btn btn-primary font-weight-bold" href="{{ route('admin.plates.create', $restaurant_id)}}">Create</a>
+    <a class="mb-5 btn btn-success font-weight-bold" href="{{ route('admin.plates.create', $restaurant_id)}}">Create</a>
+    <a class="mb-5 ml-3 btn btn-primary font-weight-bold" href="{{ route('admin.restaurants.index') }}"> back to Restaurants</a>
     
     <table class="table"> 
         <thead>
@@ -49,6 +50,7 @@
             @endforeach
         </tbody>
     </table>
+    {{-- {{ $res_plates->appends(request()->query())->links() }} --}}
 </div>
 {{-- confirm box to avoid user clicks by mistake--}}
 @include('layouts/deleteConfirm')

@@ -1,7 +1,12 @@
-<h3 id="logged" class="logged timeout">
+<h3 id="loggedMsgEl" class="logged no-show timeout">
     You successfully logged in! 
 </h3>
+<script type='text/javascript' src="{{asset('js/logListen.js')}}"></script>
 <style>
+/* js remove with time out class no-show */
+.logged.no-show{
+    display: none
+  }
     /* // style message you logged in */
 .logged {
     margin-top: 50px;
@@ -17,6 +22,7 @@
 .timeout {
     animation: fade-out 0.4s ease-in 3.5s forwards;
 }
+
 
 @keyframes fade-out {
         0% {
