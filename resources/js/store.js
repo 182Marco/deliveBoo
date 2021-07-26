@@ -45,6 +45,10 @@ const store = () => {
                     ...state.typesSelected.filter(e => e != typeId)
                 ];
             },
+            // empty type selected
+            cleanSelectedTypes(state) {
+                state.typesSelected = [];
+            },
             // fiil restbytypes with results from axicall in action
             fillRestByTypesArray(state, apiResult) {
                 state.restByTypes = apiResult;
@@ -98,13 +102,6 @@ const store = () => {
                         .then(r => commit("fillRestByTypesArray", r.data))
                         .catch(r => console.log(r));
                 }
-            },
-            // axicall to get restaurant matching only the single type restaurant
-            getRestsSingleType({ commit }, obj) {
-                axios
-                    .get(`http://127.0.0.1:8000/api/restaurants/${obj.id}`)
-                    .then(r => commit("fillRestByTypesArray", r.data))
-                    .catch(r => console.log(r));
             },
             getMenuAndDetails({ commit }, rest) {
                 axios

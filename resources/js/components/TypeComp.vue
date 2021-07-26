@@ -1,11 +1,11 @@
 <template>
     <div class="cont">
-        <a
+        <button
             :class="{ clicked: typesSelected.includes(this.type.id) }"
             @click="toggle(type.id)"
-            href="#"
-            >{{ type.name }}</a
         >
+            {{ type.name }}
+        </button>
     </div>
 </template>
 
@@ -21,7 +21,6 @@ export default {
     methods: {
         ...mapMutations(["addType", "pullType"]),
         toggle(typeId) {
-            // this.checked = !this.checked;
             this.typesSelected.includes(this.type.id)
                 ? this.$store.commit("pullType", typeId)
                 : this.$store.commit("addType", typeId);
@@ -42,7 +41,7 @@ export default {
 @import "../../sass/utilities";
 
 div.cont {
-    a {
+    button {
         font-size: 25px;
         font-weight: 600;
         text-decoration: none;
@@ -52,6 +51,8 @@ div.cont {
         padding: 5px;
         margin-bottom: 10px;
         transition: transform 0.25;
+        cursor: pointer;
+        border: none;
         &:hover {
             transform: scale(1.05);
         }

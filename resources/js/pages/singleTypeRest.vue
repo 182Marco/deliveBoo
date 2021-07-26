@@ -38,7 +38,8 @@ export default {
 
     methods: {
         apiCallWithQuryInUrl() {
-            this.$store.dispatch("getRestsSingleType", {
+            console.log("chiamata");
+            this.$store.dispatch("getRestaurants", {
                 id: this.$route.params.id
             });
         }
@@ -53,8 +54,6 @@ export default {
 @import "../../sass/mixins";
 @import "../../sass/reset";
 @import "../../sass/utilities";
-
-
 
 h1 {
     margin-top: 80px;

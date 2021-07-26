@@ -2,9 +2,11 @@
     <section>
         <Jumbotron />
         <div class="cont">
-        <TypeSelection />
-        <RestByTypes />
-    </div>
+            <div class="main">
+                <TypeSelection />
+                <RestByTypes />
+            </div>
+        </div>
     </section>
 </template>
 
@@ -35,6 +37,11 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.main {
+    @include media-desk-first(desktop) {
+        padding: 0 20px;
+    }
+}
 div .container {
     max-width: 1070px;
     a {

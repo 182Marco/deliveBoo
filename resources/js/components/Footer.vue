@@ -135,7 +135,9 @@ footer.footer {
     text-align: center;
     background: #2e3333;
     .cont {
-        padding: 0 20px;
+        @include media-desk-first(s-desktop) {
+            padding: 0 40px;
+        }
         .card-container {
             display: flex;
             flex-wrap: wrap;
