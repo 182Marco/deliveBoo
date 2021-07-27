@@ -1,6 +1,25 @@
 <template>
     <div>
         <div class="cont">
+            <button
+                v-show="cart.length"
+                :to="{ name: 'home' }"
+                class="btn btn-danger btn-sm home"
+                @click="empty"
+            >
+                empty Cart
+            </button>
+            <br />
+            <router-link
+                v-show="purchaseRestaurantId"
+                class="btn btn-warning btn-sm text-white my-3"
+                :to="{
+                    name: 'restMenu',
+                    params: { id: purchaseRestaurantId }
+                }"
+            >
+                previous restaurant
+            </router-link>
             <article
                 v-for="(plate, i) in cartSingleEl"
                 :key="`index_in_cart${i}`"
@@ -13,7 +32,7 @@
                     <div class="portions-box">
                         <button
                             @click="removeFromCart(plate)"
-                            class="btn btn-success btn-small mr-3"
+                            class="btn btn-success btn-small mr-3 no focus"
                         >
                             <strong>-</strong>
                         </button>
@@ -47,9 +66,16 @@
                 <router-link
                     v-show="cart.length"
                     :to="{ name: 'payment' }"
-                    class="btn btn-success btn-lg"
+                    class="btn btn-success btn-lg uge"
                 >
                     checkout
+                </router-link>
+                <router-link
+                    v-show="!cart.length"
+                    :to="{ name: 'home' }"
+                    class="btn btn-success btn-lg uge"
+                >
+                    home
                 </router-link>
             </div>
         </div>
@@ -66,7 +92,8 @@ export default {
     },
     data() {
         return {
-            cartSingleEl: []
+            cartSingleEl: [],
+            purchaseRestaurantId: null
         };
     },
     watch: {
@@ -78,9 +105,10 @@ export default {
     created() {
         this.cartNoDouble();
         this.sum();
+        this.getIdPurchaserestaurant();
     },
     methods: {
-        ...mapMutations(["removePlate", "changeTotal"]),
+        ...mapMutations(["removePlate", "changeTotal", "emptyCart"]),
         //
         sum() {
             this.$store.commit("changeTotal");
@@ -101,6 +129,16 @@ export default {
         // array of same element in cart.length
         sameInCartlength(plate) {
             return this.cart.filter(e => e.id == plate.id).length;
+        },
+        empty() {
+            this.$store.commit("emptyCart");
+        },
+        getIdPurchaserestaurant() {
+            // rember cart can contain only dishes from same restaurant...
+            // so check restaurant_id of first item to now the purchasing restaurant
+            this.cart.length
+                ? (this.purchaseRestaurantId = this.cart[0].restaurant_id)
+                : null;
         }
     }
 };
@@ -165,6 +203,7 @@ h2 {
         align-items: center;
     }
     .btn-lg {
+        border: none;
         color: white;
         background-color: $col2;
         transition: transform 0.3s, background-color 0.3s;
@@ -174,6 +213,11 @@ h2 {
         justify-content: center;
         align-items: center;
         margin-left: 3rem;
+        &.uge {
+            padding: 5px 30px;
+            font-size: 2rem;
+            border-radius: 10px;
+        }
         @include media-desk-first(tablet) {
             margin-left: 0;
             width: 50%;
@@ -185,33 +229,13 @@ h2 {
         }
     }
 }
-
-@keyframes tremble {
-    0% {
-        transform: rotate(0deg);
-    }
-    20% {
-        transform: rotate(3deg);
-    }
-    40% {
-        transform: rotate(-3deg);
-    }
-    60% {
-        transform: rotate(3deg);
-    }
-    80% {
-        transform: rotate(-3deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
+// small btns to remove
+// lots of classes take out bootstrap focus on btn
 .portions-box {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    button.btn.btn-success.btn-small {
+    button.btn.btn-success.btn-small.no.focus {
         border: none;
         display: inline-flex;
         height: 30px;
@@ -224,6 +248,7 @@ h2 {
         background-color: $brand;
         font-weight: 700;
         transition: background-color 0.3s;
+        box-shadow: none;
         &:hover {
             background-color: $col2;
         }

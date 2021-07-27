@@ -134,11 +134,8 @@ export default {
 footer.footer {
     text-align: center;
     background: #2e3333;
-    padding: 30px 40px;
+    padding: 30px 20px;
     .cont {
-        @include media-desk-first(s-desktop) {
-            padding: 40px;
-        }
         .card-container {
             display: flex;
             flex-wrap: wrap;

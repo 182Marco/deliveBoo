@@ -95,6 +95,12 @@ export default {
     margin-top: 80px;
 }
 
+.txt.box {
+    @include media-desk-first(tablet) {
+        padding: 0 20px;
+    }
+}
+
 .items-box {
     display: flex;
     align-items: center;
@@ -136,7 +142,11 @@ h4 {
     align-items: center;
     margin-bottom: 10px;
     overflow: hidden;
+    @include media-desk-first(desktop) {
+        padding-left: 20px;
+    }
     @include media-desk-first(tablet) {
+        padding-left: 0;
         width: 80vw;
         height: 190px;
     }

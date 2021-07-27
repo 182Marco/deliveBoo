@@ -1,7 +1,7 @@
 <template>
     <div class="cont">
         <h1>Would you like something?</h1>
-        <small> Types Selected: {{ selectedTypesLenght }}</small>
+        <p>Types Selected: {{ selectedTypesLenght }}</p>
         <div class="types-container">
             <ul>
                 <li v-for="type in alltypes" :key="`type_id${type.id}`">
@@ -43,9 +43,10 @@ h1 {
     padding: 20px 0px;
 }
 
-small {
-    font-size: 1rem;
+p {
+    font-size: 1.3rem;
     margin: 20px 5px 20px;
     color: $col2;
+    font-weight: 700;
 }
 </style>

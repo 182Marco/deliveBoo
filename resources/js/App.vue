@@ -1,9 +1,9 @@
 <template>
     <div class="app">
         <Header />
-            <router-view>
-                <!-- component matched by the route will be rendered here -->
-            </router-view>
+        <router-view>
+            <!-- component matched by the route will be rendered here -->
+        </router-view>
         <Content class="main-content" />
         <Footer class="footer" />
     </div>
@@ -42,6 +42,7 @@ export default {
 @import "./../sass/mixins";
 @import "./../sass/reset";
 @import "./../sass/utilities";
+@import "./../sass/animations";
 // pagination tool bellow
 // classes from framewor
 // visibile in dev tools

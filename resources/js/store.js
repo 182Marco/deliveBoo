@@ -82,6 +82,9 @@ const store = () => {
             },
             toggleMenuMobile(state) {
                 state.menuMobile = !state.menuMobile;
+            },
+            emptyCart(state) {
+                state.cart = [];
             }
         },
         actions: {

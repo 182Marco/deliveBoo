@@ -1,5 +1,5 @@
 <template>
-    <div class="cont">
+    <div>
         <article
             v-show="selectedTypesLenght"
             class="article card"
@@ -70,42 +70,23 @@ export default {
 @import "../../sass/mixins";
 @import "../../sass/reset";
 @import "../../sass/utilities";
-
-.cont {
-    // margin-top: 80px;
-
-    @include media-desk-first(l-tablet) {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-    }
-}
+@import "../../sass/animations";
 
 article.article.card {
-    @include media-desk-first(l-tablet) {
-        margin-right: 15px;
-        width: calc(100% / 2 - 15px);
-    }
-    @include media-desk-first(s-tablet) {
-        margin-right: 0;
-        width: 100%;
-        align-items: flex-start;
-        padding-bottom: 25px;
-    }
     background-color: $foft-back;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     border: none;
-    @include media-desk-first(l-tablet) {
-        flex-direction: column;
-    }
     margin-bottom: 20px;
     padding: 10px 0;
     margin-bottom: 30px;
     box-shadow: 15px 15px 10px -10px rgba($color: #000, $alpha: 0.2);
     border-radius: 5px;
+    @include media-desk-first(xl-tablet) {
+        flex-direction: column;
+    }
     a {
         color: white;
     }
@@ -174,27 +155,6 @@ article.article.card {
     &:hover {
         animation: tremble 0.4s;
         background-color: $col2;
-    }
-}
-
-@keyframes tremble {
-    0% {
-        transform: rotate(0deg);
-    }
-    20% {
-        transform: rotate(3deg);
-    }
-    40% {
-        transform: rotate(-3deg);
-    }
-    60% {
-        transform: rotate(3deg);
-    }
-    80% {
-        transform: rotate(-3deg);
-    }
-    100% {
-        transform: rotate(0deg);
     }
 }
 </style>

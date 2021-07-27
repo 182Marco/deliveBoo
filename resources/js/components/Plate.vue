@@ -65,7 +65,7 @@ export default {
         ...mapGetters(["cartLenght"])
     },
     methods: {
-        ...mapMutations(["addPlate", "removePlate"]),
+        ...mapMutations(["addPlate", "removePlate", "setPurchasingRest"]),
         //
         addToCart(plateObj) {
             // if cart empty or contains just obj from same restaurant
@@ -113,12 +113,6 @@ export default {
     box-shadow: 15px 15px 10px -10px rgba($color: #000, $alpha: 0.3);
 }
 
-// .plate:last-child {
-//     margin-bottom: 20px;
-//     border-bottom: none;
-//     padding: 10px 0px;
-// }
-
 h3 {
     font-weight: 700;
     font-size: 1.6rem;
@@ -157,6 +151,12 @@ a {
             border-color: $col2;
             position: absolute;
             right: 0;
+            transition: background-color 0.3s;
+            border: none;
+            &:hover {
+                animation: tremble 0.5s;
+                background-color: $brand;
+            }
             @include media-desk-first(xs-desktop) {
                 position: static;
             }

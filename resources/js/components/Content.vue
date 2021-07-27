@@ -3,9 +3,15 @@
         <div class="cont">
             <h2>The Deliveroo selection</h2>
             <div class="current-choice-box">
-                <h4 v-if="selcetedId">
-                    current choice:
-                    {{ alltypes.filter(e => e.id == selcetedId)[0].name }}
+                <h4>
+                    <span v-show="typesSelected.length"> current choice:</span>
+                    <span
+                        v-for="(type, i) in alltypes"
+                        :key="`t${i}`"
+                        v-show="typesSelected.includes(type.id)"
+                    >
+                        <em>/{{ type.name }}</em>
+                    </span>
                 </h4>
             </div>
             <div class="boxes">
@@ -18,7 +24,7 @@
                     <img :src="type.img" :alt="type.name" />
                     <div
                         class="text-shadow"
-                        :class="{ clicked: selcetedId == type.id }"
+                        :class="{ clicked: typesSelected.includes(type.id) }"
                     >
                         {{ type.name }}
                     </div>
@@ -33,26 +39,20 @@ import { mapState } from "vuex";
 export default {
     name: "Content",
     data() {
-        return {
-            clicked: null,
-            selcetedId: this.$route.params.id
-        };
+        return {};
     },
     computed: {
-        ...mapState(["alltypes"])
+        ...mapState(["alltypes", "typesSelected"])
     },
     methods: {
         // programmatic navigation with vue router
         selectSingleType(restTypeId) {
-            if (this.selcetedId != restTypeId) {
-                this.$store.commit("cleanSelectedTypes");
-                this.$store.commit("addType", restTypeId);
-
-                this.$router.push({
-                    name: "singleType",
-                    params: { id: restTypeId }
-                });
-            }
+            this.$store.commit("cleanSelectedTypes");
+            this.$store.commit("addType", restTypeId);
+            this.$router.push({
+                name: "singleType",
+                params: { id: restTypeId }
+            });
             window.scrollTo(0, 0);
         }
     }
@@ -69,28 +69,39 @@ export default {
 
 main {
     background: #ffeae4;
-    padding: 50px 15px;
+    padding: 25px 15px;
     margin-top: 50px;
     .cont {
         // create fixed height so the template willl not
         // br pushed whwen element dyspayed
         .current-choice-box {
-            height: 40px;
+            height: 65px;
+            @include media-desk-first(xs-desktop) {
+                height: 90px;
+            }
+            @include media-desk-first(xs-tablet) {
+                height: 117px;
+            }
+            span > em {
+                color: $col2;
+            }
         }
         h2,
         h4 {
             font-weight: bold;
             margin-left: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 7px;
         }
         h4 {
-            color: $col2;
+            font-weight: 700;
+
             @include media-desk-first(tablet) {
-                font-size: 20px;
-                line-height: 20px;
+                font-size: 25px;
+                line-height: 25px;
             }
         }
         .boxes {
+            margin-top: 5px;
             display: flex;
             flex-wrap: wrap;
             width: 100%;
@@ -126,7 +137,6 @@ main {
                 font-weight: bold;
                 text-shadow: 2px 2px 2px #000;
                 margin: 0 20px;
-                padding: 0 50%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -143,53 +153,6 @@ main {
                 }
             }
         }
-    }
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-
-    5% {
-        transform: scale(1.05);
-    }
-
-    10% {
-        transform: scale(1);
-    }
-    15% {
-        transform: scale(1.05);
-    }
-    20% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes tremble {
-    0% {
-        transform: rotate(0deg);
-    }
-    5% {
-        transform: rotate(3deg);
-    }
-    10% {
-        transform: rotate(-3deg);
-    }
-    15% {
-        transform: rotate(3deg);
-    }
-    20% {
-        transform: rotate(-3deg);
-    }
-    25% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(0deg);
     }
 }
 </style>

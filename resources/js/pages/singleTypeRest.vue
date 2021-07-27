@@ -10,12 +10,12 @@
             >
         </h1>
         <RestByTypes />
-        <div>
+        <div class="btn-box">
             <router-link
                 :to="{ name: 'home' }"
                 class="btn btn-success btn-small txt"
                 @click.native="scroll()"
-                >Back home</router-link
+                >Select more types</router-link
             >
         </div>
     </div>
@@ -46,13 +46,12 @@ export default {
 
     methods: {
         apiCallWithQuryInUrl() {
-            console.log("chiamata");
             this.$store.dispatch("getRestaurants", {
                 id: this.$route.params.id
             });
         },
         scroll() {
-            window.scrollTo(500, 0);
+            window.scrollTo(0, 1000);
         }
     }
 };
@@ -66,11 +65,23 @@ export default {
 @import "../../sass/reset";
 @import "../../sass/utilities";
 
+.cont {
+    @include media-desk-first(s-desktop) {
+        padding: 0 20px;
+    }
+}
 h1 {
     margin-top: 80px;
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 2.2rem;
+}
+
+.btn-box {
+    @include media-desk-first(s-desktop) {
+        margin: 25px 0;
+        margin-left: 20px;
+    }
 }
 
 .btn.btn-success.btn-small {
@@ -81,13 +92,11 @@ h1 {
     transition: background-color 0.4s;
     margin-bottom: 21px;
     @include media-desk-first(s-phone) {
-        // position: absolute;
-        // top: 80%;
-        // right: 20%;
         margin-left: 20px;
     }
     &:hover {
         animation: tremble 0.4s;
+        background-color: $brand;
     }
 }
 

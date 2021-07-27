@@ -31,6 +31,10 @@
         @media screen and (max-width: 430px) {
             @content;
         }
+    } @else if $breakpoint == fix {
+        @media screen and (max-width: 450px) {
+            @content;
+        }
     } @else if $breakpoint == s-tablet {
         @media screen and (max-width: 500px) {
             @content;
@@ -41,6 +45,10 @@
         }
     } @else if $breakpoint == l-tablet {
         @media screen and (max-width: 650px) {
+            @content;
+        }
+    } @else if $breakpoint == xl-tablet {
+        @media screen and (max-width: 700px) {
             @content;
         }
     } @else if $breakpoint == xs-desktop {
