@@ -93,24 +93,24 @@
                             <div>{{ $message }}</div>
                         @enderror
                     </div>
-                    
-                    {{-- slect restaurant (the one of previous view default) --}}
-                    <div class="my-3 form-group">
-                    <label for="select">Which restaurant offers this plate ?</label>
-                        <select class="form-control" id="select" name="restaurant_id">
-                            @foreach ($res_of_user as $res)                        
-                            <option value="{{$res->id}} @if($prev_view_res_id == $res->id) "selected" @endif>{{$res->name}}</option>
-                            @endforeach
+                    {{-- default same of previus view --}}
+                        <select id="select" name="restaurant_id">  
+                            <option value="{{$prev_view_res_id}}" selected></option> 
                         </select>
-                    </div>
 
     
-                        <button class="mt-3 btn btn-primary font-weight-bold" type="submit">Create</button>
+                    <input class="mt-3 btn btn-success font-weight-bold" type="submit" value="create" />
                 </form>
                 </div>
             </div>
         </div>
     </div>
 
+
     
+    <style>
+        select{
+            display: none
+        } 
+    </style>
 @endsection

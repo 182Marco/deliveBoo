@@ -111,7 +111,7 @@ class RestaurantController extends Controller
         elseif($restaurant->user_id == auth()->id()) {
             return view('admin.restaurants.show', compact('restaurant'));
         }
-        return 'this restaurant doesn\'t belongs to you!';
+        return view ('admin.notYours.restaurant');
     }
 
     /**
@@ -136,7 +136,7 @@ class RestaurantController extends Controller
         elseif($restaurant->user_id == auth()->id()) {
             return view('admin.restaurants.edit', compact('restaurant', 'types'));
         }
-        return 'this restaurant doesn\'t belongs to you!';
+        return view ('admin.notYours.restaurant');
     }
 
     /**

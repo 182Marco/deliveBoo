@@ -38,8 +38,7 @@ class PlateController extends Controller
             return view('admin.plates.index', compact('res_plates','restaurant_id'));
         }
         // else we wouldn't show him competitors plates
-            return "Here there are plates that do not belong to one of yours restaurants...
-            we're sure it was just a mistake happened by accident :-) ";
+        return view ('admin.notYours.plate');
     }
 
     /**
@@ -130,7 +129,7 @@ class PlateController extends Controller
                 return view('admin.plates.show', compact('plate'));
             }
         }
-        return 'this plate doesn\'t belongs to one of your restaurants!';
+        return view ('admin.notYours.plate');
     }
 
     /**
@@ -159,7 +158,7 @@ class PlateController extends Controller
                 return view('admin.plates.edit', compact('plate'));
             }
         }
-        return 'this plate doesn\'t belongs to one of your restaurants!';
+        return view ('admin.notYours.plate');
     }
 
     /**
