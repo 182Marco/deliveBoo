@@ -6,7 +6,7 @@
                 order...
             </h1>
             <button @click="empty()" class="btn btn-col2 btn-block mb-3">
-                empty the cart and stat purchasing here
+                Empty the cart and start purchasing here
             </button>
             <router-link
                 @click.native="ridirect()"
@@ -16,7 +16,7 @@
                     params: { id: cart[0] ? cart[0].restaurant_id : 1 }
                 }"
             >
-                go back to restaurant where I was ordering
+                Go back to restaurant where I was ordering
             </router-link>
         </div>
     </section>
