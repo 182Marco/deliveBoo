@@ -37,8 +37,7 @@ class OrderController extends Controller
             return view('admin.orders.index', compact('restaurant_id','orders'));
         }
         // else we wouldn't show him competitors plates
-            return "Here there are plates that do not belong to one of yours restaurants...
-            we're sure it was just a mistake happened by accident :-) ";
+            return view ('admin.notYours.orders');
     }
 
 
@@ -72,6 +71,6 @@ class OrderController extends Controller
                 return view('admin.orders.show', compact('data'));
             }
         }
-        return 'this order doesn\'t belongs to one of your restaurants!';
+        return view ('admin.notYours.plate');
     }
 }
