@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Plate;
+use Illuminate\Support\Str;
 
 class PlatesTableSeeder extends Seeder
 {
@@ -633,7 +634,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 2",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -642,7 +643,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 3",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -651,7 +652,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 4",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -660,7 +661,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 5",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -669,7 +670,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 6",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -678,7 +679,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 7",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -687,7 +688,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 8",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -696,7 +697,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 9",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -705,7 +706,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 10",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -714,7 +715,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 11",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -723,7 +724,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 12",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -732,7 +733,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 13",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -741,7 +742,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 14",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -750,7 +751,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 15",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -759,7 +760,7 @@ class PlatesTableSeeder extends Seeder
             ],
             [
                 "restaurant_id" => "1",
-                "name" => "someone else",
+                "name" => "someone else 16",
                 "ingredients" => "someone else",
                 "description" => "someone else",
                 "visible" => true,
@@ -774,6 +775,7 @@ class PlatesTableSeeder extends Seeder
             // populate
             $new_plate->restaurant_id = $plate['restaurant_id'];
             $new_plate->name = $plate['name'];
+            $new_plate->slug = Str::slug( $new_plate->name, '-');
             $new_plate->ingredients = $plate['ingredients'];
             $new_plate->description = $plate['description'];
             $new_plate->visible = $plate['visible'];

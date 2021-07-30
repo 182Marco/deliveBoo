@@ -13677,7 +13677,7 @@ var incomeByMonth = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](in
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/matteomeneguzzi/Boolean /deliveBoo-correct/deliveBoo/resources/js/jsBack/chart.js */"./resources/js/jsBack/chart.js");
+module.exports = __webpack_require__(/*! /Users/marco/Desktop/deliveBoo/resources/js/jsBack/chart.js */"./resources/js/jsBack/chart.js");
 
 
 /***/ })

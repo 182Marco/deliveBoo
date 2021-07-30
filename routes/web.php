@@ -26,10 +26,19 @@ Route::prefix('admin')
         Route::get('/', 'RestaurantController@index')->name('home');
         // routes resource restaurants
         Route::resource('/restaurants', 'RestaurantController');
-        // routes resource plates
-        Route::resource('/plates', 'PlateController');
-        // routes resource orders
-        Route::resource('/orders', 'OrderController');
+        // routes index plates by rest slug
+        Route::get('plates/{slug}', ['as' => 'plates.index', 'uses' => 'PlateController@index']);
+        Route::get('plate/create/{slug}', ['as' => 'plates.create', 'uses' => 'PlateController@create']);
+        Route::get('plates/edit/{slug}', ['as' => 'plates.edit', 'uses' => 'PlateController@edit']);
+
+        Route::patch('plates/update/{id}', ['as' => 'plates.update', 'uses' => 'PlateController@update']);
+
+        Route::post('plate/store', ['as' => 'plates.store', 'uses' => 'PlateController@store']);
+        Route::get('plate/show/{slug}', ['as' => 'plates.show', 'uses' => 'PlateController@show']);
+        Route::delete('plate/delete/{id}', ['as' => 'plate.delete', 'uses' => 'PlateController@destroy']);
+        // routes orders
+        Route::get('orders/{slug}', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
+        Route::get('orders/show/{id}', ['as' => 'orders.show', 'uses' => 'OrderController@show']);
         // stats
         Route::resource('/stats', 'StatsController');
       });

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1>Here are dishes that do not belong to one of your restaurants... </h1>
+    <h1>Here there's a dish that do not belong to one of your restaurants... </h1>
     <h2 class="mt-4">we're sure it was just a mistake happened by accident :-)</h2>
 </div>
 @endsection

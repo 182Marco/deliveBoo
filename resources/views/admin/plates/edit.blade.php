@@ -8,15 +8,15 @@
                 
                 <h2 class="my-3 font-weight-bold">EDIT THE PLATE</h2>
 
-                <a class="btn btn-primary font-weight-bold" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
+                <a class="btn btn-primary font-weight-bold" href="{{ route('admin.plates.index', $plate->slug) }}">Plates List</a>
 
-                <form class="delete-post-form font-weight-bold d-inline-block ml-3" action="{{ route('admin.plates.destroy', $plate->id )}}" method="POST">
+                <form class="delete-post-form font-weight-bold mt-3" action="{{ route('admin.plate.delete', $plate->id )}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
                 </form>
 
-                <form action="{{ route('admin.plates.update', $plate->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.plates.update', $plate->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
@@ -102,7 +102,7 @@
                         @enderror
                     </div>
     
-                        <button class="mt-3 btn btn-primary font-weight-bold" type="submit">Update</button>
+                    <button class="mt-3 btn btn-primary font-weight-bold" type="submit">Update</button>
                 </form>
                 </div>
             </div>
@@ -110,4 +110,4 @@
     </div>
 
     
-@endsection
+@endsection 

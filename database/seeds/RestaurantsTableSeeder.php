@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Restaurant;
+use Illuminate\Support\Str;
 
 class RestaurantsTableSeeder extends Seeder
 {
@@ -150,6 +151,7 @@ class RestaurantsTableSeeder extends Seeder
             // populate
             $new_restaurant->user_id = $restaurant['user_id'];
             $new_restaurant->name = $restaurant['name'];
+            $new_restaurant->slug = Str::slug( $new_restaurant->name, '-');
             $new_restaurant->phone = $restaurant['phone'];
             $new_restaurant->city = $restaurant['city'];
             $new_restaurant->address = $restaurant['address'];

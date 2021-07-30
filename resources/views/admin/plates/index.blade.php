@@ -14,7 +14,7 @@
     <h2 class="my-3 font-weight-bold">All your plates</h2>
 
     <!--Create-->
-    <a class="mb-5 btn btn-success font-weight-bold" href="{{ route('admin.plates.create', $restaurant_id)}}">Create</a>
+    <a class="mb-5 btn btn-success font-weight-bold" href="{{ route('admin.plates.create', $slug)}}">Create</a>
     <a class="mb-5 ml-3 btn btn-primary font-weight-bold" href="{{ route('admin.restaurants.index') }}"> back to Restaurants</a>
     
     <table class="table"> 
@@ -38,19 +38,19 @@
                 @if($res_plate->visible == 1)<td> yes </td> @else <td> no </td> @endif
                 <td>{{ $res_plate->price }} €</td>
                   
-                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.plates.show', $res_plate->id) }}">SHOW</a> </td>
-                <td> <a class="btn btn-warning btn-sm font-weight-bold" href="{{ route('admin.plates.edit', $res_plate->id)}}">EDIT</a> </td>
-                <td><form class="delete-post-form font-weight-bold" action="{{ route('admin.plates.destroy', $res_plate->id )}}" method="POST">
+                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.plates.show', $res_plate->slug) }}">SHOW</a> </td>
+                <td> <a class="btn btn-warning btn-sm font-weight-bold" href="{{ route('admin.plates.edit', $res_plate->slug)}}">EDIT</a> </td>
+                <td><form class="delete-post-form font-weight-bold" action="{{ route('admin.plate.delete', $res_plate->id )}}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
+                      <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
                     </form>
                 </td>
               </tr>  
             @endforeach
         </tbody>
     </table>
-    {{-- {{ $res_plates->appends(request()->query())->links() }} --}}
+    {{ $res_plates->links() }}
 </div>
 {{-- confirm box to avoid user clicks by mistake--}}
 @include('layouts/deleteConfirm')

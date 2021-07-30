@@ -93,12 +93,10 @@
                             <div>{{ $message }}</div>
                         @enderror
                     </div>
-                    {{-- default same of previus view --}}
+                    {{-- default restaurant same of previus view --}}
                         <select id="select" name="restaurant_id">  
-                            <option value="{{$prev_view_res_id}}" selected></option> 
+                            <option value="{{$belonging_rest_id}}" selected></option> 
                         </select>
-
-    
                     <input class="mt-3 btn btn-success font-weight-bold" type="submit" value="create" />
                 </form>
                 </div>

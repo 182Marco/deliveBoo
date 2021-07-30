@@ -31,12 +31,12 @@
                 <td>{{ $order->customer_address }}</td>
                 <td>{{ $order->created_at->toDateString() }}</td>
                 <td>{{number_format($order->price,2)}} €</td>         
-                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id, $restaurant_id) }}">SHOW</a> </td>
+                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id) }}">SHOW</a> </td>
                 </td>
               </tr>  
             @endforeach
         </tbody>
     </table>  
-    {{-- {{ $orders->withQueryString()->links() }} --}}
+    {{ $orders->links() }}
 </div>
 @endsection

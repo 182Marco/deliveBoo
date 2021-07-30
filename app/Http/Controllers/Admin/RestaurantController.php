@@ -101,7 +101,6 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-        //dump($id);
         //single restaurant
         $restaurant= Restaurant::find($id);
 
@@ -122,11 +121,7 @@ class RestaurantController extends Controller
      */
     public function edit($id)
     {
-        //dd($id);
-        //edit post
         $restaurant= Restaurant::find($id);
-        //dd($restaurant);
-
         //types
         $types = Type::all();
 

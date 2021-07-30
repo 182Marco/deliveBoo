@@ -9,6 +9,7 @@ use App\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; //validation
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class PlateController extends Controller
@@ -18,24 +19,21 @@ class PlateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function index($slug)
     {   
-        // got the restaurant id from query ($r->fullUrl() ) 
-        // than worked with string through php method to have just restaurant id
-        $restaurant_id = chop(substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1), "=");  
-        // substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1)  
+        $belonging_rest = Restaurant::where('slug', $slug)->get();
+        $belonging_rest = $belonging_rest[0];
 
-        if(Restaurant::find($restaurant_id)){
-            $restaurant = Restaurant::find($restaurant_id);
-        } else {
+        if(!$belonging_rest){
             abort(404);
-        }
+        } 
   
         // User_id colum in the restaurant I've found must be the same id of who's logged
-        if($restaurant['user_id'] == auth()->id()){
+        if($belonging_rest['user_id'] == auth()->id()){
+            $id = $belonging_rest['id'];
             // comparison of fy and restaurant id 
-            $res_plates = Plate::where('restaurant_id', $restaurant_id)->get();
-            return view('admin.plates.index', compact('res_plates','restaurant_id'));
+            $res_plates = Plate::where('restaurant_id', $id)->paginate(4);
+            return view('admin.plates.index', compact('res_plates','slug'));
         }
         // else we wouldn't show him competitors plates
         return view ('admin.notYours.plate');
@@ -46,15 +44,18 @@ class PlateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $r)
+    public function create($slug)
     {
+
+        $belonging_rest = Restaurant::where('slug', $slug)->get();
+        $belonging_rest_id = $belonging_rest[0]['id'];
         // get restaurant from which user arrives 
         // ->request->fullUrl + with strings to get query
-        $prev_view_res_id = chop(substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1), "=");
+        // $prev_view_res_id = chop(substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1), "=");
         //  get the restaurants associated with the logged user
         $res_of_user = Restaurant::where('user_id', Auth::id())->get();
 
-        return view ('admin.plates.create', compact('res_of_user', 'prev_view_res_id'));
+        return view ('admin.plates.create', compact('res_of_user', 'belonging_rest_id'));
     }
 
     /**
@@ -91,14 +92,16 @@ class PlateController extends Controller
    
            //create e save records on db
            $new_plate = new Plate();
-   
+           
+            // create slug from name asigned by user
+            $new_plate->slug = Str::slug( $data['name'], '-');
            //fillable in plate
            $new_plate->fill($data);
            
            //save
            $new_plate->save();
    
-           return redirect()->route('admin.plates.show', $new_plate->id);
+           return redirect()->route('admin.plates.show', $new_plate->slug);
     }
 
     /**
@@ -107,12 +110,11 @@ class PlateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {        
         //find plate in query
-        $plate= Plate::find($id);
-
-
+        $plate = Plate::where('slug', $slug)->get();
+        $plate = $plate[0];
 
         // does the plate exist?
         if(! $plate) {
@@ -138,10 +140,11 @@ class PlateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         //find plate in query
-        $plate= Plate::find($id);
+        $plate = Plate::where('slug', $slug)->get();
+        $plate = $plate[0];
 
         // does the plate exist?
         if(! $plate) {
@@ -170,7 +173,6 @@ class PlateController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         //validation
         $request->validate([
             'name'=> [
@@ -208,7 +210,7 @@ class PlateController extends Controller
 
         $plate->update($data); //fillable
 
-        return redirect()->route('admin.plates.show', $plate->id);
+        return redirect()->route('admin.plates.show', $plate->slug);
     }
 
     /**
@@ -217,16 +219,17 @@ class PlateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $r, $id)
+    public function destroy($id)
     {
-        $plate= Plate::find($id);
+
+        $plate = Plate::find($id);
         $restaurant_id = $plate['restaurant_id'];
+        $restaurant = Restaurant::find($restaurant_id);
+        $rest_slug = $restaurant['slug'];
         $plate->delete();
         // do not leave orphans in pivot table if element cancelled
         $plate->orders()->detach();
 
-        // [$restaurant_id] means that I pass the id of 
-        // restaurant as query to get the right plates list
-        return redirect()->route('admin.plates.index', [$restaurant_id])->with('deleted', $plate->name); 
+        return redirect()->route('admin.plates.index', [$rest_slug])->with('deleted', $plate->name); 
     }
 }
