@@ -21,7 +21,9 @@ const store = () => {
             // show warn (can't purchase more than one restaurant)
             warn: false,
             total: 0,
-            menuMobile: false
+            menuMobile: false,
+            // ------------//
+            restPagination: {}
         },
         getters: {
             selectedTypesLenght: state => {
@@ -85,6 +87,14 @@ const store = () => {
             },
             emptyCart(state) {
                 state.cart = [];
+            },
+            // fill pagintation of restaurants
+            // (to pass more than one payload you pass obj)
+            setRestPagination(state, ObjPayload) {
+                state.restPagination = {
+                    current: ObjPayload.current,
+                    last: ObjPayload.last
+                };
             }
         },
         actions: {
@@ -96,13 +106,20 @@ const store = () => {
                     .catch(r => console.log(r));
             },
             // axicall for restaurant matching selected typesSelected array
-            getRestaurants({ state, getters, commit }) {
+            getRestaurants({ state, getters, commit }, page) {
                 if (getters.selectedTypesLenght) {
                     axios
                         .get(
-                            `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}`
+                            `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}?page=${page}`
                         )
-                        .then(r => commit("fillRestByTypesArray", r.data))
+                        .then(r => {
+                            commit("fillRestByTypesArray", r.data.data);
+                            commit("setRestPagination", {
+                                // (to pass more than one payload you pass obj)
+                                current: r.data.current_page,
+                                last: r.data.last_page
+                            });
+                        })
                         .catch(r => console.log(r));
                 }
             },

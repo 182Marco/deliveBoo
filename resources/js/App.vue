@@ -47,7 +47,6 @@ export default {
 // classes from framewor
 // visibile in dev tools
 // font import from google font
-@import "./../sass/paginationFooterFront";
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 * {
     font-family: "Quicksand", sans-serif;

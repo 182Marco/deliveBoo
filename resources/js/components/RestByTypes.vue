@@ -3,7 +3,7 @@
         <article
             v-show="selectedTypesLenght"
             class="article card"
-            v-for="(rest, i) in pageOfItems"
+            v-for="(rest, i) in restByTypes"
             :key="`restaurant_index${i}`"
         >
             <router-link
@@ -29,38 +29,22 @@
             </div>
         </article>
         <!-- pagination element -->
-        <div class="card-footer pagination tool pb-0 pt-3">
-            <jw-pagination
-                :pageSize="4"
-                :items="restByTypes"
-                @changePage="onChangePage"
-            ></jw-pagination>
-        </div>
+        <RestPaginateEl />
     </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
+import RestPaginateEl from "./RestPaginateEl.vue";
 
 export default {
     name: "RestByTypes",
-    props: {},
-    data() {
-        return {
-            // pagination data
-            pageOfItems: []
-        };
+    components: {
+        RestPaginateEl
     },
     computed: {
         ...mapState(["restByTypes"]),
         ...mapGetters(["selectedTypesLenght"])
-    },
-    methods: {
-        // pagination method
-        onChangePage(pageOfItems) {
-            // update page of items
-            this.pageOfItems = pageOfItems;
-        }
     }
 };
 </script>

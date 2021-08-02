@@ -15,36 +15,38 @@ class RestaurantController extends Controller
     if(!$ids){
         return response()->json();
     }
-    $Types_id_array = explode(",",$ids);
+
+
+    $req = explode(",",$ids);
+
+    /* chiamata a db con relazione */
+    $rests = Restaurant::whereHas('types', function($q) use($req) {
+        $q->whereIn('type_id', $req);
+    })->paginate(4);
+
     
-    // initialized as obj
-    $restaurants = [];
-
-     foreach ($Types_id_array as $id) {
-        $type = Type::find($id);
-        foreach ($type->restaurants as $restaurant) {
-            array_push($restaurants, $restaurant);
-
-        }    
-    }
-
+    return  response()->json($rests);
+    // CLEVER WAY WITHOUT LARAVEL METHODS 
+    // -> BUT THEN LARAVEL PAGINATION FAILS
+    // // initialized as empty arr
+    // $restaurants = [];
+    //  foreach ($Types_id_array as $id) {
+    //     $type = Type::find($id);
+    //     foreach ($type->restaurants as $restaurant) {
+    //         array_push($restaurants, $restaurant);
+    //     }    
+    // }
     //img
     // if ($restaurant->img) {
     //     $restaurant->img = url('storage/' . $restaurant->img);
     // }
-
-    return  response()->json($restaurants);
     }
-
-
 
     public function restMunu($id)
     {   
-
         $restaurants = Restaurant::query()->with('plates','types')->get();
         $restaurant = $restaurants->find($id);
-
-      
+     
         return response()->json($restaurant);
     }
 }

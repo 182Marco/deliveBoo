@@ -31,17 +31,11 @@
         <h2>Menu:</h2>
         <!-- ****** menu ********* -->
         <Plate
-            v-for="(plate, i) in pageOfItems"
+            v-for="(plate, i) in restaurant.plates"
             :key="`_${i}`"
             :plate="plate"
         />
-        <div v-show="!warn" class="card-footer pagination tool pb-0 pt-3">
-            <jw-pagination
-                :pageSize="4"
-                :items="restaurant.plates"
-                @changePage="onChangePage"
-            ></jw-pagination>
-        </div>
+        <div v-show="!warn" class="card-footer pagination tool pb-0 pt-3"></div>
     </div>
 </template>
 
