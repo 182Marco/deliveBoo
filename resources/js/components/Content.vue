@@ -10,7 +10,7 @@
                         :key="`t${i}`"
                         v-show="typesSelected.includes(type.id)"
                     >
-                        <em>/{{ type.name }}</em>
+                        <em class="type-name-list">/ {{ type.name }}</em>
                     </span>
                 </h4>
             </div>
@@ -72,20 +72,6 @@ main {
     padding: 25px 15px;
     margin-top: 50px;
     .cont {
-        // create fixed height so the template willl not
-        // br pushed whwen element dyspayed
-        .current-choice-box {
-            height: 65px;
-            @include media-desk-first(xs-desktop) {
-                height: 90px;
-            }
-            @include media-desk-first(xs-tablet) {
-                height: 117px;
-            }
-            span > em {
-                color: $col2;
-            }
-        }
         h2,
         h4 {
             font-weight: bold;
@@ -99,6 +85,9 @@ main {
                 font-size: 25px;
                 line-height: 25px;
             }
+        }
+        .type-name-list {
+            color: $col2;
         }
         .boxes {
             margin-top: 5px;
