@@ -9,14 +9,18 @@ section {
         font-weight: 700;
         border: none;
         border-radius: 3px;
-        transition: color 0.3s;
+        transition: transform 0.3s;
         &:hover {
-            color: $brand;
+            transform: scale(1.08);
+        }
+        &.number:hover {
+            transform: scale(1.15);
         }
         &[disabled] {
             color: #5b6acd94;
             &:hover {
                 background-color: transparent;
+                transform: scale(1);
             }
         }
     }

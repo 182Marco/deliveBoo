@@ -22,8 +22,9 @@ const store = () => {
             warn: false,
             total: 0,
             menuMobile: false,
-            // ------------//
-            restPagination: {}
+            // ------------// pagination data
+            restPagination: {},
+            menuPagination: {}
         },
         getters: {
             selectedTypesLenght: state => {
@@ -95,6 +96,12 @@ const store = () => {
                     current: ObjPayload.current,
                     last: ObjPayload.last
                 };
+            },
+            setMenuPagination(state, ObjPayload) {
+                state.menuPagination = {
+                    current: ObjPayload.current,
+                    last: ObjPayload.last
+                };
             }
         },
         actions: {
@@ -123,10 +130,19 @@ const store = () => {
                         .catch(r => console.log(r));
                 }
             },
-            getMenuAndDetails({ commit }, rest) {
+            getMenuAndDetails({ commit }, payloadObj) {
                 axios
-                    .get(`http://127.0.0.1:8000/api/restaurantsMenu/${rest.id}`)
-                    .then(r => commit("fillRest", r.data))
+                    .get(
+                        `http://127.0.0.1:8000/api/restaurantsMenu/${payloadObj.resId}?page=${payloadObj.page}`
+                    )
+                    .then(r => {
+                        commit("fillRest", r.data);
+                        commit("setMenuPagination", {
+                            // (to pass more than one payload you pass obj)
+                            current: r.data.menu.current_page,
+                            last: r.data.menu.last_page
+                        });
+                    })
                     .catch(r => console.log(r));
             }
         }

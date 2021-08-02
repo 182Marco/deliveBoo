@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Restaurant;
+use App\Plate;
 use App\Type;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class RestaurantController extends Controller
@@ -43,10 +43,20 @@ class RestaurantController extends Controller
     }
 
     public function restMunu($id)
-    {   
-        $restaurants = Restaurant::query()->with('plates','types')->get();
-        $restaurant = $restaurants->find($id);
-     
-        return response()->json($restaurant);
+    {  
+        $rest = Restaurant::find($id); 
+        $types = $rest->types()->get();
+        $typesNames = [];
+        foreach ($types as $type) {
+            array_push($typesNames,$type['name']);
+        };
+        $plates = Plate::where("restaurant_id", $id)->paginate(4);
+        $rest_type_menu = [
+            "location" => $rest,
+            "types" => $typesNames,
+            "menu" => $plates,
+        ];
+   
+        return response()->json($rest_type_menu);
     }
 }

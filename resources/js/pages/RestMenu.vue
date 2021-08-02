@@ -2,76 +2,75 @@
     <div class="cont">
         <div class="items-box">
             <div class="img-box">
-                <img :src="restaurant.img" :alt="restaurant.name" />
+                <img
+                    :src="restaurant.location.img"
+                    :alt="restaurant.location.name"
+                />
             </div>
             <div class="txt box">
                 <h1>
-                    Restaurant: <em>{{ restaurant.name }}</em>
+                    Restaurant: <em>{{ restaurant.location.name }}</em>
                 </h1>
                 <p>
                     <strong class="little-title">address: </strong>
-                    {{ restaurant.address }},
-                    {{ restaurant.city }}
+                    {{ restaurant.location.address }},
+                    {{ restaurant.location.city }}
                 </p>
                 <p>
                     <strong class="little-title">phone: </strong>
-                    {{ restaurant.phone }}
+                    {{ restaurant.location.phone }}
                 </p>
                 <strong class="little-title">Types: </strong>
                 <span
                     class="label"
                     v-for="type in restaurant.types"
-                    :key="`tId${type.id}`"
-                    >{{ type.name }}</span
+                    :key="`tId${type}`"
+                    >{{ type }}</span
                 >
-                <!-- do not display if there's the warn (you can't purchese from to restaurant in the same order) -->
-                <!-- pagination element -->
             </div>
         </div>
         <h2>Menu:</h2>
         <!-- ****** menu ********* -->
         <Plate
-            v-for="(plate, i) in restaurant.plates"
+            v-for="(plate, i) in restaurant.menu.data"
             :key="`_${i}`"
             :plate="plate"
+            :paginationData="restaurant.menu"
         />
-        <div v-show="!warn" class="card-footer pagination tool pb-0 pt-3"></div>
+        <!-- pagination element  -->
+        <PaginateEl
+            :paginate="menuPagination"
+            :getMenu="true"
+            :restId="restaurant.location.id"
+        />
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import Plate from "../components/Plate.vue";
+import PaginateEl from "../components/PaginateEl.vue";
 
 export default {
     name: "RestMenu",
     components: {
-        Plate
-    },
-    data() {
-        return {
-            // pagination data
-            pageOfItems: []
-        };
+        Plate,
+        PaginateEl
     },
     created() {
         this.callDetailAndMenuAction();
     },
     computed: {
-        ...mapState(["restaurant", "cart", "warn"])
+        ...mapState(["restaurant", "cart", "warn", "menuPagination"])
     },
     methods: {
         ...mapActions["getMenuAndDetails"],
         //
         callDetailAndMenuAction() {
             this.$store.dispatch("getMenuAndDetails", {
-                id: this.$route.params.id
+                page: 1,
+                resId: this.$route.params.id
             });
-        },
-        // pagination method
-        onChangePage(pageOfItems) {
-            // update page of items
-            this.pageOfItems = pageOfItems;
         }
     }
 };

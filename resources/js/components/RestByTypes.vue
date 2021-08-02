@@ -8,7 +8,10 @@
         >
             <router-link
                 class="img-box"
-                :to="{ name: 'restMenu', params: { id: rest.id } }"
+                :to="{
+                    name: 'restMenu',
+                    params: { id: rest.id }
+                }"
             >
                 <img :src="rest.img" :alt="rest.name" />
             </router-link>
@@ -29,21 +32,21 @@
             </div>
         </article>
         <!-- pagination element -->
-        <RestPaginateEl />
+        <PaginateEl :paginate="restPagination" :actionName="`getRestaurants`" />
     </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import RestPaginateEl from "./RestPaginateEl.vue";
+import PaginateEl from "./PaginateEl.vue";
 
 export default {
     name: "RestByTypes",
     components: {
-        RestPaginateEl
+        PaginateEl
     },
     computed: {
-        ...mapState(["restByTypes"]),
+        ...mapState(["restByTypes", "restPagination"]),
         ...mapGetters(["selectedTypesLenght"])
     }
 };

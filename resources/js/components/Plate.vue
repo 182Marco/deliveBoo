@@ -4,7 +4,9 @@
             <article class="plate card">
                 <h3 class="mb-1">{{ plate.name }}</h3>
                 <div class="img-box">
-                    <img :src="plate.img" :alt="plate.name" />
+                    <!-- alternatively display img not found -->
+                    <img v-if="plate.img" :src="plate.img" :alt="plate.name" />
+                    <img v-else :src="imgNotFoundLink" :alt="plate.name" />
                 </div>
                 <p><strong>Description: </strong> {{ plate.description }}</p>
                 <p><strong>Ingredients: </strong> {{ plate.ingredients }}</p>
@@ -60,12 +62,18 @@ export default {
     components: {
         Warning
     },
+    data() {
+        return {
+            imgNotFoundLink:
+                "https://mantenimientocode.xyz/images/not-found.jpg"
+        };
+    },
     computed: {
         ...mapState(["cart", "warn"]),
         ...mapGetters(["cartLenght"])
     },
     methods: {
-        ...mapMutations(["addPlate", "removePlate", "setPurchasingRest"]),
+        ...mapMutations(["addPlate", "removePlate", "changeWarn"]),
         //
         addToCart(plateObj) {
             // if cart empty or contains just obj from same restaurant

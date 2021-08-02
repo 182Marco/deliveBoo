@@ -25,7 +25,7 @@ export default {
                 ? this.$store.commit("pullType", typeId)
                 : this.$store.commit("addType", typeId);
             //
-            this.$store.dispatch("getRestaurants");
+            this.$store.dispatch("getRestaurants", { page: 1 });
         }
     },
     computed: {

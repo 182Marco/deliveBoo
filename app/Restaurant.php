@@ -10,7 +10,7 @@ class Restaurant extends Model
         'name','phone','city','address','img'
     ];
     // relationship one to many with plates
-    public function Plates(){
+    public function plates(){
         return $this->hasMany('App\Plate');
         }
     // relationship one to many with orders
