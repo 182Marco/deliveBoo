@@ -50,6 +50,12 @@
                             }}
                             €
                         </p>
+                        <button
+                            @click="otherPortionInCart(plate)"
+                            class="btn btn-success btn-small ml-2 no focus"
+                        >
+                            <strong>+</strong>
+                        </button>
                     </div>
                     <p>
                         <strong>single item price: </strong
@@ -108,13 +114,21 @@ export default {
         this.getIdPurchaserestaurant();
     },
     methods: {
-        ...mapMutations(["removePlate", "changeTotal", "emptyCart"]),
+        ...mapMutations([
+            "removePlate",
+            "addPlate",
+            "changeTotal",
+            "emptyCart"
+        ]),
         //
         sum() {
             this.$store.commit("changeTotal");
         },
         removeFromCart(plateObj) {
             this.$store.commit("removePlate", plateObj);
+        },
+        otherPortionInCart(plateObj) {
+            this.$store.commit("addPlate", plateObj);
         },
         cartNoDouble() {
             this.cartSingleEl = this.cart.reduce((acc, current) => {
@@ -193,6 +207,12 @@ h2 {
     em {
         display: inline-block;
         margin-right: 1rem;
+        // fixed width so it won't push button checkout on the right
+        width: 175px;
+    }
+    // fixed width so it won't push button checkout on the right
+    strong {
+        width: 215px;
     }
 }
 
@@ -212,7 +232,6 @@ h2 {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 3rem;
         &.uge {
             padding: 5px 30px;
             font-size: 2rem;
@@ -260,6 +279,8 @@ h2 {
     p {
         display: inline-block;
         font-size: 1.1rem;
+        // fixed width so it won't push button add on the right
+        width: 215px;
     }
 }
 
