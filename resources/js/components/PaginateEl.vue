@@ -31,7 +31,7 @@ export default {
     props: {
         getMenu: Boolean,
         paginate: Object,
-        restId: Number
+        slug: String
     },
     methods: {
         // THE COMPONENT SERVES 2 PAGINATIONS USEING THOSE 2 DIFFERNT API
@@ -42,7 +42,7 @@ export default {
             if (this.getMenu) {
                 this.$store.dispatch("getMenuAndDetails", {
                     page: 1,
-                    resId: this.restId
+                    slug: this.slug
                 });
             } else {
                 this.$store.dispatch("getRestaurants", 1);
@@ -53,7 +53,7 @@ export default {
             if (this.getMenu) {
                 this.$store.dispatch("getMenuAndDetails", {
                     page: --this.paginate.current,
-                    resId: this.restId
+                    slug: this.slug
                 });
             } else {
                 this.$store.dispatch("getRestaurants", --this.paginate.current);
@@ -63,7 +63,7 @@ export default {
             if (this.getMenu) {
                 this.$store.dispatch("getMenuAndDetails", {
                     page: ++this.paginate.current,
-                    resId: this.restId
+                    slug: this.slug
                 });
             } else {
                 this.$store.dispatch("getRestaurants", ++this.paginate.current);
@@ -73,7 +73,7 @@ export default {
             if (this.getMenu) {
                 this.$store.dispatch("getMenuAndDetails", {
                     page: this.paginate.last,
-                    resId: this.restId
+                    slug: this.slug
                 });
             } else {
                 this.$store.dispatch("getRestaurants", this.paginate.last);
@@ -83,7 +83,7 @@ export default {
             if (this.getMenu) {
                 this.$store.dispatch("getMenuAndDetails", {
                     page: n,
-                    resId: this.restId
+                    slug: this.slug
                 });
             } else {
                 this.$store.dispatch("getRestaurants", n);

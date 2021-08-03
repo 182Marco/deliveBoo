@@ -41,7 +41,7 @@
         <PaginateEl
             :paginate="menuPagination"
             :getMenu="true"
-            :restId="restaurant.location.id"
+            :slug="restaurant.location.slug"
         />
     </div>
 </template>
@@ -69,7 +69,7 @@ export default {
         callDetailAndMenuAction() {
             this.$store.dispatch("getMenuAndDetails", {
                 page: 1,
-                resId: this.$route.params.id
+                slug: this.$route.params.slug
             });
         }
     }

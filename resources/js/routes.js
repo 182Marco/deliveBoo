@@ -34,7 +34,7 @@ const router = new VueRouter({
             props: true
         },
         {
-            path: `/chosen-restaurant-menu-and-details/:id`,
+            path: `/chosen-restaurant-menu-and-details/:slug`,
             name: "restMenu",
             component: RestMenu
         },

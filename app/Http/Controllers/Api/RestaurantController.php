@@ -42,15 +42,16 @@ class RestaurantController extends Controller
     // }
     }
 
-    public function restMunu($id)
+    public function restMunu($slug)
     {  
-        $rest = Restaurant::find($id); 
+        $rest = Restaurant::where('slug', $slug)->first();
+        $rest_id = $rest['id'];
         $types = $rest->types()->get();
         $typesNames = [];
         foreach ($types as $type) {
             array_push($typesNames,$type['name']);
         };
-        $plates = Plate::where("restaurant_id", $id)->paginate(4);
+        $plates = Plate::where("restaurant_id", $rest_id)->paginate(4);
         $rest_type_menu = [
             "location" => $rest,
             "types" => $typesNames,

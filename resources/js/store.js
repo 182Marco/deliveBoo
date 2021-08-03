@@ -133,7 +133,7 @@ const store = () => {
             getMenuAndDetails({ commit }, payloadObj) {
                 axios
                     .get(
-                        `http://127.0.0.1:8000/api/restaurantsMenu/${payloadObj.resId}?page=${payloadObj.page}`
+                        `http://127.0.0.1:8000/api/restaurantsMenu/${payloadObj.slug}?page=${payloadObj.page}`
                     )
                     .then(r => {
                         commit("fillRest", r.data);

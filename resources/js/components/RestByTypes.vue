@@ -10,7 +10,7 @@
                 class="img-box"
                 :to="{
                     name: 'restMenu',
-                    params: { id: rest.id }
+                    params: { slug: rest.slug }
                 }"
             >
                 <img :src="rest.img" :alt="rest.name" />
@@ -25,7 +25,7 @@
                 <router-link
                     v-show="restByTypes"
                     class="btn btn-success btn-small txt"
-                    :to="{ name: 'restMenu', params: { id: rest.id } }"
+                    :to="{ name: 'restMenu', params: { slug: rest.slug } }"
                 >
                     show
                 </router-link>
@@ -44,6 +44,9 @@ export default {
     name: "RestByTypes",
     components: {
         PaginateEl
+    },
+    created() {
+        console.log(this.restByTypes[0].slug);
     },
     computed: {
         ...mapState(["restByTypes", "restPagination"]),
