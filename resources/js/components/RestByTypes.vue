@@ -45,9 +45,6 @@ export default {
     components: {
         PaginateEl
     },
-    created() {
-        console.log(this.restByTypes[0].slug);
-    },
     computed: {
         ...mapState(["restByTypes", "restPagination"]),
         ...mapGetters(["selectedTypesLenght"])
