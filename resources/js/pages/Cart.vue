@@ -10,16 +10,13 @@
                 empty Cart
             </button>
             <br />
-            <router-link
+            <button
                 v-show="purchaseRestaurantId"
                 class="btn btn-warning btn-sm text-white my-3"
-                :to="{
-                    name: 'restMenu',
-                    params: { id: purchaseRestaurantId }
-                }"
+                @click="$router.go(-1)"
             >
                 previous restaurant
-            </router-link>
+            </button>
             <article
                 v-for="(plate, i) in cartSingleEl"
                 :key="`index_in_cart${i}`"
@@ -98,8 +95,7 @@ export default {
     },
     data() {
         return {
-            cartSingleEl: [],
-            purchaseRestaurantId: null
+            cartSingleEl: []
         };
     },
     watch: {
@@ -146,13 +142,6 @@ export default {
         },
         empty() {
             this.$store.commit("emptyCart");
-        },
-        getIdPurchaserestaurant() {
-            // rember cart can contain only dishes from same restaurant...
-            // so check restaurant_id of first item to now the purchasing restaurant
-            this.cart.length
-                ? (this.purchaseRestaurantId = this.cart[0].restaurant_id)
-                : null;
         }
     }
 };
