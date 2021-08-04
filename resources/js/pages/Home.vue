@@ -3,6 +3,7 @@
         <Jumbotron />
         <div class="cont">
             <div class="main">
+                <TopRated />
                 <TypeSelection />
                 <RestByTypes />
             </div>
@@ -14,12 +15,14 @@
 import Jumbotron from "../components/Jumbotron.vue";
 import TypeSelection from "../components/TypeSelection.vue";
 import RestByTypes from "../components/RestByTypes.vue";
+import TopRated from "../components/TopRated.vue";
 import { mapGetters } from "vuex";
 
 export default {
     name: "Home",
     components: {
         Jumbotron,
+        TopRated,
         TypeSelection,
         RestByTypes
     },

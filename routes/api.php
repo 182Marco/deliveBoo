@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Api')->group(function(){
     // get all types
     Route::get('/types', 'TypeController@index');
+    // get restaurants top rates
+     Route::get('/restaurantsTopRated', 'RestaurantController@restTopRated');
     // get restaurants by chosen types
     Route::get('/restaurants/{ids}', 'RestaurantController@restByTypes');
     // retaurant menu

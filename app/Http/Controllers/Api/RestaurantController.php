@@ -10,6 +10,51 @@ use App\Type;
 
 class RestaurantController extends Controller
 {
+    public function restTopRated(){
+        $allRests = Restaurant::all();
+
+        $restsPlusAverageRateKey = [];
+
+         //   VARIABLE USEFULL TO CHECK RESULTS
+        // $ratesAverageCollection = [];
+
+        foreach ($allRests as $rest ) {
+          $RatesForEachObj =  $rest->rates()->select('rate')->get();
+
+          //   transform obj in array _________________
+          $ratesForEachAr = [];
+          foreach ($RatesForEachObj as $key => $value) {
+            array_push($ratesForEachAr,  $value->rate);
+          }
+          // _____________________________________________
+       
+          $average = array_sum($ratesForEachAr) / count($ratesForEachAr);
+
+        //   VARIABLE USEFULL TO CHECK RESULTS
+        //   array_push($ratesAverageCollection, $average); 
+        $rest->average = $average;
+        // $rest["average"] = $average;
+  
+        array_push($restsPlusAverageRateKey,  $rest );
+
+        }
+        
+        //  ascendind sort restsPlusAverageRateKey by rate key
+        usort($restsPlusAverageRateKey, fn($a, $b) => strcmp($a->average, $b->average));
+
+        // descending sort restsPlusAverageRateKey by rate key
+        $descRestsPlusAverageRateKey = array_reverse($restsPlusAverageRateKey);
+
+        // getFirst twelve rates
+        $topTwelve = array_slice($descRestsPlusAverageRateKey, 0, 12);
+
+
+        return  response()->json($topTwelve);
+    }
+
+
+
+
     public function restByTypes($ids){
     
     if(!$ids){

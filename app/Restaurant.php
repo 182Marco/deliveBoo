@@ -13,6 +13,10 @@ class Restaurant extends Model
     public function plates(){
         return $this->hasMany('App\Plate');
         }
+    // relationship one to many with rates
+    public function rates(){
+        return $this->hasMany('App\Rate');
+        }
     // relationship one to many with orders
     public function orders(){
         return $this->hasMany('App\Order');
