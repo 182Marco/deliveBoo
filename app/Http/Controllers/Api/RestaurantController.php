@@ -91,13 +91,20 @@ class RestaurantController extends Controller
     {  
         $rest = Restaurant::where('slug', $slug)->first();
         $rest_id = $rest['id'];
+        $rates = $rest->rates()->get();
         $types = $rest->types()->get();
         $typesNames = [];
         foreach ($types as $type) {
             array_push($typesNames,$type['name']);
         };
+        $ratesNumbers = [];
+        foreach ($rates as $rateAr) {
+            array_push($ratesNumbers,$rateAr['rate']);
+        };
+        $average = array_sum($ratesNumbers) / count($ratesNumbers);
         $plates = Plate::where("restaurant_id", $rest_id)->paginate(4);
         $rest_type_menu = [
+            "averageRate" => $average,
             "location" => $rest,
             "types" => $typesNames,
             "menu" => $plates,

@@ -24,27 +24,24 @@
                     v-if="i == 2"
                     class="fas fa-medal bronze"
                 ></i>
-                <div @click="goToRest(rest.slug)" class="stars-box">
-                    <i
-                        v-for="fasStar in rest.average"
-                        :key="`fasStar${fasStar}`"
-                        class="fas fa-star"
-                    ></i>
-                    <i
-                        v-for="farStar in 5 - rest.average"
-                        :key="`farStar${farStar}`"
-                        class="far fa-star"
-                    ></i>
-                    <p class="name">{{ rest.name }}</p>
-                </div>
+                <StarsBox
+                    @click.native="goToRest(rest.slug)"
+                    :average="rest.average"
+                    :topList="true"
+                />
+                <p @click="goToRest(rest.slug)" class="name">{{ rest.name }}</p>
             </div>
         </section>
     </div>
 </template>
 
 <script>
+import StarsBox from "./StarsBox.vue";
 export default {
     name: "TopRated",
+    components: {
+        StarsBox
+    },
     data() {
         return {
             topRest: []
@@ -135,24 +132,19 @@ section {
                 color: #cc6633;
             }
         }
-        .stars-box {
+        .name {
             cursor: pointer;
             position: absolute;
-            top: 65%;
+            top: 70%;
             left: 50%;
             transform: translate(-50%, -50%);
-            i {
-                color: gold;
-            }
-            .name {
-                text-align: center;
-                color: white;
-                // create black border to text-> more readable
-                text-shadow: -1px 0 black, 0 1px black, 1px 0 black,
-                    0 -1px black;
-                font-size: 1.2rem;
-                font-weight: 700;
-            }
+            text-align: center;
+            color: white;
+            // create black border to text-> more readable
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            font-size: 1.2rem;
+            line-height: 1.1rem;
+            font-weight: 700;
         }
     }
 }

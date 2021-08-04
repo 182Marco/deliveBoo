@@ -20,6 +20,10 @@
                     <strong class="little-title">phone: </strong>
                     {{ restaurant.location.phone }}
                 </p>
+                <p class="rating">
+                    <strong class="little-title">rated: </strong>
+                    <StarsBox :average="Math.ceil(restaurant.averageRate)" />
+                </p>
                 <strong class="little-title">Types: </strong>
                 <span
                     class="label"
@@ -47,6 +51,7 @@
 </template>
 
 <script>
+import StarsBox from "../components/StarsBox.vue";
 import { mapActions, mapState } from "vuex";
 import Plate from "../components/Plate.vue";
 import PaginateEl from "../components/PaginateEl.vue";
@@ -55,7 +60,8 @@ export default {
     name: "RestMenu",
     components: {
         Plate,
-        PaginateEl
+        PaginateEl,
+        StarsBox
     },
     created() {
         this.callDetailAndMenuAction();
@@ -153,6 +159,9 @@ h4 {
 p {
     max-width: 10px 0;
     margin-bottom: 10px;
+    .rating {
+        display: inline-block;
+    }
 }
 
 .little-title {
