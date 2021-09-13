@@ -11,7 +11,6 @@
             </button>
             <br />
             <button
-                v-show="purchaseRestaurantId"
                 class="btn btn-warning btn-sm text-white my-3"
                 @click="$router.go(-1)"
             >
@@ -107,7 +106,6 @@ export default {
     created() {
         this.cartNoDouble();
         this.sum();
-        this.getIdPurchaserestaurant();
     },
     methods: {
         ...mapMutations([
@@ -167,11 +165,12 @@ ul {
     }
 }
 article {
-    box-shadow: 3px 4px 6px 4px #49494918;
+    background: #fbfbfb;
+    box-shadow: 3px 4px 6px 4px #3f3f3f18;
     display: flex;
     align-items: center;
     padding: 10px;
-    margin-bottom: 27px;
+    margin: 27px 0;
     border-radius: 5px;
     h2,
     h3 {
