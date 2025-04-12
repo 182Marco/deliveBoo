@@ -1,14 +1,15 @@
 services:
   - type: web
-    name: deliveboo
-    env: php
+    name: deliveboo-laravel
+    runtime: docker
+    repo: https://github.com/182Marco/deliveBoo
+    branch: master
+    dockerfilePath: ./Dockerfile
     plan: free
-    buildCommand: "./build.sh"
-    startCommand: "php artisan serve --host 0.0.0.0 --port 10000"
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        generateValue: true
+        sync: false
       - key: DB_CONNECTION
-        value: mysql
+        value: sqlite
