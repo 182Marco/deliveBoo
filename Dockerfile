@@ -20,6 +20,9 @@ COPY . .
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# 🚨 AGGIUNTA QUI
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # Install Laravel dependencies
 RUN composer install --optimize-autoloader --no-dev
 RUN npm install && npm run prod
