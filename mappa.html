@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mappa DeliveBoo</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --side:#f0f1f4; --line:#d9dce3; --txt:#1f2430; --mut:#667085;
+  --acc:#00a896; --accbg:#d9f3ef; --sel:#dbeafe; --code:#eef0f4;
+  --c-user:#6b7280; --c-front:#16a34a; --c-api:#2563eb; --c-admin:#ea7a00; --c-model:#9333ea; --c-ext:#64748b; --c-build:#0d9488;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1e1e1e; --panel:#252526; --side:#252526; --line:#3c3c3c; --txt:#d4d4d4; --mut:#9aa0a6;
+    --acc:#2dd4bf; --accbg:#0f3b38; --sel:#094771; --code:#2d2d2d;
+    --c-user:#9ca3af; --c-front:#4ade80; --c-api:#60a5fa; --c-admin:#fb923c; --c-model:#c084fc; --c-ext:#94a3b8; --c-build:#2dd4bf;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1e1e1e; --panel:#252526; --side:#252526; --line:#3c3c3c; --txt:#d4d4d4; --mut:#9aa0a6;
+  --acc:#2dd4bf; --accbg:#0f3b38; --sel:#094771; --code:#2d2d2d;
+  --c-user:#9ca3af; --c-front:#4ade80; --c-api:#60a5fa; --c-admin:#fb923c; --c-model:#c084fc; --c-ext:#94a3b8; --c-build:#2dd4bf;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--txt);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:16px;padding:0 16px;height:48px;background:var(--panel);border-bottom:1px solid var(--line);flex:none}
+header h1{font-size:16px;margin:0;white-space:nowrap}
+header h1 span{color:var(--acc)}
+.tabs{display:flex;gap:4px;height:100%}
+.tab{background:none;border:0;border-bottom:3px solid transparent;color:var(--mut);font:inherit;font-weight:600;padding:0 14px;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--txt);border-color:var(--acc)}
+.tab:focus-visible,.btn:focus-visible,.row:focus-visible,.chip:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.spacer{flex:1}
+.btn{background:var(--code);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+main{flex:1;min-height:0;display:flex}
+section.view{display:none;flex:1;min-width:0;min-height:0}
+section.view.on{display:flex}
+
+/* ---------- FILE VIEW ---------- */
+#v-files{flex-direction:row}
+aside{width:310px;flex:none;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.search{padding:8px;border-bottom:1px solid var(--line)}
+.search input{width:100%;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--txt);font:inherit;font-size:13px}
+.explorer{flex:1;overflow:auto;padding:4px 0 24px;font-size:13px;user-select:none}
+.explorer .cap{padding:6px 12px;font-size:11px;letter-spacing:.08em;color:var(--mut);font-weight:700}
+.row{display:flex;align-items:center;gap:5px;height:24px;cursor:pointer;white-space:nowrap;padding-right:8px}
+.row:hover{background:color-mix(in srgb,var(--txt) 8%,transparent)}
+.row.sel{background:var(--sel)}
+.chev{width:14px;flex:none;text-align:center;color:var(--mut);transition:transform .12s;font-size:12px}
+.open>.row>.chev{transform:rotate(90deg)}
+.kids{display:none}
+.open>.kids{display:block}
+.ic{width:16px;height:16px;flex:none;border-radius:3px;font-size:8px;font-weight:800;display:grid;place-items:center;color:#fff;letter-spacing:-.3px}
+.nm{overflow:hidden;text-overflow:ellipsis}
+.hl{background:#facc1560;border-radius:2px}
+#doc{flex:1;min-width:0;overflow:auto;padding:28px clamp(16px,4vw,48px) 60px}
+.card{max-width:860px;margin:0 auto}
+
+/* ---------- explanation panel ---------- */
+.crumbs{font-size:13px;color:var(--mut);margin-bottom:10px;display:flex;flex-wrap:wrap;gap:2px}
+.crumbs a{color:var(--acc);cursor:pointer;text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.title{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.title h2{margin:0;font-size:26px;word-break:break-word}
+.badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--accbg);color:var(--acc);white-space:nowrap}
+.lead{font-size:19px;margin:14px 0 20px;line-height:1.5}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.box h3{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.box p{margin:0}
+.ex{border-left:4px solid var(--acc)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px}
+.step{background:var(--accbg);color:var(--txt);border:1px solid var(--acc);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600}
+.step small{display:block;font-weight:400;color:var(--mut);font-size:11px}
+.arrow{color:var(--acc);font-weight:800}
+pre{background:var(--code);border-radius:8px;padding:10px 12px;margin:8px 0 0;overflow:auto;font:12.5px/1.45 ui-monospace,Menlo,Consolas,monospace}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--code);border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:12.5px;cursor:pointer;color:var(--txt);font-family:inherit}
+.chip:hover{border-color:var(--acc)}
+.kidlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.kid{display:block;text-align:left;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer;font:inherit;color:var(--txt)}
+.kid:hover{border-color:var(--acc)}
+.kid b{display:block;font-size:13px;word-break:break-all}
+.kid span{font-size:12px;color:var(--mut)}
+
+/* ---------- GRAPH VIEW ---------- */
+#v-graph{flex-direction:column;overflow:auto}
+.gwrap{display:flex;flex:1;min-height:0}
+.gcanvas{flex:1;min-width:0;overflow:auto;padding:10px}
+.gcanvas svg{width:100%;min-width:900px;height:auto;display:block}
+#gpanel{width:340px;flex:none;border-left:1px solid var(--line);background:var(--panel);overflow:auto;padding:18px}
+#gpanel .title h2{font-size:20px}
+#gpanel .lead{font-size:16px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mut);background:var(--panel)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.lane{fill:color-mix(in srgb,var(--txt) 4%,transparent);stroke:var(--line);stroke-dasharray:4 4}
+.lanet{fill:var(--mut);font-size:12px;font-weight:700;letter-spacing:.1em}
+.node{cursor:pointer;transition:opacity .15s}
+.node rect{fill:var(--panel);stroke-width:2}
+.node text{fill:var(--txt);font-size:12.5px;font-weight:700}
+.node text.s{font-size:10.5px;font-weight:400;fill:var(--mut)}
+.node:hover rect,.node.pick rect{stroke-width:3.5}
+.node:focus-visible rect{stroke-width:3.5}
+.edge{fill:none;stroke:var(--mut);stroke-width:1.5;opacity:.7;transition:opacity .15s}
+.elab{font-size:10.5px;fill:var(--mut);paint-order:stroke;stroke:var(--bg);stroke-width:4px}
+.dim{opacity:.12}
+.hot{stroke:var(--acc);stroke-width:2.8;opacity:1}
+.help{font-size:13px;color:var(--mut);padding:8px 14px}
+
+#v-run{overflow:auto}
+#run{max-width:860px;margin:0 auto;padding:28px 16px 60px;width:100%}
+#run h2{margin:0 0 4px;font-size:26px}
+.stp{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.stp.done{opacity:.55}
+.stp input{width:20px;height:20px;margin-top:3px;accent-color:var(--acc);flex:none}
+.stp h3{margin:0 0 2px;font-size:16px}
+.stp p{margin:2px 0 6px;color:var(--mut);font-size:14px}
+.cmd{display:flex;align-items:flex-start;gap:8px;margin-top:6px}
+.cmd pre{flex:1;margin:0;white-space:pre-wrap;word-break:break-all}
+.warn{background:color-mix(in srgb,#f59e0b 14%,var(--panel));border:1px solid #f59e0b;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:14px}
+.miss{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.miss span{padding:2px 10px;border-radius:99px;font-size:12.5px;font-weight:700}
+.no{background:#fee2e2;color:#991b1b}.ok{background:#dcfce7;color:#166534}
+@media (max-width:820px){
+  #v-files{flex-direction:column}
+  aside{width:100%;max-height:42vh;border-right:0;border-bottom:1px solid var(--line)}
+  .gwrap{flex-direction:column}
+  #gpanel{width:100%;border-left:0;border-top:1px solid var(--line)}
+  header h1 span{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Deliv<span>eBoo</span> · mappa del progetto</h1>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t-graph" aria-selected="true" data-v="graph">Grafo: cosa fa cosa</button>
+    <button class="tab" role="tab" id="t-files" aria-selected="false" data-v="files">File e cartelle</button>
+    <button class="tab" role="tab" id="t-run" aria-selected="false" data-v="run">Avvio in locale</button>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn" id="theme" title="Cambia tema">Tema</button>
+</header>
+<main>
+  <section class="view on" id="v-graph">
+    <div class="legend" id="legend"></div>
+    <div class="help">Passa il mouse su un blocco per vedere i suoi collegamenti. Clicca per leggere cosa fa.</div>
+    <div class="gwrap">
+      <div class="gcanvas"><svg id="svg" viewBox="0 0 1190 720" role="img" aria-label="Grafo dell'architettura DeliveBoo"></svg></div>
+      <div id="gpanel"></div>
+    </div>
+  </section>
+  <section class="view" id="v-files">
+    <aside>
+      <div class="search"><input id="q" type="search" placeholder="Cerca un file…" aria-label="Cerca un file"></div>
+      <div class="explorer" id="tree" role="tree"></div>
+    </aside>
+    <div id="doc"></div>
+  </section>
+  <section class="view" id="v-run"><div id="run"></div></section>
+</main>
+
+<script>
+/* =====================================================================
+   1) ELENCO FILE (generato da `git ls-files`, senza vendor/node_modules)
+   ===================================================================== */
+const FILES = [".editorconfig", ".env.example", ".gitattributes", ".gitignore", ".styleci.yml", "AGENTS.md", "Dockerfile", "README.md", "app/Console/Kernel.php", "app/Exceptions/Handler.php", "app/Http/Controllers/Admin/HomeController.php", "app/Http/Controllers/Admin/OrderController.php", "app/Http/Controllers/Admin/PlateController.php", "app/Http/Controllers/Admin/RestaurantController.php", "app/Http/Controllers/Admin/StatsController.php", "app/Http/Controllers/Api/OrderController.php", "app/Http/Controllers/Api/RestaurantController.php", "app/Http/Controllers/Api/TypeController.php", "app/Http/Controllers/Auth/ConfirmPasswordController.php", "app/Http/Controllers/Auth/ForgotPasswordController.php", "app/Http/Controllers/Auth/LoginController.php", "app/Http/Controllers/Auth/RegisterController.php", "app/Http/Controllers/Auth/ResetPasswordController.php", "app/Http/Controllers/Auth/VerificationController.php", "app/Http/Controllers/Controller.php", "app/Http/Kernel.php", "app/Http/Middleware/Authenticate.php", "app/Http/Middleware/CheckForMaintenanceMode.php", "app/Http/Middleware/EncryptCookies.php", "app/Http/Middleware/RedirectIfAuthenticated.php", "app/Http/Middleware/TrimStrings.php", "app/Http/Middleware/TrustHosts.php", "app/Http/Middleware/TrustProxies.php", "app/Http/Middleware/VerifyCsrfToken.php", "app/Mail/OrderedMessage.php", "app/Order.php", "app/Plate.php", "app/Providers/AppServiceProvider.php", "app/Providers/AuthServiceProvider.php", "app/Providers/BroadcastServiceProvider.php", "app/Providers/EventServiceProvider.php", "app/Providers/RouteServiceProvider.php", "app/Rate.php", "app/Restaurant.php", "app/Type.php", "app/User.php", "artisan", "bootstrap/app.php", "bootstrap/cache/.gitignore", "build.sh", "composer.json", "composer.lock", "config/app.php", "config/auth.php", "config/broadcasting.php", "config/cache.php", "config/cors.php", "config/database.php", "config/filesystems.php", "config/hashing.php", "config/logging.php", "config/mail.php", "config/queue.php", "config/services.php", "config/session.php", "config/view.php", "database/.gitignore", "database/factories/UserFactory.php", "database/migrations/2014_10_12_000000_create_users_table.php", "database/migrations/2014_10_12_100000_create_password_resets_table.php", "database/migrations/2019_08_19_000000_create_failed_jobs_table.php", "database/migrations/2021_07_07_233403_create_plates_table.php", "database/migrations/2021_07_08_171014_create_restaurants_table.php", "database/migrations/2021_07_08_172446_create_types_table.php", "database/migrations/2021_07_08_172627_create_orders_table.php", "database/migrations/2021_07_08_203752_update_plates_table.php", "database/migrations/2021_07_08_220428_update_orders__table.php", "database/migrations/2021_07_08_221924_update_restaurants_table.php", "database/migrations/2021_07_08_225714_create_order_plate_table.php", "database/migrations/2021_07_08_231633_create_restaurant_type_table.php", "database/migrations/2021_08_03_201333_create_rates_table.php", "database/migrations/2021_08_03_201727_update_rates_table.php", "database/seeds/DatabaseSeeder.php", "database/seeds/OrdersTableSeeder.php", "database/seeds/PlatesTableSeeder.php", "database/seeds/RatesTableSeeder.php", "database/seeds/RestaurantsTableSeeder.php", "database/seeds/TypesTableSeeder.php", "database/seeds/UsersTableSeeder.php", "db structure.webp", "mappa.html", "package-lock.json", "package.json", "phpunit.xml", "public/.htaccess", "public/css/app.css", "public/favicon.ico", "public/images/Italian Pecorino, Parsley Sandwich.webp", "public/images/PorkBellyGyro.webp", "public/images/SoftshellCrab.webp", "public/images/TurkishGrilledCheese.webp", "public/images/logo.png", "public/images/logoColBrand.png", "public/images/picchiapo.webp", "public/index.php", "public/js/app.js", "public/js/chart.js", "public/js/confDelete.js", "public/js/logListen.js", "public/js/vue.js", "public/mix-manifest.json", "public/robots.txt", "public/web.config", "render.yaml", "resources/js/App.vue", "resources/js/app.js", "resources/js/bootstrap.js", "resources/js/components/Content.vue", "resources/js/components/Footer.vue", "resources/js/components/Hamburger.vue", "resources/js/components/Header.vue", "resources/js/components/Jumbotron.vue", "resources/js/components/Menumobile.vue", "resources/js/components/PaginateEl.vue", "resources/js/components/Plate.vue", "resources/js/components/RestByTypes.vue", "resources/js/components/StarsBox.vue", "resources/js/components/TopRated.vue", "resources/js/components/TypeComp.vue", "resources/js/components/TypeSelection.vue", "resources/js/components/Warning.vue", "resources/js/img/logo.png", "resources/js/jsBack/chart.js", "resources/js/jsBack/confDelete.js", "resources/js/jsBack/logListen.js", "resources/js/pages/Cart.vue", "resources/js/pages/Home.vue", "resources/js/pages/NotFound.vue", "resources/js/pages/Payment.vue", "resources/js/pages/RestMenu.vue", "resources/js/pages/SuccessPage.vue", "resources/js/pages/singleTypeRest.vue", "resources/js/routes copy.js", "resources/js/routes.js", "resources/js/store.js", "resources/js/vue.js", "resources/lang/en/auth.php", "resources/lang/en/pagination.php", "resources/lang/en/passwords.php", "resources/lang/en/validation.php", "resources/sass/_animations.scss", "resources/sass/_deleteConfirm.scss", "resources/sass/_mixins.scss", "resources/sass/_paginationEl.scss", "resources/sass/_reset.scss", "resources/sass/_utilities.scss", "resources/sass/_variables.scss", "resources/sass/app.scss", "resources/views/admin/home.blade.php", "resources/views/admin/notYours/orders.blade.php", "resources/views/admin/notYours/plate.blade.php", "resources/views/admin/notYours/restaurant.blade.php", "resources/views/admin/orders/index.blade.php", "resources/views/admin/orders/show.blade.php", "resources/views/admin/plates/create.blade.php", "resources/views/admin/plates/edit.blade.php", "resources/views/admin/plates/index.blade.php", "resources/views/admin/plates/show.blade.php", "resources/views/admin/restaurants/create.blade.php", "resources/views/admin/restaurants/edit.blade.php", "resources/views/admin/restaurants/index.blade.php", "resources/views/admin/restaurants/show.blade.php", "resources/views/admin/stats/show.blade.php", "resources/views/auth/login.blade.php", "resources/views/auth/passwords/confirm.blade.php", "resources/views/auth/passwords/email.blade.php", "resources/views/auth/passwords/reset.blade.php", "resources/views/auth/register.blade.php", "resources/views/auth/verify.blade.php", "resources/views/guest/home.blade.php", "resources/views/layouts/app.blade.php", "resources/views/layouts/deleteConfirm.blade.php", "resources/views/layouts/logged.blade.php", "resources/views/mails/orderedMessage.blade.php", "routes/api.php", "routes/channels.php", "routes/console.php", "routes/web.php", "server.php", "storage/app/.gitignore", "storage/app/public/.gitignore", "storage/framework/.gitignore", "storage/framework/cache/.gitignore", "storage/framework/cache/data/.gitignore", "storage/framework/sessions/.gitignore", "storage/framework/testing/.gitignore", "storage/framework/views/.gitignore", "storage/logs/.gitignore", "tests/CreatesApplication.php", "tests/Feature/ExampleTest.php", "tests/TestCase.php", "tests/Unit/ExampleTest.php", "webpack.mix.js"];
+
+/* =====================================================================
+   2) SPIEGAZIONI
+   Formato: [percorso, "in una frase", "esempio concreto", [schema a passi], [collegamenti]]
+   ===================================================================== */
+const D = [
+/* ---------- RADICE ---------- */
+["", "DeliveBoo è un sito per ordinare cibo, tipo Deliveroo. I clienti scelgono un ristorante e ordinano. I ristoratori gestiscono piatti e ordini.",
+ "Mario apre il sito, sceglie 'Pizza', vede 3 ristoranti, mette 2 pizze nel carrello e paga. La pizzeria vede l'ordine nel suo pannello.",
+ ["Cliente (Vue)","API Laravel","Database","Pannello ristoratore"],
+ ["resources/js","app","routes","database"]],
+[".editorconfig","Dice all'editor come scrivere il codice (spazi, a capo) così tutti lo scrivono uguale.","Se premi Tab, l'editor mette 4 spazi invece di un carattere tab."],
+[".env.example","Modello del file segreto .env: elenca le impostazioni che servono (database, email, chiave app).","Copi il file in .env e scrivi DB_DATABASE=deliveboo. Il vero .env non va mai su GitHub.",["copia","→ .env","Laravel legge le impostazioni"],["config"]],
+[".gitattributes","Regole per Git su come trattare certi file (es. fine riga).",""],
+[".gitignore","Elenco di file che Git NON deve salvare (password, vendor, node_modules).","Il file .env e la cartella vendor/ non finiscono mai su GitHub."],
+[".styleci.yml","Impostazioni di StyleCI, un servizio che sistema lo stile del codice PHP.",""],
+["Dockerfile","Ricetta per costruire un 'contenitore' con tutto il necessario (PHP, Apache, Node) e far girare il sito ovunque.","Render legge questo file, installa le dipendenze, compila il front-end e avvia Apache sulla porta 80.",["php:8.2-apache","composer install","npm run prod","apache2-foreground"],["render.yaml","build.sh"]],
+["README.md","La presentazione del progetto: cosa fa, come installarlo, come usarlo.","Chi clona il repo legge qui i comandi per avviarlo in locale."],
+["AGENTS.md","Istruzioni scritte per gli assistenti AI (e per i nuovi sviluppatori): comandi, regole, trappole da evitare.","Un agente prima di aggiungere un endpoint legge qui dove va messo il codice."],
+["mappa.html","Questa pagina: la mappa interattiva del progetto.","Stai guardando proprio lei."],
+["artisan","Il telecomando di Laravel da terminale.","php artisan migrate --seed crea le tabelle e le riempie di dati di prova.",["php artisan …","Laravel","azione"]],
+["build.sh","Script che prepara il sito per la produzione: installa pacchetti, compila JS e crea le cache.","Esegui ./build.sh sul server e il sito è pronto.",["composer install","npm run build","artisan cache"],["Dockerfile","package.json"]],
+["composer.json","Elenco dei pacchetti PHP che servono (Laravel 7, laravel/ui, tinker).","composer install legge questo file e scarica tutto in vendor/."],
+["composer.lock","Fotografia esatta delle versioni PHP installate, per avere gli stessi pacchetti su ogni computer.",""],
+["db structure.webp","Immagine con lo schema del database: tabelle e collegamenti tra loro.","La apri per capire al volo come sono legati ristoranti, piatti e ordini."],
+["package.json","Elenco dei pacchetti JavaScript (Vue, Vuex, Bootstrap, Braintree, Chart.js) e dei comandi npm.","npm run dev compila il front-end; npm run prod lo compila ottimizzato.",["npm run dev","webpack.mix.js","public/js"],["webpack.mix.js"]],
+["package-lock.json","Versioni esatte dei pacchetti JavaScript installati.",""],
+["phpunit.xml","Configurazione per i test PHP.","php artisan test legge questo file."],
+["render.yaml","Dice al servizio Render come mettere online il sito (usa il Dockerfile, database SQLite).","Fai git push su master e Render ricostruisce e pubblica il sito.",["git push","Render","Dockerfile","sito online"],["Dockerfile"]],
+["server.php","Piccolo file che permette al server di sviluppo PHP di servire i file di public/.",""],
+["webpack.mix.js","Il 'cuoco' del front-end: prende i file in resources/ e li trasforma in file pronti in public/.","resources/js/vue.js → public/js/vue.js; app.scss → public/css/app.css.",["resources/js","Laravel Mix","public/js + css"],["resources/js","public"]],
+
+/* ---------- APP ---------- */
+["app","Il cervello PHP: modelli (le tabelle), controller (la logica), email e servizi.","Quando arriva un ordine, un controller in app/ lo salva con un modello e manda una mail.",["Richiesta","Controller","Model","Risposta"],["app/Http/Controllers","app/Mail"]],
+["app/Console","Comandi da terminale personalizzati e pianificazioni.",""],
+["app/Console/Kernel.php","Qui si registrano comandi artisan e lavori ripetuti nel tempo (cron). Qui è vuoto.",""],
+["app/Exceptions","Gestione degli errori dell'app.",""],
+["app/Exceptions/Handler.php","Decide cosa mostrare quando qualcosa va storto (pagina 404, 500, log).","Se vai su un indirizzo inesistente, qui si decide di mostrare la 404."],
+["app/Http","Tutto ciò che riguarda le richieste web: controller e middleware.","",["Richiesta","Middleware","Controller"]],
+["app/Http/Kernel.php","Elenca i middleware (filtri) che ogni richiesta attraversa e i loro nomi, tipo 'auth'.","Il nome 'auth' usato in routes/web.php è definito qui."],
+["app/Http/Controllers","I controller: ricevono una richiesta, fanno il lavoro e rispondono. Divisi in Admin, Api e Auth.","Admin = ristoratori, Api = dati per il sito Vue, Auth = login.",["Route","Controller","Model","Vista o JSON"],["routes/web.php","routes/api.php"]],
+["app/Http/Controllers/Controller.php","Controller base: tutti gli altri lo estendono.",""],
+["app/Http/Controllers/Admin","Controller del pannello riservato ai ristoratori (serve il login).","Il ristoratore clicca 'Nuovo piatto' → PlateController@create.",["Ristoratore","Admin Controller","Blade"],["resources/views/admin"]],
+["app/Http/Controllers/Admin/HomeController.php","Home admin. NON è usato: la home admin è RestaurantController@index.","",null],
+["app/Http/Controllers/Admin/RestaurantController.php","CRUD dei ristoranti: elenca, crea, mostra, modifica, elimina. Salva l'immagine e collega i tipi di cucina.","Crei 'Da Mario', scegli 'Pizza' e 'Italiano': nasce una riga in restaurants e due in restaurant_type.",["Form","store()","Restaurant + types","Lista"],["app/Restaurant.php","app/Type.php","resources/views/admin/restaurants"]],
+["app/Http/Controllers/Admin/PlateController.php","CRUD dei piatti di un ristorante. Controlla che il ristorante sia di chi è loggato.","Mario prova ad aprire i piatti di un concorrente: vede la pagina 'notYours' invece dei piatti.",["Slug","È tuo?","Sì: lista piatti","No: notYours"],["app/Plate.php","resources/views/admin/plates","resources/views/admin/notYours"]],
+["app/Http/Controllers/Admin/OrderController.php","Mostra al ristoratore gli ordini ricevuti (5 per pagina) e il dettaglio di uno.","Apri 'Ordini': vedi i più recenti per primi, clicca uno per vedere i piatti ordinati.",["Slug","Order::where","admin.orders.index"],["app/Order.php","resources/views/admin/orders"]],
+["app/Http/Controllers/Admin/StatsController.php","Prepara i dati per la pagina statistiche: passa tutti gli ordini del ristorante alla vista.","La vista li trasforma in grafici con Chart.js.",["Ordini","json","chart.js","Grafici"],["resources/js/jsBack/chart.js","resources/views/admin/stats/show.blade.php"]],
+["app/Http/Controllers/Api","Controller che rispondono in JSON (dati puri) al sito Vue.","Vue chiede /api/types e riceve la lista dei tipi di cucina.",["Vue (axios)","Api Controller","JSON"],["routes/api.php","resources/js/store.js"]],
+["app/Http/Controllers/Api/TypeController.php","Restituisce tutti i tipi di cucina (pizza, sushi…).","GET /api/types → {types:[{id:1,name:'Pizza'}, …]}",["GET /api/types","Type::all()","JSON"],["app/Type.php"]],
+["app/Http/Controllers/Api/RestaurantController.php","Tre servizi: i 12 ristoranti meglio votati, i ristoranti per tipo (4 per pagina), il menu di un ristorante.","GET /api/restaurants/1,3 → ristoranti che sono di tipo 1 o 3.",["tipi scelti","whereHas types","paginate(4)","JSON"],["app/Restaurant.php","app/Plate.php","app/Rate.php"]],
+["app/Http/Controllers/Api/OrderController.php","Riceve un ordine: controlla i dati, lo salva, collega i piatti, manda la mail di conferma.","POST /api/orders con nome, email, indirizzo e piatti → ordine salvato e mail al cliente.",["POST /orders","validate","Order + plates","Mail"],["app/Order.php","app/Mail/OrderedMessage.php"]],
+["app/Http/Controllers/Auth","Login, registrazione e recupero password (generati da laravel/ui).","",["Form login","LoginController","Sessione"],["resources/views/auth"]],
+["app/Http/Controllers/Auth/LoginController.php","Fa entrare l'utente con email e password.","Dopo il login vai in /admin."],
+["app/Http/Controllers/Auth/RegisterController.php","Crea un nuovo account ristoratore.","Nome, email, password → nuova riga in users."],
+["app/Http/Controllers/Auth/ForgotPasswordController.php","Manda l'email per reimpostare la password.",""],
+["app/Http/Controllers/Auth/ResetPasswordController.php","Salva la nuova password dopo il link ricevuto per email.",""],
+["app/Http/Controllers/Auth/ConfirmPasswordController.php","Chiede di nuovo la password prima di azioni delicate.",""],
+["app/Http/Controllers/Auth/VerificationController.php","Verifica l'email dell'utente (funzione standard Laravel).",""],
+["app/Http/Middleware","I 'buttafuori': filtri che ogni richiesta attraversa prima di arrivare al controller.","Authenticate controlla che tu sia loggato prima di entrare in /admin.",["Richiesta","Middleware","Controller"]],
+["app/Http/Middleware/Authenticate.php","Se non sei loggato ti manda al login.","Apri /admin senza login → vieni portato su /login."],
+["app/Http/Middleware/RedirectIfAuthenticated.php","Se sei già loggato e apri /login ti rimanda altrove.",""],
+["app/Http/Middleware/CheckForMaintenanceMode.php","Mostra 'sito in manutenzione' quando l'app è in modalità manutenzione.",""],
+["app/Http/Middleware/EncryptCookies.php","Cifra i cookie.",""],
+["app/Http/Middleware/TrimStrings.php","Toglie gli spazi inutili dai testi dei form.","'  Mario ' diventa 'Mario'."],
+["app/Http/Middleware/TrustHosts.php","Elenca gli host fidati.",""],
+["app/Http/Middleware/TrustProxies.php","Dice a Laravel di fidarsi dei proxy (utile su Render).",""],
+["app/Http/Middleware/VerifyCsrfToken.php","Protegge i form da invii falsi (token CSRF).","Ogni form Blade ha @csrf: senza, Laravel rifiuta l'invio."],
+["app/Mail","Le email inviate dal sito.","",null,["resources/views/mails"]],
+["app/Mail/OrderedMessage.php","L'email di conferma ordine: prende i dati del cliente e li mette nel modello mails/orderedMessage.","Dopo il pagamento il cliente riceve 'Grazie Mario, il tuo ordine è in arrivo'.",["Dati ordine","OrderedMessage","Template mail","Email"],["resources/views/mails/orderedMessage.blade.php","app/Http/Controllers/Api/OrderController.php"]],
+["app/Providers","'Avviatori' dei servizi Laravel. Qui quasi tutto è di default.",""],
+["app/Providers/AppServiceProvider.php","Punto dove registrare servizi dell'app. Vuoto.",""],
+["app/Providers/AuthServiceProvider.php","Qui si definiscono permessi e policy. Vuoto.",""],
+["app/Providers/BroadcastServiceProvider.php","Attiva le notifiche in tempo reale (non usate).",""],
+["app/Providers/EventServiceProvider.php","Collega eventi e reazioni. Di default.",""],
+["app/Providers/RouteServiceProvider.php","Carica i file delle rotte: web.php (sito) e api.php (con prefisso /api).","Per questo gli indirizzi in api.php iniziano con /api."],
+["app/User.php","Modello dell'utente/ristoratore (tabella users).","Un utente possiede un ristorante.",["User","1 → 1","Restaurant"],["app/Restaurant.php"]],
+["app/Restaurant.php","Modello di un ristorante. Sa quali piatti, voti, ordini, tipi di cucina e proprietario ha.","$restaurant->plates restituisce i suoi piatti.",["Restaurant","ha molti","Plate · Rate · Order"],["app/Plate.php","app/Rate.php","app/Order.php","app/Type.php","app/User.php"]],
+["app/Plate.php","Modello di un piatto: nome, ingredienti, prezzo, visibile sì/no. Appartiene a un ristorante.","Plate::where('restaurant_id', 3)->get() → menu del ristorante 3.",null,["app/Restaurant.php","app/Order.php"]],
+["app/Order.php","Modello di un ordine: dati cliente, prezzo, ristorante e piatti ordinati.","$order->plates → i piatti dentro quell'ordine.",["Order","molti ↔ molti","Plate"],["app/Plate.php","app/Restaurant.php"]],
+["app/Type.php","Modello del tipo di cucina (Pizza, Sushi…). Senza date.","$type->restaurants → tutti i ristoranti di pizza.",null,["app/Restaurant.php"]],
+["app/Rate.php","Modello di un voto (da 1 a 5) dato a un ristorante.","Se un ristorante ha voti 4,5,5 la media è 4.67 e finisce tra i migliori.",null,["app/Restaurant.php"]],
+
+/* ---------- BOOTSTRAP / CONFIG ---------- */
+["bootstrap","Avvia Laravel.",""],
+["bootstrap/app.php","Crea l'applicazione Laravel: è il primo file che costruisce tutto.",""],
+["bootstrap/cache","Cartella per cache generate da Laravel (vuota su Git).",""],
+["config","Le impostazioni dell'app, un file per argomento. Molti valori vengono da .env.","config/mail.php dice come inviare le email.",["Valori in .env","config/*.php","Laravel"],[".env.example"]],
+["config/app.php","Impostazioni generali: nome, lingua, fuso orario, servizi caricati.",""],
+["config/auth.php","Come funziona il login (guardie, tabella users).",""],
+["config/broadcasting.php","Notifiche in tempo reale (Pusher). Non usate.",""],
+["config/cache.php","Dove salvare la cache.",""],
+["config/cors.php","Chi può chiamare le API da altri siti (CORS).",""],
+["config/database.php","Come collegarsi al database (MySQL, SQLite…).","Su Render usa SQLite, in locale di solito MySQL."],
+["config/filesystems.php","Dove salvare i file caricati (immagini).",""],
+["config/hashing.php","Come cifrare le password.",""],
+["config/logging.php","Dove scrivere i log degli errori.",""],
+["config/mail.php","Come inviare le email (server SMTP, mittente).",""],
+["config/queue.php","Code di lavori in background.",""],
+["config/services.php","Chiavi di servizi esterni.",""],
+["config/session.php","Come ricordare l'utente loggato.",""],
+["config/view.php","Dove stanno le viste Blade.",""],
+
+/* ---------- DATABASE ---------- */
+["database","Struttura e dati iniziali del database.","",["migrations","tabelle","seeds","dati di prova"]],
+["database/factories","Fabbriche di dati finti.",""],
+["database/factories/UserFactory.php","Genera utenti finti per i test.",""],
+["database/migrations","Istruzioni, in ordine di data, che creano e modificano le tabelle.","php artisan migrate le esegue una dopo l'altra.",["2014 users","2021 plates","restaurants","…","rates"],["db structure.webp"]],
+["database/migrations/2014_10_12_000000_create_users_table.php","Crea la tabella users (i ristoratori).",""],
+["database/migrations/2014_10_12_100000_create_password_resets_table.php","Tabella per i token di reset password.",""],
+["database/migrations/2019_08_19_000000_create_failed_jobs_table.php","Tabella dei lavori in background falliti.",""],
+["database/migrations/2021_07_07_233403_create_plates_table.php","Crea plates: nome, slug, ingredienti, descrizione, visibile, prezzo, immagine.",""],
+["database/migrations/2021_07_08_171014_create_restaurants_table.php","Crea restaurants: nome unico, slug, telefono, città, indirizzo, immagine.",""],
+["database/migrations/2021_07_08_172446_create_types_table.php","Crea types: nome e immagine del tipo di cucina.",""],
+["database/migrations/2021_07_08_172627_create_orders_table.php","Crea orders: prezzo e dati del cliente.",""],
+["database/migrations/2021_07_08_203752_update_plates_table.php","Aggiunge a plates la chiave restaurant_id (il piatto appartiene a un ristorante).",""],
+["database/migrations/2021_07_08_220428_update_orders__table.php","Aggiunge a orders la chiave restaurant_id.",""],
+["database/migrations/2021_07_08_221924_update_restaurants_table.php","Aggiunge a restaurants la chiave user_id (chi lo possiede).",""],
+["database/migrations/2021_07_08_225714_create_order_plate_table.php","Tabella ponte: quali piatti sono in quale ordine.","Ordine 7 = piatto 2 + piatto 5 → due righe in order_plate."],
+["database/migrations/2021_07_08_231633_create_restaurant_type_table.php","Tabella ponte: quali tipi di cucina ha un ristorante.",""],
+["database/migrations/2021_08_03_201333_create_rates_table.php","Crea rates: il voto (numero).",""],
+["database/migrations/2021_08_03_201727_update_rates_table.php","Aggiunge a rates la chiave restaurant_id.",""],
+["database/seeds","Riempiono il database con dati di prova.","php artisan db:seed → ristoranti, piatti e voti pronti.",["DatabaseSeeder","chiama","gli altri seeder"]],
+["database/seeds/DatabaseSeeder.php","Direttore d'orchestra: chiama gli altri seeder nell'ordine giusto.",""],
+["database/seeds/UsersTableSeeder.php","Crea utenti ristoratori di prova.",""],
+["database/seeds/RestaurantsTableSeeder.php","Crea ristoranti di prova.",""],
+["database/seeds/TypesTableSeeder.php","Crea i tipi di cucina.",""],
+["database/seeds/PlatesTableSeeder.php","Crea tanti piatti di prova con descrizione e foto.",""],
+["database/seeds/OrdersTableSeeder.php","Crea ordini di prova (per i grafici).",""],
+["database/seeds/RatesTableSeeder.php","Crea voti di prova.",""],
+
+/* ---------- PUBLIC ---------- */
+["public","L'unica cartella visibile dal browser. Contiene i file compilati e le immagini.","Il browser scarica /js/vue.js da qui.",["Browser","public/","file"]],
+["public/index.php","Porta d'ingresso di Laravel: ogni richiesta passa da qui.",""],
+["public/.htaccess","Regole Apache: manda tutto a index.php.",""],
+["public/web.config","Stesso lavoro di .htaccess ma per server IIS.",""],
+["public/robots.txt","Istruzioni per i motori di ricerca.",""],
+["public/favicon.ico","L'iconcina nella scheda del browser.",""],
+["public/mix-manifest.json","Elenco dei file compilati da Laravel Mix.",""],
+["public/css","CSS compilato.",""],
+["public/css/app.css","Stile compilato da resources/sass/app.scss. NON modificarlo a mano.",""],
+["public/js","JavaScript compilato da resources/js. NON modificarlo a mano.","",null,["webpack.mix.js"]],
+["public/js/vue.js","Il sito dei clienti (la SPA Vue) già compilato. Caricato da guest/home.blade.php.","",["resources/js/vue.js","Mix","public/js/vue.js"],["resources/js/vue.js"]],
+["public/js/app.js","Compilato da resources/js/app.js: carica bootstrap per le pagine admin.",""],
+["public/js/chart.js","Compilato da jsBack/chart.js: disegna i grafici admin.",""],
+["public/js/confDelete.js","Compilato da jsBack/confDelete.js: finestra 'sei sicuro?' prima di eliminare.",""],
+["public/js/logListen.js","Compilato da jsBack/logListen.js: ricorda il login appena fatto.",""],
+["public/images","Immagini del sito (logo e foto piatti).",""],
+
+/* ---------- RESOURCES ---------- */
+["resources","Il materiale 'grezzo': JS, stili e pagine Blade, prima della compilazione.","Modifichi qui, poi npm run dev crea la versione in public/.",["resources/","Mix","public/"]],
+["resources/js","Il front-end dei clienti (Vue 2) e script per l'admin.","",["vue.js","App.vue","routes + store","pages + components"],["resources/js/vue.js","resources/js/pages","resources/js/components"]],
+["resources/js/vue.js","L'accensione del sito Vue: crea l'app, collega router, store e Bootstrap e la monta su #root.","Senza questo file la pagina guest/home resterebbe bianca.",["#root","new Vue","App.vue"],["resources/js/App.vue","resources/js/routes.js","resources/js/store.js","resources/views/guest/home.blade.php"]],
+["resources/js/App.vue","Lo scheletro del sito: Header in alto, la pagina scelta dal router, Content e Footer. All'avvio scarica i tipi di cucina.","",["Header","router-view","Content","Footer"],["resources/js/components/Header.vue","resources/js/routes.js"]],
+["resources/js/app.js","Carica solo bootstrap.js. Serve alle pagine admin Blade.",""],
+["resources/js/bootstrap.js","Prepara librerie base (axios, jQuery, Bootstrap).",""],
+["resources/js/routes.js","La 'cartina' del sito: ogni indirizzo mostra una pagina Vue (home, menu, carrello, pagamento, successo, 404).","/your-cart mostra Cart.vue senza ricaricare la pagina.",["URL","routes.js","pagina .vue"],["resources/js/pages"]],
+["resources/js/routes copy.js","Vecchia copia di routes.js. NON è usata: si può cancellare.",""],
+["resources/js/store.js","La memoria condivisa (Vuex): carrello, tipi scelti, ristoranti, paginazione. Chiama le API e ricorda il carrello anche dopo il refresh.","Clicchi 'aggiungi' su una pizza: addPlate la mette in cart e il totale si aggiorna ovunque.",["Pagina","mutation","state","tutte le pagine"],["routes/api.php","resources/js/pages/Cart.vue"]],
+["resources/js/components","Pezzi riutilizzabili dell'interfaccia (header, footer, schede).","Plate.vue è la scheda di un piatto, usata in tutti i menu.",null,["resources/js/App.vue"]],
+["resources/js/components/Header.vue","Barra in alto con logo, carrello e menu.",""],
+["resources/js/components/Footer.vue","Fondo pagina.",""],
+["resources/js/components/Hamburger.vue","Bottone a tre linee che apre il menu su telefono.",""],
+["resources/js/components/Menumobile.vue","Menu a tendina per schermi piccoli.",""],
+["resources/js/components/Jumbotron.vue","Grande banner di benvenuto in home.",""],
+["resources/js/components/Content.vue","Griglia dei tipi di cucina: clicchi per selezionarli.","Clicchi 'Pizza' e 'Sushi': lo store li memorizza e la ricerca parte.",["click tipo","addType","getRestaurants"],["resources/js/store.js"]],
+["resources/js/components/TypeComp.vue","Singolo tipo di cucina.",""],
+["resources/js/components/TypeSelection.vue","Mostra i tipi scelti e il tasto per cercare.",""],
+["resources/js/components/RestByTypes.vue","Elenco dei ristoranti trovati per i tipi scelti.",""],
+["resources/js/components/TopRated.vue","Carosello dei ristoranti meglio votati.",""],
+["resources/js/components/StarsBox.vue","Disegna le stelline del voto.","Media 4.2 → 4 stelle piene."],
+["resources/js/components/Plate.vue","Scheda di un piatto con prezzo e tasto per aggiungerlo al carrello.",""],
+["resources/js/components/PaginateEl.vue","Pulsanti 'pagina 1 2 3' per sfogliare le liste.",""],
+["resources/js/components/Warning.vue","Avviso: puoi ordinare da un solo ristorante per volta.","Hai pizza da Mario e provi ad aggiungere sushi da Yuki: compare l'avviso."],
+["resources/js/pages","Le schermate del sito: una per indirizzo.","",["routes.js","→","pages/*.vue"],["resources/js/routes.js"]],
+["resources/js/pages/Home.vue","Pagina iniziale: banner, tipi di cucina e migliori ristoranti.",""],
+["resources/js/pages/singleTypeRest.vue","Elenco dei ristoranti di UN tipo scelto.",""],
+["resources/js/pages/RestMenu.vue","Pagina di un ristorante: dettagli, media voti e menu paginato.","Clicchi 'Da Mario' e vedi i suoi piatti, 4 per pagina."],
+["resources/js/pages/Cart.vue","Il carrello: porzioni +/−, totale, svuota, vai a pagare.","Aumenti a 2 le margherite: totale = 2 × prezzo.",["Piatti nello store","Cart.vue","Checkout"],["resources/js/store.js","resources/js/pages/Payment.vue"]],
+["resources/js/pages/Payment.vue","Form dati cliente + carta (Braintree). Se tutto va bene invia l'ordine a /api/orders.","Mario inserisce nome, indirizzo e carta → ordine salvato → pagina di successo.",["Form","Braintree","POST /api/orders","Success"],["app/Http/Controllers/Api/OrderController.php","resources/js/pages/SuccessPage.vue"]],
+["resources/js/pages/SuccessPage.vue","'Pagamento riuscito, ordine confermato'.",""],
+["resources/js/pages/NotFound.vue","Pagina 404 per indirizzi inesistenti.",""],
+["resources/js/jsBack","Piccoli script per il pannello admin (Blade).",""],
+["resources/js/jsBack/chart.js","Disegna i grafici delle statistiche (spese, clienti top, incassi per mese) con Chart.js.","Calcola la spesa media e la mostra sopra il grafico.",["relatedOrders","chart.js","Grafici"],["resources/views/admin/stats/show.blade.php"]],
+["resources/js/jsBack/confDelete.js","Mostra la finestra 'Sei sicuro di eliminare?' prima di cancellare.","Clicchi 'Elimina': appare la finestra; solo con 'Sì' il form parte.",["Elimina","finestra","Sì → invia"],["resources/views/layouts/deleteConfirm.blade.php"]],
+["resources/js/jsBack/logListen.js","Ricorda che hai appena fatto login e mostra il messaggio 'sei entrato' una volta.",""],
+["resources/js/img","Immagini usate nel front-end Vue.",""],
+["resources/lang","Testi tradotti dei messaggi di Laravel.",""],
+["resources/lang/en","Messaggi in inglese (login, validazione, paginazione).","'The name field is required.' viene da validation.php."],
+["resources/sass","Stili SCSS (CSS con superpoteri): variabili, mixin, reset.","Se cambi il colore in _variables.scss cambia in tutto il sito.",["SCSS","Mix","public/css/app.css"]],
+["resources/sass/app.scss","File principale degli stili: importa tutti gli altri.",""],
+["resources/sass/_variables.scss","Colori e misure riusabili.",""],
+["resources/sass/_mixins.scss","Pezzetti di stile riutilizzabili.",""],
+["resources/sass/_reset.scss","Azzera gli stili di base del browser.",""],
+["resources/sass/_utilities.scss","Classi di utilità (es. nascondi).",""],
+["resources/sass/_animations.scss","Animazioni.",""],
+["resources/sass/_paginationEl.scss","Stile dei pulsanti di paginazione.",""],
+["resources/sass/_deleteConfirm.scss","Stile della finestra 'sei sicuro?'.",""],
+["resources/views","Le pagine Blade (HTML con un po' di PHP) generate dal server.","",null,["resources/views/layouts"]],
+["resources/views/guest","La pagina dei clienti.",""],
+["resources/views/guest/home.blade.php","Pagina quasi vuota con un <div id=\"root\">: dentro Vue costruisce tutto il sito.","Qualsiasi indirizzo non /admin porta qui, poi Vue Router decide cosa mostrare.",["Browser","home.blade","vue.js","SPA"],["resources/js/vue.js","routes/web.php"]],
+["resources/views/layouts","Cornici comuni delle pagine admin.",""],
+["resources/views/layouts/app.blade.php","Cornice admin: barra con logo, Login/Logout, link ai ristoranti.","Le pagine admin iniziano con @extends('layouts.app')."],
+["resources/views/layouts/logged.blade.php","Variante di cornice per utente loggato.",""],
+["resources/views/layouts/deleteConfirm.blade.php","Finestra 'sei sicuro di eliminare?' + script confDelete.",""],
+["resources/views/mails","Modelli delle email.",""],
+["resources/views/mails/orderedMessage.blade.php","L'HTML dell'email di conferma ordine.","",null,["app/Mail/OrderedMessage.php"]],
+["resources/views/auth","Pagine di login, registrazione e password.",""],
+["resources/views/auth/login.blade.php","Form di login.",""],
+["resources/views/auth/register.blade.php","Form di registrazione.",""],
+["resources/views/auth/verify.blade.php","Pagina 'verifica la tua email'.",""],
+["resources/views/auth/passwords","Pagine per password dimenticata.",""],
+["resources/views/auth/passwords/email.blade.php","Chiedi il link di reset.",""],
+["resources/views/auth/passwords/reset.blade.php","Scegli la nuova password.",""],
+["resources/views/auth/passwords/confirm.blade.php","Conferma la password.",""],
+["resources/views/admin","Le pagine del pannello ristoratore.","",["Controller Admin","view()","Blade"],["app/Http/Controllers/Admin"]],
+["resources/views/admin/home.blade.php","Home admin (non usata: la home è la lista ristoranti).",""],
+["resources/views/admin/restaurants","Pagine ristoranti: lista, crea, mostra, modifica.",""],
+["resources/views/admin/restaurants/index.blade.php","Lista dei TUOI ristoranti con link a piatti, ordini e statistiche.",""],
+["resources/views/admin/restaurants/create.blade.php","Form per creare un ristorante.",""],
+["resources/views/admin/restaurants/edit.blade.php","Form per modificare un ristorante.",""],
+["resources/views/admin/restaurants/show.blade.php","Dettaglio di un ristorante.",""],
+["resources/views/admin/plates","Pagine piatti.",""],
+["resources/views/admin/plates/index.blade.php","Lista piatti del ristorante (4 per pagina).",""],
+["resources/views/admin/plates/create.blade.php","Form per creare un piatto.",""],
+["resources/views/admin/plates/edit.blade.php","Form per modificare un piatto.",""],
+["resources/views/admin/plates/show.blade.php","Dettaglio di un piatto.",""],
+["resources/views/admin/orders","Pagine ordini.",""],
+["resources/views/admin/orders/index.blade.php","Lista ordini ricevuti, i più recenti per primi.",""],
+["resources/views/admin/orders/show.blade.php","Dettaglio ordine: cliente e piatti.",""],
+["resources/views/admin/stats","Pagine statistiche.",""],
+["resources/views/admin/stats/show.blade.php","Pagina con i grafici. Passa gli ordini a JavaScript con json_encode.",""],
+["resources/views/admin/notYours","Pagine 'non è roba tua'.",""],
+["resources/views/admin/notYours/orders.blade.php","Avviso: non puoi vedere gli ordini di un altro.",""],
+["resources/views/admin/notYours/plate.blade.php","Avviso: non puoi vedere i piatti di un altro.",""],
+["resources/views/admin/notYours/restaurant.blade.php","Avviso: non puoi vedere il ristorante di un altro.",""],
+
+/* ---------- ROUTES ---------- */
+["routes","Le 'strade' dell'app: quale indirizzo porta a quale controller.","",["URL","routes/*.php","Controller"]],
+["routes/web.php","Rotte delle pagine: login, area /admin (protetta) e una rotta 'prendi-tutto' che serve il sito Vue.","/admin/plates/pizzeria-da-mario → PlateController@index. Ogni altro URL → home Vue.",["URL","web.php","Controller o home Vue"],["app/Http/Controllers/Admin","resources/views/guest/home.blade.php"]],
+["routes/api.php","Rotte dei dati JSON (prefisso /api): tipi, ristoranti migliori, ristoranti per tipo, menu, nuovo ordine.","POST /api/orders → Api\\OrderController@store.",["Vue (axios)","api.php","Api Controller"],["app/Http/Controllers/Api","resources/js/store.js"]],
+["routes/channels.php","Canali per notifiche in tempo reale (non usati).",""],
+["routes/console.php","Comandi artisan scritti come funzioni (non usati).",""],
+
+/* ---------- STORAGE / TESTS ---------- */
+["storage","Cartella dove Laravel scrive: log, cache, file caricati.","Le foto dei ristoranti caricate dall'admin finiscono qui (storage/app/public)."],
+["storage/app","File dell'app.",""],
+["storage/app/public","File pubblici caricati (collegati a public con storage:link).",""],
+["storage/framework","Cache e sessioni.",""],
+["storage/logs","Log degli errori.","Qualcosa non va? Leggi storage/logs/laravel.log."],
+["tests","Test automatici (solo esempi per ora).",""],
+["tests/Feature","Test su funzioni intere.",""],
+["tests/Unit","Test su pezzi piccoli.",""],
+["tests/TestCase.php","Classe base dei test.",""],
+["tests/CreatesApplication.php","Avvia Laravel dentro i test.",""],
+["tests/Feature/ExampleTest.php","Test di esempio (non testa il progetto).",""],
+["tests/Unit/ExampleTest.php","Test di esempio.",""]
+];
+
+/* =====================================================================
+   3) COSTRUZIONE ALBERO E INFO (con regole di riserva)
+   ===================================================================== */
+const INFO = {};
+D.forEach(([p,t,ex,flow,links])=>{INFO[p]={t,ex,flow,links}});
+
+const imgNames = {
+ "logo.png":"Logo del sito.","logoColBrand.png":"Logo colorato usato nella barra admin.","picchiapo.webp":"Foto di prova.",
+ "PorkBellyGyro.webp":"Foto di un piatto di esempio.","SoftshellCrab.webp":"Foto di un piatto di esempio.",
+ "TurkishGrilledCheese.webp":"Foto di un piatto di esempio.","Italian Pecorino, Parsley Sandwich.webp":"Foto di un piatto di esempio."
+};
+function fallback(p,isDir){
+  const name=p.split("/").pop();
+  if(name===".gitignore") return {t:"Dice a Git di non salvare i file in questa cartella; serve a far esistere la cartella anche se vuota.",ex:"",flow:null,links:[]};
+  if(p.startsWith("resources/lang/en/")){ const m={"auth.php":"Messaggi di login ('credenziali errate').","pagination.php":"Testi 'Precedente' / 'Successivo'.","passwords.php":"Messaggi del reset password.","validation.php":"Messaggi di errore dei form, es. 'campo obbligatorio'."}; return {t:m[name]||"Testi tradotti.",ex:"",flow:null,links:[]}; }
+  if(p.startsWith("storage/framework/")) return {t:({"cache":"Cache dei dati.","cache/data":"File di cache.","sessions":"Sessioni degli utenti loggati.","testing":"File temporanei dei test.","views":"Viste Blade compilate."})[p.slice(18)]||"Cartella di lavoro di Laravel.",ex:"",flow:null,links:[]};
+  if(p.startsWith("public/images/")) return {t:imgNames[name]||"Immagine.",ex:"",flow:null,links:[]};
+  if(p.startsWith("resources/js/img/")) return {t:"Immagine usata dal front-end Vue.",ex:"",flow:null,links:[]};
+  if(isDir) return {t:"Cartella.",ex:"",flow:null,links:[]};
+  return {t:"File di supporto del progetto.",ex:"",flow:null,links:[]};
+}
+
+const root={name:"deliveBoo",path:"",dir:true,kids:[]};
+const byPath={"":root};
+function ensureDir(p){
+  if(byPath[p]) return byPath[p];
+  const i=p.lastIndexOf("/"), parent=ensureDir(i<0?"":p.slice(0,i));
+  const n={name:p.slice(i+1),path:p,dir:true,kids:[]}; parent.kids.push(n); byPath[p]=n; return n;
+}
+FILES.forEach(f=>{
+  const i=f.lastIndexOf("/"), parent=ensureDir(i<0?"":f.slice(0,i));
+  const n={name:f.slice(i+1),path:f,dir:false}; parent.kids.push(n); byPath[f]=n;
+});
+(function sort(n){ if(!n.dir)return;
+  n.kids.sort((a,b)=>(b.dir-a.dir)||a.name.localeCompare(b.name,"en",{sensitivity:"base"})); n.kids.forEach(sort);})(root);
+function info(p){ const n=byPath[p]; return INFO[p]||fallback(p,n&&n.dir); }
+
+/* ---- icone colorate per estensione ---- */
+function icon(n){
+  if(n.dir) return `<span class="ic" style="background:#d9a441">▤</span>`;
+  const e=(n.name.split(".").pop()||"").toLowerCase();
+  const m={php:["PHP","#7a86b8"],js:["JS","#cba800"],vue:["V","#41b883"],scss:["S","#cc6699"],json:["{}","#8a8a2a"],md:["M↓","#4a90d9"],
+   html:["<>","#e44d26"],png:["▣","#8e6bc2"],webp:["▣","#8e6bc2"],ico:["▣","#8e6bc2"],yml:["Y","#cb171e"],yaml:["Y","#cb171e"],sh:["$","#4eaa25"],xml:["X","#e37933"],
+   lock:["🔒","#777"],txt:["T","#888"],config:["C","#888"]}[e];
+  if(n.name==="Dockerfile") return `<span class="ic" style="background:#2496ed">D</span>`;
+  const [t,c]=m||[e.slice(0,2).toUpperCase()||"·","#888"];
+  return `<span class="ic" style="background:${c}">${t}</span>`;
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* =====================================================================
+   4) ALBERO (sidebar)
+   ===================================================================== */
+const treeEl=document.getElementById("tree"), docEl=document.getElementById("doc");
+const nodeEls={};
+function buildTree(n,depth,parentEl){
+  const li=document.createElement("div"); li.className="item"; li.dataset.p=n.path;
+  const row=document.createElement("div"); row.className="row"; row.tabIndex=0; row.setAttribute("role","treeitem");
+  row.style.paddingLeft=(8+depth*14)+"px";
+  row.innerHTML=`<span class="chev">${n.dir?"›":""}</span>${icon(n)}<span class="nm">${esc(n.name)}</span>`;
+  li.appendChild(row); parentEl.appendChild(li); nodeEls[n.path]={li,row,n};
+  if(n.dir){
+    const k=document.createElement("div"); k.className="kids"; li.appendChild(k);
+    n.kids.forEach(c=>buildTree(c,depth+1,k));
+  }
+  row.addEventListener("click",()=>{ if(n.dir) li.classList.toggle("open"); select(n.path,true); });
+  row.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();row.click();}
+    if(e.key==="ArrowRight"&&n.dir)li.classList.add("open"); if(e.key==="ArrowLeft"&&n.dir)li.classList.remove("open");});
+}
+treeEl.innerHTML='<div class="cap">DELIVEBOO</div>';
+const rootWrap=document.createElement("div"); treeEl.appendChild(rootWrap);
+root.kids.forEach(c=>buildTree(c,0,rootWrap));
+
+function openTo(p){
+  let cur=p; while(cur){ const i=cur.lastIndexOf("/"); cur=i<0?"":cur.slice(0,i); if(cur&&nodeEls[cur]) nodeEls[cur].li.classList.add("open"); else if(!cur)break;}
+}
+let selected=null;
+function select(p,fromTree){
+  if(!byPath[p]) p="";
+  if(selected&&nodeEls[selected]) nodeEls[selected].row.classList.remove("sel");
+  selected=p;
+  if(p!==""){ openTo(p); const ne=nodeEls[p]; ne.row.classList.add("sel"); if(!fromTree) ne.row.scrollIntoView({block:"nearest"});
+    if(byPath[p].dir && !fromTree) ne.li.classList.add("open"); }
+  docEl.innerHTML=renderCard(p); docEl.scrollTop=0;
+  history.replaceState(null,"","#"+encodeURIComponent(p));
+}
+
+/* =====================================================================
+   5) PANNELLO DI SPIEGAZIONE
+   ===================================================================== */
+function renderFlow(flow){
+  if(!flow||!flow.length) return "";
+  return `<div class="box"><h3>Schema</h3><div class="flow">${flow.map((s,i)=>
+    (i?`<span class="arrow">→</span>`:"")+`<span class="step">${esc(s)}</span>`).join("")}</div></div>`;
+}
+function chip(p){ const n=byPath[p]; const label=p===""?"progetto":(n?n.name:p);
+  return `<button class="chip" data-go="${esc(p)}" title="${esc(p)}">${esc(label)}</button>`; }
+function renderCard(p){
+  const n=byPath[p], I=info(p), parts=p?p.split("/"):[];
+  const crumbs=[`<a data-go="">deliveBoo</a>`].concat(parts.map((s,i)=>{
+    const sub=parts.slice(0,i+1).join("/"); return i===parts.length-1?`<span>${esc(s)}</span>`:`<a data-go="${esc(sub)}">${esc(s)}</a>`;}));
+  let h=`<div class="card"><div class="crumbs">${crumbs.join(" / ")}</div>
+   <div class="title"><h2>${esc(p?n.name:"Tutto il progetto")}</h2><span class="badge">${n.dir?"cartella":"file"}</span></div>
+   <p class="lead">${esc(I.t)}</p>`;
+  if(I.ex) h+=`<div class="box ex"><h3>Esempio</h3><p>${esc(I.ex)}</p></div>`;
+  h+=renderFlow(I.flow);
+  if(n.dir&&n.kids.length){
+    h+=`<div class="box"><h3>Dentro c'è (${n.kids.length})</h3><div class="kidlist">`+n.kids.map(k=>
+      `<button class="kid" data-go="${esc(k.path)}"><b>${k.dir?"▸ ":""}${esc(k.name)}</b><span>${esc(info(k.path).t)}</span></button>`).join("")+`</div></div>`;
+  }
+  const links=(I.links||[]).filter(x=>byPath[x]!==undefined);
+  if(links.length) h+=`<div class="box"><h3>Guarda anche</h3><div class="chips">${links.map(chip).join("")}</div></div>`;
+  return h+"</div>";
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-go]"); if(!t) return;
+  e.preventDefault(); show("files"); select(t.dataset.go,false);
+});
+
+/* ---- ricerca ---- */
+document.getElementById("q").addEventListener("input",e=>{
+  const q=e.target.value.trim().toLowerCase();
+  Object.values(nodeEls).forEach(({li,row,n})=>{
+    const nm=row.querySelector(".nm"); nm.innerHTML=esc(n.name);
+  });
+  if(!q){ Object.values(nodeEls).forEach(({li})=>{li.style.display="";}); return; }
+  const keep=new Set();
+  FILES.forEach(f=>{ if(f.toLowerCase().includes(q)){ let c=f; keep.add(c); while(c.includes("/")){c=c.slice(0,c.lastIndexOf("/")); keep.add(c);} }});
+  Object.entries(nodeEls).forEach(([p,{li,row,n}])=>{
+    const ok=keep.has(p); li.style.display=ok?"":"none";
+    if(ok&&n.dir) li.classList.add("open");
+    if(ok&&n.name.toLowerCase().includes(q)){ const i=n.name.toLowerCase().indexOf(q);
+      row.querySelector(".nm").innerHTML=esc(n.name.slice(0,i))+`<span class="hl">${esc(n.name.slice(i,i+q.length))}</span>`+esc(n.name.slice(i+q.length)); }
+  });
+});
+
+/* =====================================================================
+   6) GRAFO
+   ===================================================================== */
+const GROUPS={user:["Persone","--c-user"],front:["Sito clienti (Vue)","--c-front"],api:["API (dati JSON)","--c-api"],
+  admin:["Pannello ristoratore (Blade)","--c-admin"],model:["Modelli / Database","--c-model"],ext:["Servizi esterni","--c-ext"],build:["Build e deploy","--c-build"]};
+const COLX={A:10,B:175,C:430,D:620,E:850,F:1030}, W={A:120,B:200,C:150,D:190,E:130,F:150}, H=50;
+const N=[
+ // id, col, y, label, sub, group, infoKey
+ ["cli","A",70,"Cliente","apre il sito dal browser","user","@cli"],
+ ["home","B",20,"guest/home.blade.php","pagina con #root vuoto","front","resources/views/guest/home.blade.php"],
+ ["vue","B",85,"vue.js + App.vue","avvia la SPA","front","resources/js/vue.js"],
+ ["rout","B",150,"routes.js","indirizzo → pagina","front","resources/js/routes.js"],
+ ["pages","B",215,"pages/ + components/","le schermate","front","resources/js/pages"],
+ ["store","B",280,"store.js (Vuex)","carrello e stato","front","resources/js/store.js"],
+ ["apir","C",150,"routes/api.php","indirizzi dei dati","api","routes/api.php"],
+ ["apic","D",150,"Controllers/Api","Type · Restaurant · Order","api","app/Http/Controllers/Api"],
+ ["rist","A",450,"Ristoratore","gestisce il suo locale","user","@rist"],
+ ["webr","C",420,"routes/web.php","/admin e catch-all","admin","routes/web.php"],
+ ["adc","D",400,"Controllers/Admin","Restaurant · Plate · Order · Stats","admin","app/Http/Controllers/Admin"],
+ ["auth","D",480,"Controllers/Auth","login e registrazione","admin","app/Http/Controllers/Auth"],
+ ["views","B",440,"views/ (Blade)","admin, auth, layouts","admin","resources/views/admin"],
+ ["chart","B",520,"jsBack/chart.js","grafici statistiche","admin","resources/js/jsBack/chart.js"],
+ ["rest","E",60,"Restaurant","ristorante","model","app/Restaurant.php"],
+ ["plate","E",125,"Plate","piatto","model","app/Plate.php"],
+ ["order","E",190,"Order","ordine","model","app/Order.php"],
+ ["type","E",255,"Type","tipo di cucina","model","app/Type.php"],
+ ["rate","E",320,"Rate","voto","model","app/Rate.php"],
+ ["user","E",385,"User","ristoratore","model","app/User.php"],
+ ["db","F",230,"Database","MySQL / SQLite","model","database"],
+ ["mail","F",340,"OrderedMessage","email di conferma","ext","app/Mail/OrderedMessage.php"],
+ ["bt","F",60,"Braintree","pagamento con carta","ext","@bt"],
+ ["mix","B",630,"webpack.mix.js","compila JS e SCSS","build","webpack.mix.js"],
+ ["pub","C",630,"public/js · css","file pronti per il browser","build","public"],
+ ["dock","D",630,"Dockerfile","contenitore del sito","build","Dockerfile"],
+ ["rndr","E",630,"render.yaml","pubblica su Render","build","render.yaml"],
+];
+const E=[
+ ["cli","home",""],["home","vue",""],["vue","rout",""],["rout","pages",""],["pages","store",""],
+ ["store","apir","axios"],["apir","apic",""],["pages","bt","paga con carta"],
+ ["apic","rest",""],["apic","plate",""],["apic","type",""],["apic","order",""],["apic","rate",""],
+ ["apic","mail","invia email"],["order","mail",""],
+ ["rist","webr","login e /admin"],["webr","adc",""],["webr","auth",""],["adc","views","mostra Blade"],["views","chart",""],
+ ["adc","rest",""],["adc","plate",""],["adc","order",""],["auth","user",""],
+ ["rest","db","SQL"],["plate","db",""],["order","db",""],["type","db",""],["rate","db",""],["user","db",""],
+ ["mix","pub",""],["dock","pub",""],["rndr","dock",""]
+];
+INFO["@cli"]={t:"La persona che ordina. Usa il browser: non vede PHP né database, solo il sito Vue.",ex:"Mario apre deliveboo.it, scegli 'Pizza' e paga.",flow:["Browser","guest/home","Vue SPA"],links:["resources/views/guest/home.blade.php","resources/js/vue.js"]};
+INFO["@rist"]={t:"Chi possiede il ristorante. Entra con email e password in /admin per gestire piatti, ordini e statistiche.",ex:"La pizzeria vede arrivare un ordine e controlla l'incasso del mese.",flow:["/login","/admin","piatti · ordini · stats"],links:["routes/web.php","app/Http/Controllers/Admin"]};
+INFO["@bt"]={t:"Servizio esterno Braintree: trasforma i dati della carta in un codice sicuro (nonce), così il sito non vede mai la carta.",ex:"Mario scrive la carta nel campo Braintree: il sito riceve solo un codice.",flow:["Carta","Braintree","nonce","Payment.vue"],links:["resources/js/pages/Payment.vue"]};
+
+const svg=document.getElementById("svg"), NS="http://www.w3.org/2000/svg";
+const geo={}; N.forEach(n=>{const [id,c,y]=n; geo[id]={x:COLX[c],y,w:W[c],h:H};});
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag); for(const k in attrs)e.setAttribute(k,attrs[k]); (parent||svg).appendChild(e); return e;}
+// aree (corsie)
+[["Sito clienti", 5,5,1170,340],["Pannello ristoratore",5,360,1170,210],["Build e deploy",5,590,1170,110]].forEach(([t,x,y,w,h])=>{
+  el("rect",{class:"lane",x,y:y,width:w,height:h,rx:12}); const tx=el("text",{class:"lanet",x:t==="Pannello ristoratore"?x+12:x+w-12,y:y+18,"text-anchor":t==="Pannello ristoratore"?"start":"end"}); tx.textContent=t.toUpperCase();});
+// sfondo modelli
+el("rect",{x:840,y:35,width:150,height:395,rx:12,fill:"none",stroke:"var(--c-model)","stroke-dasharray":"5 4"});
+el("text",{class:"lanet",x:915,y:50,"text-anchor":"middle"}).textContent="MODELLI ELOQUENT";
+const defs=el("defs",{}); const mk=el("marker",{id:"ah",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"},defs);
+el("path",{d:"M0,0 L10,5 L0,10 z",fill:"var(--mut)"},mk);
+const edgeEls=[];
+E.forEach(([a,b,l])=>{
+  const A=geo[a],B=geo[b]; let x1,y1,x2,y2,d;
+  if(B.x>=A.x+A.w){ x1=A.x+A.w;y1=A.y+A.h/2;x2=B.x;y2=B.y+B.h/2; const m=(x1+x2)/2; d=`M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`; }
+  else if(B.x+B.w<=A.x){ x1=A.x;y1=A.y+A.h/2;x2=B.x+B.w;y2=B.y+B.h/2; const m=(x1+x2)/2; d=`M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`; }
+  else { const down=B.y>A.y; x1=A.x+A.w/2;y1=down?A.y+A.h:A.y;x2=B.x+B.w/2;y2=down?B.y:B.y+B.h; const m=(y1+y2)/2; d=`M${x1},${y1} C${x1},${m} ${x2},${m} ${x2},${y2}`; }
+  const p=el("path",{class:"edge",d,"marker-end":"url(#ah)"});
+  let t=null; if(l){ t=el("text",{class:"elab",x:(x1+x2)/2,y:(y1+y2)/2-3,"text-anchor":"middle"}); t.textContent=l; }
+  edgeEls.push({a,b,p,t});
+});
+const nodeG={};
+N.forEach(([id,c,y,label,sub,grp,key])=>{
+  const g=el("g",{class:"node",tabindex:0,role:"button","aria-label":label+": "+sub}); const {x,w,h}=geo[id];
+  el("rect",{x,y,width:w,height:h,rx:9,stroke:`var(${GROUPS[grp][1]})`},g);
+  el("text",{x:x+w/2,y:y+21,"text-anchor":"middle"},g).textContent=label;
+  el("text",{class:"s",x:x+w/2,y:y+37,"text-anchor":"middle"},g).textContent=sub;
+  nodeG[id]=g;
+  g.addEventListener("mouseenter",()=>focusNode(id)); g.addEventListener("focus",()=>focusNode(id));
+  g.addEventListener("mouseleave",clearFocus); g.addEventListener("blur",clearFocus);
+  g.addEventListener("click",()=>pick(id)); g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(id);}});
+});
+function focusNode(id){
+  const on=new Set([id]); edgeEls.forEach(e=>{ if(e.a===id||e.b===id){on.add(e.a);on.add(e.b);} });
+  edgeEls.forEach(e=>{const hot=e.a===id||e.b===id; e.p.classList.toggle("hot",hot); e.p.classList.toggle("dim",!hot); if(e.t)e.t.classList.toggle("dim",!hot);});
+  for(const k in nodeG) nodeG[k].classList.toggle("dim",!on.has(k));
+}
+function clearFocus(){ edgeEls.forEach(e=>{e.p.classList.remove("hot","dim"); if(e.t)e.t.classList.remove("dim");}); for(const k in nodeG)nodeG[k].classList.remove("dim"); }
+const gpanel=document.getElementById("gpanel");
+function pick(id){
+  for(const k in nodeG) nodeG[k].classList.toggle("pick",k===id);
+  const row=N.find(n=>n[0]===id), key=row[6], I=info(key.startsWith("@")?key:key), isFile=!key.startsWith("@");
+  // chi chiama / chi è chiamato
+  const outs=E.filter(e=>e[0]===id).map(e=>N.find(n=>n[0]===e[1])[3]), ins=E.filter(e=>e[1]===id).map(e=>N.find(n=>n[0]===e[0])[3]);
+  let h=`<div class="title"><h2>${esc(row[3])}</h2><span class="badge">${esc(GROUPS[row[5]][0])}</span></div><p class="lead">${esc(I.t)}</p>`;
+  if(I.ex) h+=`<div class="box ex"><h3>Esempio</h3><p>${esc(I.ex)}</p></div>`;
+  h+=renderFlow(I.flow);
+  if(ins.length||outs.length) h+=`<div class="box"><h3>Collegamenti nel grafo</h3><p>${ins.length?"<b>Riceve da:</b> "+esc(ins.join(", "))+"<br>":""}${outs.length?"<b>Parla con:</b> "+esc(outs.join(", ")):""}</p></div>`;
+  if(isFile) h+=`<button class="btn" data-go="${esc(key)}">Apri nell'albero dei file →</button>`;
+  gpanel.innerHTML=h;
+}
+document.getElementById("legend").innerHTML=Object.values(GROUPS).map(([n,v])=>`<span><i style="background:var(${v})"></i>${n}</span>`).join("");
+pick("cli");
+
+/* =====================================================================
+   6b) AVVIO IN LOCALE
+   ===================================================================== */
+const STEPS=[
+ ["Installa PHP 7.4–8.1 e Composer","Il progetto usa Laravel 7: con PHP 8.2+ può dare errori, meglio 7.4, 8.0 o 8.1. Serve anche l'estensione sqlite (di solito già inclusa).",
+  "brew install shivammathur/php/php@8.0 composer\nbrew link --overwrite --force php@8.0\nphp -v && composer -V"],
+ ["Scegli il database: SQLite (più semplice)","Evita di installare MySQL. Crea un file vuoto per il database.",
+  "touch database/database.sqlite"],
+ ["Crea il file .env","Non esiste ancora: è il file con le impostazioni locali.",
+  "cp .env.example .env"],
+ ["Modifica .env","Apri .env e imposta queste righe (sostituisci quelle esistenti). Con MAIL_MAILER=log le email di conferma vengono scritte in storage/logs invece di essere spedite: senza, l'ordine va in errore perché mancano le credenziali SMTP.",
+  "APP_URL=http://127.0.0.1:8000\nDB_CONNECTION=sqlite\nDB_DATABASE=/Users/filippo.milzagmail.com/Desktop/deliveBoo/database/database.sqlite\nMAIL_MAILER=log"],
+ ["Installa le dipendenze PHP","Crea la cartella vendor/.","composer install"],
+ ["Genera la chiave dell'app","Mette APP_KEY in .env. Senza, Laravel dà errore 500.","php artisan key:generate"],
+ ["Crea tabelle e dati di prova","Esegue le migrations e i seeder: utenti, ristoranti, piatti, tipi, voti, ordini.","php artisan migrate:fresh --seed"],
+ ["Installa le dipendenze JavaScript","Crea node_modules/. Hai già Node 16 e npm 8: vanno bene.","npm install"],
+ ["Compila il front-end","Genera public/js e public/css dai sorgenti in resources/.","npm run dev"],
+ ["Avvia il server sulla porta 8000","Deve essere 8000: l'indirizzo http://127.0.0.1:8000 è scritto fisso nel codice Vue. Poi apri http://127.0.0.1:8000 (clienti) e /login (ristoratori).",
+  "php artisan serve --port=8000"],
+ ["(Facoltativo) Link per le immagini caricate","Serve solo se carichi foto dal pannello admin. Le foto dei dati di prova sono URL esterni.","php artisan storage:link"]
+];
+const MISS=[["PHP",0],["Composer",0],[".env",0],["APP_KEY",0],["vendor/",0],["database",0],["node_modules/",0],["Node 16 + npm",1],["Codice del progetto",1]];
+(function(){
+  let saved={}; try{saved=JSON.parse(localStorage.getItem("mappa-steps")||"{}")}catch(e){}
+  const run=document.getElementById("run");
+  run.innerHTML=`<h2>Come far partire DeliveBoo in locale</h2>
+  <p class="lead" style="font-size:16px">Stato controllato sul tuo computer: ecco cosa manca e i comandi da lanciare, in ordine. Spunta i passi fatti.</p>
+  <div class="miss">${MISS.map(([n,ok])=>`<span class="${ok?"ok":"no"}">${ok?"✓":"✗"} ${esc(n)}</span>`).join("")}</div>
+  <div class="warn">Prima di tutto apri il terminale nella cartella del progetto: <code>cd ~/Desktop/deliveBoo</code></div>
+  ${STEPS.map(([h,d,c],i)=>`<div class="stp${saved[i]?" done":""}"><input type="checkbox" aria-label="Fatto" data-i="${i}" ${saved[i]?"checked":""}>
+   <div style="flex:1;min-width:0"><h3>${i+1}. ${esc(h)}</h3><p>${esc(d)}</p>
+   <div class="cmd"><pre>${esc(c)}</pre><button class="btn" data-copy="${i}">Copia</button></div></div></div>`).join("")}
+  <div class="box"><h3>Dopo l'avvio</h3><p>Sito clienti: <b>http://127.0.0.1:8000</b> · Admin: <b>/login</b> (gli utenti di prova sono in <code>database/seeds/UsersTableSeeder.php</code>) · Se modifichi i file in resources/ lancia <code>npm run watch</code> in un secondo terminale.</p></div>
+  <div class="box"><h3>Se qualcosa non va</h3><p><b>Errore 500</b> → manca APP_KEY o .env, guarda <code>storage/logs/laravel.log</code>. <b>Pagina bianca</b> → non hai fatto <code>npm run dev</code>. <b>Liste vuote</b> → il server non è sulla porta 8000 o non hai fatto <code>migrate:fresh --seed</code>. <b>"could not find driver"</b> → manca l'estensione PHP sqlite/pdo_sqlite.</p></div>`;
+  run.addEventListener("click",e=>{
+    const b=e.target.closest("[data-copy]");
+    if(b){ const txt=STEPS[b.dataset.copy][2]; (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{b.textContent="Copiato";setTimeout(()=>b.textContent="Copia",1200)}).catch(()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);getSelection().removeAllRanges();getSelection().addRange(r);}); }
+  });
+  run.addEventListener("change",e=>{ const i=e.target.dataset.i; if(i===undefined)return; saved[i]=e.target.checked; e.target.closest(".stp").classList.toggle("done",e.target.checked);
+    try{localStorage.setItem("mappa-steps",JSON.stringify(saved))}catch(_){} });
+})();
+
+/* =====================================================================
+   7) TAB, TEMA, AVVIO
+   ===================================================================== */
+function show(v){
+  ["graph","files","run"].forEach(k=>{
+    document.getElementById("v-"+k).classList.toggle("on",k===v);
+    document.getElementById("t-"+k).setAttribute("aria-selected",k===v);
+  });
+}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>show(b.dataset.v)));
+document.getElementById("theme").addEventListener("click",()=>{
+  const r=document.documentElement, dark=getComputedStyle(r).getPropertyValue("--bg").trim()==="#1e1e1e";
+  r.dataset.theme=dark?"light":"dark";
+  try{localStorage.setItem("mappa-theme",r.dataset.theme)}catch(e){}
+});
+try{const t=localStorage.getItem("mappa-theme"); if(t)document.documentElement.dataset.theme=t;}catch(e){}
+(function init(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(location.hash.length>1&&byPath[h]!==undefined){ show("files"); select(h,false); }
+  else { ["app","resources","routes"].forEach(p=>nodeEls[p]&&nodeEls[p].li.classList.add("open")); select("",true); }
+})();
+</script>
+</body>
+</html>
