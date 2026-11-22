@@ -1,0 +1,14 @@
+export { Content } from "./Content";
+export { Footer } from "./Footer";
+export { Hamburger } from "./Hamburger";
+export { Header } from "./Header";
+export { Jumbotron } from "./Jumbotron";
+export { MenuMobile } from "./MenuMobile";
+export { PaginateEl } from "./PaginateEl";
+export { Plate } from "./Plate";
+export { RestByTypes } from "./RestByTypes";
+export { StarsBox } from "./StarsBox";
+export { TopRated } from "./TopRated";
+export { TypeComp } from "./TypeComp";
+export { TypeSelection } from "./TypeSelection";
+export { Warning } from "./Warning";
