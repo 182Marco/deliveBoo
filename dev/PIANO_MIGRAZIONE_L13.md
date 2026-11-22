@@ -10,10 +10,18 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
 - [x] Fase 1 — Laravel 13, struttura slim, rotte a tupla, seeder namespaced — commit 54ed13d; Laravel 13.43.0 su PHP 8.4: 51 test, 629 asserzioni (come la baseline), 5 skip; `composer audit` pulito; smoke su SQLite ok (SPA, API, login reale con CSRF/sessione, paginazione Bootstrap, ordine + mail nel log)
 - [x] Fase 2 — sintassi moderna (API, Admin, modelli, mailable, test 404) — commit d37c3ee (API), d502aae (Admin + NotFoundTest), commit modelli/mail; 54 test, 647 asserzioni, 5 skip. Oggetto mail verificato: "Ordered Message" come prima
 - [x] Fase 3 — Vite + Vue 3 (+ port degli spec) — commit a25e129; vite 8.3, Vue 3.5, router 4.6, vuex 4.1; Vitest 25 test (store 8, payment 8 con asserzioni invariate, nuovo app.smoke 9); PHP 54 test verdi anche senza build; smoke HTTP: asset Vite 200 su SPA, admin e stats
-- [ ] Fase 4 — Docker, deploy, documentazione, mappa
-- [ ] Verifica finale (checklist in fondo) — parti manuali da fare con l'utente
+- [x] Fase 4 — Docker, deploy, documentazione, mappa — commit c68aa49 (Docker + migration prezzi), 1916286 (docs + mappa, solo blocco DATI, JS valido e tutti i `go`/`rel` risolti), braintree-web 3.148 (audit)
+- [ ] Verifica finale (checklist in fondo) — **automatica fatta**, restano le parti manuali con l'utente:
+  - [x] `php artisan test`: 54 test, 647 asserzioni, 5 skip (SEC-1..4, BUG-1) · `npm run test:js`: 25 test · `php artisan route:list` ok · `npm run build` ok
+  - [x] `composer audit`: 0 advisory · `npm audit --omit=dev`: 0 (2 moderate solo in dev: `@vue/test-utils` → `js-beautify`, fix solo con `--force`)
+  - [x] `migrate:fresh --seed` su MySQL 8 (DB temporaneo) e SQLite · immagine di produzione avviata e provata (SPA, API, asset, `.env` non esposto)
+  - [ ] **Manuale** — smoke nel browser (punto 5 della checklist): clienti + admin, incluso dropdown logout, conferma eliminazione, grafico stats
+  - [ ] **Manuale** — Braintree sandbox (sezione B): carta 4111 1111 1111 1111, errori carta e campi cliente
+  - [ ] **Manuale** — DB di sviluppo `deliveboo`: `docker compose build && docker compose up -d && docker compose exec app php artisan migrate` (aggiunge solo la migration dei prezzi; nessun reseed)
+  - [ ] **Manuale** — prima del merge: variabili su Render (`APP_KEY`; facoltative `MAIL_*`), poi deploy
+  - [ ] **Da decidere** — correzioni separate `fix(security)` SEC-1..SEC-4 e `fix` BUG-1
 
-**Prossimo passo:** Fase 4 (Dockerfile dev 8.4, Dockerfile prod multi-stage node 22 + php 8.4, render.yaml, build.sh, AGENTS/README/SETUP_LOCALE, dev/mappa.html blocco DATI).
+**Prossimo passo:** verifiche manuali con l'utente (browser, Braintree sandbox, migrate del DB di sviluppo), poi decidere sulle correzioni SEC-1..4 / BUG-1 e sul merge di `upgrade/laravel-13` in `master`.
 
 **Note di esecuzione:** (decisioni prese durante il lavoro, problemi incontrati)
 - Laravel 7 **non gira su PHP 8.4** (deprecazioni di Symfony 5 trasformate in eccezioni). Fino alla Fase 1 i test PHP si lanciano nel container PHP 8.0:
@@ -38,6 +46,9 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - Fase 3: `package.json` ha `"type": "module"`; `vitest.config.mjs` assorbito in `vite.config.js` (chiave `test`).
   - Fase 3: le viste con `@include('layouts/deleteConfirm')` **dopo** `@endsection` stampano lo script prima del layout: con i moduli Vite (differiti) la conferma di eliminazione aggancia comunque i form. Da verificare a mano che funzioni (prima poteva non agganciarli).
   - Nessun browser headless nella Codespace: il rendering visivo resta nella checklist manuale.
+  - Fase 4 (Docker, commit c68aa49): immagine dev `deliveboo-php84`; Dockerfile prod multi-stage (node:22 → php:8.4-apache). Corretti nel rifacimento: **DocumentRoot era la radice del progetto** (ora `public/`) e `.dockerignore` non escludeva `.env`/`vendor`/`node_modules`.
+  - Fase 4: su MySQL `float('price', 5, 2)` con L11+ crea `FLOAT` singola precisione (L7: `DOUBLE(5,2)`), `float('price')` crea `DOUBLE` senza scala (L7: `DOUBLE(8,2)`) → nuova migration `2026_11_22_000000_restore_price_column_types` (solo MySQL/MariaDB, no-op su DB esistenti). Verificato su DB MySQL temporaneo `deliveboo_l13test` (poi eliminato): il DB di sviluppo `deliveboo` **non è stato toccato** (va migrato con `php artisan migrate`, che aggiunge solo questa migration).
+  - Test PHP nel container con GD: `docker run --rm -u $(id -u):$(id -g) -v "$PWD":/app -w /app deliveboo-php84 php vendor/bin/phpunit`.
   - Messaggio `max` dei piatti con doppio spazio ("the  50 characters") per via della regola `'max: 50'`: in Fase 2, con le regole ad array, diventa a spazio singolo → aggiornare l'asserzione in `CrudTest::testStorePlateValidationMessages` (cambio voluto, unico).
 
 > **Legenda revisione 2:** 🆕 = parte aggiunta · ✏️ = parte modificata. Tutto il resto è invariato rispetto alla versione 1.
