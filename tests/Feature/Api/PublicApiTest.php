@@ -153,6 +153,27 @@ class PublicApiTest extends TestCase
         Mail::assertNothingSent();
     }
 
+    public function testRestaurantWithoutRatesHasAverageZero()
+    {
+        // used to be a division by zero (500) in both endpoints
+        $rest = Restaurant::where('name', "Mc Donald's")->firstOrFail();
+        DB::table('rates')->where('restaurant_id', $rest->id)->delete();
+
+        $this->getJson("/api/restaurantsMenu/{$rest->slug}")->assertOk()->assertJsonPath('averageRate', 0);
+
+        $top = collect($this->getJson('/api/restaurantsTopRated')->assertOk()->json());
+        $this->assertSame(min(12, Restaurant::count()), $top->count());
+        $listed = $top->firstWhere('id', $rest->id);
+        if ($listed) {
+            $this->assertEquals(0, $listed['average']);
+        }
+    }
+
+    public function testUnknownRestaurantMenuIs404()
+    {
+        $this->getJson('/api/restaurantsMenu/does-not-exist')->assertNotFound();
+    }
+
     public function testOrderMailRenders()
     {
         $html = (new OrderedMessage($this->orderPayload()))->render();
