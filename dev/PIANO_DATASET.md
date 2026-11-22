@@ -3,7 +3,13 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** ✅ passo 6 fatto (`DietaryQueriesTest`: 14 casi; `CatalogDataTest`: dati, piano e coerenza dei menu sul profilo full; suite: 79 test in circa 11s). **Prossimo**: report di verifica sul MySQL dev (integrità, metriche, le 12 query con i tempi), poi passo 7 (docs: mappa, README, AGENTS, memoria), `npm run test:js`, `npm run build`, `route:list` e report finale.
+- **Passo corrente:** ✅ passo 7 fatto (README, AGENTS, `.env.example`, mappa: 85 righe FILES, diagramma DB con il gruppo «Ingredienti, allergeni e diete», 5 relazioni nuove, 2 comandi). Verifiche finali: `php artisan test` 79 verdi + 4 skip (SEC-x); `npm run test:js` 34 verdi; `npm run build` ok; `route:list` 39 rotte. **Resta**: commit docs e report finale all'utente.
+- **Report di verifica (MySQL dev, dopo `migrate:fresh --seed`):**
+  - integrità: 0 violazioni (proprietari, slug, tipi, piatti senza ingredienti, prezzi, quantità, righe di altri ristoranti, totali);
+  - 60 utenti, 261 ristoranti (Romiti 33), 6224 piatti, 706 ingredienti (608 usati), 43/43 cucine usate, 11249 ordini (10909 pagati, 1324 clienti);
+  - piatti per ristorante 5/24/99; `allergen_info` complete 3725, partial 1201, none 1298; diete yes 15286, no 13972, unknown 411;
+  - voti: medie da 1.0 a 5.0, 36 ristoranti ≥ 4.5, mediana 48 voti per ristorante;
+  - le 12 query del brief in 1-75 ms; champagne fuori dalle fasce alte: 0.
   - `data/types.php`: circa 43 cucine con categoria immagine.
   - `data/drinks.php`: bevande per fascia e contesto.
   - `data/cuisines/<chiave>.php`, ognuno con `types`, `concepts` e `recipes`:
@@ -40,6 +46,9 @@
   - (superato) Tempo dei test salito a circa 41s (era 35) con le sole tabelle di riferimento e i nuovi test: da tenere d'occhio per il budget di 45s.
   - Gli 8.2 e 8.4 sono in un solo commit: la UNIQUE (`order_id`, `plate_id`) rompe il checkout senza il raggruppamento delle quantità.
 - **Problemi aperti / da decidere:**
+  - Mappa: il grafico concettuale (`NODES`/`EDGES`) non ha ancora un nodo per il flusso «data/ → Support → seeder»; la tab DB è aggiornata ma non è stata controllata a vista nel browser.
+  - I ristoranti storici non hanno orari, segmento, fascia di prezzo né descrizione (scelta: non alterarli).
+  - Le descrizioni dei piatti si ripetono tra le sedi della stessa catena e tra ristoranti che scelgono la stessa variante.
   - ✅ (risolto: regole portate in `CatalogDataTest`) Il validatore dei dati sta nello scratchpad (che può essere cancellato): le sue regole andranno nel test `CatalogDataTest` (ingredienti esistenti, course, immagini, tier, segmenti).
   - Immagini: nessuna foto di champagne valida, tutte fuori tema o con marchio. Champagne e spumanti useranno `wine_white`/`wine_rose`/`wine_cellar`: limite da riportare nel report. Poche foto anche per `chinese`, `french`, `hummus`, `falafel` e `african`: si usano categorie affini (`dumplings`, `noodles`, `mezze`, `stew`, `curry`).
   - L'endpoint interno `unsplash.com/napi` (autori e flag Unsplash+) è stato negato dal classificatore dei permessi: niente scraping. Gli ID verificano solo il CDN; l'autore si ricava da `https://unsplash.com/photos/<id>`.

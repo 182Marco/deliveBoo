@@ -39,7 +39,7 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 **Cliente**: scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
 
-**Ristoratore**: registrazione/login · CRUD ristoranti (con immagine e tipi) · CRUD piatti · lista e dettaglio ordini · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
+**Ristoratore**: registrazione/login · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
 
 ## API
 
@@ -48,13 +48,20 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 | GET | `/api/types` | Tutti i tipi di cucina |
 | GET | `/api/restaurantsTopRated` | I 12 ristoranti con media voti più alta |
 | GET | `/api/restaurants/{ids}` | Ristoranti per tipi (`ids` = `1,3,5`), 4 per pagina |
-| GET | `/api/restaurantsMenu/{slug}` | Dettagli, tipi, media voti e menu paginato |
+| GET | `/api/restaurantsMenu/{slug}` | Dettagli, tipi, media voti e menu paginato per portata (ogni piatto ha anche `orderable`, `availability`, `course`, `ingredient_list`) |
 | GET | `/api/payments/config` | Driver di pagamento, `testMode` e client token Braintree per il checkout |
-| POST | `/api/orders` | Crea un ordine e invia l'email |
+| POST | `/api/orders` | Crea un ordine (una riga per piatto con quantità e prezzo pagato; rifiuta i piatti esauriti o fuori stagione) e invia l'email |
 
 ## Database
 
-`users` 1─N `restaurants` · `restaurants` 1─N `plates` / `rates` / `orders` · `restaurants` N─N `types` (pivot `restaurant_type`) · `orders` N─N `plates` (pivot `order_plate`). Schema: `db structure.webp`; versione interattiva con colonne e pivot nella tab “Relazioni tabelle” di `dev/mappa.html`.
+`users` 1─N `restaurants` · `restaurants` 1─N `plates` / `rates` / `orders` / `opening_hours` · `restaurants` N─N `types` (pivot `restaurant_type`) · `orders` N─N `plates` (pivot `order_plate` con `quantity` e `unit_price`) · `plates` N─N `ingredients` (pivot `plate_ingredient`) · `ingredients` N─N `allergens` (pivot `allergen_ingredient`, dato di riferimento) · `plates` N─N `allergens` (pivot `allergen_plate`: **dichiarazione del ristorante**, `contains` / `may_contain`) · `plates` N─N `dietary_tags` (pivot `dietary_tag_plate`, `status` yes / no / unknown e `source`). Schema: `db structure.webp` (storico); versione aggiornata e interattiva nella tab “Relazioni tabelle” di `dev/mappa.html`.
+
+**Informazioni alimentari (pensate per un futuro assistente che interroga il DB)**:
+
+- nessuna riga = **non dichiarato**; `unknown` = dichiarato come non verificato; `yes` / `no` = dichiarato. Un'informazione mancante non diventa mai un "no" né un "sì";
+- gli allergeni **derivati** dagli ingredienti (registro) e quelli **dichiarati** dal ristorante restano separati. `Plate::freeFrom([...])` restituisce un piatto solo se il ristorante ha dichiarato gli allergeni come `complete`, non dichiara né `contains` né `may_contain` (cross-contact), gli ingredienti non li contengono e sono tutti `verified`;
+- `nickel_level` degli ingredienti e il tag `low_nickel` sono **indicativi** (dati del dataset), mai una garanzia medica o una certificazione;
+- altri scope: `Plate::orderable($mese)`, `withDiet([...])`, `withIngredients([...])`, `withoutIngredients([...])`, `$plate->derivedAllergens()`, `Restaurant::withRating()`.
 
 ## Avvio in locale
 
@@ -90,16 +97,33 @@ Migrazione da Laravel 7 a 13 e da Mix/Vue 2 a Vite/Vue 3: piano, decisioni e sta
 ```bash
 php artisan migrate                                  # crea/aggiorna le tabelle
 php artisan db:seed                                  # tutti i seeder (DatabaseSeeder)
-php artisan db:seed --class=PlatesTableSeeder        # un solo seeder
+php artisan db:seed --class=MenusSeeder              # un solo seeder
+SEED_PROFILE=test php artisan db:seed                # catalogo ridotto (quello dei test)
 ```
 
-Ordine dei seeder: Users → Types → Restaurants → Plates → Orders → Rates. Un seeder lanciato da solo richiede che i precedenti siano già stati eseguiti; se manca un riferimento si ferma con un errore chiaro e non scrive nulla (ogni seeder gira in una transazione).
+Il dataset ha tre livelli, in quest'ordine (`DatabaseSeeder`):
 
-**Rilanciare il seed è sicuro**: i seeder sono idempotenti. Trovano i record tramite chiavi naturali (email dell'utente, nome di tipo e ristorante, ristorante + nome del piatto, ristorante + email + data dell'ordine) e creano solo quello che manca. Non sovrascrivono i record esistenti e non cancellano nulla. Le pivot usano `syncWithoutDetaching`. Per i voti, che non hanno una chiave, il seeder aggiunge solo le righe mancanti per arrivare al numero previsto per ogni (ristorante, voto). `php artisan migrate:fresh --seed` invece **cancella tutte le tabelle** e ricrea il DB da zero: usalo solo se vuoi perdere i dati.
+1. **dati di riferimento**: `AllergensSeeder` (i 14 allergeni del Reg. UE 1169/2011), `DietaryTagsSeeder`, `IngredientsSeeder` (registro di circa 700 ingredienti con origine, lattosio, nichel indicativo e allergeni);
+2. **dati storici scritti a mano**: Users, Types, Restaurants, Plates, `LegacyPlateDetailsSeeder` (ingredienti strutturati dei piatti storici), Orders, Rates;
+3. **catalogo generato**: `OwnersSeeder`, `CatalogRestaurantsSeeder` (con orari), `MenusSeeder`, `OrderHistorySeeder`, `RatingsSeeder`.
+
+Il catalogo generato nasce da file di dati scritti a mano in `database/seeders/data/`: per ogni cucina concept e ricette con varianti per fascia (`base` / `mid` / `high`), bevande per livello e contesto, città, nomi, foto. La generazione è **deterministica** (`database/seeders/Support/`: stesso input, stesso catalogo, senza dipendere dagli ID) e dimensionata da `config/seeding.php`:
+
+- `SEED_PROFILE=full` (default): 48 nuovi ristoratori (password `foodsy-demo`, email `@example.*`), circa 245 ristoranti (30 per l'account demo Romiti), circa 6.000 piatti, circa 11.000 ordini 2025-2026, circa 19.000 voti. Su MySQL `migrate:fresh --seed` impiega circa 20 secondi;
+- `SEED_PROFILE=test` (forzato da `phpunit.xml`): 2 ristoratori, menu di 6-12 piatti, stessa logica.
+
+Un seeder lanciato da solo richiede che i precedenti siano già stati eseguiti; se manca un riferimento si ferma con un errore chiaro e non scrive nulla.
+
+**Rilanciare il seed è sicuro**: i seeder sono idempotenti. Trovano i record tramite chiavi naturali (email dell'utente, nome di tipo, ristorante e ingrediente, ristorante + nome del piatto, ristorante + email + data dell'ordine) e creano solo quello che manca; i seeder generati saltano i ristoranti che hanno già piatti, ordini o voti. Non sovrascrivono i record esistenti e non cancellano nulla. `php artisan migrate:fresh --seed` invece **cancella tutte le tabelle** e ricrea il DB da zero: usalo solo se vuoi perdere i dati.
+
+Foto: solo URL di `images.unsplash.com` (Unsplash License), ognuna verificata e assegnata a una categoria; fonte, licenza e limiti in testa a `database/seeders/data/images.php`.
 
 `php artisan test` gira su SQLite in memoria (vedi `phpunit.xml`) e non tocca il DB di sviluppo:
 
-- `DatabaseSeederTest`: due seed consecutivi danno gli stessi conteggi, dati coerenti (FK, piatti degli ordini, prezzi, slug);
+- il DB in memoria viene seminato **una volta per processo** (`$seed = true` in `tests/TestCase.php`) e ogni test gira in una transazione;
+- `DatabaseSeederTest`: due seed consecutivi danno gli stessi conteggi, dati coerenti (FK, righe degli ordini e totali, slug, ogni piatto con ingredienti, ogni proprietario con ristoranti), dichiarazioni mai più ottimiste dei dati;
+- `DietaryQueriesTest`: le ricerche alimentari e commerciali su fixture fatte a mano (un'informazione mancante non è mai compatibile);
+- `CatalogDataTest`: file di dati, piano del catalogo e coerenza dei menu con il posizionamento;
 - `Api/PublicApiTest`: forme JSON lette dalla SPA, ordini, email;
 - `Admin/OwnershipTest`, `Admin/CrudTest`, `Admin/NotFoundTest`: proprietario / altro utente / ospite, CRUD con upload, 404;
 - `AuthTest`, `RoutesTest`: login/registrazione/redirect, URI e nomi di ogni rotta.
@@ -145,10 +169,10 @@ Le foto di piatti, ristoranti e cucine sono **solo link esterni** (Unsplash): il
 ## Struttura cartelle
 
 ```
-app/            modelli, controller (Admin, Api, Auth), Mail, Payments (gateway di pagamento), AppServiceProvider
+app/            modelli, controller (Admin, Api, Auth), Dietary (regole delle diete derivate), Mail, Payments (gateway di pagamento), AppServiceProvider
 bootstrap/      app.php: rotte, middleware, eccezioni (al posto di Kernel e provider)
 config/         impostazioni Laravel (solo quelle con valori del progetto)
-database/       migrations, seeders, factories
+database/       migrations, seeders (data/ = dati del catalogo, Support/ = generatore), factories
 public/         file serviti al browser (build/ di Vite, logo)
 resources/js    sito Vue (pages/ e components/ a cartelle: .vue + .logic.js + .css, api/, utils/, store, routes) + jsBack (script admin)
 resources/css   sistema grafico: tokens, font, base, primitive ui-*, entry site.css e admin.css
@@ -162,4 +186,5 @@ vite.config.js  entry point della build e configurazione di Vitest
 
 - `Admin/HomeController` non è collegato a nessuna rotta; `StatsController@index` è vuoto.
 - `public/build` è generata da Vite: modificare i sorgenti in `resources/` e ricompilare.
+- I ristoranti storici del seed hanno ancora nomi e piatti di marchi reali (scelta voluta); tutto il catalogo generato è sintetico.
 - Mancano alcuni controlli del proprietario nell'admin (SEC-1..SEC-4: creazione piatti, modifica/eliminazione di ristoranti e piatti, statistiche) (BUG-1, lo slug mancante alla creazione di un ristorante, è corretto). Sono fissati dai test come comportamento attuale e vanno corretti in commit separati: dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.
