@@ -2845,7 +2845,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getTop: function getTop() {
       var _this = this;
 
-      axios.get("http://127.0.0.1:8000/api/restaurantsTopRated").then(function (r) {
+      axios.get("/api/restaurantsTopRated").then(function (r) {
         _this.topRest = r.data.map(function (e) {
           return _objectSpread(_objectSpread({}, e), {}, {
             average: Math.ceil(parseFloat(e.average))
@@ -3525,7 +3525,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this3 = this;
 
       this.sending = true;
-      axios.post("http://127.0.0.1:8000/api/orders", {
+      axios.post("/api/orders", {
         restaurant_id: this.cart[0].restaurant_id,
         price: this.total,
         customer_name: this.customer_name,
@@ -108733,7 +108733,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "desktop" }, [
-      _c("a", { attrs: { href: "http://127.0.0.1:8000/register" } }, [
+      _c("a", { attrs: { href: "/register" } }, [
         _vm._v("Register Partnership")
       ])
     ])
@@ -108743,9 +108743,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "desktop" }, [
-      _c("a", { attrs: { href: "http://127.0.0.1:8000/login" } }, [
-        _vm._v("Partner Login")
-      ])
+      _c("a", { attrs: { href: "/login" } }, [_vm._v("Partner Login")])
     ])
   }
 ]
@@ -108860,14 +108858,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "btn-box" }, [
-      _c(
-        "a",
-        {
-          staticClass: "main-btn",
-          attrs: { href: "http://127.0.0.1:8000/login" }
-        },
-        [_vm._v("\n            Registrati o accedi\n        ")]
-      )
+      _c("a", { staticClass: "main-btn", attrs: { href: "/login" } }, [
+        _vm._v("\n            Registrati o accedi\n        ")
+      ])
     ])
   },
   function() {
@@ -108878,7 +108871,7 @@ var staticRenderFns = [
       _c("ul", [
         _c("li", [
           _c("div", [
-            _c("a", { attrs: { href: "http://127.0.0.1:8000/register" } }, [
+            _c("a", { attrs: { href: "/register" } }, [
               _c("i", { staticClass: "fas fa-utensils" }),
               _vm._v(
                 "Aggiungi il tuo\n                        ristorante\n                    "
@@ -108891,7 +108884,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("li", [
           _c("div", [
-            _c("a", { attrs: { href: "http://127.0.0.1:8000/register" } }, [
+            _c("a", { attrs: { href: "/register" } }, [
               _c("i", { staticClass: "fas fa-store-alt" }),
               _vm._v(
                 "Crea un account\n                        aziendale\n                    "
@@ -129289,7 +129282,7 @@ var store = function store() {
       // axicall on created get all types
       getTypes: function getTypes(_ref) {
         var commit = _ref.commit;
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://127.0.0.1:8000/api/types").then(function (r) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/types").then(function (r) {
           return commit("fillTypesArray", r.data.types);
         })["catch"](function (r) {
           return console.log(r);
@@ -129302,7 +129295,7 @@ var store = function store() {
             commit = _ref2.commit;
 
         if (getters.selectedTypesLenght) {
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://127.0.0.1:8000/api/restaurants/".concat(state.typesSelected, "?page=").concat(page)).then(function (r) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/restaurants/".concat(state.typesSelected, "?page=").concat(page)).then(function (r) {
             commit("fillRestByTypesArray", r.data.data);
             commit("setRestPagination", {
               // (to pass more than one payload you pass obj)
@@ -129316,7 +129309,7 @@ var store = function store() {
       },
       getMenuAndDetails: function getMenuAndDetails(_ref3, payloadObj) {
         var commit = _ref3.commit;
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://127.0.0.1:8000/api/restaurantsMenu/".concat(payloadObj.slug, "?page=").concat(payloadObj.page)).then(function (r) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/restaurantsMenu/".concat(payloadObj.slug, "?page=").concat(payloadObj.page)).then(function (r) {
           commit("fillRest", r.data);
           commit("setMenuPagination", {
             // (to pass more than one payload you pass obj)
@@ -129406,7 +129399,7 @@ var root = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/marco/Desktop/deliveBoo/resources/js/vue.js */"./resources/js/vue.js");
+module.exports = __webpack_require__(/*! /workspaces/deliveBoo/resources/js/vue.js */"./resources/js/vue.js");
 
 
 /***/ })

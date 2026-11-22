@@ -120,7 +120,7 @@ if (localStorage.getItem("clickedLog")) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/marco/Desktop/deliveBoo/resources/js/jsBack/logListen.js */"./resources/js/jsBack/logListen.js");
+module.exports = __webpack_require__(/*! /workspaces/deliveBoo/resources/js/jsBack/logListen.js */"./resources/js/jsBack/logListen.js");
 
 
 /***/ })
