@@ -207,6 +207,29 @@ class CrudTest extends TestCase
         $this->assertSame(0, $plate->dietaryTags()->wherePivot('source', 'ingredients')->count());
     }
 
+    public function testAPlatePhotoCanBeALinkToAnImageHostedElsewhere()
+    {
+        $link = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=480';
+        $this->post(route('admin.plates.store'), $this->plateData(['name' => 'Linked Photo', 'img_url' => $link]))->assertSessionHasNoErrors();
+        $plate = Plate::where('name', 'Linked Photo')->firstOrFail();
+        $this->assertSame($link, $plate->img);
+
+        // only https links; an upload replaces the link
+        $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => 'Linked Photo', 'img_url' => 'http://example.com/a.jpg']))
+            ->assertSessionHasErrors(['img_url' => 'Use a full https:// link to an image.']);
+        $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => 'Linked Photo', 'img' => $this->png('p.png')]))->assertSessionHasNoErrors();
+        $this->assertStringStartsWith('plates-imgs/', $plate->fresh()->img);
+
+        // and a link replaces the upload, whose file is deleted
+        $uploaded = $plate->fresh()->img;
+        $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => 'Linked Photo', 'img_url' => $link]))->assertSessionHasNoErrors();
+        $this->assertSame($link, $plate->fresh()->img);
+        Storage::assertMissing($uploaded);
+
+        // the edit form shows the current link
+        $this->get(route('admin.plates.edit', $plate->slug))->assertOk()->assertSee($link, false);
+    }
+
     public function testStorePlateWithoutAnyDietaryInfoWritesNoDeclaration()
     {
         $this->post(route('admin.plates.store'), $this->plateData(['name' => 'Plain Dish']))->assertSessionHasNoErrors();

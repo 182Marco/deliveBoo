@@ -19,6 +19,7 @@ class PlateController extends Controller
     private const MESSAGES = [
         'required' => 'Required Field!',
         'required_without' => 'Required Field!',
+        'img_url.url' => 'Use a full https:// link to an image.',
         'unique' => 'This :attribute is already used',
         'max' => 'you have exceeded the :max characters allowed for the :attribute',
     ];
@@ -51,10 +52,8 @@ class PlateController extends Controller
         $request->validate($this->rules(), self::MESSAGES);
 
         // all(), not validated(): restaurant_id comes from the form without a rule
-        $data = $this->plateData($request->except(['diet', 'allergens']));
-        if ($request->hasFile('img')) {
-            $data['img'] = $request->file('img')->store('plates-imgs');
-        }
+        $data = $this->plateData($request->except(['diet', 'allergens', 'img_url']));
+        $data['img'] = $this->photo($request);
 
         $new_plate = new Plate($data);
         $new_plate->slug = Plate::uniqueSlug($data['name'], Restaurant::find($data['restaurant_id'] ?? null)?->slug);
@@ -100,14 +99,17 @@ class PlateController extends Controller
             'name' => ['required', Rule::unique('plates')->where('restaurant_id', $plate->restaurant_id)->whereNull('deleted_at')->ignore($id), 'max:80'],
         ]), self::MESSAGES);
 
-        $data = $this->plateData($request->except(['diet', 'allergens', 'restaurant_id']));
+        $data = $this->plateData($request->except(['diet', 'allergens', 'restaurant_id', 'img_url']));
 
-        // replace the image: delete the previous one
-        if ($request->hasFile('img')) {
-            if ($plate->img) {
+        // a new photo (upload or link) replaces the previous one; an uploaded file is deleted
+        $photo = $this->photo($request);
+        if ($photo !== null && $photo !== $plate->img) {
+            if ($plate->img && ! self::isLink($plate->img)) {
                 Storage::delete($plate->img);
             }
-            $data['img'] = $request->file('img')->store('plates-imgs');
+            $data['img'] = $photo;
+        } else {
+            unset($data['img']);
         }
 
         DB::transaction(function () use ($plate, $data, $request) {
@@ -142,6 +144,8 @@ class PlateController extends Controller
             'visible' => ['required_without:availability', 'nullable', 'boolean'],
             'price' => ['required', 'numeric', 'min:0', 'max:999999'],
             'img' => ['nullable', 'image'],
+            // or the link of a photo hosted elsewhere: the site points to it, nothing is copied
+            'img_url' => ['nullable', 'url:https', 'max:2048'],
             'course' => ['nullable', Rule::in(Plate::COURSES)],
             'serves' => ['nullable', 'integer', 'min:1', 'max:20'],
             'calories' => ['nullable', 'integer', 'min:0', 'max:5000'],
@@ -154,6 +158,21 @@ class PlateController extends Controller
             'allergens.*' => ['nullable', Rule::in([Allergen::CONTAINS, Allergen::MAY_CONTAIN])],
             ...$override,
         ];
+    }
+
+    // the photo of the form: an uploaded file wins over a link, null = none given
+    private function photo(Request $request): ?string
+    {
+        if ($request->hasFile('img')) {
+            return $request->file('img')->store('plates-imgs');
+        }
+
+        return $request->filled('img_url') ? trim($request->input('img_url')) : null;
+    }
+
+    private static function isLink(string $img): bool
+    {
+        return str_starts_with($img, 'http://') || str_starts_with($img, 'https://');
     }
 
     // an empty "serves" means one portion (the column is NOT NULL)

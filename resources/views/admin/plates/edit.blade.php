@@ -41,6 +41,8 @@
             @enderror
         </div>
 
+        <x-field name="img_url" label="…or a link to a photo hosted online" type="url" placeholder="https://images.unsplash.com/photo-…" :value="old('img_url', \Illuminate\Support\Str::startsWith($plate->img, 'https://') ? $plate->img : null)" hint="An https link to an image you are allowed to use. We show it from its address, we never copy it. An uploaded file wins over the link." />
+
         <div class="adm-form-foot">
             <button class="ui-btn ui-btn--primary" type="submit">Save changes</button>
             <a class="ui-btn ui-btn--ghost" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}">Cancel</a>
