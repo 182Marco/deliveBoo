@@ -1,18 +1,26 @@
-// Braintree payment flow of resources/js/pages/Payment, fully offline:
+// Payment flow of resources/js/pages/Payment, fully offline:
 // braintree-web and axios are mocked, no request leaves the test and no payment happens.
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeAll, beforeEach, vi } from "vitest";
 import { shallowMount } from "@vue/test-utils";
 import axios from "axios";
 import braintree from "braintree-web";
 import Payment from "../../resources/js/pages/Payment/Payment.vue";
+import { tokenizeCard } from "../../resources/js/api/fakeHostedFields.js";
+import { receiptFrom } from "../../resources/js/pages/SuccessPage/SuccessPage.utils.js";
 import { createAppStore as createStore } from "../../resources/js/store.js";
 
-vi.mock("axios", () => ({ default: { post: vi.fn() } }));
+vi.mock("axios", () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 vi.mock("braintree-web", () => ({
     default: { client: { create: vi.fn() }, hostedFields: { create: vi.fn() } }
 }));
 
 const flush = () => new Promise(r => setTimeout(r, 0));
+
+// the Payment page imports api/braintree.js on demand: warm the module cache once,
+// so that a single flush() is enough for the (mocked) hosted fields to be created
+beforeAll(async () => {
+    await import("../../resources/js/api/braintree.js");
+});
 
 const CART = [
     { id: 11, price: 4, restaurant_id: 7 },
@@ -28,16 +36,14 @@ const CUSTOMER = {
 
 let store, router, hostedFieldInstance, clientInstance;
 
-function mountPayment() {
-    return shallowMount(Payment, { global: { plugins: [store], mocks: { $router: router } } });
-}
+const mountPayment = () => shallowMount(Payment, { global: { plugins: [store], mocks: { $router: router } } });
 
-async function mountReady(customer = CUSTOMER) {
+const mountReady = async (customer = CUSTOMER) => {
     const wrapper = mountPayment();
     await flush();
     await wrapper.setData({ ...customer });
     return wrapper;
-}
+};
 
 beforeEach(() => {
     localStorage.clear();
@@ -51,33 +57,66 @@ beforeEach(() => {
     braintree.client.create.mockReset().mockResolvedValue(clientInstance);
     braintree.hostedFields.create.mockReset().mockResolvedValue(hostedFieldInstance);
 
+    axios.get.mockReset().mockResolvedValue({ data: { driver: "braintree", authorization: "client-token-from-server" } });
     axios.post.mockReset();
     vi.spyOn(console, "log").mockImplementation(() => {});
     vi.spyOn(console, "error").mockImplementation(() => {});
 });
 
-describe("Braintree initialisation", () => {
-    it("creates the client with the sandbox key and the three hosted fields", async () => {
+describe("card form initialisation", () => {
+    it("braintree driver: client created with the server token and the three hosted fields", async () => {
         const wrapper = mountPayment();
         await flush();
 
-        expect(braintree.client.create).toHaveBeenCalledTimes(1);
-        expect(braintree.client.create.mock.calls[0][0]).toEqual({ authorization: expect.stringMatching(/^sandbox_/) });
+        expect(axios.get).toHaveBeenCalledWith("/api/payments/config");
+        expect(braintree.client.create).toHaveBeenCalledWith({ authorization: "client-token-from-server" });
 
         const options = braintree.hostedFields.create.mock.calls[0][0];
         expect(options.client).toBe(clientInstance);
         expect(options.fields.number.selector).toBe("#creditCardNumber");
         expect(options.fields.cvv.selector).toBe("#cvv");
         expect(options.fields.expirationDate.selector).toBe("#expireDate");
-        expect(wrapper.vm.hostedFieldInstance).toBe(hostedFieldInstance);
+        expect(wrapper.vm.driver).toBe("braintree");
+        expect(typeof wrapper.vm.hostedFieldInstance.tokenize).toBe("function");
     });
 
-    it("on init failure logs the error and paying does nothing", async () => {
+    it("fake driver: no Braintree call, an offline form with the same tokenize contract", async () => {
+        axios.get.mockResolvedValue({ data: { driver: "fake", authorization: null } });
+        const wrapper = mountPayment();
+        await flush();
+
+        expect(braintree.client.create).not.toHaveBeenCalled();
+        expect(wrapper.vm.driver).toBe("fake");
+        expect(typeof wrapper.vm.hostedFieldInstance.tokenize).toBe("function");
+    });
+
+    it("test cards: a bar only in test mode, the dialog shows the decline rule of the active driver", async () => {
+        const live = mountPayment();
+        await flush();
+        expect(live.find(".testbar").exists()).toBe(false);
+
+        axios.get.mockResolvedValue({ data: { driver: "braintree", testMode: true, authorization: "token" } });
+        const sandbox = mountPayment();
+        await flush();
+        expect(sandbox.find(".testmodal").exists()).toBe(false);
+        await sandbox.find(".testbar").trigger("click");
+        expect(sandbox.find(".testmodal").text()).toContain("4111 1111 1111 1111");
+        expect(sandbox.find(".testmodal").text()).toContain("€2,000.00");
+
+        axios.get.mockResolvedValue({ data: { driver: "fake", testMode: true, authorization: null } });
+        const offline = mountPayment();
+        await flush();
+        await offline.find(".testbar").trigger("click");
+        expect(offline.find(".testmodal").text()).toContain("4000 0000 0000 0002");
+    });
+
+    it("on init failure shows an error and paying does nothing", async () => {
         braintree.client.create.mockRejectedValue(new Error("network down"));
         const wrapper = await mountReady();
 
         expect(console.error).toHaveBeenCalled();
         expect(wrapper.vm.hostedFieldInstance).toBe(false);
+        expect(wrapper.vm.error).not.toBe("");
 
         wrapper.vm.payWithCreditCard();
         await flush();
@@ -86,17 +125,82 @@ describe("Braintree initialisation", () => {
     });
 });
 
+describe("offline tokenization (fake driver)", () => {
+    const card = { number: "4111 1111 1111 1111", expirationDate: "12/40", cvv: "123" };
+
+    it("maps the sandbox test cards to the Braintree test nonces", () => {
+        expect(tokenizeCard(card)).toEqual({ nonce: "fake-valid-nonce" });
+        expect(tokenizeCard({ ...card, number: "4000 0000 0000 0002" })).toEqual({
+            nonce: "fake-processor-declined-visa-nonce"
+        });
+    });
+
+    it("lists every invalid field and which of them are empty", () => {
+        expect(tokenizeCard({ ...card, number: "4111 1111 1111 1112" })).toEqual({ invalid: ["number"], empty: [] });
+        expect(tokenizeCard({ ...card, expirationDate: "01/20", cvv: "" })).toEqual({
+            invalid: ["expirationDate", "cvv"],
+            empty: ["cvv"]
+        });
+    });
+});
+
 describe("tokenization", () => {
-    it("does not tokenize while a customer field is empty", async () => {
-        const wrapper = await mountReady({ ...CUSTOMER, customer_phone: "" });
+    it("with empty or invalid customer fields shows one error per field and sends nothing", async () => {
+        hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
+        const scrolled = [];
+        Element.prototype.scrollIntoView = function () {
+            scrolled.push(this);
+        };
+        const wrapper = await mountReady({ ...CUSTOMER, customer_phone: "", customer_email: "mario" });
 
         wrapper.vm.payWithCreditCard();
         await flush();
-        expect(hostedFieldInstance.tokenize).not.toHaveBeenCalled();
+
+        expect(wrapper.vm.errors).toEqual({
+            customer_email: ["Enter a valid email address."],
+            customer_phone: ["This field is required."]
+        });
+        expect(wrapper.find(".field.is-error #customer_phone").exists()).toBe(true);
+        expect(wrapper.find(".field-error").text()).toBe("Enter a valid email address.");
+        // scrolled back up to the first wrong field (the email comes before the phone)
+        expect(scrolled).toHaveLength(1);
+        expect(scrolled[0].querySelector("#customer_email")).not.toBeNull();
+        expect(axios.post).not.toHaveBeenCalled();
+        delete Element.prototype.scrollIntoView;
+    });
+
+    it("card errors of the hosted fields go under each card field, together with the customer ones", async () => {
+        hostedFieldInstance.tokenize.mockRejectedValue({
+            code: "HOSTED_FIELDS_FIELDS_INVALID",
+            details: { invalidFieldKeys: ["number", "cvv"] }
+        });
+        hostedFieldInstance.getState = () => ({
+            fields: { number: { isEmpty: false }, cvv: { isEmpty: true }, expirationDate: { isEmpty: false } }
+        });
+        const wrapper = await mountReady({ ...CUSTOMER, customer_name: "" });
+
+        wrapper.vm.payWithCreditCard();
+        await flush();
+
+        expect(wrapper.vm.errors).toEqual({
+            customer_name: ["This field is required."],
+            card_number: ["Enter a valid card number."],
+            card_cvv: ["This field is required."]
+        });
+        expect(wrapper.vm.error).toBe("");
         expect(axios.post).not.toHaveBeenCalled();
     });
 
-    it("on success stores the nonce and posts the exact order payload", async () => {
+    it("typing in a field removes its error", async () => {
+        const wrapper = await mountReady();
+        await wrapper.setData({ errors: { customer_name: ["x"], customer_phone: ["y"] } });
+
+        await wrapper.find("#customer_name").trigger("input");
+
+        expect(wrapper.vm.errors).toEqual({ customer_phone: ["y"] });
+    });
+
+    it("on success posts the order with the nonce and without any price", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "fake-valid-nonce" });
         axios.post.mockResolvedValue({ data: {} });
         const wrapper = await mountReady();
@@ -108,13 +212,13 @@ describe("tokenization", () => {
         expect(axios.post).toHaveBeenCalledTimes(1);
         expect(axios.post).toHaveBeenCalledWith("/api/orders", {
             restaurant_id: 7,
-            price: 6.5,
             ...CUSTOMER,
-            plates: [11, 12]
+            plates: [11, 12],
+            payment_nonce: "fake-valid-nonce"
         });
     });
 
-    it("on failure shows the Braintree message and keeps the cart", async () => {
+    it("on a non-field failure shows the card form message and keeps the cart", async () => {
         hostedFieldInstance.tokenize.mockRejectedValue({ message: "All fields are empty." });
         const wrapper = await mountReady();
 
@@ -144,9 +248,22 @@ describe("order response", () => {
         expect(router.push).not.toHaveBeenCalled();
     });
 
+    it("with a declined payment shows the gateway message and keeps the cart", async () => {
+        hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
+        axios.post.mockResolvedValue({ data: { errors: { payment: ["Payment declined: Do Not Honor"] } } });
+        const wrapper = await mountReady();
+
+        wrapper.vm.payWithCreditCard();
+        await flush();
+
+        expect(wrapper.vm.paymentErrors).toEqual(["Payment declined: Do Not Honor"]);
+        expect(store.state.cart).toHaveLength(2);
+        expect(router.push).not.toHaveBeenCalled();
+    });
+
     it("without errors completes the order: clears fields and cart, goes to success", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
-        axios.post.mockResolvedValue({ data: { ...CUSTOMER } });
+        axios.post.mockResolvedValue({ data: { ...CUSTOMER, id: 79, status: "paid", transaction_id: "abc123" } });
         const wrapper = await mountReady();
 
         wrapper.vm.payWithCreditCard();
@@ -154,14 +271,16 @@ describe("order response", () => {
 
         expect(wrapper.vm.errors).toEqual({});
         expect(wrapper.vm.sending).toBe(false);
-        for (const field of Object.keys(CUSTOMER)) {
-            expect(wrapper.vm[field]).toBe("");
-        }
+        Object.keys(CUSTOMER).forEach(e => expect(wrapper.vm[e]).toBe(""));
         expect(store.state.cart).toEqual([]);
-        expect(router.push).toHaveBeenCalledWith({ name: "success" });
+        // driver "braintree" from the server config, testMode missing -> treated as live
+        expect(router.push).toHaveBeenCalledWith({
+            name: "success",
+            query: { order: "79", tx: "abc123", via: "braintree" }
+        });
     });
 
-    it("on network error keeps cart and page (sending stays true: current behaviour)", async () => {
+    it("on network error keeps cart and page and lets the customer retry", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
         axios.post.mockRejectedValue(new Error("Network Error"));
         const wrapper = await mountReady();
@@ -171,6 +290,15 @@ describe("order response", () => {
 
         expect(store.state.cart).toHaveLength(2);
         expect(router.push).not.toHaveBeenCalled();
-        expect(wrapper.vm.sending).toBe(true);
+        expect(wrapper.vm.sending).toBe(false);
+        expect(wrapper.vm.error).not.toBe("");
+    });
+});
+
+describe("payment receipt of the success page", () => {
+    it("names the provider from the query, nothing without order and transaction", () => {
+        expect(receiptFrom({ order: "79", tx: "abc123", via: "braintree-sandbox" }).provider.name).toBe("Braintree sandbox");
+        expect(receiptFrom({ order: "79", tx: "fake_x", via: "demo" }).provider.name).toBe("Demo payment");
+        expect(receiptFrom({})).toBe(null);
     });
 });
