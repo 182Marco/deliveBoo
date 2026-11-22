@@ -178,6 +178,7 @@ class PublicApiTest extends TestCase
     {
         $html = (new OrderedMessage($this->orderPayload()))->render();
 
-        $this->assertStringContainsString('Mario', $html);
+        $this->assertStringContainsString('Thank You Mario', $html);
+        $this->assertStringContainsString('via Roma 1', $html);
     }
 }

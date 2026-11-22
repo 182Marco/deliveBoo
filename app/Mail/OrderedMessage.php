@@ -3,38 +3,22 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 
+// order confirmation sent to the customer (subject: "Ordered Message", from the class name)
 class OrderedMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $contact;
-
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($contact)
+    // the order data posted by Payment.vue, available in the view as $contact
+    public function __construct(public array $contact)
     {
-        //property/Array
-        $this->contact=$contact;
-
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function content(): Content
     {
-        return $this->markdown('mails.orderedMessage')
-                    ->with([
-                        'contact' => $this->contact
-                    ]);
+        return new Content(markdown: 'mails.orderedMessage');
     }
 }

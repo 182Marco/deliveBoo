@@ -2,23 +2,21 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+#[Fillable(['price', 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'restaurant_id'])]
 class Order extends Model
 {
-    // with this is possible to seed created-at
-    public $timestamps = true;
-
-    protected $fillable = [
-         'price','customer_name','customer_lastName','customer_email','customer_phone','customer_address','restaurant_id',
-    ];
-    // define relationship with restaurant
-    public function restaurant(){
-        return $this->belongsTo('App\Restaurant');
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
     }
-    // -------
-    //define relationship with plates many to many
-    public function plates() {
-        return $this->belongsToMany('App\Plate');
+
+    public function plates(): BelongsToMany
+    {
+        return $this->belongsToMany(Plate::class);
     }
 }

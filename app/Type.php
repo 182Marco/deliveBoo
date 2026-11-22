@@ -2,17 +2,17 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+#[Fillable(['name'])]
+#[WithoutTimestamps]
 class Type extends Model
 {
-    public $timestamps = false;
-    protected $fillable = [
-        'name'
-    ];
-    // -------
-    //define relationship with restaurants many to many
-    public function restaurants() {
-        return $this->belongsToMany('App\Restaurant');
+    public function restaurants(): BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class);
     }
 }

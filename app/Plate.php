@@ -2,20 +2,21 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+#[Fillable(['name', 'ingredients', 'description', 'visible', 'price', 'img', 'restaurant_id'])]
 class Plate extends Model
 {
-    protected $fillable = [
-        'name','ingredients','description','visible','price','img','restaurant_id'
-    ];
-    // relationship one to many with restaurants
-    public function restaurant(){
-       return $this->belongsTo('App\Restaurant');
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
     }
-    // -------
-    //define relationship with orders many to many
-    public function orders() {
-        return $this->belongsToMany('App\Order');
+
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class);
     }
 }

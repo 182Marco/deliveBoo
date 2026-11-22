@@ -2,15 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable(['rate', 'restaurant_id'])]
 class Rate extends Model
 {
-    protected $fillable = [
-        'rate','restaurant_id'
-    ];
-    // relationship one to many with restaurants
-    public function rest(){
-        return $this->belongsTo('App\Restaurant');
+    public function rest(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
     }
 }
