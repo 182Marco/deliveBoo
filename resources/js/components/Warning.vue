@@ -13,7 +13,7 @@
                 class="btn btn-brand btn-block"
                 :to="{
                     name: 'restMenu',
-                    params: { id: cart[0] ? cart[0].restaurant_id : 1 }
+                    params: { slug: cart[0].restaurant_slug }
                 }"
             >
                 Go back to restaurant where I was ordering
@@ -45,7 +45,8 @@ export default {
         ridirect() {
             this.$store.commit("changeWarn");
             this.$store.dispatch("getMenuAndDetails", {
-                id: this.$route.params.id
+                page: 1,
+                slug: this.cart[0].restaurant_slug
             });
             window.scrollTo(0, 0);
         }
