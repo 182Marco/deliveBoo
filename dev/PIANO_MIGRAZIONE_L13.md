@@ -16,9 +16,10 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - [x] `composer audit`: 0 advisory · `npm audit --omit=dev`: 0 (2 moderate solo in dev: `@vue/test-utils` → `js-beautify`, fix solo con `--force`)
   - [x] `migrate:fresh --seed` su MySQL 8 (DB temporaneo) e SQLite · immagine di produzione avviata e provata (SPA, API, asset, `.env` non esposto)
   - [ ] **Manuale** — smoke nel browser (punto 5 della checklist): clienti + admin, incluso dropdown logout, conferma eliminazione, grafico stats
-  - [ ] **Manuale** — Braintree sandbox (sezione B): carta 4111 1111 1111 1111, errori carta e campi cliente
-  - [ ] **Manuale** — DB di sviluppo `deliveboo`: `docker compose build && docker compose up -d && docker compose exec app php artisan migrate` (aggiunge solo la migration dei prezzi; nessun reseed) — comando ora anche in `dev/mappa.html` (Link di avvio → Codespace, Note Docker, Comandi Laravel → Migrations)
-  - [ ] **Manuale** — prima del merge: variabili su Render (`APP_KEY`; facoltative `MAIL_*`), poi deploy
+  - [x] Pagamento end-to-end (non ha mai funzionato: la chiave sandbox hardcoded nel front risponde 403). Ora addebito lato server dietro `App\Payments\PaymentGateway`, driver `fake` (default, offline) e `braintree` (`braintree/braintree_php`); importo ricalcolato dal db, `orders.status` pending/paid/failed + `transaction_id`, admin/stats solo `paid`. Provato via HTTP sul container: ordine pagato e rifiutato.
+  - [ ] **Manuale** — pagamento nel browser con driver `fake` (4111… ok, 4000 0000 0000 0002 rifiutata) · facoltativo: account sandbox Braintree, `PAYMENT_DRIVER=braintree`, stessa prova
+  - [ ] **Manuale** — DB di sviluppo `deliveboo`: `docker compose build && docker compose up -d && docker compose exec app php artisan migrate` (migration dei prezzi e delle colonne di pagamento: già applicate il 2026-11-22; nessun reseed) — comando ora anche in `dev/mappa.html` (Link di avvio → Codespace, Note Docker, Comandi Laravel → Migrations)
+  - [ ] **Manuale** — prima del merge: variabili su Render (`APP_KEY`; facoltative `MAIL_*`, `PAYMENT_DRIVER`/`BRAINTREE_*`), poi deploy
   - [ ] **Da decidere** — correzioni separate `fix(security)` SEC-1..SEC-4 e `fix` BUG-1
 
 **Prossimo passo:** verifiche manuali con l'utente (browser, Braintree sandbox, migrate del DB di sviluppo), poi decidere sulle correzioni SEC-1..4 / BUG-1 e sul merge di `upgrade/laravel-13` in `master`.
