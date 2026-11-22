@@ -39,7 +39,7 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 **Cliente**: scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
 
-**Ristoratore**: registrazione/login · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
+**Ristoratore**: registrazione/login · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con foto caricata **oppure link https a un'immagine ospitata altrove** (il sito la mostra da lì, senza copiarla), ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
 
 ## API
 
@@ -104,12 +104,13 @@ SEED_PROFILE=test php artisan db:seed                # catalogo ridotto (quello 
 Il dataset ha tre livelli, in quest'ordine (`DatabaseSeeder`):
 
 1. **dati di riferimento**: `AllergensSeeder` (i 14 allergeni del Reg. UE 1169/2011), `DietaryTagsSeeder`, `IngredientsSeeder` (registro di circa 700 ingredienti con origine, lattosio, nichel indicativo e allergeni);
-2. **dati storici scritti a mano**: Users, Types, Restaurants, Plates, `LegacyPlateDetailsSeeder` (ingredienti strutturati dei piatti storici), Orders, Rates;
+2. **dati storici scritti a mano**: Users, Types, Restaurants, `LegacyRestaurantDetailsSeeder` (segmento, descrizione, posizione e orari dei ristoranti storici: riempie solo i campi vuoti), Plates, `LegacyPlateDetailsSeeder` (ingredienti strutturati dei piatti storici), Orders, Rates;
 3. **catalogo generato**: `OwnersSeeder`, `CatalogRestaurantsSeeder` (con orari), `MenusSeeder`, `OrderHistorySeeder`, `RatingsSeeder`.
 
 Il catalogo generato nasce da file di dati scritti a mano in `database/seeders/data/`: per ogni cucina concept e ricette con varianti per fascia (`base` / `mid` / `high`), bevande per livello e contesto, città, nomi, foto. La generazione è **deterministica** (`database/seeders/Support/`: stesso input, stesso catalogo, senza dipendere dagli ID) e dimensionata da `config/seeding.php`:
 
-- `SEED_PROFILE=full` (default): 48 nuovi ristoratori (password `foodsy-demo`, email `@example.*`), circa 245 ristoranti (30 per l'account demo Romiti), circa 6.000 piatti, circa 11.000 ordini 2025-2026, circa 19.000 voti. Su MySQL `migrate:fresh --seed` impiega circa 20 secondi;
+- dimensione dei menu per segmento: pochi piatti per street food e locali economici, 30-75 per trattorie e ristoranti tradizionali, 50-110 per i premium; **stellati e fine dining 5-10 piatti** (menu degustazione e poca carta) più una carta dei vini di 25-45 voci; **sushi 80-150 voci** (nigiri e sashimi per pesce, gunkan, maki, temaki, uramaki, fritti, antipasti, box);
+- `SEED_PROFILE=full` (default): 48 nuovi ristoratori (password `foodsy-demo`, email `@example.*`), circa 245 ristoranti (30 per l'account demo Romiti), circa 6.000 piatti (il numero esatto varia con le regole dei menu), circa 11.000 ordini 2025-2026, circa 19.000 voti. Su MySQL `migrate:fresh --seed` impiega circa 20 secondi;
 - `SEED_PROFILE=test` (forzato da `phpunit.xml`): 2 ristoratori, menu di 6-12 piatti, stessa logica.
 
 Un seeder lanciato da solo richiede che i precedenti siano già stati eseguiti; se manca un riferimento si ferma con un errore chiaro e non scrive nulla.
