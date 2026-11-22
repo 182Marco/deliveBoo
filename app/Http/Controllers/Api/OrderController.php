@@ -37,18 +37,25 @@ class OrderController extends Controller
         }
 
         // the amount is never taken from the client: it is the sum of the prices in the db.
-        // The cart has one entry per portion, so the same id can appear more than once.
+        // The cart has one entry per portion, so the same id can appear more than once:
+        // it becomes one order line with its quantity.
         $plateIds = array_map('intval', $r->plates);
-        $prices = Plate::where('restaurant_id', $r->restaurant_id)
-            ->whereIn('id', array_unique($plateIds))
-            ->pluck('price', 'id');
-        if ($prices->count() !== count(array_unique($plateIds))) {
+        $quantities = array_count_values($plateIds);
+        $plates = Plate::where('restaurant_id', $r->restaurant_id)
+            ->whereIn('id', array_keys($quantities))
+            ->get(['id', 'name', 'price', 'availability', 'available_from_month', 'available_to_month'])
+            ->keyBy('id');
+        if ($plates->count() !== count($quantities)) {
             return response()->json(['errors' => ['plates' => ['Some plates are not on the menu of this restaurant.']]]);
         }
-        $amount = round(collect($plateIds)->sum(fn ($id) => $prices[$id]), 2);
+        $notOrderable = $plates->reject(fn (Plate $p) => $p->isOrderable())->pluck('name');
+        if ($notOrderable->isNotEmpty()) {
+            return response()->json(['errors' => ['plates' => ['Not available right now: ' . $notOrderable->implode(', ') . '.']]]);
+        }
+        $amount = round(collect($quantities)->sum(fn ($qty, $id) => $qty * $plates[$id]->price), 2);
 
         // the order exists before the charge: a failed or interrupted payment leaves a trace
-        $order = DB::transaction(function () use ($r, $amount, $plateIds, $gateway) {
+        $order = DB::transaction(function () use ($r, $amount, $quantities, $plates, $gateway) {
             $order = new Order($r->only([
                 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'restaurant_id',
             ]));
@@ -56,8 +63,11 @@ class OrderController extends Controller
             $order->status = Order::PENDING;
             $order->payment_driver = $gateway->driver();
             $order->save();
-            // attach keeps the duplicates (two portions of the same plate)
-            $order->plates()->attach($plateIds);
+            // one line per plate, with the unit price paid (the history survives later price changes)
+            $order->plates()->attach(collect($quantities)->map(fn ($qty, $id) => [
+                'quantity' => $qty,
+                'unit_price' => $plates[$id]->price,
+            ])->all());
 
             return $order;
         });
@@ -77,7 +87,7 @@ class OrderController extends Controller
             return response()->json(['errors' => ['payment' => ["Payment declined: {$result->message}"]]]);
         }
 
-        $order->forceFill(['status' => Order::PAID, 'transaction_id' => $result->transactionId])->save();
+        $order->forceFill(['status' => Order::PAID, 'transaction_id' => $result->transactionId, 'fulfillment_status' => Order::RECEIVED])->save();
 
         $data = [...$order->only(['id', 'restaurant_id', 'price', 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'status', 'transaction_id']), 'plates' => $plateIds];
 

@@ -3,12 +3,17 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** 8.1 fatto. Prossimo: 8.2, migration dello schema (punto 1) e modelli (punto 2).
+- **Passo corrente:** 8.2 + 8.4 fatti (schema, modelli, checkout). Prossimo: 8.3, backoffice dei piatti (punto 3).
 - **Passi fatti:**
   - 0. File di avanzamento creato.
+  - 8.2+8.4 schema (11 migration `2026_11_23_*`), modelli `Ingredient`/`Allergen`/`DietaryTag`/`OpeningHour`, scope di `Plate` (`orderable`, `withDiet`, `freeFrom`, `withIngredients`, `withoutIngredients`, `derivedAllergens`, `syncIngredients`, `uniqueSlug`), checkout con quantità, unit_price e rifiuto dei piatti non ordinabili.
   - 8.1 BUG-1: `Restaurant::uniqueSlug()` e `unique:restaurants,name` in store; test `_CurrentBehaviour` rimosso, skip tolto, nuovo test sullo slug con suffisso `-2`.
 - **Baseline test:** `php artisan test` = 35.0s, 55 passed e 5 skipped (2026-11-22). Budget: al massimo circa 45s.
-- **Findings:** (nessuno per ora)
+- **Findings:**
+  - Nel modello `Plate`, `$plate->visible` dentro la classe legge la proprietà protetta `Model::$visible` e non la colonna: nel codice del modello usare `getAttribute`/`setAttribute('visible')`.
+  - MySQL: un indice composito che inizia con la colonna di una FK la sostituisce come indice della FK. Per questo i `down()` creano prima un indice semplice e poi eliminano quello composito. Rollback a 11 step verificato.
+  - DB dev: `migrate:fresh --seed` già eseguito al passo 8.2 (seeder legacy), perché un rollback fallito aveva lasciato lo schema a metà. Prima c'erano righe `order_plate` duplicate (fino a 83 porzioni) da prove manuali.
+  - Gli 8.2 e 8.4 sono in un solo commit: la UNIQUE (`order_id`, `plate_id`) rompe il checkout senza il raggruppamento delle quantità.
 - **Problemi aperti / da decidere:** (nessuno)
 - **Decisioni prese:**
   - I marchi reali storici restano.

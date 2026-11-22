@@ -17,6 +17,22 @@ class Order extends Model
     public const PAID = 'paid';
     public const FAILED = 'failed';
 
+    // delivery progress of a paid order (fulfillment_status)
+    public const RECEIVED = 'received';
+    public const PREPARING = 'preparing';
+    public const OUT_FOR_DELIVERY = 'out_for_delivery';
+    public const DELIVERED = 'delivered';
+    public const CANCELLED = 'cancelled';
+
+    protected function casts(): array
+    {
+        return [
+            // DECIMAL on MySQL is read as a string
+            'price' => 'float',
+            'delivered_at' => 'datetime',
+        ];
+    }
+
     // only the orders actually paid count for the restaurateur (list and stats)
     public function scopePaid(Builder $query): Builder
     {
@@ -40,6 +56,8 @@ class Order extends Model
 
     public function plates(): BelongsToMany
     {
-        return $this->belongsToMany(Plate::class);
+        // quantity and unit price paid: the history does not follow later price changes.
+        // withTrashed: a plate deleted by the restaurateur stays in its past orders
+        return $this->belongsToMany(Plate::class)->withPivot('quantity', 'unit_price')->withTrashed();
     }
 }

@@ -158,10 +158,34 @@ class PublicApiTest extends TestCase
         $this->assertSame('fake', $order->payment_driver);
         $this->assertStringStartsWith('fake_', $order->transaction_id);
         $this->assertSame($response->json('transaction_id'), $order->transaction_id);
-        $this->assertEquals(collect($payload['plates'])->sort()->values()->all(), $order->plates()->pluck('plates.id')->sort()->values()->all());
+        // one line per plate: the repeated id is quantity 2, with the unit price paid
+        $lines = $order->plates()->get()->keyBy('id');
+        $this->assertCount(2, $lines);
+        $this->assertSame(2, (int) $lines[$payload['plates'][0]]->pivot->quantity);
+        $this->assertSame(1, (int) $lines[$payload['plates'][2]]->pivot->quantity);
+        $this->assertEqualsWithDelta($lines[$payload['plates'][0]]->price, $lines[$payload['plates'][0]]->pivot->unit_price, 0.001);
+        $this->assertSame(Order::RECEIVED, $order->fulfillment_status);
         Mail::assertSent(OrderedMessage::class, function ($mail) use ($expected) {
             return $mail->hasTo('mario.rossi@example.com') && $mail->contact['price'] == $expected;
         });
+    }
+
+    public function testPlatesThatCannotBeOrderedAreRefused()
+    {
+        Mail::fake();
+        $payload = $this->orderPayload();
+        $plate = Plate::findOrFail($payload['plates'][0]);
+        $plate->update(['availability' => Plate::SOLD_OUT]);
+        $before = Order::count();
+
+        $this->postJson('/api/orders', $payload)
+            ->assertOk()
+            ->assertJsonPath('errors.plates.0', "Not available right now: {$plate->name}.");
+        $this->assertSame($before, Order::count());
+
+        // out of season: a plate served only in a month that is not the current one
+        $plate->update(['availability' => Plate::AVAILABLE, 'available_from_month' => now()->addMonths(2)->month, 'available_to_month' => now()->addMonths(3)->month]);
+        $this->postJson('/api/orders', $payload)->assertOk()->assertJsonPath('errors.plates.0', "Not available right now: {$plate->name}.");
     }
 
     // the restaurateur sees the proof of payment: provider and transaction id
