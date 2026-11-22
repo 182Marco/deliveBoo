@@ -801,6 +801,9 @@ class OrdersTableSeeder extends Seeder
                     $new_order->customer_address = $order['customer_address'];
                     $new_order->customer_phone = $order['customer_phone'];
                     $new_order->price = round($plates->sum('price'), 2);
+                    // demo orders are already paid (offline driver)
+                    $new_order->status = Order::PAID;
+                    $new_order->payment_driver = 'fake';
                     $new_order->created_at = $created_at;
                     // save
                     $new_order->save();

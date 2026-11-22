@@ -17,7 +17,7 @@ class OrderController extends Controller
             return view('admin.notYours.orders');
         }
 
-        $orders = $restaurant->orders()->orderBy('created_at', 'DESC')->paginate(5);
+        $orders = $restaurant->orders()->paid()->orderBy('created_at', 'DESC')->paginate(5);
         $restaurant_id = $restaurant->id;
 
         return view('admin.orders.index', compact('orders', 'restaurant_id'));

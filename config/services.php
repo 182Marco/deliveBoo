@@ -35,4 +35,17 @@ return [
         ],
     ],
 
+    // payment gateway used by POST /api/orders (app/Payments):
+    // "fake" simulates the Braintree sandbox offline, "braintree" charges for real
+    'payments' => [
+        'driver' => env('PAYMENT_DRIVER', 'fake'),
+    ],
+
+    'braintree' => [
+        'environment' => env('BRAINTREE_ENVIRONMENT', 'sandbox'),
+        'merchant_id' => env('BRAINTREE_MERCHANT_ID'),
+        'public_key' => env('BRAINTREE_PUBLIC_KEY'),
+        'private_key' => env('BRAINTREE_PRIVATE_KEY'),
+    ],
+
 ];

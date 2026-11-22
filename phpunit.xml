@@ -28,6 +28,8 @@
         <env name="FILESYSTEM_DISK" value="public"/>
         <env name="DB_URL" value=""/>
         <env name="MAIL_MAILER" value="array"/>
+        <!-- tests never call Braintree, whatever the local .env says -->
+        <env name="PAYMENT_DRIVER" value="fake"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="PULSE_ENABLED" value="false"/>

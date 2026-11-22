@@ -21,7 +21,7 @@ class StatsController extends Controller
     public function show($restaurant_id)
     {
 
-        $related_orders = Order::where('restaurant_id', $restaurant_id)->get();
+        $related_orders = Order::paid()->where('restaurant_id', $restaurant_id)->get();
 
         return view('admin.stats.show', compact('restaurant_id','related_orders'));
     }

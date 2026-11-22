@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\RestaurantController;
 use App\Http\Controllers\Api\TypeController;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +26,7 @@ Route::controller(RestaurantController::class)->group(function () {
     Route::get('/restaurantsMenu/{slug}', 'restMunu');
 });
 
-// receive orders
-Route::post('/orders', [OrderController::class, 'store']);
+// payment driver and client token for the card form of the Payment page
+Route::get('/payments/config', [PaymentController::class, 'config'])->middleware('throttle:30,1');
+// receive orders: the cart is charged server side (app/Payments) before confirming
+Route::post('/orders', [OrderController::class, 'store'])->middleware('throttle:10,1');
