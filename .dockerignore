@@ -1,0 +1,4 @@
+# Strumenti solo di sviluppo: non devono finire nell'immagine di produzione
+dev/
+skills/
+.claude/
