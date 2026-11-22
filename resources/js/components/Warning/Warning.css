@@ -1,0 +1,19 @@
+.warning {
+    text-align: center;
+}
+
+.warning-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: var(--space-4);
+    border-radius: var(--radius-pill);
+    background-color: var(--brand-wash);
+    color: var(--brand-strong);
+}
+
+.warning-text {
+    margin-top: var(--space-3);
+    color: var(--ink-soft);
+}

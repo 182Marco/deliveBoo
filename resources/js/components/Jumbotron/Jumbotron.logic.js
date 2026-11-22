@@ -1,6 +1,28 @@
-// static hero of the home page
+import { FoodImage } from "../FoodImage";
+import { Icon } from "../Icon";
+
+// hero of the home page: photos are external links (Unsplash), never hosted by Foodsy
+const unsplash = (id, width) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=75`;
+
+const PHOTOS = {
+    main: unsplash("1504674900247-0877df9cc836", 900),
+    top: unsplash("1591814468924-caf88d1232e1", 600),
+    bottom: unsplash("1621996346565-e3dbc646d9a9", 600)
+};
+
+const PERKS = [
+    { icon: "store", text: "Hand-picked local kitchens" },
+    { icon: "lock", text: "Secure card checkout" },
+    { icon: "mail", text: "Confirmation by email" }
+];
+
 const jumbotronLogic = {
-    name: "Jumbotron"
+    name: "Jumbotron",
+    components: { FoodImage, Icon },
+    data: () => ({
+        photos: PHOTOS,
+        perks: PERKS
+    })
 };
 
 export { jumbotronLogic };

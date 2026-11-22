@@ -1,19 +1,41 @@
 <template>
-    <section class="navigation">
-        <button :disabled="isFirst" @click="goTo(1)">first</button>
-        <button :disabled="isFirst" @click="goTo(paginate.current - 1)">prev</button>
+    <nav v-if="paginate.last > 1" class="ui-pagination" aria-label="Pagination">
+        <button type="button" class="ui-page" :disabled="isFirst" aria-label="First page" @click="goTo(1)">
+            <Icon name="chevrons-left" :size="18" />
+        </button>
+        <button
+            type="button"
+            class="ui-page"
+            :disabled="isFirst"
+            aria-label="Previous page"
+            @click="goTo(paginate.current - 1)"
+        >
+            <Icon name="chevron-left" :size="18" />
+        </button>
         <button
             v-for="n in paginate.last"
             :key="`number_${n}`"
-            class="number"
-            :class="{ active: n == paginate.current }"
+            type="button"
+            class="ui-page"
+            :class="{ 'ui-page--current': n == paginate.current }"
+            :aria-current="n == paginate.current ? 'page' : null"
             @click="goTo(n)"
         >
             {{ n }}
         </button>
-        <button :disabled="isLast" @click="goTo(paginate.current + 1)">next</button>
-        <button :disabled="isLast" @click="goTo(paginate.last)">last</button>
-    </section>
+        <button
+            type="button"
+            class="ui-page"
+            :disabled="isLast"
+            aria-label="Next page"
+            @click="goTo(paginate.current + 1)"
+        >
+            <Icon name="chevron-right" :size="18" />
+        </button>
+        <button type="button" class="ui-page" :disabled="isLast" aria-label="Last page" @click="goTo(paginate.last)">
+            <Icon name="chevrons-right" :size="18" />
+        </button>
+    </nav>
 </template>
 
 <script>
@@ -21,5 +43,3 @@ import { paginateElLogic } from "./PaginateEl.logic.js";
 
 export default paginateElLogic;
 </script>
-
-<style lang="scss" scoped src="./PaginateEl.scss"></style>

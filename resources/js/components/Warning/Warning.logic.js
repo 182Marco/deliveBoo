@@ -1,15 +1,21 @@
 import { mapActions, mapMutations, mapState } from "vuex";
+import { Icon } from "../Icon";
 import { scrollToTop } from "../../utils";
 
 // modal opened when a plate of another restaurant is added to the cart
 const warningLogic = {
     name: "Warning",
+    components: { Icon },
     computed: {
         ...mapState(["cart"]),
         // restaurant of the plates already in the cart
         cartSlug() {
             return this.cart[0].restaurant_slug;
         }
+    },
+    // keyboard focus moves into the dialog, so Esc and Tab work at once
+    mounted() {
+        this.$refs.primary?.focus();
     },
     methods: {
         ...mapMutations(["changeWarn", "emptyCart"]),

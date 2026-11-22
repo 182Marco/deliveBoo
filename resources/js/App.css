@@ -1,0 +1,28 @@
+/* global shell of the customer site (not scoped) */
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app-main {
+    flex: 1;
+    outline: none;
+}
+
+.app-skip {
+    position: fixed;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 200;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-pill);
+    background-color: var(--ink);
+    color: var(--ink-inverse);
+    font-weight: var(--weight-bold);
+    transform: translateY(-200%);
+}
+
+.app-skip:focus {
+    transform: none;
+}

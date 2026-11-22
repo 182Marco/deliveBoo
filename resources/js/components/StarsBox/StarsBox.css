@@ -1,0 +1,13 @@
+.stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star {
+    color: var(--line-strong);
+}
+
+.star--on {
+    color: var(--saffron);
+}

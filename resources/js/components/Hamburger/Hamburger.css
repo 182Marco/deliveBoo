@@ -1,0 +1,20 @@
+.hamburger-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background-color: var(--surface);
+    transition: border-color var(--duration-fast) var(--ease);
+}
+
+.hamburger-btn:hover {
+    border-color: var(--ink);
+}
+
+@media (min-width: 1200px) {
+    .hamburger {
+        display: none;
+    }
+}

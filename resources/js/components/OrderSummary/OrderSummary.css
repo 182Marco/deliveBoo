@@ -1,0 +1,108 @@
+.summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background-color: var(--surface);
+    box-shadow: var(--shadow-md);
+}
+
+.summary-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.summary-title {
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-display);
+}
+
+.summary-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+    background-color: var(--oat);
+    text-align: center;
+}
+
+.summary-empty-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-pill);
+    background-color: var(--surface);
+    color: var(--brand-strong);
+}
+
+.summary-empty-title {
+    font-weight: var(--weight-bold);
+}
+
+.summary-lines {
+    display: flex;
+    flex-direction: column;
+    max-height: 46vh;
+    overflow-y: auto;
+}
+
+.summary-line {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-1) var(--space-3);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--line);
+}
+
+.summary-name {
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+}
+
+.summary-line-total {
+    justify-self: end;
+}
+
+.summary-unit {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.summary-qty {
+    justify-self: end;
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+}
+
+.summary-stepper {
+    justify-self: end;
+}
+
+.summary-total {
+    display: flex;
+    padding-top: var(--space-2);
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.summary-total-label {
+    font-weight: var(--weight-bold);
+}
+
+.summary-amount {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-black);
+    letter-spacing: var(--tracking-display);
+}

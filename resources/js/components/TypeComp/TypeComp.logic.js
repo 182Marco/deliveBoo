@@ -1,7 +1,9 @@
 import { mapActions, mapMutations, mapState } from "vuex";
+import { Icon } from "../Icon";
 
 const typeCompLogic = {
     name: "TypeComp",
+    components: { Icon },
     props: {
         type: Object
     },

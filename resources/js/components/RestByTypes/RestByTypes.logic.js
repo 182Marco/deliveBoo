@@ -1,9 +1,11 @@
 import { mapGetters, mapState } from "vuex";
+import { FoodImage } from "../FoodImage";
+import { Icon } from "../Icon";
 import { PaginateEl } from "../PaginateEl";
 
 const restByTypesLogic = {
     name: "RestByTypes",
-    components: { PaginateEl },
+    components: { FoodImage, Icon, PaginateEl },
     computed: {
         ...mapState(["restByTypes", "restPagination"]),
         ...mapGetters(["selectedTypesLenght"])

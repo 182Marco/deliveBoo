@@ -1,37 +1,39 @@
 <template>
-    <div>
-        <div class="menu-wrap">
-            <article class="plate card">
-                <h3 class="mb-1">{{ plate.name }}</h3>
-                <div class="img-box">
-                    <img :src="plate.img || imgNotFound" :alt="plate.name" />
-                </div>
-                <p><strong>Description: </strong> {{ plate.description }}</p>
-                <p><strong>Ingredients: </strong> {{ plate.ingredients }}</p>
-                <p>
-                    <strong>Available: </strong>
-                    <span>{{ plate.visible ? " yes" : "no" }}</span>
-                </p>
-                <p><strong>Price: </strong>{{ plate.price }} €</p>
-                <div class="btns-box">
-                    <button class="btn btn-success btn-small" @click="addToCart">
-                        + Add a portion to cart
-                    </button>
-                    <button v-if="portionsInCart" class="btn btn-success btn-small" @click="removePlate(plate)">
-                        - Remove a portion from cart
-                    </button>
-                    <router-link :to="{ name: 'cart' }" class="cart-btn btn-success btn btn-small" @click="scrollToTop">
-                        check the cart
-                    </router-link>
-                </div>
-                <p>
-                    <strong class="item-in-cart">portions already in cart: {{ portionsInCart }} </strong>
-                </p>
-            </article>
-            <!-- one per plate, as before: they overlap in the same fixed position -->
-            <Warning v-if="warn" />
+    <article class="dish">
+        <div class="dish-media">
+            <FoodImage class="dish-photo" :src="plate.img" :alt="plate.name" />
+            <span v-if="!plate.visible" class="dish-flag">Currently unavailable</span>
+            <div class="dish-action">
+                <QuantityStepper
+                    v-if="portionsInCart"
+                    :count="portionsInCart"
+                    :item="plate.name"
+                    @increment="addToCart"
+                    @decrement="removeOne"
+                />
+                <button
+                    v-else
+                    type="button"
+                    class="dish-add"
+                    :aria-label="`Add ${plate.name} to your bag`"
+                    @click="addToCart"
+                >
+                    <Icon name="plus" :size="22" />
+                </button>
+            </div>
         </div>
-    </div>
+        <div class="dish-body">
+            <div class="dish-head">
+                <h3 class="dish-name">{{ plate.name }}</h3>
+                <span class="dish-price ui-price">€{{ price }}</span>
+            </div>
+            <p class="dish-description">{{ plate.description }}</p>
+            <p class="dish-ingredients">
+                <span class="ui-sr-only">Ingredients:</span>
+                {{ plate.ingredients }}
+            </p>
+        </div>
+    </article>
 </template>
 
 <script>
@@ -40,4 +42,4 @@ import { plateLogic } from "./Plate.logic.js";
 export default plateLogic;
 </script>
 
-<style lang="scss" scoped src="./Plate.scss"></style>
+<style scoped src="./Plate.css"></style>

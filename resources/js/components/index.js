@@ -1,11 +1,16 @@
 export { Content } from "./Content";
+export { FoodImage } from "./FoodImage";
 export { Footer } from "./Footer";
 export { Hamburger } from "./Hamburger";
 export { Header } from "./Header";
+export { Icon } from "./Icon";
 export { Jumbotron } from "./Jumbotron";
+export { Logo } from "./Logo";
 export { MenuMobile } from "./MenuMobile";
+export { OrderSummary } from "./OrderSummary";
 export { PaginateEl } from "./PaginateEl";
 export { Plate } from "./Plate";
+export { QuantityStepper } from "./QuantityStepper";
 export { RestByTypes } from "./RestByTypes";
 export { StarsBox } from "./StarsBox";
 export { TopRated } from "./TopRated";

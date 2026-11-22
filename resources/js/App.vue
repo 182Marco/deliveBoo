@@ -1,10 +1,12 @@
 <template>
     <div class="app">
+        <a class="app-skip" href="#main">Skip to content</a>
         <Header />
         <!-- nothing inside <router-view>: in Vue Router 4 any content becomes its slot -->
-        <router-view />
-        <Content class="main-content" />
-        <Footer class="footer" />
+        <main id="main" class="app-main" tabindex="-1">
+            <router-view />
+        </main>
+        <Footer />
     </div>
 </template>
 
@@ -14,4 +16,4 @@ import { appLogic } from "./App.logic.js";
 export default appLogic;
 </script>
 
-<style lang="scss" src="./App.scss"></style>
+<style src="./App.css"></style>

@@ -1,9 +1,14 @@
 <template>
-    <div class="cont">
-        <button :class="{ clicked: isSelected }" @click="toggle">
-            {{ type.name }}
-        </button>
-    </div>
+    <button
+        type="button"
+        class="ui-chip"
+        :class="{ 'ui-chip--active': isSelected }"
+        :aria-pressed="isSelected ? 'true' : 'false'"
+        @click="toggle"
+    >
+        <Icon v-if="isSelected" name="check" :size="16" />
+        {{ type.name }}
+    </button>
 </template>
 
 <script>
@@ -11,5 +16,3 @@ import { typeCompLogic } from "./TypeComp.logic.js";
 
 export default typeCompLogic;
 </script>
-
-<style lang="scss" scoped src="./TypeComp.scss"></style>

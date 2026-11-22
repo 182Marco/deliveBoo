@@ -1,0 +1,43 @@
+/* cover: the photo of the cuisine, full bleed, with its name on a dark fade */
+.cuisine-hero {
+    position: relative;
+    color: var(--ink-inverse);
+}
+
+.cuisine-cover {
+    height: clamp(240px, 30vw, 360px);
+}
+
+.cuisine-shade {
+    position: absolute;
+    inset: 0;
+    background-image: var(--photo-fade);
+}
+
+.cuisine-hero-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-block: var(--space-5) var(--space-7);
+}
+
+.cuisine-id {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.cuisine-name {
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+}
+
+.cuisine-results {
+    padding-block: var(--space-8) 0;
+}
+
+.cuisine-more {
+    margin-top: var(--section);
+}

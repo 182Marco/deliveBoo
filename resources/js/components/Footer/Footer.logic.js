@@ -1,48 +1,33 @@
-import { mapState } from "vuex";
+import { Icon } from "../Icon";
+import { Logo } from "../Logo";
 
-const LINK_CARDS = [
+// only real destinations: SPA routes (`to`) or Laravel pages (`href`)
+const COLUMNS = [
     {
-        title: "Explore Deliveroo",
+        title: "Discover",
         links: [
-            "Investors",
-            "About Us",
-            "Takeaway",
-            "More",
-            "Pressroom",
-            "Foodscene blog",
-            "Engineering blog",
-            "Design",
-            "Careers",
-            "Become a rider"
+            { to: { name: "home", hash: "#cuisines" }, text: "Cuisines" },
+            { to: { name: "home", hash: "#explore" }, text: "All restaurants" },
+            { to: { name: "home", hash: "#top-rated" }, text: "Guest favourites" },
+            { to: { name: "cart" }, text: "Your bag" }
         ]
     },
-    { title: "Legal", links: ["Terms and conditions", "Privacy", "Cookies"] },
-    { title: "Help", links: ["Contact", "FAQs", "Cuisines", "Site map"] }
-];
-
-const STORE_BADGES = [
     {
-        src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Download_on_the_App_Store_Badge_IT_RGB_blk.svg/2560px-Download_on_the_App_Store_Badge_IT_RGB_blk.svg.png",
-        alt: "apple-store"
-    },
-    {
-        src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Google_Play_Store_badge_IT.svg/1024px-Google_Play_Store_badge_IT.svg.png",
-        alt: "play-store"
+        title: "Partners",
+        links: [
+            { href: "/register", text: "Add your restaurant" },
+            { href: "/login", text: "Partner login" }
+        ]
     }
 ];
-
-const SOCIAL_ICONS = ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"];
 
 const footerLogic = {
     name: "Footer",
+    components: { Icon, Logo },
     data: () => ({
-        linkCards: LINK_CARDS,
-        storeBadges: STORE_BADGES,
-        socialIcons: SOCIAL_ICONS
-    }),
-    computed: {
-        ...mapState(["warn"])
-    }
+        columns: COLUMNS,
+        year: new Date().getFullYear()
+    })
 };
 
 export { footerLogic };

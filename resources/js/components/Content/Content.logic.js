@@ -1,13 +1,17 @@
 import { mapMutations, mapState } from "vuex";
+import { FoodImage } from "../FoodImage";
 import { scrollToTop } from "../../utils";
 
+// rail of every cuisine: one click opens the page of that cuisine only
 const contentLogic = {
     name: "Content",
+    components: { FoodImage },
+    props: {
+        eyebrow: { type: String, default: "Cuisines" },
+        title: { type: String, default: "What are you craving?" }
+    },
     computed: {
-        ...mapState(["alltypes", "typesSelected"]),
-        selectedTypes() {
-            return this.alltypes.filter(e => this.typesSelected.includes(e.id));
-        }
+        ...mapState(["alltypes", "typesSelected"])
     },
     methods: {
         ...mapMutations(["cleanSelectedTypes", "addType"]),

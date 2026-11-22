@@ -1,0 +1,26 @@
+/* the parent decides size and radius; the image always covers it */
+.food-image {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--oat);
+}
+
+.food-image-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* no photo: the brand mark (always in its own colour) on an oat plate */
+.food-image-empty {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--oat);
+}
+
+.food-image-mark {
+    width: 26%;
+    max-width: 64px;
+}

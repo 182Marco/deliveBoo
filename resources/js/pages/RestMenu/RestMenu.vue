@@ -1,34 +1,96 @@
 <template>
     <!-- render only once the menu is loaded -->
-    <div v-if="restaurant.location && restaurant.menu" class="cont">
-        <div class="items-box">
-            <div class="img-box">
-                <img :src="restaurant.location.img" :alt="restaurant.location.name" />
+    <div v-if="restaurant.location && restaurant.menu" class="rest">
+        <section class="rest-hero" aria-labelledby="rest-name">
+            <FoodImage class="rest-cover" eager :src="restaurant.location.img" :alt="restaurant.location.name" />
+            <div class="rest-shade"></div>
+            <div class="ui-container rest-hero-inner">
+                <router-link :to="{ name: 'home', hash: '#explore' }" class="ui-btn ui-btn--light ui-btn--sm rest-back">
+                    <Icon name="arrow-left" :size="18" />
+                    All restaurants
+                </router-link>
+                <div class="rest-id">
+                    <ul class="rest-tags" aria-label="Cuisines">
+                        <li v-for="type in restaurant.types" :key="`tId${type}`" class="ui-badge ui-badge--light">
+                            {{ type }}
+                        </li>
+                    </ul>
+                    <h1 id="rest-name" class="ui-display rest-name">{{ restaurant.location.name }}</h1>
+                    <p class="rest-rating">
+                        <StarsBox :average="stars" :size="18" />
+                        <span>{{ stars }} out of 5</span>
+                    </p>
+                </div>
             </div>
-            <div class="txt box">
-                <h1>
-                    Restaurant: <em>{{ restaurant.location.name }}</em>
-                </h1>
-                <p>
-                    <strong class="little-title">address: </strong>
-                    {{ restaurant.location.address }},
-                    {{ restaurant.location.city }}
-                </p>
-                <p>
-                    <strong class="little-title">phone: </strong>
-                    {{ restaurant.location.phone }}
-                </p>
-                <p class="rating">
-                    <strong class="little-title">rated: </strong>
-                    <StarsBox :average="stars" />
-                </p>
-                <strong class="little-title">Types: </strong>
-                <span v-for="type in restaurant.types" :key="`tId${type}`" class="label">{{ type }}</span>
+        </section>
+
+        <div class="rest-facts">
+            <ul class="ui-container rest-facts-list">
+                <li class="rest-fact">
+                    <span class="rest-fact-icon"><Icon name="pin" :size="18" /></span>
+                    <span>
+                        <span class="rest-fact-label">Address</span>
+                        {{ restaurant.location.address }}, {{ restaurant.location.city }}
+                    </span>
+                </li>
+                <li class="rest-fact">
+                    <span class="rest-fact-icon"><Icon name="phone" :size="18" /></span>
+                    <span>
+                        <span class="rest-fact-label">Phone</span>
+                        <a class="rest-phone" :href="`tel:${restaurant.location.phone}`">
+                            {{ restaurant.location.phone }}
+                        </a>
+                    </span>
+                </li>
+                <li class="rest-fact">
+                    <span class="rest-fact-icon"><Icon name="lock" :size="18" /></span>
+                    <span>
+                        <span class="rest-fact-label">Payment</span>
+                        Card, charged at checkout
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ui-container rest-layout">
+            <section class="rest-menu" aria-labelledby="menu-title">
+                <div class="rest-menu-head">
+                    <div class="ui-section-intro">
+                        <p class="ui-eyebrow">The menu</p>
+                        <h2 id="menu-title" class="ui-title">What's cooking</h2>
+                    </div>
+                    <span v-if="menuPagination.last > 1" class="rest-page ui-muted">
+                        Page {{ menuPagination.current }} of {{ menuPagination.last }}
+                    </span>
+                </div>
+                <ul class="rest-dishes">
+                    <li v-for="(plate, i) in restaurant.menu.data" :key="`_${i}`">
+                        <Plate :plate="plate" />
+                    </li>
+                </ul>
+                <PaginateEl :paginate="menuPagination" :get-menu="true" :slug="restaurant.location.slug" />
+            </section>
+
+            <div class="rest-aside">
+                <OrderSummary cta-route="cart" cta-label="Review order" />
             </div>
         </div>
-        <h2>Menu:</h2>
-        <Plate v-for="(plate, i) in restaurant.menu.data" :key="`_${i}`" :plate="plate" />
-        <PaginateEl :paginate="menuPagination" :get-menu="true" :slug="restaurant.location.slug" />
+
+        <router-link v-if="cart.length" :to="{ name: 'cart' }" class="rest-bagbar">
+            <span class="rest-bagbar-count">{{ cart.length }}</span>
+            View your bag
+            <span class="rest-bagbar-amount ui-price">€{{ amount }}</span>
+        </router-link>
+
+        <Warning v-if="warn" />
+    </div>
+
+    <div v-else class="rest-loading" aria-busy="true" aria-label="Loading the menu">
+        <div class="rest-skeleton rest-skeleton--cover"></div>
+        <div class="ui-container rest-loading-lines">
+            <div class="rest-skeleton rest-skeleton--line"></div>
+            <div class="rest-skeleton rest-skeleton--short"></div>
+        </div>
     </div>
 </template>
 
@@ -38,4 +100,4 @@ import { restMenuLogic } from "./RestMenu.logic.js";
 export default restMenuLogic;
 </script>
 
-<style lang="scss" scoped src="./RestMenu.scss"></style>
+<style scoped src="./RestMenu.css"></style>

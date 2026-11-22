@@ -1,32 +1,44 @@
 <template>
-    <!-- every click in here bubbles to Hamburger, which closes the menu (also the "x") -->
-    <section v-if="menuMobile">
-        <header>
-            <img src="/../../images/logoColBrand.png" alt="delivero Logo" />
-            <p class="x">x</p>
-        </header>
-        <div class="btn-box">
-            <a class="main-btn" href="/login">Registrati o accedi</a>
-        </div>
-        <main>
-            <ul>
-                <li v-for="link in mainLinks" :key="link.text">
-                    <div>
-                        <a :href="link.href"><i :class="link.icon"></i>{{ link.text }}</a>
-                    </div>
-                    <p>&gt;</p>
-                </li>
-            </ul>
-            <ul class="lang-list">
-                <li v-for="lang in languages" :key="lang">
-                    <div>
-                        <a href="#">{{ lang }}</a>
-                    </div>
-                    <p>&gt;</p>
-                </li>
-            </ul>
-        </main>
-    </section>
+    <div v-if="menuMobile" class="drawer-backdrop" @click.self="toggleMenuMobile" @keydown.esc="toggleMenuMobile">
+        <section id="mobile-menu" class="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+            <div class="drawer-head">
+                <Logo />
+                <button
+                    ref="close"
+                    type="button"
+                    class="ui-btn ui-btn--ghost ui-btn--icon"
+                    aria-label="Close menu"
+                    @click="toggleMenuMobile"
+                >
+                    <Icon name="close" />
+                </button>
+            </div>
+
+            <nav class="drawer-nav" aria-label="Mobile">
+                <router-link
+                    v-for="link in routeLinks"
+                    :key="link.text"
+                    :to="link.to"
+                    class="drawer-link"
+                    @click="toggleMenuMobile"
+                >
+                    <span class="drawer-link-icon"><Icon :name="link.icon" /></span>
+                    {{ link.text }}
+                    <Icon class="drawer-link-arrow" name="chevron-right" :size="18" />
+                </router-link>
+                <a v-for="link in pageLinks" :key="link.text" :href="link.href" class="drawer-link">
+                    <span class="drawer-link-icon"><Icon :name="link.icon" /></span>
+                    {{ link.text }}
+                    <Icon class="drawer-link-arrow" name="chevron-right" :size="18" />
+                </a>
+            </nav>
+
+            <div class="drawer-foot">
+                <p class="drawer-note">Own a restaurant? Reach new guests every day.</p>
+                <a class="ui-btn ui-btn--primary ui-btn--block" href="/register">Partner with Foodsy</a>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
@@ -35,4 +47,4 @@ import { menuMobileLogic } from "./MenuMobile.logic.js";
 export default menuMobileLogic;
 </script>
 
-<style lang="scss" scoped src="./MenuMobile.scss"></style>
+<style scoped src="./MenuMobile.css"></style>

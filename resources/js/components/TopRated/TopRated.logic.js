@@ -1,16 +1,17 @@
+import { FoodImage } from "../FoodImage";
+import { Icon } from "../Icon";
 import { StarsBox } from "../StarsBox";
 import { fetchTopRated } from "../../api";
-import { withStarsAverage } from "./TopRated.utils.js";
+import { rankLabel, withStarsAverage } from "./TopRated.utils.js";
 
-// medal classes of the first three positions
-const MEDALS = ["gold", "silver", "bronze"];
+// share of the visible rail moved by the arrows
+const SCROLL_STEP = 0.85;
 
 const topRatedLogic = {
     name: "TopRated",
-    components: { StarsBox },
+    components: { FoodImage, Icon, StarsBox },
     data: () => ({
-        topRest: [],
-        medals: MEDALS
+        topRest: []
     }),
     async created() {
         try {
@@ -20,8 +21,12 @@ const topRatedLogic = {
         }
     },
     methods: {
-        goToRest(slug) {
-            this.$router.push({ name: "restMenu", params: { slug } });
+        menuRoute: rest => ({ name: "restMenu", params: { slug: rest.slug } }),
+        rank: rankLabel,
+        // the rail stays swipeable; the arrows help mouse users
+        scrollRail(direction) {
+            const rail = this.$refs.rail;
+            rail.scrollBy({ left: direction * rail.clientWidth * SCROLL_STEP, behavior: "smooth" });
         }
     }
 };

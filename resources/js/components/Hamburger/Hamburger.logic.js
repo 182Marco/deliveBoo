@@ -1,10 +1,14 @@
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
+import { Icon } from "../Icon";
 import { MenuMobile } from "../MenuMobile";
 
+// menu button of small screens: MenuMobile is the drawer it opens
 const hamburgerLogic = {
     name: "Hamburger",
-    components: { MenuMobile },
-    // bound to the root: also the clicks inside the open menu bubble here and close it
+    components: { Icon, MenuMobile },
+    computed: {
+        ...mapState(["menuMobile"])
+    },
     methods: {
         ...mapMutations(["toggleMenuMobile"])
     }

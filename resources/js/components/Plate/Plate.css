@@ -1,0 +1,100 @@
+.dish {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    height: 100%;
+}
+
+.dish-media {
+    position: relative;
+}
+
+.dish-photo {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+}
+
+.dish-flag {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    background-color: var(--surface);
+    color: var(--tomato);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    box-shadow: var(--shadow-sm);
+}
+
+/* add button (or the stepper) sits on the photo, where the eye already is */
+.dish-action {
+    position: absolute;
+    right: var(--space-3);
+    bottom: var(--space-3);
+}
+
+.dish-add {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-pill);
+    background-color: var(--brand-strong);
+    color: #fff;
+    box-shadow: var(--shadow-md);
+    transition:
+        background-color var(--duration-fast) var(--ease),
+        transform var(--duration-fast) var(--ease);
+}
+
+.dish-add:hover {
+    background-color: var(--brand-deep);
+    transform: scale(1.06);
+}
+
+.dish-add:active {
+    transform: scale(0.94);
+}
+
+.dish-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.dish-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.dish-name {
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+}
+
+.dish-price {
+    font-size: var(--text-lg);
+    color: var(--brand-strong);
+}
+
+.dish-description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--ink-soft);
+}
+
+.dish-ingredients {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: var(--text-xs);
+    letter-spacing: 0.01em;
+    color: var(--ink-muted);
+}

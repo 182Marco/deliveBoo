@@ -1,0 +1,53 @@
+.cuisines {
+    padding-block: var(--space-6) var(--section);
+    scroll-margin-top: var(--header-height);
+}
+
+/* swipeable on phones and tablets, one row of tiles on desktop */
+.cuisines-rail {
+    grid-auto-columns: 132px;
+}
+
+.cuisine {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    width: 100%;
+    border-radius: var(--radius-lg);
+    text-align: left;
+    transition: transform var(--duration) var(--ease);
+}
+
+.cuisine:hover {
+    transform: translateY(-4px);
+}
+
+.cuisine-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+}
+
+.cuisine-photo--active {
+    outline: 3px solid var(--brand-strong);
+    outline-offset: 3px;
+}
+
+.cuisine-name {
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-title);
+}
+
+@media (min-width: 1200px) {
+    .cuisines-rail {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+        margin-inline: 0;
+        padding-inline: 0;
+        overflow: visible;
+    }
+}

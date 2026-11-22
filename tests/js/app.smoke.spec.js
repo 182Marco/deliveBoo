@@ -24,6 +24,7 @@ function api(url) {
     if (url === "/api/restaurantsTopRated") return { data: [REST] };
     if (url.startsWith("/api/restaurantsMenu/")) return { data: { averageRate: 4.2, location: REST, types: ["Fast Food"], menu: PAGE([PLATE]) } };
     if (url.startsWith("/api/restaurants/")) return { data: PAGE([REST]) };
+    if (url === "/api/payments/config") return { data: { driver: "fake", authorization: null } };
     throw new Error("unexpected GET " + url);
 }
 
@@ -63,7 +64,7 @@ describe("every SPA route renders without Vue warnings", () => {
         ["/your-cart", "cart", withCart],
         ["/payment", "payment", withCart],
         ["/well-done!Successfull-payment!Your-order-has-been-confirmed", "success"],
-        ["/una/pagina/che/non/esiste", undefined]
+        ["/this/page/does/not/exist", undefined]
     ];
 
     for (const [path, name, prepare] of cases) {

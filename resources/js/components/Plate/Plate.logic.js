@@ -1,22 +1,23 @@
 import { mapMutations, mapState } from "vuex";
-import { Warning } from "../Warning";
-import { canAddPlate, countPortions, scrollToTop } from "../../utils";
+import { FoodImage } from "../FoodImage";
+import { Icon } from "../Icon";
+import { QuantityStepper } from "../QuantityStepper";
+import { canAddPlate, countPortions, formatPrice } from "../../utils";
 
-const IMG_NOT_FOUND = "https://mantenimientocode.xyz/images/not-found.jpg";
-
+// one dish of the menu; the "one restaurant per order" warning lives once in RestMenu
 const plateLogic = {
     name: "Plate",
-    components: { Warning },
+    components: { FoodImage, Icon, QuantityStepper },
     props: {
         plate: Object
     },
-    data: () => ({
-        imgNotFound: IMG_NOT_FOUND
-    }),
     computed: {
-        ...mapState(["cart", "warn"]),
+        ...mapState(["cart"]),
         portionsInCart() {
             return countPortions(this.cart, this.plate);
+        },
+        price() {
+            return formatPrice(this.plate.price);
         }
     },
     methods: {
@@ -26,7 +27,11 @@ const plateLogic = {
             if (canAddPlate(this.cart, this.plate)) this.addPlate(this.plate);
             else this.changeWarn();
         },
-        scrollToTop
+        // removePlate wants the very object in the bag: after a reload the menu holds new copies
+        removeOne() {
+            const portion = this.cart.find(e => e.id == this.plate.id);
+            if (portion) this.removePlate(portion);
+        }
     }
 };
 

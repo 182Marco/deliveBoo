@@ -1,8 +1,10 @@
 import { mapMutations, mapState } from "vuex";
+import { FoodImage, Icon, QuantityStepper } from "../../components";
 import { countPortions, formatPrice, uniquePlates } from "../../utils";
 
 const cartLogic = {
     name: "Cart",
+    components: { FoodImage, Icon, QuantityStepper },
     computed: {
         ...mapState(["cart", "total"]),
         // one row per plate, with its number of portions

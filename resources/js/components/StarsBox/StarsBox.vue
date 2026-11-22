@@ -1,8 +1,14 @@
 <template>
-    <div class="stars-box" :class="{ top_list: topList }">
-        <i v-for="n in average" :key="`fasStar${n}`" class="fas fa-star"></i>
-        <i v-for="n in emptyStars" :key="`farStar${n}`" class="far fa-star"></i>
-    </div>
+    <span class="stars" role="img" :aria-label="`Rated ${average} out of 5`">
+        <Icon
+            v-for="n in max"
+            :key="`star${n}`"
+            name="star"
+            :size="size"
+            :filled="n <= average"
+            :class="n <= average ? 'star star--on' : 'star'"
+        />
+    </span>
 </template>
 
 <script>
@@ -11,4 +17,4 @@ import { starsBoxLogic } from "./StarsBox.logic.js";
 export default starsBoxLogic;
 </script>
 
-<style lang="scss" scoped src="./StarsBox.scss"></style>
+<style scoped src="./StarsBox.css"></style>
