@@ -35,23 +35,8 @@ class CrudTest extends TestCase
 
     // ---------------------------------------------------------------- restaurants
 
-    public function testStoreRestaurantFails_CurrentBehaviour()
-    {
-        // BUG-1: RestaurantController@store never sets the NOT NULL "slug" column,
-        // so creating a restaurant from the admin always ends in a 500.
-        $before = Restaurant::count();
-
-        $this->post(route('admin.restaurants.store'), [
-            'name' => 'New Place', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
-        ])->assertStatus(500);
-
-        $this->assertSame($before, Restaurant::count());
-    }
-
     public function testStoreRestaurantWithImageAndTypes()
     {
-        $this->markTestSkipped('BUG-1: RestaurantController@store does not set the slug (separate fix commit).');
-
         $types = Type::whereIn('name', ['Vegan', 'Italian'])->pluck('id')->all();
 
         $response = $this->post(route('admin.restaurants.store'), [
@@ -66,6 +51,16 @@ class CrudTest extends TestCase
         $this->assertStringStartsWith('restaurants-imgs/', $rest->img);
         Storage::assertExists($rest->img);
         $this->assertEquals(collect($types)->sort()->values()->all(), $rest->types()->pluck('types.id')->sort()->values()->all());
+    }
+
+    public function testStoreRestaurantGetsAUniqueSlug()
+    {
+        // a name with the same slug as an existing restaurant ("Il cacciatore" -> il-cacciatore)
+        $this->post(route('admin.restaurants.store'), [
+            'name' => 'Il Cacciatore!', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
+        ])->assertRedirect();
+
+        $this->assertSame('il-cacciatore-2', Restaurant::where('name', 'Il Cacciatore!')->value('slug'));
     }
 
     public function testStoreRestaurantValidationMessages()

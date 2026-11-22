@@ -29,7 +29,7 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'max:80'],
+            'name' => ['required', 'unique:restaurants,name', 'max:80'],
             'phone' => ['required'],
             'city' => ['required'],
             'address' => ['required'],
@@ -48,6 +48,7 @@ class RestaurantController extends Controller
 
         $new_restaurant = new Restaurant($data);
         $new_restaurant->user_id = auth()->id();
+        $new_restaurant->slug = Restaurant::uniqueSlug($new_restaurant->name);
         $new_restaurant->save();
 
         // types in the pivot table

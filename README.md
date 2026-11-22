@@ -162,4 +162,4 @@ vite.config.js  entry point della build e configurazione di Vitest
 
 - `Admin/HomeController` non è collegato a nessuna rotta; `StatsController@index` è vuoto.
 - `public/build` è generata da Vite: modificare i sorgenti in `resources/` e ricompilare.
-- Mancano alcuni controlli del proprietario nell'admin (SEC-1..SEC-4: creazione piatti, modifica/eliminazione di ristoranti e piatti, statistiche) e la creazione di un ristorante dall'admin dà errore 500 perché non imposta lo slug (BUG-1). Sono fissati dai test come comportamento attuale e vanno corretti in commit separati: dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.
+- Mancano alcuni controlli del proprietario nell'admin (SEC-1..SEC-4: creazione piatti, modifica/eliminazione di ristoranti e piatti, statistiche) (BUG-1, lo slug mancante alla creazione di un ristorante, è corretto). Sono fissati dai test come comportamento attuale e vanno corretti in commit separati: dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.

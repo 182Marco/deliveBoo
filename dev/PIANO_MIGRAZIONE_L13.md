@@ -34,7 +34,7 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - **SEC-2** `StatsController@show`: ordini e dati cliente di qualsiasi ristorante leggibili.
   - 🆕 **SEC-3** `RestaurantController@update/@destroy`: nessun controllo proprietario (un utente può modificare/cancellare ristoranti altrui).
   - 🆕 **SEC-4** `PlateController@update/@destroy`: idem per i piatti.
-  - 🆕 **BUG-1** `RestaurantController@store`: non imposta `slug` (NOT NULL) → creare un ristorante dall'admin dà sempre 500.
+  - ✅ **BUG-1** `RestaurantController@store`: non impostava `slug` (NOT NULL) → 500. Corretto con `Restaurant::uniqueSlug` (lavoro dataset, `dev/PIANO_DATASET.md`).
   - Minore, solo annotato: `plates/create/{slug}` di un ristorante altrui mostra il form (lista solo i ristoranti dell'utente, nessun dato esposto).
   - Fase 0.c: installare vite 7 ha portato `sass` da 1.37 a 1.108 (peer opzionale di vite `^1.70`, non riportabile indietro senza `--legacy-peer-deps`). Il CSS compilato da Mix è equivalente (formato colori e ordine delle regole): i file in `public/` **non** sono stati ricommitati; si rigenerano comunque in Fase 3 con Vite.
   - Fase 1: il PHP dell'host **non ha GD** → nei test `UploadedFile::fake()->image()` sostituito da un PNG 1x1 reale (`CrudTest::png()`).
