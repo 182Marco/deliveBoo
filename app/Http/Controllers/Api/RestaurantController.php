@@ -38,7 +38,7 @@ class RestaurantController extends Controller
             'averageRate' => (float) $rest->rates()->avg('rate'),
             'location' => $rest,
             'types' => $rest->types()->pluck('name'),
-            'menu' => $rest->plates()->paginate(4),
+            'menu' => $rest->plates()->paginate(4)->through(fn ($p) => $p->setAttribute('restaurant_slug', $rest->slug)),
         ]);
     }
 }
