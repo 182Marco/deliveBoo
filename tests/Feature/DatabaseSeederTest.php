@@ -30,7 +30,7 @@ class DatabaseSeederTest extends TestCase
 
     private const SEEDERS = [
         'AllergensSeeder', 'DietaryTagsSeeder', 'IngredientsSeeder', 'UsersTableSeeder', 'TypesTableSeeder',
-        'RestaurantsTableSeeder', 'PlatesTableSeeder', 'LegacyPlateDetailsSeeder', 'OwnersSeeder',
+        'RestaurantsTableSeeder', 'LegacyRestaurantDetailsSeeder', 'PlatesTableSeeder', 'LegacyPlateDetailsSeeder', 'OwnersSeeder',
         'CatalogRestaurantsSeeder', 'MenusSeeder', 'OrdersTableSeeder', 'OrderHistorySeeder', 'RatesTableSeeder', 'RatingsSeeder',
     ];
 
@@ -154,6 +154,10 @@ class DatabaseSeederTest extends TestCase
             $this->assertGreaterThan(0, DB::table('restaurant_type')->where('restaurant_id', $restaurant->id)->count(), "{$restaurant->name} has no types");
             $this->assertGreaterThan(0, DB::table('rates')->where('restaurant_id', $restaurant->id)->count(), "{$restaurant->name} has no rates");
         }
+
+        // every restaurant, the historic ones too, has a segment, a description and opening hours
+        $this->assertSame(0, DB::table('restaurants')->whereNull('segment')->orWhereNull('description')->orWhereNull('price_range')->count());
+        $this->assertSame(0, DB::table('restaurants')->whereNotExists(fn ($q) => $q->from('opening_hours')->whereColumn('opening_hours.restaurant_id', 'restaurants.id'))->count());
 
         // "visible" always follows availability
         $this->assertSame(0, DB::table('plates')->whereRaw("(availability = 'available') <> (visible = 1)")->count());

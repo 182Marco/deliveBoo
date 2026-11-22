@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             TypesTableSeeder::class,
             RestaurantsTableSeeder::class,
+            LegacyRestaurantDetailsSeeder::class,
             PlatesTableSeeder::class,
             LegacyPlateDetailsSeeder::class,
             // generated catalog (size: config/seeding.php, SEED_PROFILE)
