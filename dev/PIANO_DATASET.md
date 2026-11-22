@@ -3,7 +3,7 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** ✅ 8.5 fatto, dataset generato e committato. **Prossimo: passo 6, test nuovi**: `DietaryQueriesTest` con fixture a mano (le 12 query del brief: vegan sotto i €15, gluten+lactose free, senza arachidi e soia, alternative senza un ingrediente, champagne sopra i €100, almeno 50 piatti ordinabili, più cucine, più ordinati per cliente, stagionali) e `CatalogDataTest` (le regole del validatore: ingredienti esistenti, course, immagini, tier, segmenti, nessuna ricetta high in segmenti base). Poi passo 7 (docs: mappa, README, AGENTS) e report finale.
+- **Passo corrente:** ✅ passo 6 fatto (`DietaryQueriesTest`: 14 casi; `CatalogDataTest`: dati, piano e coerenza dei menu sul profilo full; suite: 79 test in circa 11s). **Prossimo**: report di verifica sul MySQL dev (integrità, metriche, le 12 query con i tempi), poi passo 7 (docs: mappa, README, AGENTS, memoria), `npm run test:js`, `npm run build`, `route:list` e report finale.
   - `data/types.php`: circa 43 cucine con categoria immagine.
   - `data/drinks.php`: bevande per fascia e contesto.
   - `data/cuisines/<chiave>.php`, ognuno con `types`, `concepts` e `recipes`:
@@ -40,7 +40,7 @@
   - (superato) Tempo dei test salito a circa 41s (era 35) con le sole tabelle di riferimento e i nuovi test: da tenere d'occhio per il budget di 45s.
   - Gli 8.2 e 8.4 sono in un solo commit: la UNIQUE (`order_id`, `plate_id`) rompe il checkout senza il raggruppamento delle quantità.
 - **Problemi aperti / da decidere:**
-  - Il validatore dei dati sta nello scratchpad (che può essere cancellato): le sue regole andranno nel test `CatalogDataTest` (ingredienti esistenti, course, immagini, tier, segmenti).
+  - ✅ (risolto: regole portate in `CatalogDataTest`) Il validatore dei dati sta nello scratchpad (che può essere cancellato): le sue regole andranno nel test `CatalogDataTest` (ingredienti esistenti, course, immagini, tier, segmenti).
   - Immagini: nessuna foto di champagne valida, tutte fuori tema o con marchio. Champagne e spumanti useranno `wine_white`/`wine_rose`/`wine_cellar`: limite da riportare nel report. Poche foto anche per `chinese`, `french`, `hummus`, `falafel` e `african`: si usano categorie affini (`dumplings`, `noodles`, `mezze`, `stew`, `curry`).
   - L'endpoint interno `unsplash.com/napi` (autori e flag Unsplash+) è stato negato dal classificatore dei permessi: niente scraping. Gli ID verificano solo il CDN; l'autore si ricava da `https://unsplash.com/photos/<id>`.
 - **Decisioni prese:**
