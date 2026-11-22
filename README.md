@@ -117,7 +117,7 @@ bootstrap/      app.php: rotte, middleware, eccezioni (al posto di Kernel e prov
 config/         impostazioni Laravel (solo quelle con valori del progetto)
 database/       migrations, seeders, factories
 public/         file serviti al browser (build/ di Vite, immagini)
-resources/js    sito Vue (pages, components, store, routes) + jsBack (script admin)
+resources/js    sito Vue (pages/ e components/ a cartelle: .vue + .logic.js + .scss, api/, utils/, store, routes) + jsBack (script admin)
 resources/sass  stili SCSS
 resources/views pagine Blade (admin, auth, guest, layouts, mails)
 routes/         web.php, api.php, console.php
