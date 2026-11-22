@@ -27,7 +27,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "329 5868797",
                 "city" => "Milano",
                 "address" => "via dei Pini 7",
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/17/c3/64/82/restaurant-front-door.jpg",
+                "img" => "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "jhonatansmith@fastweb.it",
@@ -36,16 +36,16 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "333 5678987",
                 "city" => "Alessandria",
                 "address" => "via dei Mille 28",
-                "img" => "https://popmenucloud.com/cdn-cgi/image/width=600,height=600,fit=scale-down,format=auto,quality=60/ozmusenq/00968011-16af-4a92-a1de-fe136816913a.jpg",
+                "img" => "https://images.unsplash.com/photo-1564767655658-4e6b365884ff?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "SebastianPalmioli@gmail.com",
                 "name" => "Hyack",
-                "types" => ["Giapponese"],
+                "types" => ["Japanese"],
                 "phone" => "333 7893098",
                 "city" => "Milano",
                 "address" => "via Manzoni 87",
-                "img" => "https://farm5.staticflickr.com/4526/25012994008_7cd8dba11b_z.jpg",
+                "img" => "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "carlo.moretti@yahoo.com",
@@ -54,7 +54,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "343 9634675",
                 "city" => "Milano",
                 "address" => "via Parini 42",
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/06/36/1a/cd/benja-thai-restaurant.jpg",
+                "img" => "https://images.unsplash.com/photo-1562565652-a0d8f0c59eb4?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "domenico.politi@gmail.com",
@@ -63,7 +63,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "329 6992873",
                 "city" => "Pavia",
                 "address" => "via Hack 55",
-                "img" => "https://i.pinimg.com/originals/fc/a9/c9/fca9c9c1b611fd941c59b7ac08ea6b3f.jpg",
+                "img" => "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "alan.andre@gmail.com",
@@ -72,7 +72,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "329 0930876",
                 "city" => "Civitanova Marche",
                 "address" => "via Vittorio Veneto 55",
-                "img" => "https://lh3.googleusercontent.com/NIySnawibm2wTtO1jTQPAzbnbqf9Hha0eoUllVrW_65NKqosO3xqs5t_xMC1_IQ3HsDM1K0w=w1080-h608-p-no-v0",
+                "img" => "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "thomas_ercolani@fastweb.com",
@@ -81,7 +81,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "366 8656889",
                 "city" => "Milano",
                 "address" => "via Alighieri 35",
-                "img" => "https://i.pinimg.com/originals/08/28/55/08285538fb9906ac4f164b2a2cbbce7b.jpg",
+                "img" => "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "federico_romiti@gmail.com",
@@ -90,7 +90,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "333 5683903",
                 "city" => "Piacenza",
                 "address" => "via Borromeo 12",
-                "img" => "https://www.gdugaragedoors.com/wp-content/uploads/2018/01/Glass-garage-door-straight-on-shot-web.jpg",
+                "img" => "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "CristinaBos@hotmail.it",
@@ -99,7 +99,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "329 8356728",
                 "city" => "Cagliari",
                 "address" => "via Foscolo 9",
-                "img" => "https://www.finedininglovers.it/sites/g/files/xknfdk1106/files/styles/open_graph_image/public/fdl_content_import_it/ristoranti-all-aperto-roma.jpg?itok=hy8ekCZt",
+                "img" => "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "Jenny.Pozzato@gmail.com",
@@ -108,7 +108,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "333 7782395",
                 "city" => "Roma",
                 "address" => "via Giolitti 34",
-                "img" => "https://i.pinimg.com/originals/41/10/25/41102596b0c65a4b98d4f48527a38601.jpg",
+                "img" => "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "Ivana_Stefanini@gmail.com",
@@ -117,7 +117,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "327 4782401",
                 "city" => "Venezia",
                 "address" => "via Moro 5",
-                "img" => "https://www.italymagazine.com/sites/default/files/styles/800xauto/public/feature-story/leader/bigstock-small-restaurant-on-venetian-c-18389942.jpg?itok=3Vk9SfBm",
+                "img" => "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "LauraL@yahoo.it",
@@ -126,7 +126,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "347 7359012",
                 "city" => "Perugia",
                 "address" => "via Salvemini 22",
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/07/16/3f/60/albergo-ristorante-el.jpg",
+                "img" => "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "federico_romiti@gmail.com",
@@ -135,7 +135,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "347 4587567",
                 "city" => "Rimini",
                 "address" => "via Dalla Chiesa 52",
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/0c/d5/7b/e2/gillette-burger-king.jpg",
+                "img" => "https://images.unsplash.com/photo-1602030638412-bb8dcc0bc8b0?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "federico_romiti@gmail.com",
@@ -144,7 +144,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "333 872391",
                 "city" => "Modena",
                 "address" => "via Moro 52",
-                "img" => "https://thumbs.dreamstime.com/b/front-mcdonalds-mcdonald-golden-arches-shop-sign-logo-128391053.jpg",
+                "img" => "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "thomas_ercolani@fastweb.com",
@@ -153,7 +153,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "347 552997",
                 "city" => "Milano",
                 "address" => "via De Gasperi 52",
-                "img" => "https://i.pinimg.com/originals/31/35/53/313553bc8b3f4bbf9c1b3dc8bed1b4dd.jpg",
+                "img" => "https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1600&q=75",
             ],
             [
                 "owner" => "thomas_ercolani@fastweb.com",
@@ -162,7 +162,7 @@ class RestaurantsTableSeeder extends Seeder
                 "phone" => "333 3578540",
                 "city" => "Milano",
                 "address" => "via Fransisco Goya 52",
-                "img" => "https://live.staticflickr.com/4832/45987052051_d7341d60e6_b.jpg",
+                "img" => "https://images.unsplash.com/photo-1630175860333-5131bda75071?auto=format&fit=crop&w=1600&q=75",
             ],
         ];
 

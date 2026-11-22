@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_STORE', 'file'), // DeliveBoo: no cache table
+    'default' => env('CACHE_STORE', 'file'), // Foodsy: no cache table
 
     /*
     |--------------------------------------------------------------------------

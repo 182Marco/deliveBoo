@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'), // DeliveBoo: no sessions table
+    'driver' => env('SESSION_DRIVER', 'file'), // Foodsy: no sessions table
 
     /*
     |--------------------------------------------------------------------------

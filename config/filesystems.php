@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'public'), // DeliveBoo: uploads are served by asset('storage/...')
+    'default' => env('FILESYSTEM_DISK', 'public'), // Foodsy: uploads are served by asset('storage/...')
 
     /*
     |--------------------------------------------------------------------------

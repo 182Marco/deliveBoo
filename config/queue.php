@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'), // DeliveBoo: no jobs table
+    'default' => env('QUEUE_CONNECTION', 'sync'), // Foodsy: no jobs table
 
     /*
     |--------------------------------------------------------------------------

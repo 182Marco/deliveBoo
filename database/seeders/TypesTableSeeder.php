@@ -20,39 +20,39 @@ class TypesTableSeeder extends Seeder
         $types =[
             [
                 "name" => "Mexican",
-                "img" => "https://www.generazionepost.it/wp-content/uploads/2020/01/Cibo-Messicano.jpg",
+                "img" => "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Vegan",
-                "img" => "https://www.calcionewsweb.it/wp-content/uploads/2019/09/dieta-vegana.jpg",
+                "img" => "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=75",
             ],
             [
-                "name" => "Giapponese",
-                "img" => "https://www.ilgiornaledelcibo.it/wp-content/uploads/2015/03/cultura-culinaria-giapponese.jpg",
+                "name" => "Japanese",
+                "img" => "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Starred Restaurant",
-                "img" => "https://www.gustorotondo.it/wp-content/uploads/2019/02/Ristoranti-stellati-Veneto-2019-indicazioni.jpg",
+                "img" => "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Fast Food",
-                "img" => "https://static.ohga.it/wp-content/uploads/sites/24/2019/03/cibo-nei-fast-food-qualit%C3%A0-peggiorata.jpg",
+                "img" => "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Pizzeria",
-                "img" => "https://www.pizzanapoletana.org/struttura/pagine_bicolor/mobile/disciplinare_avpn_2.jpg",
+                "img" => "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Ethnic",
-                "img" => "http://www.scienze-naturali.com/wp-content/uploads/2016/09/menu-etnici-taste14-1024x683.jpg",
+                "img" => "https://images.unsplash.com/photo-1569562211093-4ed0d0758f12?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Italian",
-                "img" => "https://www.foodweb.it/wp-content/uploads/2020/06/cibo-italiano.jpg",
+                "img" => "https://images.unsplash.com/photo-1622973536968-3ead9e780960?auto=format&fit=crop&w=600&q=75",
             ],
             [
                 "name" => "Spanish",
-                "img" => "https://www.viaggi-estate.com/wp-content/uploads/2016/05/spagna-cibo-paella.jpg",
+                "img" => "https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=600&q=75",
             ],
         ];
 

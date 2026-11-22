@@ -42,7 +42,7 @@ class CrudTest extends TestCase
         $before = Restaurant::count();
 
         $this->post(route('admin.restaurants.store'), [
-            'name' => 'Nuovo Posto', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
+            'name' => 'New Place', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
         ])->assertStatus(500);
 
         $this->assertSame($before, Restaurant::count());
@@ -55,12 +55,12 @@ class CrudTest extends TestCase
         $types = Type::whereIn('name', ['Vegan', 'Italian'])->pluck('id')->all();
 
         $response = $this->post(route('admin.restaurants.store'), [
-            'name' => 'Nuovo Posto', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
+            'name' => 'New Place', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
             'types' => $types, 'img' => $this->png('cover.png'),
         ]);
 
-        $rest = Restaurant::where('name', 'Nuovo Posto')->firstOrFail();
-        $this->assertSame('nuovo-posto', $rest->slug);
+        $rest = Restaurant::where('name', 'New Place')->firstOrFail();
+        $this->assertSame('new-place', $rest->slug);
         $response->assertRedirect(route('admin.restaurants.show', $rest->id));
         $this->assertEquals($this->owner()->id, $rest->user_id);
         $this->assertStringStartsWith('restaurants-imgs/', $rest->img);
@@ -186,7 +186,7 @@ class CrudTest extends TestCase
         $this->assertSame(0, \DB::table('order_plate')->where('plate_id', $plate->id)->count());
     }
 
-    public function testPaginationLinksUseBootstrapMarkup()
+    public function testPaginationLinksUseFoodsyMarkup()
     {
         // 5 per page on the restaurant index: federico owns 3, add more to get a second page
         foreach (range(1, 4) as $i) {
@@ -196,6 +196,6 @@ class CrudTest extends TestCase
             $r->save();
         }
 
-        $this->get(route('admin.restaurants.index'))->assertOk()->assertSee('page-item', false)->assertSee('page-link', false);
+        $this->get(route('admin.restaurants.index'))->assertOk()->assertSee('ui-pagination', false)->assertSee('ui-page', false);
     }
 }

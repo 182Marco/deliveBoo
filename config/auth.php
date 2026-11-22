@@ -95,7 +95,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_resets'), // DeliveBoo: existing table from 2014_10_12_100000,
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_resets'), // Foodsy: existing table from 2014_10_12_100000,
             'expire' => 60,
             'throttle' => 60,
         ],

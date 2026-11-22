@@ -27,7 +27,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two 100% beef patties are combined with bacon, a slice of melted cheese and bacon sauce in a fresh bun, toasted for the right amount of crisp!",
                 "visible" => true,
                 "price" => 4,
-                "img" => "https://www.mcdonalds.it/sites/default/files/styles/compressed/public/element/2020-08/crispy-20anni--prod-02.png.webp?itok=-L3Ku-tF",
+                "img" => "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -36,7 +36,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "This legendary American burger is a true all-rounder! A 100% beef patty, Emmental cheese, onions, juicy tomatoes and a unique smoky flavoured sauce all nested in a freshly toasted bun. Make it even better - add crispy bacon.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "https://www.mcdonalds.it/sites/default/files/styles/product_isolated_preview/public/products/myselection-bbq_isolated_0.png.webp?itok=Nib8-cBR",
+                "img" => "https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -45,7 +45,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two 100% beef patties, melted cheese, onions, pickles, lettuce and the signature Big Mac sauce make this an icon.",
                 "visible" => true,
                 "price" => 6,
-                "img" => "https://www.mcdonalds.it/sites/default/files/styles/product_isolated_preview/public/products/bigmac_isolated_0.png.webp?itok=bRODxB7w",
+                "img" => "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -54,7 +54,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A classic combination of a 100% pure beef patty, pickles, onion, mustard and ketchup and of course a slice of melted cheese in a freshly toasted bun make our cheeseburger a classic delight.",
                 "visible" => true,
                 "price" => 6,
-                "img" => "https://www.mcdonalds.it/sites/default/files/styles/product_isolated_preview/public/products/cheeseburger_isolated.png.webp?itok=m6DdWfU1",
+                "img" => "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -63,7 +63,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A crispy 100% chicken patty nestled inside a freshly toasted bun with lettuce and a mayo sauce.",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "https://www.mcdonalds.com.mt/wp-content/uploads/2018/05/chicken-mayo-classic.jpg",
+                "img" => "https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -72,7 +72,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A portion of delicious fries, cooked to golden perfection and seasoned with just the right amount of salt.",
                 "visible" => true,
                 "price" => 3,
-                "img" => "https://www.mcdonalds.it/sites/default/files/product_category/thumb/patatine_thumb_search.jpg",
+                "img" => "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -81,7 +81,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Ice cream is sweet, and is usually flavored with fruit, spices, or candy- the flavor often influences the color (that is, chocolate ice cream is brown, strawberry and cherry flavors are pink, pistachio is green)",
                 "visible" => true,
                 "price" => 3.4,
-                "img" => "https://www.mcdonalds.it/sites/default/files/styles/compressed/public/products/mcflurry-bounty--hero-mob.jpg.webp?itok=rMJ0uLKT",
+                "img" => "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -90,7 +90,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Doesn’t matters if you want to be Wonder Woman or Batman… Or maybe secretly you love the Joker, come to your nearest McDonald’s and find them inside your Happy Meal!",
                 "visible" => true,
                 "price" => 3.4,
-                "img" => "https://image.shutterstock.com/image-photo/kuala-lumpur-malaysia-february-17th-260nw-253256875.jpg",
+                "img" => "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -99,7 +99,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A freshly toasted bun served with a slice of melted cheese and two slices of juicy ham",
                 "visible" => true,
                 "price" => 2.5,
-                "img" => "https://content.api.news/v3/images/bin/3b2afc8182d811d34e13a1bee51edcd3?width=650",
+                "img" => "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -108,7 +108,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A tangy orange soda to complement all of our meals!",
                 "visible" => true,
                 "price" => 2,
-                "img" => "https://www.ilpiaceredellacqua.com/wp-content/uploads/2018/07/fanta-lattina-33.jpg",
+                "img" => null,
             ],
             [   
                 "restaurant" => "Mc Donald's",
@@ -117,7 +117,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Coca-Cola Zero",
                 "visible" => true,
                 "price" => 2,
-                "img" => "https://www.myamericanmarket.com/873/coca-cola-classic.jpg",
+                "img" => "https://images.unsplash.com/photo-1581636625402-29b2a704ef13?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -126,7 +126,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Looking to start your day with a smile? Try our scrambled eggs, also available with a side of mouth-watering crispy bacon. This breakfast option is also served as a combo with a choice of two drinks or a drink and a hash brown.",
                 "visible" => true,
                 "price" => 4.7,
-                "img" => "https://d1nqx6es26drid.cloudfront.net/app/uploads/2015/04/04031748/product-big-breakfast.png",
+                "img" => "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -135,7 +135,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Enjoy the healthy alternative with the Happy Meal! Our apples are fresh, sweet and incredibly crunchy keeping both you and your child happy thanks to their delicate flavour and high vitamin boosts!",
                 "visible" => true,
                 "price" => 2.2,
-                "img" => "https://i.pinimg.com/originals/cf/2e/4b/cf2e4bc0c4e89ba937dcb8c5b5b0b4a7.png",
+                "img" => "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -144,7 +144,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A deliciously rich and creamy vanilla dairy milkshake that will leave you longing for more! Milkshake comes in regular size (25cl) and large size (40cl).",
                 "visible" => true,
                 "price" => 1.8,
-                "img" => "https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/hero/desktop/t-mcdonalds-Vanilla-McCafe-Shake-Medium.jpg",
+                "img" => "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -153,7 +153,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our signature creamy vanilla ice cream swirled to perfection into a crispy cone.",
                 "visible" => true,
                 "price" => 1.8,
-                "img" => "http://www.cheaponana.com/wp-content/uploads/2016/03/cone.gif",
+                "img" => "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Mc Donald's",
@@ -162,7 +162,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our potato hash browns are crispy and toasty on the outside while soft and fluffy inside. These crispy delights are a perfect addition to start off your day with a smile.",
                 "visible" => true,
                 "price" => 1.8,
-                "img" => "https://149449860.v2.pressablecdn.com/wp-content/uploads/2019/02/RC-NEWS-Hashbrown-or-cellphone-0319.png",
+                "img" => "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=75",
             ],
             // Burger King Plates
             [
@@ -172,7 +172,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A classic combination of a 100% pure beef patty, pickles, onion, mustard and ketchup and of course a slice of melted cheese in a freshly toasted bun make our cheeseburger a classic delight.",
                 "visible" => true,
                 "price" => 4.6,
-                "img" => "https://i.pinimg.com/originals/7f/aa/2a/7faa2a995bb9582c80adf84d6ac399d9.png",
+                "img" => "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -181,7 +181,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two soft slices of corn bread contain 3 layers of grilled meat accompanied by American cheddar, 8 slices of bacon and the unmistakable smoky taste of the BBQ sauce. Great hunger? Epic sandwich.",
                 "visible" => true,
                 "price" => 4.9,
-                "img" => "https://d1ralsognjng37.cloudfront.net/39e57b90-6583-4054-9c20-eb3c229d2fe6.jpeg",
+                "img" => "https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -190,7 +190,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Extra-Extra-Large! It is not just a maxi size, but a real challenge! With its double serving of juicy grilled meat, unique taste of the special sauce and not one, not two, but four slices of tasty Cheddar cheese the BIG KING® XXL wants to be tamed. Simply irresistible.",
                 "visible" => true,
                 "price" => 5.3,
-                "img" => "https://www.burgerking.it/site/assets/files/8949396/bronx_steakhouse.png",
+                "img" => "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -199,7 +199,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "We know it's hard to get tired of our WHOPPER®, but for those who want more, we created the WHOPPER® Triple. Tomato, onion, cucumber and lettuce with our most famous burger, multiplied by three. A real treat with every bite!",
                 "visible" => true,
                 "price" => 4.7,
-                "img" => "https://burgerking.com.mt/wp-content/uploads/2020/03/5.TRIPLE-WHOPPER.png",
+                "img" => "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -208,7 +208,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "For the nonconformists by nature, this burger has it all. Double burger, cheddar cheese and bacon. What more can you ask for?",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "https://opinioni.it/Uploads/Products/22852/Screenshot_2017-03-11-22-57-45-1_large.png",
+                "img" => "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -217,16 +217,16 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Only 40 calories. This salad is a delight for everyone. Don't give up on taste and enjoy a blend of ingredients that explode in your mouth like fireworks.",
                 "visible" => true,
                 "price" => 2.1,
-                "img" => "https://burgerking.com.mt/wp-content/uploads/2020/03/5.Green-Salad.png",
+                "img" => "https://images.unsplash.com/photo-1607532941433-304659e8198a?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
                 "name" => "KING FUSION PERUGINA",
                 "ingredients" => "ice cream, chocolate, vanilla",
-                "description" => "KING FUSION® Perugina®. Dolci praline al cioccolato nel nostro delizioso gelato con aroma di vaniglia.",
+                "description" => "KING FUSION® Perugina®. Chocolate pralines folded into our creamy vanilla ice cream.",
                 "visible" => true,
                 "price" => 4.3,
-                "img" => "https://www.bidibee.com/file/5f76037f10000025eeb0c8b5/MARKETS/5f76044f1000002beeb0c8b6/ITEMS/60376743110000c876b699b6/small_BnaFah2XuxvGVcP.jpg",
+                "img" => "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -235,7 +235,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Here we come full circle for all onion ring fans. Dip them in a sauce and enjoy. Or munch on the golden breading first and then the onion. Exactly how you want!",
                 "visible" => true,
                 "price" => 4,
-                "img" => "https://www.seekpng.com/png/detail/52-522297_onion-rings-burger-king-onion-rings.png",
+                "img" => "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -244,7 +244,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Juicy 100% vegetable burger grilled on our flame, fresh tomato, onion cut at the moment, lettuce, gherkins, ketchup and mayonnaise. Taste? 100% Whopper. Try it, but you won't believe it.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "https://funnyvegan.com/wp-content/uploads/2021/03/Funny-Vegan-news-plant-based-Whooper.png",
+                "img" => "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Burger King",
@@ -253,7 +253,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our KING Chips are worthy of a king: delicious potatoes, golden color and crunchiness are the characteristics that make them unique.",
                 "visible" => true,
                 "price" => 3.5,
-                "img" => "https://fastfoodnutrition.org/item-photos/full/1470_s.jpg",
+                "img" => "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=800&q=75",
             ],
             // the garage plates
             [
@@ -263,7 +263,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Margherita pizza is the typical Neapolitan pizza, topped with tomato, mozzarella (traditionally the fior di latte is used, not that of buffalo), fresh basil, salt and oil; it is, together with pizza marinara, the most popular Italian pizza. ...",
                 "visible" => true,
                 "price" => 4.5,
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/1a/90/e5/47/pinseria-du-chef.jpg",
+                "img" => "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -272,7 +272,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "also known as pizza alla marinara, is a style of Neapolitan pizza in Italian cuisine seasoned with only tomato sauce, extra virgin olive oil, oregano and garlic. The name has little to do with the marinara sauce, besides sharing a similar origin. It is supposedly the most ancient tomato-topped pizza",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "https://www.donnamoderna.com/content/uploads/2012/03/Pizza-alla-marinara-725x545.jpg",
+                "img" => "https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -281,7 +281,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "In Italian, pizza diavola means “deviled” pizza. And in this case, deviled means one thing: spicy.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "https://www.pizzeriabraceriafuego.it/images/2020/08/28/71_main.png",
+                "img" => "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -290,7 +290,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Tuna and Onion Pizza is a pizza rich in seasoning with a strong flavor, a crunchy pizza dough base stuffed with tomato sauce, onions, tuna and stringy mozzarella. The Pizza with tuna and onions is ideal when you want to enjoy a very tasty single dish excellent to bring to the table with a nice iced beer for a dinner with friends.",
                 "visible" => true,
                 "price" => 5.5,
-                "img" => "https://media.gettyimages.com/photos/pizza-tuna-onion-herbs-on-plate-picture-id182878095?s=170667a",
+                "img" => "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -299,7 +299,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Pizza quattro stagioni (four seasons pizza) is a variety of pizza in Italian cuisine that is prepared in four sections with diverse ingredients, with each section representing one season of the year. It is a very popular pizza in Italy, and has been described as a 'classic', 'famous' and 'renowned' Italian pizza",
                 "visible" => true,
                 "price" => 5.5,
-                "img" => "https://image.freepik.com/free-photo/italian-pizza-four-seasons-isolated-white_136401-2328.jpg",
+                "img" => "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -308,7 +308,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "this simple, rustic dish of shredded beef braised in tomatoes and onions make a great stew and a fantastic sandwich filling.",
                 "visible" => true,
                 "price" => 6.7,
-                "img" => "https://www.ilariabarisi.it/wp-content/uploads/2019/03/carne-picchiapo-per-web.jpg",
+                "img" => "https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -317,7 +317,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "This crusty sandwich only calls for a handful of ingredients—pecorino, parsley, and anchovy—but has big flavors.",
                 "visible" => true,
                 "price" => 7.2,
-                "img" => "https://image.freepik.com/free-photo/italian-pizza-four-seasons-isolated-white_136401-2328.jpg",
+                "img" => "https://images.unsplash.com/photo-1481070414801-51fd732d7184?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -326,7 +326,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A crisp collard slaw and tangy tartar and cocktail sauces top pan-fried softshell crabs in this classic sandwich.",
                 "visible" => true,
                 "price" => 7.6,
-                "img" => "https://www.saveur.com/uploads/2019/01/03/XSPPKHJVFUKJQDJNOPDH7CZZJ4.jpg?width=785",
+                "img" => "https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -335,7 +335,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "This specialty of Çesme, a small beach town in Turkey, is one of the world’s great grilled cheese sandwiches, in which the cheese itself is grilled before getting slipped into toasted bread with raw tomato and optional (but highly recommended) toppings of griddled sausage and pickled cucumbers and chiles",
                 "visible" => true,
                 "price" => 7.2,
-                "img" => "https://lezzetler.com/images/yuklenen5/kumru-85120.jpg",
+                "img" => "https://images.unsplash.com/photo-1475090169767-40ed8d18f67d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "the garage",
@@ -344,7 +344,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "By starting with a low cooking temperature and then switching to a high one, this pork belly with perfect texture",
                 "visible" => true,
                 "price" => 6.7,
-                "img" => "https://www.kitchensanctuary.com/wp-content/uploads/2017/11/Pork-Gyros-with-Homemade-Tzatziki-square-FS-500x500.jpg",
+                "img" => "https://images.unsplash.com/photo-1633321702518-7feccafb94d5?auto=format&fit=crop&w=800&q=75",
             ],
             // mexican
             [
@@ -354,7 +354,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The word burrito means 'little donkey' in Spanish, being the diminutive form of burro, or 'donkey'. The name burrito, as applied to the dish, possibly derives from the tendency for burritos to contain a lot of different things similar to how a donkey would be able to carry a lot.",
                 "visible" => true,
                 "price" => 18,
-                "img" => "https://images-gmi-pmc.edge-generalmills.com/3f2a43ee-fbec-46bc-b26a-0e6f64d85a41.jpg",
+                "img" => "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -363,7 +363,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Tortillas made from nixtamalized maize meal—masa de maíz— are the oldest variety of tortilla. They originated in Mexico, and remain popular throughout the Americas. Peoples of the Oaxaca region in Mexico first made tortillas at the end of the Villa Stage (1500 to 500 BC)",
                 "visible" => true,
                 "price" => 7.5,
-                "img" => "https://lh3.googleusercontent.com/proxy/X3HdVmIAm3vV3NxbshJsW27Efy_kArzXTrvQVAvJAOKP2jE3h3-FnlERJVXcyaFymdyzAIgnr-Cr-nDPL-ZoJSjXBKIIO4A-NHAi5A_x5dv2FfDr2dFAbFl-PL7TjbE",
+                "img" => "https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -372,7 +372,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The origins of the taco are not precisely known, and etymologies for the culinary usage of the word are generally theoretical.Taco in the sense of a typical Mexican dish comprising a maize tortilla folded around food is just one of the meanings connoted by the word, according to the Real Academia Española, publisher of Diccionario de la Lengua Española",
                 "visible" => true,
                 "price" => 6,
-                "img" => "https://www.giallozafferano.it/images/175-17533/Tacos-veloci_650x433_wm.jpg",
+                "img" => "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -381,7 +381,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Guacamole (called Guacamol in Central America and Cuba) is a Mexican dip made of avocados, salt and sometimes tomatoes. Various herbs can be added too, such as chives. It is depicted as a green, creamy dip or garnish. It is often served as a dip or garnish with Mexican foods such as tacos and tortilla chips.",
                 "visible" => true,
                 "price" => 16,
-                "img" => "https://freepikpsd.com/media/2019/10/guacamole-png-Transparent-Images.png",
+                "img" => "https://images.unsplash.com/photo-1586511925558-a4c6376fe65f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -390,7 +390,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Pozole can be prepared in many ways, but all variations include a base of cooked hominy in broth. Typically pork, or sometimes chicken, is included in the base. Vegetarian recipes substitute beans for the meat.",
                 "visible" => true,
                 "price" => 13,
-                "img" => "https://www.muydelish.com/wp-content/uploads/2020/12/How-To-Make-Pozole-500x500.jpg",
+                "img" => "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -399,7 +399,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "We make our chiles en nogada based on an old family recipe from Yuriria, Guanajuato that dates back at least until the 1950s. Chiles en nogada are meat stuffed poblano chiles bathed in nogada, a walnut cream sauce and garnished with pomegranate seeds and parsley.",
                 "visible" => true,
                 "price" => 11,
-                "img" => "https://www.vitamix.com/media/other/images/Chiles-en-Nogado-470x449.jpg",
+                "img" => "https://images.unsplash.com/photo-1640719028782-8230f1bdc42a?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -408,7 +408,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Corn on the cob is a culinary term used for a cooked ear of freshly picked maize from a cultivar of sweet corn. Sweet corn is the most common variety of maize eaten directly off the cob",
                 "visible" => true,
                 "price" => 5,
-                "img" => "http://farm6.static.flickr.com/5134/5466418950_2df6f56bb7.jpg",
+                "img" => "https://images.unsplash.com/photo-1470119693884-47d3a1d1f180?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -417,7 +417,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Royal Spanish Academy defines the word enchilada, as used in Mexico, as a rolled maize tortilla stuffed with meat and covered with a tomato and chili sauce.",
                 "visible" => true,
                 "price" => 12,
-                "img" => "https://www.pngkey.com/png/full/193-1931777_1-two-green-sauce-enchiladas-enchilada.png",
+                "img" => "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -426,7 +426,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "a traditional sauce and marinade originally used in Mexican cuisine",
                 "visible" => true,
                 "price" => 4,
-                "img" => "https://cdn.kiwilimon.com/recetaimagen/32150/th5-640x426-37045.jpg",
+                "img" => "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Casa Guadalajara",
@@ -435,7 +435,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "What should you do with stale tortillas? Why, fry them of course! Literally meaning toasted, tostadas are a simple but delicious dish involving corn tortillas fried in boiling oil until they become crunchy and golden. These are then served alone or piled high with any number of garnishes. Popular toppings include frijoles (refried beans), cheese, cooked meat, seafood and ceviche.",
                 "visible" => true,
                 "price" => 6.7,
-                "img" => "https://tastesbetterfromscratch.com/wp-content/uploads/2020/01/Tostadas-5-500x500.jpg",
+                "img" => "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&w=800&q=75",
             ],
             // sushi 
             [
@@ -445,7 +445,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Add one of our many appetizers or salads to your meal.",
                 "visible" => true,
                 "price" => 3.7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/07/ENTREES_SALADES_SALADE-WAKAME_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -454,7 +454,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Add one of our many appetizers or salads to your meal.",
                 "visible" => true,
                 "price" => 3.5,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/07/ENTREES_SALADES_FEVEZ-EDAMAME_-350x350.png",
+                "img" => null,
             ], 
             [
                 "restaurant" => "Hyack",
@@ -463,7 +463,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Served with sweet chili sauce.",
                 "visible" => true,
                 "price" => 6,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/09/SS_SITE-WEB_ENTREES_SALADES_ROULEAU-IMPERIAL_1024x1024_JUIL19-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1606525437679-037aca74a3e9?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -472,7 +472,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "6 pieces. Small rolls containing two or three ingredients. These come in sixes and are a great accompaniment or perfect for a quick bite. Simple and delicious.",
                 "visible" => true,
                 "price" => 6.4,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/HOSOMAKI_AVOCADO_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -481,7 +481,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "2 pieces. A fresh fish or seafood slice gently placed on vinegar rice that comes in twos. The perfect combination of fresh flavours and textures.",
                 "visible" => true,
                 "price" => 5.7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/07/NIGIRI_SASHIMI_MAGURO_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -490,7 +490,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "8 pieces. Medium sized rolls served in eight bite-sized pieces. All sorts of flavour combinations for the beginner to the sushi expert.",
                 "visible" => true,
                 "price" => 8,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/MAKI_DEUX-SAUMONS_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -499,7 +499,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "5 pieces. Each of our Blossom rolls offers ingredients in the roll as well as on top mimicking the beautiful Japanese flower.",
                 "visible" => true,
                 "price" => 8.3,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/BLOSSOM_REDVELVET-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -508,7 +508,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Japanese-inspired Ramen soups by Sushi Shop with 2 unique broths options. You can even double your protein for an even more filling meal. A true Japanese specialty with flavours of pork, miso and a hint of garlic. This rich and smooth soup is a must-try!",
                 "visible" => true,
                 "price" => 7.7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/Grandesoupe-ramen-255x210.png",
+                "img" => "https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -517,7 +517,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "11 pieces. Our combos are prepared throughout the day from fresh ingredients.",
                 "visible" => true,
                 "price" => 12,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/07/COMBOS_DIABLO_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1617196035154-1e7e6e28b0db?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -526,7 +526,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our combos are prepared throughout the day from fresh ingredients.",
                 "visible" => true,
                 "price" => 15,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/07/COMBOS_M-RIZBRUN_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1563612116625-3012372fccce?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -535,7 +535,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "2 pieces. Served with our sesame sauce.",
                 "visible" => true,
                 "price" => 7.5,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/MAKI-PRINTEMPS_CREVETTES_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -544,7 +544,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "2 pieces and So much fun to eat!",
                 "visible" => true,
                 "price" => 8.7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/TACOS_HOMARD2_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -553,7 +553,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A generous portion of protein and fresh ingredients, served with crispy wonton chips. Our tartars are a great low caloric option that will satisfy your cravings.",
                 "visible" => true,
                 "price" => 8.3,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/TARTARES_THON_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -562,7 +562,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "26 pieces, Beware, our sushi platters could steal the show at your next event!",
                 "visible" => true,
                 "price" => 6.7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/PLATEAUX_VEGE_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -571,7 +571,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our Bento boxes are a complete meal ready-to-go!",
                 "visible" => true,
                 "price" => 7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/08/SS_SITE-WEB_BOITEBENTO_POKEBOMB_1024x1024_JUIL19-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -580,7 +580,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our Sushi Burrito are a good option for a meal on-the-go! Served with spicy light mayo, soy, sesame or Ying Yang sauce.",
                 "visible" => true,
                 "price" => 7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/BURRITOS_THONEPICEMANGUE_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -589,7 +589,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Tender brown meat in a crispy Japanese batter. Served with spicy light mayo, Japanese mayo, sweet chili, Yin Yang or teriyaki sauce.",
                 "visible" => true,
                 "price" => 9.2,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/pouletkaraage-repas-350x321.png",
+                "img" => "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -598,7 +598,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Ext. crispy lobster, black masago, Japanese mayo Int. lobster, crab, shrimp, mango, green onion, spicy light mayo",
                 "visible" => true,
                 "price" => 7,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/TEMARI_CRISPYLOBSTER_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1562802378-063ec186a863?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -607,7 +607,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Each Temari is prepared with distinctive ingredients, inside and out, giving them a unique character and personality.",
                 "visible" => true,
                 "price" => 10.3,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/TEMARI_THONTATAKI_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -616,7 +616,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "4 pieces, Each Temari is prepared with distinctive ingredients, inside and out, giving them a unique character and personality. Served with spicy light mayo, soy, sesame or Yin Yang sauce.",
                 "visible" => true,
                 "price" => 9.2,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/TEMARI_VEGGIEBOMB_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1607301405390-d831c242f59b?auto=format&fit=crop&w=800&q=75",
             ], 
             [
                 "restaurant" => "Hyack",
@@ -625,7 +625,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "8 pieces. Medium sized rolls served in eight bite-sized pieces. All sorts of flavour combinations for the beginner to the sushi expert.",
                 "visible" => true,
                 "price" => 7.8,
-                "img" => "https://sushishop.com/wp-content/uploads/2019/06/MAKI_BLACK-MAMBA_-350x350.png",
+                "img" => "https://images.unsplash.com/photo-1617196034183-421b4917c92d?auto=format&fit=crop&w=800&q=75",
             ], 
             // La gondola
             [
@@ -635,7 +635,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Casoncello stuffed with octopus, bread flavored with butter and sage, friggitelli cream, seared octopus, coconut and mozzarella mousse, lime.",
                 "visible" => true,
                 "price" => 46,
-                "img" => "https://www.fishfusionbistrot.it/wp-content/uploads/2021/07/cas0ncelli.png",
+                "img" => "https://images.unsplash.com/photo-1587740908075-9e245070dfaa?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -644,7 +644,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Scottish lamb chop in tempura, small terrine of aubergines, tzatziki sauce, candied tomato.",
                 "visible" => true,
                 "price" => 56.5,
-                "img" => "https://www.fishfusionbistrot.it/wp-content/uploads/2021/07/lagnellp.png",
+                "img" => "https://images.unsplash.com/photo-1504973960431-1c467e159aa4?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -653,7 +653,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Squid stuffed with purple potatoes, sweet and sour sauce, squid ink, spicy chicory, candied odor.",
                 "visible" => true,
                 "price" => 73,
-                "img" => "https://www.fishfusionbistrot.it/wp-content/uploads/2021/07/calamaro.png",
+                "img" => "https://images.unsplash.com/photo-1625943555419-56a2cb596640?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -662,7 +662,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "shortcrust pastry, blueberry namelaka, dehydrated strawberries, spiced almonds and raspberry sorbet.",
                 "visible" => true,
                 "price" => 39,
-                "img" => "https://www.fishfusionbistrot.it/wp-content/uploads/2021/07/crostatina.png",
+                "img" => "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -671,7 +671,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The swordfish alla pizzaiola is a healthy and tasty preparation that is baked in the oven with tomato, mozzarella, capers and oregano. It is a second dish of Calabrian origin, culinary pride mainly of the province of Reggio Calabria, where animal fishing is practiced and festivals are held (often in July) where various specialties belonging to the local tradition are offered, all based, for precisely, swordfish. If you want to combine a fresh and crunchy side dish, try an unusual salad, the one with green beans",
                 "visible" => true,
                 "price" => 81,
-                "img" => "https://static.cookist.it/wp-content/uploads/sites/21/2021/06/Pesce_spada_alla_pizzaiola_00011-300x225.jpg",
+                "img" => "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -680,7 +680,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "triumph of sea flavors delighting the palate",
                 "visible" => true,
                 "price" => 62,
-                "img" => "https://www.italiangourmet.it/media/2020/09/ADM8024-800x531.jpg",
+                "img" => "https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -689,7 +689,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "From Italian Gourmet the mousse with three chocolates, recommended by the master Busi",
                 "visible" => true,
                 "price" => 64,
-                "img" => "https://www.italiangourmet.it/media/2018/05/046910pas0004_066scuolabusi@066-1-1.jpg-1-800x532.jpg",
+                "img" => "https://images.unsplash.com/photo-1511911063855-2bf39afa5b2e?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -698,7 +698,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The starred chef Enrico Gerli of the one-star Michelin restaurant I Castagni * in Vigevano (PV) offers us his Christmas present",
                 "visible" => true,
                 "price" => 77,
-                "img" => "http://www.chefericette.com/wp-content/uploads/2020/12/Ricetta-Millefoglie-di-Cantucci-chef-Enrico-Gerli.jpg",
+                "img" => "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -707,7 +707,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Brunello di Montalcino is a visually clear, brilliant wine with a lively garnet color. It has an intense, persistent, ample and ethereal aroma. There are hints of undergrowth, aromatic wood, small fruits, light vanilla and composite jam.",
                 "visible" => true,
                 "price" => 56,
-                "img" => "https://d17nfddx5bor2l.cloudfront.net/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/b/r/brunello-di-montalcino-lambardi_2.jpg",
+                "img" => "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La gondola",
@@ -716,7 +716,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Puligny Montrachet is a French wine produced in the commune of the same name located on the Côte-d'Or, the most famous wine area in Burgundy, one of the best known in France. It is vinified for the most part in white from Chardonnay vines and in minimal part in red with Pinot Noir grapes.",
                 "visible" => true,
                 "price" => 43,
-                "img" => "http://www.quaywines.co.uk/titcd4qw/uploads/2018/11/faiveley-puligny-montrachet-1er-cru-la-garenne-joseph-faiveley.jpg",
+                "img" => "https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&w=800&q=75",
             ],
             // 'O vesuvio
             [
@@ -726,7 +726,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Kapuziner Weisse is made in the traditional fashion, using roughly equal portions of wheat and barley malt, a small dose of fresh hops and a special yeast that produces wonderful fruity flavors. It matches a yeasty, citrus tang with a spicy complexity and a surprising light, almost tropical fruitiness",
                 "visible" => true,
                 "price" => 5,
-                "img" => "https://lh3.googleusercontent.com/proxy/UN2R6MtxU4k2Sy4uf3XMvdHeRABdNyC6O61njkKSe2Hc0HNrSchLSN-Xn0edPwfAQMpeOITcPT9iiYo4Tyyt9nb7KislTDZyeCISJJqAnAcuqFHGSJLQY1-goOhtau9zo3KmCfokFkiSyBIFgqcwSbZx7PldeWy4GtD_oWm7UVmG7cyClSMWMhuR",
+                "img" => "https://images.unsplash.com/photo-1600788886242-5c96aabe3757?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -735,7 +735,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Kapuziner Weisse is made in the traditional fashion, using roughly equal portions of wheat and barley malt, a small dose of fresh hops and a special yeast that produces wonderful fruity flavors. It matches a yeasty, citrus tang with a spicy complexity and a surprising light, almost tropical fruitiness",
                 "visible" => true,
                 "price" => 18,
-                "img" => "https://m.media-amazon.com/images/I/81NafXf9SzL._AC_SS450_.jpg",
+                "img" => "https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -744,7 +744,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "still water",
                 "visible" => true,
                 "price" => 2,
-                "img" => "https://www.hdsfoods.co.uk/wp-content/uploads/2014/06/strathmore_still_spring_water_glass_330ml.jpg",
+                "img" => "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -753,7 +753,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The pizza ortolana is a classic stuffed pizza so called for using a mix of garden products as ingredients, which is why it is considered a peasant pizza.",
                 "visible" => true,
                 "price" => 6,
-                "img" => "https://www.culinaryhill.com/wp-content/uploads/2016/08/Veggie-Pizza-Recipe-Culinary-Hill-square.jpg",
+                "img" => "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -762,7 +762,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Margherita pizza is the typical Neapolitan pizza, topped with tomato, mozzarella (traditionally the fior di latte is used, not that of buffalo), fresh basil, salt and oil; it is, together with pizza marinara, the most popular Italian pizza. ...",
                 "visible" => true,
                 "price" => 4.5,
-                "img" => "https://media-cdn.tripadvisor.com/media/photo-s/1a/90/e5/47/pinseria-du-chef.jpg",
+                "img" => "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -771,7 +771,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "also known as pizza alla marinara, is a style of Neapolitan pizza in Italian cuisine seasoned with only tomato sauce, extra virgin olive oil, oregano and garlic. The name has little to do with the marinara sauce, besides sharing a similar origin. It is supposedly the most ancient tomato-topped pizza",
                 "visible" => true,
                 "price" => 3.8,
-                "img" => "https://www.donnamoderna.com/content/uploads/2012/03/Pizza-alla-marinara-725x545.jpg",
+                "img" => "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -780,7 +780,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "In Italian, pizza diavola means “deviled” pizza. And in this case, deviled means one thing: spicy.",
                 "visible" => true,
                 "price" => 5,
-                "img" => "https://www.pizzeriabraceriafuego.it/images/2020/08/28/71_main.png",
+                "img" => "https://images.unsplash.com/photo-1600028068383-ea11a7a101f3?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -789,7 +789,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The Tuna and Onion Pizza is a pizza rich in seasoning with a strong flavor, a crunchy pizza dough base stuffed with tomato sauce, onions, tuna and stringy mozzarella. The Pizza with tuna and onions is ideal when you want to enjoy a very tasty single dish excellent to bring to the table with a nice iced beer for a dinner with friends.",
                 "visible" => true,
                 "price" => 5.5,
-                "img" => "https://media.gettyimages.com/photos/pizza-tuna-onion-herbs-on-plate-picture-id182878095?s=170667a",
+                "img" => "https://images.unsplash.com/photo-1576458088443-04a19bb13da6?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "'O vesuvio",
@@ -798,7 +798,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Pizza quattro stagioni (four seasons pizza) is a variety of pizza in Italian cuisine that is prepared in four sections with diverse ingredients, with each section representing one season of the year. It is a very popular pizza in Italy, and has been described as a 'classic', 'famous' and 'renowned' Italian pizza",
                 "visible" => true,
                 "price" => 7.5,
-                "img" => "https://image.freepik.com/free-photo/italian-pizza-four-seasons-isolated-white_136401-2328.jpg",
+                "img" => "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=75",
             ],
             // Peri's fish restaurant
             [
@@ -808,7 +808,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Neapolitan classic, you simply steam mussels in their own juices with nothing but generous amounts of freshly ground black pepper. Garnish them, if you like, with some chopped parsley and lemon wedges. And that’s it. No oil and garlic base, as as some recipes erroneously call for—which would make this a delicious but different dish, sauté di cozze—or any other flavorings",
                 "visible" => true,
                 "price" => 7.5,
-                "img" => "https://pugliamonamour.it/wp-content/uploads/2014/03/zuppacozzeevongole.jpg",
+                "img" => "https://images.unsplash.com/photo-1628430043175-0e8820df47c3?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -817,7 +817,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A fresh and colorful dish, typical of the Mediterranean and perfect for the arrival of summer.",
                 "visible" => true,
                 "price" => 21,
-                "img" => "https://www.gustissimo.it/articoli/ricette/antipasti-pesce/insalata-di-mare.jpg",
+                "img" => "https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -826,7 +826,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Some of the more common flavors you may taste in an oyster are butter/cream, hints of melon or cucumber, sweet, salty or 'briny,' and a rusty, copper taste. Texture-wise, oysters are generally described as plump and springy",
                 "visible" => true,
                 "price" => 32,
-                "img" => "https://cdn.shopify.com/s/files/1/0484/6085/products/oysters-summerstone-oysters-1_d47489dd-e168-458d-b738-f7e28bfd2cd0_large.jpg?v=1590695894",
+                "img" => null,
             ],
             [
                 "restaurant" => "Peri's",
@@ -837,7 +837,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Swordfish Flavor Profile. Swordfish has a mildly sweet flavor and a moist, meaty texture with moderately high fat content. The flesh can range from white or ivory to pink or orange. ... All Swordfish turn beige in color after cooking.",
                 "visible" => true,
                 "price" => 53,
-                "img" => "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2016%2F04%2Fhd-201408-r-grilled-swordfish-with-miso-sauce.jpg",
+                "img" => "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -846,7 +846,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Lobster has a sweeter, less 'fishy' taste than crab, but has a flavour which is rich and satisfying. Thanks to the high amount of muscle in lobster tails, it is meaty and quite simply… stunning!",
                 "visible" => true,
                 "price" => 64,
-                "img" => "https://i.pinimg.com/236x/49/23/c2/4923c2d73e3b4cbc44ab54f8e2e3faf1.jpg",
+                "img" => "https://images.unsplash.com/photo-1625943553852-781c6dd46faa?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -855,7 +855,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Spaghetti with clams might bring up a memory, or a fantasy, of an Italian summer dinner enjoyed by the seaside. However, this classic dish is also a staple at Christmas and New Year’s Eve dinners, often served family style to share around the table. The tradition comes from Campania, Naples region, where it is a customary to go to the fish market early morning before Christmas to pick the freshest clams and let them soak before preparing the delightful dish.",
                 "visible" => true,
                 "price" => 27,
-                "img" => "https://static01.nyt.com/images/2015/12/09/dining/09COOKING-CLAMSPAGHETTI2/09COOKING-CLAMSPAGHETTI2-articleLarge.jpg",
+                "img" => "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -864,7 +864,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Tender octopus grilled on the charcoal and served on a warm potato salad with lemon and parsley.",
                 "visible" => true,
                 "price" => 24,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1606850780554-b55ea4dd0b70?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -873,7 +873,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Pan-frying is a simple but delicious way to cook sea bass",
                 "visible" => true,
                 "price" => 53,
-                "img" => "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZgyReQujQpyBTERpXq7rRUrnGA5tABPHkvOCWpQhKTWePNoh0k1tcVT86FXEZCwI6r-E&usqp=CAU",
+                "img" => "https://images.unsplash.com/photo-1485921325833-c519f76c4927?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -882,7 +882,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Russell Brown pairs this classic Tuscan salad with beautifully pan-fried sea bass and plump tiger ...",
                 "visible" => true,
                 "price" => 55,
-                "img" => "https://gbc-cdn-public-media.azureedge.net/img24352.768x512.jpg",
+                "img" => "https://images.unsplash.com/photo-1611171711912-e3f6b536f532?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -891,7 +891,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The whole spirit of the Aegean is in this dish. I like to use fennel, which grows wild all over the Aegean, to perfume my fish. Grape leaves add a beautiful astringency and make for a gorgeous presentation. Easy elegance with the pared down essential nature of the Aegean! I can feel the salty sea breeze on my face when I eat this!",
                 "visible" => true,
                 "price" => 63,
-                "img" => "https://www.dianekochilas.com/wp-content/uploads/2019/01/201-fish-wrapped-in-grape-leaves.jpg",
+                "img" => "https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Peri's",
@@ -900,7 +900,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Champagne Dom Perignon is only available as a vintage. With the Dom Perignon Blanc 2004, made from a blend of Chardonnay and Pinot Noir, buyers should expect aromas of almond and powdered cocoa on the nose that will gradually develop into hints of white fruit and dried flowers. You can experience the champagne’s maturity in the classic toasted notes that provide a rounded finish",
                 "visible" => true,
                 "price" => 170,
-                "img" => "https://cdn.webshopapp.com/shops/7950/files/362569959/650x750x2/dom-perignon-2010-dom-perignon-luminous-blanc-vint.jpg",
+                "img" => "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=800&q=75",
             ],
             // thai food
             [
@@ -910,7 +910,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Stir-fried rice noodles with shrimp and tofu, tossed in tamarind sauce and topped with crushed peanuts.",
                 "visible" => true,
                 "price" => 11.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "thai food",
@@ -919,7 +919,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Creamy and spicy green curry with chicken and Thai basil, served with jasmine rice.",
                 "visible" => true,
                 "price" => 12,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "thai food",
@@ -928,7 +928,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Hot and sour soup with shrimp, scented with lemongrass and kaffir lime.",
                 "visible" => true,
                 "price" => 8.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1548943487-a2e4e43b4853?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "thai food",
@@ -937,7 +937,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Fresh green papaya salad, crunchy, sour and spicy.",
                 "visible" => true,
                 "price" => 7,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "thai food",
@@ -956,7 +956,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Hand-cut egg pappardelle with a slow-cooked wild boar ragout.",
                 "visible" => true,
                 "price" => 22,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1611270629569-8b357cb88da9?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il cacciatore",
@@ -965,7 +965,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Pink-roasted venison fillet with juniper sauce and celeriac puree.",
                 "visible" => true,
                 "price" => 34,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il cacciatore",
@@ -974,7 +974,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Creamy carnaroli risotto with fresh porcini mushrooms.",
                 "visible" => true,
                 "price" => 24,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il cacciatore",
@@ -983,7 +983,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Game terrine with pistachios, served with toasted brioche and onion jam.",
                 "visible" => true,
                 "price" => 18,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il cacciatore",
@@ -992,7 +992,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Our autumn take on tiramisu with chestnut cream.",
                 "visible" => true,
                 "price" => 12,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=75",
             ],
             // La cabrera
             [
@@ -1002,7 +1002,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "300g Argentine sirloin grilled on the parrilla, served with chimichurri.",
                 "visible" => true,
                 "price" => 29,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La cabrera",
@@ -1011,7 +1011,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Two baked pastries filled with hand-cut beef, egg and olives.",
                 "visible" => true,
                 "price" => 9,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La cabrera",
@@ -1020,7 +1020,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Grilled provolone with oregano and chili, to share.",
                 "visible" => true,
                 "price" => 10,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La cabrera",
@@ -1029,7 +1029,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Grilled chorizo sausage in crusty bread: the classic Argentine street food.",
                 "visible" => true,
                 "price" => 8.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La cabrera",
@@ -1038,7 +1038,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Hand-cut fries with garlic and parsley.",
                 "visible" => true,
                 "price" => 5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=800&q=75",
             ],
             // La lanterna
             [
@@ -1048,7 +1048,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Toasted Sardinian fregola cooked with clams and cherry tomatoes.",
                 "visible" => true,
                 "price" => 21,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1595908129746-57ca1a63dd4d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La lanterna",
@@ -1057,7 +1057,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Handmade Sardinian ravioli filled with potatoes, pecorino and mint.",
                 "visible" => true,
                 "price" => 18,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La lanterna",
@@ -1066,7 +1066,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Slow-roasted suckling pig flavoured with myrtle, the Sardinian classic.",
                 "visible" => true,
                 "price" => 32,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1606728035253-49e8a23146de?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La lanterna",
@@ -1075,7 +1075,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Thin slices of Cabras bottarga with celery and lemon.",
                 "visible" => true,
                 "price" => 19,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1625938145744-e380515399bf?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "La lanterna",
@@ -1084,7 +1084,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Fried pastry filled with fresh cheese and drizzled with bitter honey.",
                 "visible" => true,
                 "price" => 9,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=800&q=75",
             ],
             // Green food
             [
@@ -1094,7 +1094,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "A colourful bowl of quinoa, roasted chickpeas and vegetables with tahini dressing.",
                 "visible" => true,
                 "price" => 12,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1484980972926-edee96e0960d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Green food",
@@ -1103,7 +1103,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Black bean and beetroot burger with crunchy vegetables.",
                 "visible" => true,
                 "price" => 11,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Green food",
@@ -1112,7 +1112,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Warm spiced soup of red lentils and coconut milk.",
                 "visible" => true,
                 "price" => 8,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1620791144170-8a443bf37a33?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Green food",
@@ -1121,7 +1121,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Poke bowl with marinated tofu, mango and edamame.",
                 "visible" => true,
                 "price" => 12.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Green food",
@@ -1130,7 +1130,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Raw cake of cashews, dates and cocoa, no sugar added.",
                 "visible" => true,
                 "price" => 6.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=75",
             ],
             // Il Rancio
             [
@@ -1140,7 +1140,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Traditional Umbrian strangozzi with grated Norcia black truffle.",
                 "visible" => true,
                 "price" => 26,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il Rancio",
@@ -1149,7 +1149,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Umbrian flatbread filled with prosciutto, pecorino and arugula.",
                 "visible" => true,
                 "price" => 11,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il Rancio",
@@ -1158,7 +1158,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Roast pigeon with Sagrantino wine sauce.",
                 "visible" => true,
                 "price" => 30,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il Rancio",
@@ -1167,7 +1167,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Soup of Castelluccio lentils with Umbrian extra virgin olive oil.",
                 "visible" => true,
                 "price" => 14,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Il Rancio",
@@ -1176,7 +1176,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Umbrian rolled pastry filled with apples, walnuts and raisins.",
                 "visible" => true,
                 "price" => 9,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?auto=format&fit=crop&w=800&q=75",
             ],
             // Starbucks
             [
@@ -1186,7 +1186,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Rich espresso balanced with steamed milk and a light layer of foam.",
                 "visible" => true,
                 "price" => 3.9,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Starbucks",
@@ -1195,7 +1195,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Steamed milk with vanilla, espresso and a caramel drizzle.",
                 "visible" => true,
                 "price" => 4.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Starbucks",
@@ -1204,7 +1204,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Blended iced coffee with mocha sauce and whipped cream.",
                 "visible" => true,
                 "price" => 5.2,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Starbucks",
@@ -1213,7 +1213,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Soft muffin packed with blueberries.",
                 "visible" => true,
                 "price" => 2.9,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Starbucks",
@@ -1222,7 +1222,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Big cookie with chunks of dark chocolate.",
                 "visible" => true,
                 "price" => 2.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=75",
             ],
             // Esencia
             [
@@ -1232,7 +1232,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "The original Valencian paella with chicken, rabbit and saffron.",
                 "visible" => true,
                 "price" => 19,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Esencia",
@@ -1241,7 +1241,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Crispy potatoes with spicy brava sauce and aioli.",
                 "visible" => true,
                 "price" => 6.5,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Esencia",
@@ -1250,7 +1250,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Chilled Andalusian tomato soup.",
                 "visible" => true,
                 "price" => 7,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Esencia",
@@ -1268,7 +1268,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Hand-sliced Iberico ham served with tomato bread.",
                 "visible" => true,
                 "price" => 16,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=800&q=75",
             ],
             [
                 "restaurant" => "Esencia",
@@ -1277,7 +1277,7 @@ class PlatesTableSeeder extends Seeder
                 "description" => "Catalan custard with a caramelised sugar crust.",
                 "visible" => true,
                 "price" => 6,
-                "img" => null,
+                "img" => "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=75",
             ],
         ];
 
