@@ -1,31 +1,29 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\RestaurantController;
+use App\Http\Controllers\Api\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
+| Loaded by bootstrap/app.php with the "api" prefix and middleware group.
+| Shapes of the responses are pinned by tests/Feature/Api/PublicApiTest.php.
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
+// all types
+Route::get('/types', [TypeController::class, 'index']);
 
-Route::namespace('Api')->group(function(){
-    // get all types
-    Route::get('/types', 'TypeController@index');
-    // get restaurants top rates
-     Route::get('/restaurantsTopRated', 'RestaurantController@restTopRated');
-    // get restaurants by chosen types
-    Route::get('/restaurants/{ids}', 'RestaurantController@restByTypes');
-    // retaurant menu
-    Route::get('/restaurantsMenu/{slug}', 'RestaurantController@restMunu');
-    // recive orders
-    Route::post('/orders', 'OrderController@store'); 
+Route::controller(RestaurantController::class)->group(function () {
+    // top rated restaurants
+    Route::get('/restaurantsTopRated', 'restTopRated');
+    // restaurants by chosen types (comma separated ids)
+    Route::get('/restaurants/{ids}', 'restByTypes');
+    // restaurant menu
+    Route::get('/restaurantsMenu/{slug}', 'restMunu');
 });
+
+// receive orders
+Route::post('/orders', [OrderController::class, 'store']);

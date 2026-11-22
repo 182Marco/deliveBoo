@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Plate;
 use App\Restaurant;
@@ -1289,7 +1291,7 @@ class PlatesTableSeeder extends Seeder
                 }
                 $restaurant = $restaurants[$plate['restaurant']];
                 if (!$restaurant) {
-                    throw new RuntimeException("PlatesTableSeeder: restaurant {$plate['restaurant']} not found, run RestaurantsTableSeeder first.");
+                    throw new \RuntimeException("PlatesTableSeeder: restaurant {$plate['restaurant']} not found, run RestaurantsTableSeeder first.");
                 }
 
                 // instance (existing or new)

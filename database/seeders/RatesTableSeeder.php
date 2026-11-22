@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Rate;
 use App\Restaurant;
@@ -270,7 +272,7 @@ class RatesTableSeeder extends Seeder
                 [$restaurant_name, $vote] = explode('|', $key);
                 $restaurant = Restaurant::where('name', $restaurant_name)->first();
                 if (!$restaurant) {
-                    throw new RuntimeException("RatesTableSeeder: restaurant {$restaurant_name} not found, run RestaurantsTableSeeder first.");
+                    throw new \RuntimeException("RatesTableSeeder: restaurant {$restaurant_name} not found, run RestaurantsTableSeeder first.");
                 }
 
                 $existing = Rate::where('restaurant_id', $restaurant->id)->where('rate', $vote)->count();

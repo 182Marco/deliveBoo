@@ -25,6 +25,14 @@ class CrudTest extends TestCase
         $this->actingAs($this->owner());
     }
 
+    /** a real 1x1 PNG: unlike UploadedFile::fake()->image() it does not need the GD extension */
+    private function png($name)
+    {
+        return UploadedFile::fake()->createWithContent($name, base64_decode(
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+        ));
+    }
+
     // ---------------------------------------------------------------- restaurants
 
     public function testStoreRestaurantFails_CurrentBehaviour()
@@ -48,7 +56,7 @@ class CrudTest extends TestCase
 
         $response = $this->post(route('admin.restaurants.store'), [
             'name' => 'Nuovo Posto', 'phone' => '333', 'city' => 'Torino', 'address' => 'via Po 1',
-            'types' => $types, 'img' => UploadedFile::fake()->image('cover.jpg'),
+            'types' => $types, 'img' => $this->png('cover.png'),
         ]);
 
         $rest = Restaurant::where('name', 'Nuovo Posto')->firstOrFail();
@@ -82,7 +90,7 @@ class CrudTest extends TestCase
 
         $this->patch(route('admin.restaurants.update', $rest->id), [
             'name' => $rest->name, 'phone' => '999', 'city' => 'Bologna', 'address' => 'via Indipendenza 2',
-            'types' => [$vegan], 'img' => UploadedFile::fake()->image('new.png'),
+            'types' => [$vegan], 'img' => $this->png('new.png'),
         ])->assertRedirect(route('admin.restaurants.show', $rest->id));
 
         $rest->refresh();
@@ -127,7 +135,7 @@ class CrudTest extends TestCase
 
     public function testStorePlateWithImageCreatesSlug()
     {
-        $this->post(route('admin.plates.store'), $this->plateData(['img' => UploadedFile::fake()->image('p.jpg')]))
+        $this->post(route('admin.plates.store'), $this->plateData(['img' => $this->png('p.png')]))
             ->assertRedirect(route('admin.plates.show', 'pizza-test'));
 
         $plate = Plate::where('slug', 'pizza-test')->firstOrFail();

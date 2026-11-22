@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Order;
 use App\Plate;
@@ -773,14 +775,14 @@ class OrdersTableSeeder extends Seeder
             foreach($orders as $order){
                 $restaurant = Restaurant::where('name', $order['restaurant'])->first();
                 if (!$restaurant) {
-                    throw new RuntimeException("OrdersTableSeeder: restaurant {$order['restaurant']} not found, run RestaurantsTableSeeder first.");
+                    throw new \RuntimeException("OrdersTableSeeder: restaurant {$order['restaurant']} not found, run RestaurantsTableSeeder first.");
                 }
 
                 $plates = Plate::where('restaurant_id', $restaurant->id)
                     ->whereIn('name', $order['plates'])
                     ->get();
                 if ($plates->count() !== count($order['plates'])) {
-                    throw new RuntimeException("OrdersTableSeeder: some plates of an order for {$order['restaurant']} were not found, run PlatesTableSeeder first.");
+                    throw new \RuntimeException("OrdersTableSeeder: some plates of an order for {$order['restaurant']} were not found, run PlatesTableSeeder first.");
                 }
 
                 // normalized date, so "8:05:12" and "08:05:12" are the same order

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Restaurant;
 use App\Type;
@@ -170,7 +172,7 @@ class RestaurantsTableSeeder extends Seeder
             foreach($restaurants as $restaurant){
                 $owner = User::where('email', $restaurant['owner'])->first();
                 if (!$owner) {
-                    throw new RuntimeException("RestaurantsTableSeeder: user {$restaurant['owner']} not found, run UsersTableSeeder first.");
+                    throw new \RuntimeException("RestaurantsTableSeeder: user {$restaurant['owner']} not found, run UsersTableSeeder first.");
                 }
 
                 // instance (existing or new)
@@ -190,7 +192,7 @@ class RestaurantsTableSeeder extends Seeder
                 // seeding the many to many with types (never duplicates, never detaches)
                 $type_ids = Type::whereIn('name', $restaurant['types'])->pluck('id');
                 if (count($type_ids) !== count($restaurant['types'])) {
-                    throw new RuntimeException("RestaurantsTableSeeder: missing types for {$restaurant['name']}, run TypesTableSeeder first.");
+                    throw new \RuntimeException("RestaurantsTableSeeder: missing types for {$restaurant['name']}, run TypesTableSeeder first.");
                 }
                 $new_restaurant->types()->syncWithoutDetaching($type_ids->all());
             }
