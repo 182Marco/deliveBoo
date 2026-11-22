@@ -53,7 +53,7 @@ export default {
     methods: {
         getTop() {
             axios
-                .get("http://127.0.0.1:8000/api/restaurantsTopRated")
+                .get("/api/restaurantsTopRated")
                 .then(r => {
                     this.topRest = r.data.map(e => ({
                         ...e,

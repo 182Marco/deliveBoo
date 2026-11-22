@@ -108,7 +108,7 @@ const store = () => {
             // axicall on created get all types
             getTypes({ commit }) {
                 axios
-                    .get("http://127.0.0.1:8000/api/types")
+                    .get("/api/types")
                     .then(r => commit("fillTypesArray", r.data.types))
                     .catch(r => console.log(r));
             },
@@ -117,7 +117,7 @@ const store = () => {
                 if (getters.selectedTypesLenght) {
                     axios
                         .get(
-                            `http://127.0.0.1:8000/api/restaurants/${state.typesSelected}?page=${page}`
+                            `/api/restaurants/${state.typesSelected}?page=${page}`
                         )
                         .then(r => {
                             commit("fillRestByTypesArray", r.data.data);
@@ -133,7 +133,7 @@ const store = () => {
             getMenuAndDetails({ commit }, payloadObj) {
                 axios
                     .get(
-                        `http://127.0.0.1:8000/api/restaurantsMenu/${payloadObj.slug}?page=${payloadObj.page}`
+                        `/api/restaurantsMenu/${payloadObj.slug}?page=${payloadObj.page}`
                     )
                     .then(r => {
                         commit("fillRest", r.data);

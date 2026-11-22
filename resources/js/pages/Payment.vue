@@ -256,7 +256,7 @@ export default {
         postForm() {
             this.sending = true;
             axios
-                .post("http://127.0.0.1:8000/api/orders", {
+                .post("/api/orders", {
                     restaurant_id: this.cart[0].restaurant_id,
                     price: this.total,
                     customer_name: this.customer_name,

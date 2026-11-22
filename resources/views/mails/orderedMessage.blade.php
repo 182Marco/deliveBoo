@@ -171,7 +171,7 @@
         <br><br>
         <h2>Thank you for choosing Deliveroo!</h2>
         <br><br>
-        @component('mail::button', ['url' => 'http://127.0.0.1:8000'])
+        @component('mail::button', ['url' => url('/')])
 Deliveroo
 @endcomponent
         </table>

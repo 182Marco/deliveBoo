@@ -5,7 +5,7 @@
             <p class="x" @click="$emit('closeMen')">x</p>
         </header>
         <div class="btn-box">
-            <a class="main-btn" href="http://127.0.0.1:8000/login">
+            <a class="main-btn" href="/login">
                 Registrati o accedi
             </a>
         </div>
@@ -13,7 +13,7 @@
             <ul>
                 <li>
                     <div>
-                        <a href="http://127.0.0.1:8000/register">
+                        <a href="/register">
                             <i class="fas fa-utensils"></i>Aggiungi il tuo
                             ristorante
                         </a>
@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <div>
-                        <a href="http://127.0.0.1:8000/register"
+                        <a href="/register"
                             ><i class="fas fa-store-alt"></i>Crea un account
                             aziendale
                         </a>
