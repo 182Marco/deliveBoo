@@ -2,7 +2,7 @@
 
 Clone di Deliveroo: i clienti scelgono un tipo di cucina, trovano i ristoranti, riempiono il carrello e pagano; i ristoratori gestiscono ristoranti, piatti, ordini e statistiche da un pannello riservato.
 
-> 🗺️ **Apri [`dev/mappa.html`](dev/mappa.html) nel browser** (doppio clic, nessun server) per la mappa interattiva: grafico concettuale, albero di tutti i file con una spiegazione semplice per ognuno, link di avvio con server e Docker, comandi Laravel. È uno strumento solo di sviluppo: segue la skill `skills/project-map-3-tabs` e non finisce nella build.
+> 🗺️ **Apri [`dev/mappa.html`](dev/mappa.html) nel browser** (doppio clic, nessun server) per la mappa interattiva: grafico concettuale, albero di tutti i file con una spiegazione semplice per ognuno, link di avvio con server e Docker, relazioni tra le tabelle del database, comandi Laravel. È uno strumento solo di sviluppo: segue la skill `skills/project-map-3-tabs` e non finisce nella build.
 
 ## Stack
 
@@ -53,7 +53,7 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 ## Database
 
-`users` 1─1 `restaurants` · `restaurants` 1─N `plates` / `rates` / `orders` · `restaurants` N─N `types` (pivot `restaurant_type`) · `orders` N─N `plates` (pivot `order_plate`). Schema: `db structure.webp`.
+`users` 1─N `restaurants` · `restaurants` 1─N `plates` / `rates` / `orders` · `restaurants` N─N `types` (pivot `restaurant_type`) · `orders` N─N `plates` (pivot `order_plate`). Schema: `db structure.webp`; versione interattiva con colonne e pivot nella tab “Relazioni tabelle” di `dev/mappa.html`.
 
 ## Avvio in locale
 

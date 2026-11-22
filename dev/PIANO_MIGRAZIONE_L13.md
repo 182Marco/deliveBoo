@@ -17,7 +17,7 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - [x] `migrate:fresh --seed` su MySQL 8 (DB temporaneo) e SQLite · immagine di produzione avviata e provata (SPA, API, asset, `.env` non esposto)
   - [ ] **Manuale** — smoke nel browser (punto 5 della checklist): clienti + admin, incluso dropdown logout, conferma eliminazione, grafico stats
   - [ ] **Manuale** — Braintree sandbox (sezione B): carta 4111 1111 1111 1111, errori carta e campi cliente
-  - [ ] **Manuale** — DB di sviluppo `deliveboo`: `docker compose build && docker compose up -d && docker compose exec app php artisan migrate` (aggiunge solo la migration dei prezzi; nessun reseed)
+  - [ ] **Manuale** — DB di sviluppo `deliveboo`: `docker compose build && docker compose up -d && docker compose exec app php artisan migrate` (aggiunge solo la migration dei prezzi; nessun reseed) — comando ora anche in `dev/mappa.html` (Link di avvio → Codespace, Note Docker, Comandi Laravel → Migrations)
   - [ ] **Manuale** — prima del merge: variabili su Render (`APP_KEY`; facoltative `MAIL_*`), poi deploy
   - [ ] **Da decidere** — correzioni separate `fix(security)` SEC-1..SEC-4 e `fix` BUG-1
 
@@ -49,6 +49,7 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - Fase 4 (Docker, commit c68aa49): immagine dev `deliveboo-php84`; Dockerfile prod multi-stage (node:22 → php:8.4-apache). Corretti nel rifacimento: **DocumentRoot era la radice del progetto** (ora `public/`) e `.dockerignore` non escludeva `.env`/`vendor`/`node_modules`.
   - Fase 4: su MySQL `float('price', 5, 2)` con L11+ crea `FLOAT` singola precisione (L7: `DOUBLE(5,2)`), `float('price')` crea `DOUBLE` senza scala (L7: `DOUBLE(8,2)`) → nuova migration `2026_11_22_000000_restore_price_column_types` (solo MySQL/MariaDB, no-op su DB esistenti). Verificato su DB MySQL temporaneo `deliveboo_l13test` (poi eliminato): il DB di sviluppo `deliveboo` **non è stato toccato** (va migrato con `php artisan migrate`, che aggiunge solo questa migration).
   - Test PHP nel container con GD: `docker run --rm -u $(id -u):$(id -g) -v "$PWD":/app -w /app deliveboo-php84 php vendor/bin/phpunit`.
+  - Dopo la Fase 4: `dev/mappa.html` ha una 5ª tab “Relazioni tabelle” (schema 1─N / N─N con pivot, poi ogni relazione con le colonne chiave). README corretto: `users` 1─N `restaurants` (non 1─1).
   - Messaggio `max` dei piatti con doppio spazio ("the  50 characters") per via della regola `'max: 50'`: in Fase 2, con le regole ad array, diventa a spazio singolo → aggiornare l'asserzione in `CrudTest::testStorePlateValidationMessages` (cambio voluto, unico).
 
 > **Legenda revisione 2:** 🆕 = parte aggiunta · ✏️ = parte modificata. Tutto il resto è invariato rispetto alla versione 1.

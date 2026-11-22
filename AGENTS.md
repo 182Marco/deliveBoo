@@ -67,6 +67,7 @@ php artisan route:list             # verifica le rotte
 
 ## Mappa del progetto (`dev/mappa.html`)
 - Segue la skill `skills/project-map-3-tabs/SKILL.md` (`.claude/skills` è un symlink a `skills/`): palette e misure fisse, **si modifica solo il blocco `DATI`** (`FILES` con le righe `F(...)`, `NODES`, `EDGES`, `TARGETS`, `NOTES`, `CMDS`…), mai CSS né `RENDER`.
-- Ha 4 tab: le 3 della skill (`graph`, `code`, `links`) più `cmd` "Comandi Laravel", aggiunta su richiesta.
+- Ha 5 tab: le 3 della skill (`graph`, `code`, `links`) più due estensioni aggiunte su richiesta: `db` "Relazioni tabelle" (dati `DB_PAGE`, `DB_KINDS`, `REL_TYPES`, `DB_GROUPS`, `DB_TABLES`, `DB_LINKS`, `DB_RELS`, `DB_ALONE`) e `cmd` "Comandi Laravel" (`CMD_PAGE`, `CMDS`). Le estensioni hanno un proprio blocco nel `RENDER` e CSS con i soli colori della palette.
+- Nuova tabella, colonna chiave o relazione → aggiorna `DB_TABLES`/`DB_LINKS` (schema) e `DB_RELS` (dettaglio con colonne e pivot).
 - Nuovo file → nuova riga `F(...)`; nuovo flusso → nodo/arco. Ogni `go` e `rel` deve essere un percorso presente in `FILES`.
 - `dev/` (come `skills/` e `.claude/`) è solo sviluppo: **mai referenziata** da `app/`, `resources/`, `routes/`, `public/` o dalla config, ed esclusa dall'immagine Docker tramite `.dockerignore`.
