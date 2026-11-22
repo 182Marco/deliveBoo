@@ -1,4 +1,4 @@
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import { Content, FoodImage, Icon, RestByTypes } from "../../components";
 
 // the "starred restaurants" type already says restaurants: the title must not repeat it
@@ -8,7 +8,7 @@ const singleTypeRestLogic = {
     name: "SingleTypeRest",
     components: { Content, FoodImage, Icon, RestByTypes },
     computed: {
-        ...mapState(["alltypes"]),
+        ...mapState(["alltypes", "typesSelected"]),
         currentType() {
             return this.alltypes.find(e => e.id == this.$route.params.id);
         },
@@ -17,14 +17,22 @@ const singleTypeRestLogic = {
         }
     },
     watch: {
+        // the page shows only the type in the address: opened from a link, a bookmark or a reload
+        // the selection may be empty or hold other types, so it is reset to this one first
         "$route.params.id": {
-            handler() {
+            handler(id) {
+                const typeId = Number(id);
+                if (this.typesSelected.length !== 1 || this.typesSelected[0] != typeId) {
+                    this.cleanSelectedTypes();
+                    this.addType(typeId);
+                }
                 this.getRestaurants(1);
             },
             immediate: true
         }
     },
     methods: {
+        ...mapMutations(["cleanSelectedTypes", "addType"]),
         ...mapActions(["getRestaurants"])
     }
 };

@@ -88,6 +88,15 @@ describe("every SPA route renders without Vue warnings", () => {
         wrapper.unmount();
     });
 
+    it("a cuisine page opened from its address lists the restaurants of that cuisine", async () => {
+        // a stale selection from a previous visit must not win over the address
+        const wrapper = await render("/Restaurants-matching-the-single-type-you-choose/1", store => store.commit("addType", 3));
+        expect(axios.get).toHaveBeenCalledWith(expect.stringMatching(/^\/api\/restaurants\/1(\?|$)/));
+        expect(wrapper.text()).toContain("Mc Donald's");
+        expect(wrapper.text()).not.toContain("Choose a cuisine to start");
+        wrapper.unmount();
+    });
+
     it("restaurant menu shows its plates", async () => {
         const wrapper = await render("/chosen-restaurant-menu-and-details/mc-donalds");
         expect(axios.get).toHaveBeenCalledWith("/api/restaurantsMenu/mc-donalds?page=1");
