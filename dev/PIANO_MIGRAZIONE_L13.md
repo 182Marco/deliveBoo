@@ -7,13 +7,13 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
 - [x] Fase 0.a — `chore(deps)`: vue / vue-template-compiler 2.7.16 — commit 6977d61; `npm run dev` ok, smoke HTTP ok (home, /js/vue.js, /api/types, /api/restaurantsTopRated). Rendering nel browser da verificare a mano (vedi checklist finale)
 - [x] Fase 0.b — test PHP di caratterizzazione (PublicApi, Ownership + SEC-1/2, Crud, Auth, Routes) + fix nome vista mail — commit 663cc37; suite: 51 test, 629 asserzioni, 5 skip (SEC-1..4, BUG-1)
 - [x] Fase 0.c — Vitest: store.spec.js + payment.spec.js (Vue 2) — commit b3c1f23; 16 test verdi (`npm run test:js`)
-- [ ] Fase 1 — Laravel 13, struttura slim, rotte a tupla, seeder namespaced
+- [x] Fase 1 — Laravel 13, struttura slim, rotte a tupla, seeder namespaced — commit 54ed13d; Laravel 13.43.0 su PHP 8.4: 51 test, 629 asserzioni (come la baseline), 5 skip; `composer audit` pulito; smoke su SQLite ok (SPA, API, login reale con CSRF/sessione, paginazione Bootstrap, ordine + mail nel log)
 - [ ] Fase 2 — sintassi moderna (API, Admin, modelli, mailable, test 404)
 - [ ] Fase 3 — Vite + Vue 3 (+ port degli spec)
 - [ ] Fase 4 — Docker, deploy, documentazione, mappa
 - [ ] Verifica finale (checklist in fondo) — parti manuali da fare con l'utente
 
-**Prossimo passo:** Fase 1 (composer.json L13, struttura slim). Da qui i test PHP girano sull'host PHP 8.4.
+**Prossimo passo:** Fase 2 (sintassi moderna: API, Admin, modelli, mailable, test 404).
 
 **Note di esecuzione:** (decisioni prese durante il lavoro, problemi incontrati)
 - Laravel 7 **non gira su PHP 8.4** (deprecazioni di Symfony 5 trasformate in eccezioni). Fino alla Fase 1 i test PHP si lanciano nel container PHP 8.0:
@@ -28,6 +28,11 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - 🆕 **BUG-1** `RestaurantController@store`: non imposta `slug` (NOT NULL) → creare un ristorante dall'admin dà sempre 500.
   - Minore, solo annotato: `plates/create/{slug}` di un ristorante altrui mostra il form (lista solo i ristoranti dell'utente, nessun dato esposto).
   - Fase 0.c: installare vite 7 ha portato `sass` da 1.37 a 1.108 (peer opzionale di vite `^1.70`, non riportabile indietro senza `--legacy-peer-deps`). Il CSS compilato da Mix è equivalente (formato colori e ordine delle regole): i file in `public/` **non** sono stati ricommitati; si rigenerano comunque in Fase 3 con Vite.
+  - Fase 1: il PHP dell'host **non ha GD** → nei test `UploadedFile::fake()->image()` sostituito da un PNG 1x1 reale (`CrudTest::png()`).
+  - Fase 1: i `docker run` come root lasciano file di root in `storage/` → `Permission denied` sull'host. Rimedio: `docker run --rm -v "$PWD":/app -w /app php:8.0-cli chown -R $(id -u):$(id -g) storage bootstrap/cache`.
+  - Fase 1: `MAIL_FROM_ADDRESS=null` non è più accettato da Symfony Mailer → `.env.example` ora ha `noreply@deliveboo.test`. **Da verificare** il `.env` locale e le variabili su Render (Fase 4).
+  - Tra Fase 1 e Fase 4 `docker/dev/Dockerfile` (PHP 8.0) e il `Dockerfile` di produzione (PHP 8.2) **non possono eseguire Laravel 13**: il branch non va deployato prima della Fase 4.
+  - Smoke manuale veloce senza MySQL: `DB_CONNECTION=sqlite DB_DATABASE=<file in scratchpad> php artisan migrate --seed --force && php artisan serve --port=8013`.
   - Messaggio `max` dei piatti con doppio spazio ("the  50 characters") per via della regola `'max: 50'`: in Fase 2, con le regole ad array, diventa a spazio singolo → aggiornare l'asserzione in `CrudTest::testStorePlateValidationMessages` (cambio voluto, unico).
 
 > **Legenda revisione 2:** 🆕 = parte aggiunta · ✏️ = parte modificata. Tutto il resto è invariato rispetto alla versione 1.
