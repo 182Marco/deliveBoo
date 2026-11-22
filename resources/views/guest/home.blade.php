@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        {{-- font awesome --}}
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <!-- Scripts -->
         <script src="{{ asset('js/vue.js') }}" defer></script>
         <meta charset="utf-8">
