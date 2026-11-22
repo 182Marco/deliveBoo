@@ -1,12 +1,10 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from "vuex";
 import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
 
-Vue.use(Vuex);
 
 const store = () => {
-    return new Vuex.Store({
+    return createStore({
         plugins: [createPersistedState()],
         state: {
             alltypes: [],

@@ -1,4 +1,4 @@
-import Chart, { LogarithmicScale } from "chart.js/auto";
+import Chart from "chart.js/auto";
 
 const ordersLastName = relatedOrders.map(e => e.customer_lastName);
 const expenses = relatedOrders.map(e => e.price);

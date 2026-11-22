@@ -19,7 +19,7 @@
 {{-- passing json to js --}}
 <script type="text/javascript">const relatedOrders = {!! json_encode($related_orders) !!};</script>
  {{-- the releted script --}}
- <script type='text/javascript' src="{{asset('js/chart.js')}}"></script>
+ @vite('resources/js/jsBack/chart.js')
 @endsection 
 
 

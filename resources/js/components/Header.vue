@@ -19,7 +19,7 @@
                         <router-link
                             :to="{ name: 'cart' }"
                             class="cart"
-                            @click.native="windowScroll"
+                            @click="windowScroll"
                             ><i class="fas fa-shopping-cart">
                                 <div class="cart-length">
                                     {{ $store.getters.cartLenght }}

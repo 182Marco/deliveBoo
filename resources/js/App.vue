@@ -1,9 +1,9 @@
 <template>
     <div class="app">
         <Header />
-        <router-view>
-            <!-- component matched by the route will be rendered here -->
-        </router-view>
+        <!-- component matched by the route will be rendered here
+             (nothing inside <router-view>: in Vue Router 4 any content becomes its slot) -->
+        <router-view />
         <Content class="main-content" />
         <Footer class="footer" />
     </div>

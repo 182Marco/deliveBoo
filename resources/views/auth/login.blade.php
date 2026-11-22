@@ -72,5 +72,5 @@
 </div>
 {{-- js to manage login feedback for user,  related also with view restautant.index 
     (in layout templarte whitch is included in restaurant.index) --}}
-<script type='text/javascript' src="{{asset('js/logListen.js')}}"></script>
+@vite('resources/js/jsBack/logListen.js')
 @endsection

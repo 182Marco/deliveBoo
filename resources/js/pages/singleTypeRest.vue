@@ -1,5 +1,6 @@
 <template>
-    <div class="cont">
+    <!-- render only once the chosen type is known (Vue 2 silently skipped the failing first render) -->
+    <div class="cont" v-if="alltypes.some(e => e.id == $route.params.id)">
         <h1>
             Here only
             <span
@@ -14,7 +15,7 @@
             <router-link
                 :to="{ name: 'home' }"
                 class="btn btn-success btn-small txt"
-                @click.native="scroll()"
+                @click="scroll()"
                 >Select more types</router-link
             >
         </div>

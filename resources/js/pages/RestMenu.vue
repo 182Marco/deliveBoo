@@ -1,5 +1,6 @@
 <template>
-    <div class="cont">
+    <!-- render only once the menu is loaded (Vue 2 silently skipped the failing first render) -->
+    <div class="cont" v-if="restaurant.location && restaurant.menu">
         <div class="items-box">
             <div class="img-box">
                 <img

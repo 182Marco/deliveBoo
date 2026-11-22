@@ -28,7 +28,7 @@ const CUSTOMER = {
 let store, router, hostedFieldInstance, clientInstance;
 
 function mountPayment() {
-    return shallowMount(Payment, { store, mocks: { $router: router } });
+    return shallowMount(Payment, { global: { plugins: [store], mocks: { $router: router } } });
 }
 
 async function mountReady(customer = CUSTOMER) {

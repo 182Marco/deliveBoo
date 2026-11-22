@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <!-- Scripts -->
-        <script src="{{ asset('js/vue.js') }}" defer></script>
+        @vite('resources/js/vue.js')
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Scripts -->

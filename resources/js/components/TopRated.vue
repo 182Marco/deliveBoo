@@ -25,7 +25,7 @@
                     class="fas fa-medal bronze"
                 ></i>
                 <StarsBox
-                    @click.native="goToRest(rest.slug)"
+                    @click="goToRest(rest.slug)"
                     :average="rest.average"
                     :topList="true"
                 />

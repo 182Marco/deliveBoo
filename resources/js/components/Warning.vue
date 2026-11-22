@@ -9,7 +9,7 @@
                 Empty the cart and start purchasing here
             </button>
             <router-link
-                @click.native="ridirect()"
+                @click="ridirect()"
                 class="btn btn-brand btn-block"
                 :to="{
                     name: 'restMenu',

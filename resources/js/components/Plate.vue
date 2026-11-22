@@ -33,7 +33,7 @@
                     <router-link
                         :to="{ name: 'cart' }"
                         class="cart-btn btn-success btn btn-small"
-                        @click.native="windowScroll"
+                        @click="windowScroll"
                     >
                         check the cart
                     </router-link>

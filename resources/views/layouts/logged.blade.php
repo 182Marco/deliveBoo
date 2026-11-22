@@ -1,7 +1,7 @@
 <h3 id="loggedMsgEl" class="logged no-show timeout">
     You successfully logged in! 
 </h3>
-<script type='text/javascript' src="{{asset('js/logListen.js')}}"></script>
+@vite('resources/js/jsBack/logListen.js')
 <style>
 /* js remove with time out class no-show */
 .logged.no-show{

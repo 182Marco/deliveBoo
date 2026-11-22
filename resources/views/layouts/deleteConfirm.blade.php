@@ -9,4 +9,4 @@
     </div> 
 </section>
  {{-- the releted script --}}
- <script type='text/javascript' src="{{asset('js/confDelete.js')}}"></script>
+ @vite('resources/js/jsBack/confDelete.js')

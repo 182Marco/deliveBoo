@@ -167,6 +167,7 @@
 </template>
 
 <script>
+import { markRaw } from "vue";
 import { mapState, mapMutations } from "vuex";
 import braintree from "braintree-web";
 export default {
@@ -217,7 +218,8 @@ export default {
                 return braintree.hostedFields.create(options);
             })
             .then(hostedFieldInstance => {
-                this.hostedFieldInstance = hostedFieldInstance;
+                // markRaw: a Braintree instance must not be wrapped in a Vue 3 reactive Proxy
+                this.hostedFieldInstance = markRaw(hostedFieldInstance);
             })
             .catch(err => {
                 console.error(err);
