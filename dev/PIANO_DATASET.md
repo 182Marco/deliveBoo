@@ -3,7 +3,7 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** ✅ passo 7 fatto (README, AGENTS, `.env.example`, mappa: 85 righe FILES, diagramma DB con il gruppo «Ingredienti, allergeni e diete», 5 relazioni nuove, 2 comandi). Verifiche finali: `php artisan test` 79 verdi + 4 skip (SEC-x); `npm run test:js` 34 verdi; `npm run build` ok; `route:list` 39 rotte. **Resta**: commit docs e report finale all'utente.
+- **Passo corrente:** ✅ **LAVORO COMPLETATO** (8 commit, da `bd4ecd2` a `cb57947` più questo). Prova sull'app in esecuzione: API ok (43 tipi, menu di Aurora con 97 voci, `orderable` e `ingredient_list`), login Romiti ok, admin paginato, form del piatto con i campi alimentari. Metriche: 3628 piatti di cibo con 795 descrizioni distinte, una stessa descrizione condivisa al massimo da 11 marchi (mediana 2). Restano solo i punti aperti qui sotto.
 - **Report di verifica (MySQL dev, dopo `migrate:fresh --seed`):**
   - integrità: 0 violazioni (proprietari, slug, tipi, piatti senza ingredienti, prezzi, quantità, righe di altri ristoranti, totali);
   - 60 utenti, 261 ristoranti (Romiti 33), 6224 piatti, 706 ingredienti (608 usati), 43/43 cucine usate, 11249 ordini (10909 pagati, 1324 clienti);
