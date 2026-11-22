@@ -8,13 +8,14 @@ Clone di Deliveroo: i clienti scelgono un tipo di cucina, trovano i ristoranti, 
 
 | Parte | Tecnologie |
 |---|---|
-| Backend | PHP 7.2+/8, Laravel 7, laravel/ui (auth) |
-| Sito clienti | Vue 2, Vue Router, Vuex (+ vuex-persistedstate), Bootstrap-Vue, axios |
+| Backend | PHP 8.3+ (8.4 in Docker), Laravel 13, laravel/ui 4 (auth) |
+| Sito clienti | Vue 3, Vue Router 4, Vuex 4 (+ vuex-persistedstate), Bootstrap 4, axios |
 | Pannello ristoratore | Blade, Bootstrap 4, Chart.js |
 | Pagamenti | Braintree (`braintree-web`, hosted fields) |
-| Build | Laravel Mix 5 (webpack), Sass |
+| Build | Vite 8 (laravel-vite-plugin), Sass |
+| Test | PHPUnit 12 (SQLite in memoria), Vitest + @vue/test-utils |
 | Database | MySQL in locale, SQLite su Render |
-| Deploy | Docker (php:8.2-apache) su Render |
+| Deploy | Docker (node:22 per la build + php:8.4-apache) su Render |
 
 ## Come funziona
 
@@ -56,17 +57,18 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 ## Avvio in locale
 
-Con Docker (consigliato, anche da Codespace) servono solo Docker e Node 18+:
+Con Docker (consigliato, anche da Codespace) servono solo Docker e Node 20.19+:
 
 ```bash
 cp .env.example .env    # poi DB_HOST=db, DB_DATABASE=deliveboo, DB_USERNAME=deliveboo, DB_PASSWORD=local_password, MAIL_MAILER=log
 docker compose build && docker compose run --rm app composer install
 docker compose run --rm app php artisan key:generate
 docker compose up -d && docker compose exec app php artisan migrate --seed
+docker compose exec app php artisan storage:link
 npm install && npm run watch   # http://127.0.0.1:8000 (Codespace: indirizzo inoltrato della porta 8000)
 ```
 
-Senza Docker (PHP 7.4–8.1 e MySQL sul computer):
+Senza Docker (PHP 8.3+ con pdo_mysql/pdo_sqlite e gd, MySQL o SQLite sul computer):
 
 ```bash
 composer install
@@ -74,11 +76,13 @@ npm install
 cp .env.example .env && php artisan key:generate   # poi configura DB_* e MAIL_* in .env
 php artisan migrate --seed
 php artisan storage:link
-npm run dev            # oppure: npm run watch
+npm run build          # oppure: npm run watch (ricompila a ogni modifica) / npm run dev (HMR)
 php artisan serve      # http://127.0.0.1:8000
 ```
 
-Comandi utili: `npm run prod` (build ottimizzata), `php artisan test`, `php artisan migrate:fresh --seed`.
+Comandi utili: `npm run build` (build ottimizzata), `php artisan test`, `npm run test:js`, `php artisan migrate:fresh --seed`.
+
+Migrazione da Laravel 7 a 13 e da Mix/Vue 2 a Vite/Vue 3: piano, decisioni e stato in [`dev/PIANO_MIGRAZIONE_L13.md`](dev/PIANO_MIGRAZIONE_L13.md). Su un DB già esistente basta `php artisan migrate` (aggiunge solo la migration che riallinea i tipi dei prezzi su MySQL).
 
 ### Database: migrations e seed
 
@@ -92,29 +96,38 @@ Ordine dei seeder: Users → Types → Restaurants → Plates → Orders → Rat
 
 **Rilanciare il seed è sicuro**: i seeder sono idempotenti. Trovano i record tramite chiavi naturali (email dell'utente, nome di tipo e ristorante, ristorante + nome del piatto, ristorante + email + data dell'ordine) e creano solo quello che manca. Non sovrascrivono i record esistenti e non cancellano nulla. Le pivot usano `syncWithoutDetaching`. Per i voti, che non hanno una chiave, il seeder aggiunge solo le righe mancanti per arrivare al numero previsto per ogni (ristorante, voto). `php artisan migrate:fresh --seed` invece **cancella tutte le tabelle** e ricrea il DB da zero: usalo solo se vuoi perdere i dati.
 
-`php artisan test` gira su SQLite in memoria (vedi `phpunit.xml`) e non tocca il DB di sviluppo. `tests/Feature/DatabaseSeederTest.php` verifica che due seed consecutivi diano gli stessi conteggi e che i dati siano coerenti (FK, piatti degli ordini, prezzi, slug).
+`php artisan test` gira su SQLite in memoria (vedi `phpunit.xml`) e non tocca il DB di sviluppo:
+
+- `DatabaseSeederTest`: due seed consecutivi danno gli stessi conteggi, dati coerenti (FK, piatti degli ordini, prezzi, slug);
+- `Api/PublicApiTest`: forme JSON lette dalla SPA, ordini, email;
+- `Admin/OwnershipTest`, `Admin/CrudTest`, `Admin/NotFoundTest`: proprietario / altro utente / ospite, CRUD con upload, 404;
+- `AuthTest`, `RoutesTest`: login/registrazione/redirect, URI e nomi di ogni rotta.
+
+`npm run test:js` (Vitest, senza rete) prova lo store, il flusso di pagamento Braintree con mock (`tests/js/payment.spec.js`) e che ogni rotta della SPA si apra senza warning Vue. Il pagamento reale si verifica a mano in sandbox con la carta di test 4111 1111 1111 1111.
 
 ## Deploy
 
-`Dockerfile` (Apache + PHP 8.2, `composer install --no-dev`, `npm run prod`) usato da `render.yaml` (servizio *deliveboo-laravel*, SQLite). `build.sh` è uno script equivalente per build manuali. Variabili da impostare su Render: `APP_KEY`, e le `MAIL_*` per le email.
+`Dockerfile` multi-stage (stage `node:22` con `npm ci && npm run build`, poi Apache + PHP 8.4 con DocumentRoot `public/` e `composer install --no-dev`) usato da `render.yaml` (servizio *deliveboo-laravel*, SQLite). `build.sh` è uno script equivalente per build manuali. Variabili da impostare su Render: `APP_KEY`, e le `MAIL_*` per le email.
 
 ## Struttura cartelle
 
 ```
-app/            modelli, controller (Admin, Api, Auth), middleware, Mail
-config/         impostazioni Laravel
-database/       migrations, seeds, factories
-public/         file serviti al browser (js/css compilati, immagini)
+app/            modelli, controller (Admin, Api, Auth), Mail, AppServiceProvider
+bootstrap/      app.php: rotte, middleware, eccezioni (al posto di Kernel e provider)
+config/         impostazioni Laravel (solo quelle con valori del progetto)
+database/       migrations, seeders, factories
+public/         file serviti al browser (build/ di Vite, immagini)
 resources/js    sito Vue (pages, components, store, routes) + jsBack (script admin)
 resources/sass  stili SCSS
 resources/views pagine Blade (admin, auth, guest, layouts, mails)
-routes/         web.php, api.php
+routes/         web.php, api.php, console.php
+tests/          Feature (PHPUnit) e js (Vitest)
+vite.config.js  entry point della build e configurazione di Vitest
 ```
 
 ## Problemi noti
 
-- Le chiamate axios in `resources/js/store.js` e `pages/Payment.vue` usano `http://127.0.0.1:8000` fisso: in produzione vanno sostituite con URL relativi (`/api/...`).
 - Il pagamento Braintree genera il *nonce* solo lato client: manca la conferma della transazione lato server.
-- `resources/js/routes copy.js` è una copia vecchia non usata; `Admin/HomeController` non è collegato a nessuna rotta; `StatsController@index` è vuoto.
-- `public/js` e `public/css` sono file compilati: modificare i sorgenti in `resources/` e ricompilare.
-- I test presenti sono solo gli esempi di Laravel.
+- `Admin/HomeController` non è collegato a nessuna rotta; `StatsController@index` è vuoto.
+- `public/build` è generata da Vite: modificare i sorgenti in `resources/` e ricompilare.
+- Mancano alcuni controlli del proprietario nell'admin (SEC-1..SEC-4: creazione piatti, modifica/eliminazione di ristoranti e piatti, statistiche) e la creazione di un ristorante dall'admin dà errore 500 perché non imposta lo slug (BUG-1). Sono fissati dai test come comportamento attuale e vanno corretti in commit separati: dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.
