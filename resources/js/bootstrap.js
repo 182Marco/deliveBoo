@@ -4,8 +4,9 @@ import $ from "jquery";
 import "bootstrap"; // the UMD build imports jquery and popper.js by itself
 import axios from "axios";
 
+// same axios instance imported by resources/js/api: every request is marked as AJAX
+axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
 window.Popper = Popper;
 window.$ = window.jQuery = $;
-
 window.axios = axios;
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";

@@ -1,150 +1,116 @@
 import { createStore } from "vuex";
-import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
+import { fetchRestaurantMenu, fetchRestaurantsByTypes, fetchTypes } from "./api";
+import { cartTotal, toPagination } from "./utils";
 
+const state = () => ({
+    alltypes: [],
+    // types the user is selecting to filter the restaurants
+    typesSelected: [],
+    // restaurants matching the selected types
+    restByTypes: [],
+    // details and menu of the open restaurant
+    restaurant: {},
+    // one entry per portion
+    cart: [],
+    // modal "you can't buy from two restaurants in the same order"
+    warn: false,
+    total: 0,
+    menuMobile: false,
+    restPagination: {},
+    menuPagination: {}
+});
 
-const store = () => {
-    return createStore({
-        plugins: [createPersistedState()],
-        state: {
-            alltypes: [],
-            // types that user is currently selecting for getting restaurants
-            typesSelected: [],
-            // restaurant associated with selected types
-            restByTypes: [],
-            // restaurant  menu and detail
-            restaurant: {},
-            cart: [],
-            // remove duplicate from cart
-            // show warn (can't purchase more than one restaurant)
-            warn: false,
-            total: 0,
-            menuMobile: false,
-            // ------------// pagination data
-            restPagination: {},
-            menuPagination: {}
-        },
-        getters: {
-            selectedTypesLenght: state => {
-                return state.typesSelected.length;
-            },
-            cartLenght: state => {
-                return state.cart.length;
-            }
-        },
-        mutations: {
-            // get all types at create
-            fillTypesArray(state, apiResult) {
-                state.alltypes = apiResult;
-            },
-            // manage array of selected types
-            addType(state, typeId) {
-                state.typesSelected.push(typeId);
-            },
-            pullType(state, typeId) {
-                state.typesSelected = [
-                    ...state.typesSelected.filter(e => e != typeId)
-                ];
-            },
-            // empty type selected
-            cleanSelectedTypes(state) {
-                state.typesSelected = [];
-            },
-            // fiil restbytypes with results from axicall in action
-            fillRestByTypesArray(state, apiResult) {
-                state.restByTypes = apiResult;
-            },
-            // fiil state obj restaurant(single restaurant detail and menu)
-            //  with results from axicall in action
-            fillRest(state, apiResult) {
-                state.restaurant = apiResult;
-            },
-            // manage array of plate in cart
-            addPlate(state, plateObj) {
-                state.cart.push(plateObj);
-            },
-            removePlate(state, plateObj) {
-                if (state.cart.filter(e => e.id == plateObj.id).length) {
-                    const idx = state.cart.indexOf(plateObj);
-                    if (idx >= 0) {
-                        state.cart.splice(idx, 1);
-                    }
-                }
-            },
-            emptyCart(state) {
-                state.cart = [];
-            },
-            changeWarn(state) {
-                state.warn = !state.warn;
-            },
-            changeTotal(state) {
-                state.total = 0;
-                state.cart.forEach(e => (state.total += e.price));
-            },
-            toggleMenuMobile(state) {
-                state.menuMobile = !state.menuMobile;
-            },
-            emptyCart(state) {
-                state.cart = [];
-            },
-            // fill pagintation of restaurants
-            // (to pass more than one payload you pass obj)
-            setRestPagination(state, ObjPayload) {
-                state.restPagination = {
-                    current: ObjPayload.current,
-                    last: ObjPayload.last
-                };
-            },
-            setMenuPagination(state, ObjPayload) {
-                state.menuPagination = {
-                    current: ObjPayload.current,
-                    last: ObjPayload.last
-                };
-            }
-        },
-        actions: {
-            // axicall on created get all types
-            getTypes({ commit }) {
-                axios
-                    .get("/api/types")
-                    .then(r => commit("fillTypesArray", r.data.types))
-                    .catch(r => console.log(r));
-            },
-            // axicall for restaurant matching selected typesSelected array
-            getRestaurants({ state, getters, commit }, page) {
-                if (getters.selectedTypesLenght) {
-                    axios
-                        .get(
-                            `/api/restaurants/${state.typesSelected}?page=${page}`
-                        )
-                        .then(r => {
-                            commit("fillRestByTypesArray", r.data.data);
-                            commit("setRestPagination", {
-                                // (to pass more than one payload you pass obj)
-                                current: r.data.current_page,
-                                last: r.data.last_page
-                            });
-                        })
-                        .catch(r => console.log(r));
-                }
-            },
-            getMenuAndDetails({ commit }, payloadObj) {
-                axios
-                    .get(
-                        `/api/restaurantsMenu/${payloadObj.slug}?page=${payloadObj.page}`
-                    )
-                    .then(r => {
-                        commit("fillRest", r.data);
-                        commit("setMenuPagination", {
-                            // (to pass more than one payload you pass obj)
-                            current: r.data.menu.current_page,
-                            last: r.data.menu.last_page
-                        });
-                    })
-                    .catch(r => console.log(r));
-            }
-        }
-    });
+const getters = {
+    selectedTypesLenght: state => state.typesSelected.length,
+    cartLenght: state => state.cart.length
 };
 
-export default store;
+const mutations = {
+    fillTypesArray: (state, types) => {
+        state.alltypes = types;
+    },
+    addType: (state, typeId) => {
+        state.typesSelected.push(typeId);
+    },
+    pullType: (state, typeId) => {
+        state.typesSelected = state.typesSelected.filter(e => e != typeId);
+    },
+    cleanSelectedTypes: state => {
+        state.typesSelected = [];
+    },
+    fillRestByTypesArray: (state, restaurants) => {
+        state.restByTypes = restaurants;
+    },
+    fillRest: (state, restaurant) => {
+        state.restaurant = restaurant;
+    },
+    addPlate: (state, plate) => {
+        state.cart.push(plate);
+    },
+    // removes that very portion (same reference): a plate not in the cart is ignored
+    removePlate: (state, plate) => {
+        const index = state.cart.indexOf(plate);
+        if (index >= 0) state.cart.splice(index, 1);
+    },
+    emptyCart: state => {
+        state.cart = [];
+    },
+    changeWarn: state => {
+        state.warn = !state.warn;
+    },
+    changeTotal: state => {
+        state.total = cartTotal(state.cart);
+    },
+    toggleMenuMobile: state => {
+        state.menuMobile = !state.menuMobile;
+    },
+    setRestPagination: (state, { current, last }) => {
+        state.restPagination = { current, last };
+    },
+    setMenuPagination: (state, { current, last }) => {
+        state.menuPagination = { current, last };
+    }
+};
+
+const actions = {
+    getTypes: async ({ commit }) => {
+        try {
+            commit("fillTypesArray", await fetchTypes());
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    // restaurants matching the selected types (nothing to ask without types)
+    getRestaurants: async ({ state, getters, commit }, page) => {
+        if (!getters.selectedTypesLenght) return;
+        try {
+            const result = await fetchRestaurantsByTypes(state.typesSelected, page);
+            commit("fillRestByTypesArray", result.data);
+            commit("setRestPagination", toPagination(result));
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    getMenuAndDetails: async ({ commit }, { slug, page }) => {
+        try {
+            const restaurant = await fetchRestaurantMenu(slug, page);
+            commit("fillRest", restaurant);
+            commit("setMenuPagination", toPagination(restaurant.menu));
+        } catch (error) {
+            console.error(error);
+        }
+    }
+};
+
+// a new store for each app (and test): the state is restored from localStorage ("vuex")
+const createAppStore = () =>
+    createStore({
+        plugins: [createPersistedState()],
+        state,
+        getters,
+        mutations,
+        actions
+    });
+
+export { createAppStore };
