@@ -1,36 +1,28 @@
-// all delete btns
-const delForms = document.querySelectorAll(".delete-post-form");
-// del confim container
+// confirmation box (layouts/deleteConfirm.blade.php) before every ".delete-post-form" submit
 const confirmBox = document.querySelector(".del-Container");
-// btn confirm
-const btnConf = document.querySelector("#deleteConfermed");
-// btn quit
-const btnQuit = document.querySelector("#deleteAbort");
+const btnConfirm = document.querySelector("#deleteConfermed");
+const btnAbort = document.querySelector("#deleteAbort");
 
-delForms.forEach(btn =>
-    btn.addEventListener("submit", function(e) {
-        e.preventDefault();
-        // show confirm box
-        show();
-        const thisForm = this;
-        // if click confirm -> submit + no-show confirm box
-        btnConf.addEventListener("click", function() {
-            thisForm.submit();
-            noShow();
-        });
-        // if click no Confirm ->  no-show confirm
-        btnQuit.addEventListener("click", function() {
-            noShow();
-        });
+// form waiting for the answer
+let pendingForm = null;
+
+const showBox = () => confirmBox.classList.remove("no-show");
+const hideBox = () => confirmBox.classList.add("no-show");
+
+document.querySelectorAll(".delete-post-form").forEach(e =>
+    e.addEventListener("submit", event => {
+        event.preventDefault();
+        pendingForm = event.currentTarget;
+        showBox();
     })
 );
 
-// FUNCTION UTILITIES
-// show confirm box
-function show() {
-    confirmBox.classList.remove("no-show");
-}
-// unshow confirm box
-function noShow() {
-    confirmBox.classList.add("no-show");
-}
+btnConfirm?.addEventListener("click", () => {
+    pendingForm?.submit();
+    hideBox();
+});
+
+btnAbort?.addEventListener("click", () => {
+    pendingForm = null;
+    hideBox();
+});

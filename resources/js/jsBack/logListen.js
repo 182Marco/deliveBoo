@@ -1,18 +1,13 @@
-// GET REFERENCES ONLY IF PRESENT IN DOCUMENT
-if (document.getElementById("logBtn") !== null) {
-    const logBtn = document.getElementById("logBtn");
+// "logged in" message: shown once, on the first page after clicking the login button
+const LOG_KEY = "clickedLog";
 
-    logBtn.addEventListener("click", () =>
-        localStorage.setItem("clickedLog", true)
-    );
-}
+const logBtn = document.getElementById("logBtn");
+const loggedMsg = document.getElementById("loggedMsgEl");
 
-if (localStorage.getItem("clickedLog")) {
-    //  search or message reference only if present in page
-    if (document.getElementById("loggedMsgEl") !== null) {
-        document.getElementById("loggedMsgEl").classList.remove("no-show");
-        // remove local storage -> if users comes in view restaurant.index
-        // after he's done something with his restaurant he should not se message logged
-        localStorage.removeItem("clickedLog");
-    }
+logBtn?.addEventListener("click", () => localStorage.setItem(LOG_KEY, true));
+
+// removed once shown: coming back to restaurant.index later must not show it again
+if (localStorage.getItem(LOG_KEY) && loggedMsg) {
+    loggedMsg.classList.remove("no-show");
+    localStorage.removeItem(LOG_KEY);
 }
