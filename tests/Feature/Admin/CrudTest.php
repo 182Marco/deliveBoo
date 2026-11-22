@@ -149,8 +149,7 @@ class CrudTest extends TestCase
     {
         $this->post(route('admin.plates.store'), ['name' => str_repeat('a', 51)])
             ->assertSessionHasErrors([
-                // current message has a double space because the rule is written 'max: 50'
-                'name' => 'you have exceeded the  50 characters allowed for the name',
+                'name' => 'you have exceeded the 50 characters allowed for the name',
                 'ingredients' => 'Required Field!',
                 'description' => 'Required Field!',
                 'visible' => 'Required Field!',

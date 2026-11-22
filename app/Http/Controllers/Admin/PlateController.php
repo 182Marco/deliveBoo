@@ -3,233 +3,127 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Plate;
 use App\Restaurant;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule; //validation
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Illuminate\Validation\Rule;
 
 class PlateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($slug)
-    {   
-        $belonging_rest = Restaurant::where('slug', $slug)->get();
-        $belonging_rest = $belonging_rest[0];
+    private const MESSAGES = [
+        'required' => 'Required Field!',
+        'unique' => 'This :attribute is already used',
+        'max' => 'you have exceeded the :max characters allowed for the :attribute',
+    ];
 
-        if(!$belonging_rest){
-            abort(404);
-        } 
-  
-        // User_id colum in the restaurant I've found must be the same id of who's logged
-        if($belonging_rest['user_id'] == auth()->id()){
-            $id = $belonging_rest['id'];
-            // comparison of fy and restaurant id 
-            $res_plates = Plate::where('restaurant_id', $id)->paginate(4);
-            return view('admin.plates.index', compact('res_plates','slug'));
+    // plates of a restaurant (by slug), only for its owner
+    public function index($slug)
+    {
+        $restaurant = Restaurant::where('slug', $slug)->firstOrFail();
+
+        if ($restaurant->user_id != auth()->id()) {
+            return view('admin.notYours.plate');
         }
-        // else we wouldn't show him competitors plates
-        return view ('admin.notYours.plate');
+
+        $res_plates = $restaurant->plates()->paginate(4);
+
+        return view('admin.plates.index', compact('res_plates', 'slug'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($slug)
     {
-
-        $belonging_rest = Restaurant::where('slug', $slug)->get();
-        $belonging_rest_id = $belonging_rest[0]['id'];
-        // get restaurant from which user arrives 
-        // ->request->fullUrl + with strings to get query
-        // $prev_view_res_id = chop(substr($r->fullUrl(), strpos($r->fullUrl(), "?") + 1), "=");
-        //  get the restaurants associated with the logged user
+        $belonging_rest_id = Restaurant::where('slug', $slug)->firstOrFail()->id;
+        // the select of the form lists only the restaurants of the logged user
         $res_of_user = Restaurant::where('user_id', Auth::id())->get();
 
-        return view ('admin.plates.create', compact('res_of_user', 'belonging_rest_id'));
+        return view('admin.plates.create', compact('res_of_user', 'belonging_rest_id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {     
-        //validation
+    {
         $request->validate([
-            'name'=> 'required | max: 50',
-            'ingredients' => 'required',
-            'description'=> 'required',
-            'visible'=> 'required',
-            'price'=> 'required',
-            'img'=> 'nullable | image'
-        ],        
-        [
-            'required'=> 'Required Field!',
-            'max' => 'you have exceeded the :max characters allowed for the :attribute'
-            ]);
+            'name' => ['required', 'max:50'],
+            'ingredients' => ['required'],
+            'description' => ['required'],
+            'visible' => ['required'],
+            'price' => ['required'],
+            'img' => ['nullable', 'image'],
+        ], self::MESSAGES);
 
-            $data=$request->all();
-
-            //Add Cover Image ( if exists)
-            if(array_key_exists('img', $data)) {
-               $img_path=Storage::put('plates-imgs', $data['img']);
-   
-               //overwrite img with file path
-               $data['img']=$img_path; //Url
-           }
-   
-           //create e save records on db
-           $new_plate = new Plate();
-           
-            // create slug from name asigned by user
-            $new_plate->slug = Str::slug( $data['name'], '-');
-           //fillable in plate
-           $new_plate->fill($data);
-           
-           //save
-           $new_plate->save();
-   
-           return redirect()->route('admin.plates.show', $new_plate->slug);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($slug)
-    {        
-        //find plate in query
-        $plate = Plate::where('slug', $slug)->get();
-        $plate = $plate[0];
-
-        // does the plate exist?
-        if(! $plate) {
-            abort(404);
-        }else{
-            // find restaurant to which plate in query belongs
-            $rest_plate_belongs = Restaurant::find($plate['restaurant_id']);
-            // find user_id to which restaurant above belongs 
-            $user_id_plate_belongs =  $rest_plate_belongs['user_id'];
-
-             // Does the authenticated user have the same Id of user 
-             // which belongs restaurant which belongs the plate ?
-            if($user_id_plate_belongs == auth()->id()){
-                return view('admin.plates.show', compact('plate'));
-            }
+        // all(), not validated(): restaurant_id comes from the form without a rule
+        $data = $request->all();
+        if ($request->hasFile('img')) {
+            $data['img'] = $request->file('img')->store('plates-imgs');
         }
-        return view ('admin.notYours.plate');
+
+        $new_plate = new Plate($data);
+        $new_plate->slug = Str::slug($data['name'], '-');
+        $new_plate->save();
+
+        return redirect()->route('admin.plates.show', $new_plate->slug);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($slug)
+    {
+        $plate = Plate::where('slug', $slug)->firstOrFail();
+
+        if ($plate->restaurant?->user_id != auth()->id()) {
+            return view('admin.notYours.plate');
+        }
+
+        return view('admin.plates.show', compact('plate'));
+    }
+
     public function edit($slug)
     {
-        //find plate in query
-        $plate = Plate::where('slug', $slug)->get();
-        $plate = $plate[0];
+        $plate = Plate::where('slug', $slug)->firstOrFail();
 
-        // does the plate exist?
-        if(! $plate) {
-            abort(404);
-        }else{
-            // find restaurant to which plate in query belongs
-            $rest_plate_belongs = Restaurant::find($plate['restaurant_id']);
-            // find user_id to which restaurant above belongs 
-            $user_id_plate_belongs =  $rest_plate_belongs['user_id'];
-
-                // Does the authenticated user have the same Id of user 
-                // which belongs restaurant which belongs the plate ?
-            if($user_id_plate_belongs == auth()->id()){
-                return view('admin.plates.edit', compact('plate'));
-            }
+        if ($plate->restaurant?->user_id != auth()->id()) {
+            return view('admin.notYours.plate');
         }
-        return view ('admin.notYours.plate');
+
+        return view('admin.plates.edit', compact('plate'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //validation
         $request->validate([
-            'name'=> [
-                'required',
-                 Rule::unique('plates')->ignore($id),
-                'max:80'
-            ],
-            
-            'ingredients'=> 'required',
-            'description'=> 'required',
-            'visible'=> 'required',
-            'price'=> 'required',
-            'img'=> 'nullable |image',
-        ],
-        
-        [
-            'required'=> 'Required Field!',
-            'unique'=> 'This :attribute is already used',
-            'max' => 'you have exceeded the :max characters allowed for the :attribute'
-            ]);
-            
-            $data= $request->all();
+            'name' => ['required', Rule::unique('plates')->ignore($id), 'max:80'],
+            'ingredients' => ['required'],
+            'description' => ['required'],
+            'visible' => ['required'],
+            'price' => ['required'],
+            'img' => ['nullable', 'image'],
+        ], self::MESSAGES);
 
-        $plate = Plate::find($id);
+        $plate = Plate::findOrFail($id);
+        $data = $request->all();
 
-        //Image update
-        if (array_key_exists('img', $data)) {
-            //delete previous
+        // replace the image: delete the previous one
+        if ($request->hasFile('img')) {
             if ($plate->img) {
                 Storage::delete($plate->img);
             }
-            //set new one
-            $data['img']= Storage::put('plates-imgs', $data['img']);
+            $data['img'] = $request->file('img')->store('plates-imgs');
         }
 
-        $plate->update($data); //fillable
+        $plate->update($data);
 
         return redirect()->route('admin.plates.show', $plate->slug);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $plate = Plate::findOrFail($id);
+        $rest_slug = $plate->restaurant?->slug;
 
-        $plate = Plate::find($id);
-        $restaurant_id = $plate['restaurant_id'];
-        $restaurant = Restaurant::find($restaurant_id);
-        $rest_slug = $restaurant['slug'];
         $plate->delete();
-        // do not leave orphans in pivot table if element cancelled
+        // do not leave orphans in the pivot table
         $plate->orders()->detach();
 
-        return redirect()->route('admin.plates.index', [$rest_slug])->with('deleted', $plate->name); 
+        return redirect()->route('admin.plates.index', [$rest_slug])->with('deleted', $plate->name);
     }
 }
