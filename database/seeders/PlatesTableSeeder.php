@@ -1285,6 +1285,8 @@ class PlatesTableSeeder extends Seeder
         // The restaurant is looked up by name, never by autoincrement id.
         DB::transaction(function () use ($plates) {
             $restaurants = [];
+            // slugs already taken (soft-deleted plates included), checked in memory
+            $this->taken = Plate::withTrashed()->pluck('slug')->flip()->all();
             foreach($plates as $plate){
                 if (!isset($restaurants[$plate['restaurant']])) {
                     $restaurants[$plate['restaurant']] = Restaurant::where('name', $plate['restaurant'])->first();
@@ -1295,7 +1297,8 @@ class PlatesTableSeeder extends Seeder
                 }
 
                 // instance (existing or new)
-                $new_plate = Plate::firstOrNew([
+                // withTrashed: a plate deleted by the restaurateur is not created again
+                $new_plate = Plate::withTrashed()->firstOrNew([
                     'restaurant_id' => $restaurant->id,
                     'name' => $plate['name'],
                 ]);
@@ -1319,17 +1322,20 @@ class PlatesTableSeeder extends Seeder
      * Plates are opened by slug in the admin panel, so the slug must be unique:
      * on collision append the restaurant slug (and a counter as last resort).
      */
+    private array $taken = [];
+
     private function uniqueSlug($name, $restaurant_slug)
     {
         $base = Str::slug($name, '-');
         $slug = $base;
-        if (Plate::where('slug', $slug)->exists()) {
+        if (isset($this->taken[$slug])) {
             $slug = $base . '-' . $restaurant_slug;
         }
         $i = 2;
-        while (Plate::where('slug', $slug)->exists()) {
+        while (isset($this->taken[$slug])) {
             $slug = $base . '-' . $restaurant_slug . '-' . $i++;
         }
+        $this->taken[$slug] = true;
         return $slug;
     }
 }

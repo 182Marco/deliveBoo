@@ -13,7 +13,6 @@ class NotFoundTest extends TestCase
 
     public function testMissingRecordsAre404()
     {
-        $this->seed();
         $this->actingAs($this->owner());
 
         foreach ([

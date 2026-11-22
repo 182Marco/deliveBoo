@@ -20,7 +20,6 @@ class CrudTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed();
         Storage::fake();
         $this->actingAs($this->owner());
     }

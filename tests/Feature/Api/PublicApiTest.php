@@ -26,7 +26,6 @@ class PublicApiTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed();
     }
 
     private function averageOf($restaurantId)

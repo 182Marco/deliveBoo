@@ -772,17 +772,19 @@ class OrdersTableSeeder extends Seeder
         // idempotent: an order is identified by (restaurant, customer email, created_at),
         // plates are looked up by name inside the restaurant of the order.
         DB::transaction(function () use ($orders) {
+            $restaurants = [];
+            $menus = [];
             foreach($orders as $order){
-                $restaurant = Restaurant::where('name', $order['restaurant'])->first();
+                $restaurant = $restaurants[$order['restaurant']] ??= Restaurant::where('name', $order['restaurant'])->first();
                 if (!$restaurant) {
                     throw new \RuntimeException("OrdersTableSeeder: restaurant {$order['restaurant']} not found, run RestaurantsTableSeeder first.");
                 }
 
-                $plates = Plate::where('restaurant_id', $restaurant->id)
-                    ->whereIn('name', $order['plates'])
-                    ->get();
+                // the menu of the restaurant, loaded once (soft-deleted plates included: history)
+                $menus[$restaurant->id] ??= Plate::withTrashed()->where('restaurant_id', $restaurant->id)->get()->keyBy('name');
+                $plates = $menus[$restaurant->id]->toBase()->only($order['plates'])->values();
                 if ($plates->count() !== count($order['plates'])) {
-                    throw new \RuntimeException("OrdersTableSeeder: some plates of an order for {$order['restaurant']} were not found, run PlatesTableSeeder first.");
+                    throw new \RuntimeException("OrdersTableSeeder: some plates of an order for {$order['restaurant']} were not found (" . implode(", ", array_diff($order['plates'], $plates->pluck('name')->all())) . "), run PlatesTableSeeder first.");
                 }
 
                 // normalized date, so "8:05:12" and "08:05:12" are the same order
@@ -804,13 +806,19 @@ class OrdersTableSeeder extends Seeder
                     // demo orders are already paid (offline driver)
                     $new_order->status = Order::PAID;
                     $new_order->payment_driver = 'fake';
+                    // past orders were delivered (45 minutes later)
+                    $new_order->fulfillment_status = Order::DELIVERED;
+                    $new_order->delivered_at = Carbon::parse($created_at)->addMinutes(45);
                     $new_order->created_at = $created_at;
                     // save
                     $new_order->save();
                 }
 
-                // seeding the many to many with plates (never duplicates, never detaches)
-                $new_order->plates()->syncWithoutDetaching($plates->pluck('id')->all());
+                // seeding the many to many with plates (never duplicates, never detaches),
+                // one portion each at the price of the menu
+                $new_order->plates()->syncWithoutDetaching(
+                    $plates->mapWithKeys(fn ($p) => [$p->id => ['quantity' => 1, 'unit_price' => $p->price]])->all()
+                );
             }
         });
     }

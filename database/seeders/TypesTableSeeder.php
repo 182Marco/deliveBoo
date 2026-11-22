@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Type;
+use Database\Seeders\Support\Catalog;
 use Illuminate\Support\Facades\DB;
 
 class TypesTableSeeder extends Seeder
@@ -57,6 +58,14 @@ class TypesTableSeeder extends Seeder
         ];
 
 
+
+        // the other cuisines of the generated catalog (data/types.php), photo from the pool
+        $known = array_column($types, 'name');
+        foreach (Catalog::data('types') as $name => $category) {
+            if (! in_array($name, $known, true)) {
+                $types[] = ['name' => $name, 'img' => Catalog::image($category, crc32($name) % 97, 'type')];
+            }
+        }
 
         // idempotent: types are identified by their name.
         DB::transaction(function () use ($types) {

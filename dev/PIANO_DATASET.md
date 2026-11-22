@@ -3,22 +3,46 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** 8.3 fatto (backoffice e sito). Prossimo: 8.5, il dataset. Ordine: 5a registro ingredienti (`data/ingredients.php` + `IngredientsSeeder`), 5b pool immagini verificate, 5c ricette per cucina, 5d generatore e profili, 5e ordini e voti.
+- **Passo corrente:** ✅ 8.5 fatto, dataset generato e committato. **Prossimo: passo 6, test nuovi**: `DietaryQueriesTest` con fixture a mano (le 12 query del brief: vegan sotto i €15, gluten+lactose free, senza arachidi e soia, alternative senza un ingrediente, champagne sopra i €100, almeno 50 piatti ordinabili, più cucine, più ordinati per cliente, stagionali) e `CatalogDataTest` (le regole del validatore: ingredienti esistenti, course, immagini, tier, segmenti, nessuna ricetta high in segmenti base). Poi passo 7 (docs: mappa, README, AGENTS) e report finale.
+  - `data/types.php`: circa 43 cucine con categoria immagine.
+  - `data/drinks.php`: bevande per fascia e contesto.
+  - `data/cuisines/<chiave>.php`, ognuno con `types`, `concepts` e `recipes`:
+    - `types`: le cucine della chiave;
+    - `concepts`: `[nome, segmento, descrizione, firme?]`, un ristorante o catena scritto a mano;
+    - `recipes`: `[nome, course, img, [tier => [prezzo, 'ingredienti', n_main, 'descrizione'] | lista di varianti], opts]`, con tier `base` (budget/fast_food/street_food), `mid` (trattoria/traditional/ethnic) e `high` (premium/fine_dining/starred).
+  - Validatore dei dati: `php <scratchpad>/tools/validate.php .` (copia da reintegrare come test o comando: vedi problemi aperti).
+  - ✅ 5c fatto: 34 file in `data/cuisines/` (circa 107 concept, circa 600 ricette, circa 660 varianti), `data/types.php` (43 cucine), `data/drinks.php` (130 bevande). Il validatore dà 0 errori.
+  - Regole decise per il 5d:
+    - tier del segmento: budget/fast_food/street_food → base; trattoria/traditional/ethnic → mid; premium/fine_dining/starred → high;
+    - se il pool del tier è troppo piccolo, si attinge al tier inferiore con un rincaro (high←mid ×1.3, mid←base ×1.15);
+    - prezzo = ancora della variante ±8%, arrotondato a .50/.90 (sotto i €5 a .50);
+    - bevande per tier e contesto della cucina;
+    - champagne solo nei contesti fine dining (`drinks.php`).
+  - Poi 5e ordini e voti.
 - **Passi fatti:**
   - 0. File di avanzamento creato.
+  - 5a registro: `data/ingredients.php` (699 ingredienti, formato `name|category|origin|lactose|nickel|allergens`), `IngredientsSeeder` (bulk, idempotente, eccezione su allergene sconosciuto).
+  - 5b immagini: `database/seeders/data/images.php`, 403 ID Unsplash in 76 categorie, ciascuno verificato con risposta 200 `image/*` e controllo visivo su fogli di contatto (script `imgcheck.py` nello scratchpad, non nel repo).
   - 8.3 admin: partial `admin/plates/partials/details.blade.php` (availability, course, serves, calorie, stagione, diete a 4 stati, allergeni contains/may_contain + `allergen_info`); `PlateController` con `rules()`/`saveDetails()`, nome unico per ristorante, slug unico, soft delete; `App\Dietary\Derivation` (regole derivate, condivise con i seeder); `AllergensSeeder`/`DietaryTagsSeeder` + `data/allergens.php`/`data/dietary_tags.php`; form ristorante con `description`/`price_range`; ordine admin con qty × unit_price; `Plate.vue` nasconde il bottone se `orderable` è false (l'API `restMunu` aggiunge `orderable`, `ingredient_list` e l'ordinamento per course).
   - 8.2+8.4 schema (11 migration `2026_11_23_*`), modelli `Ingredient`/`Allergen`/`DietaryTag`/`OpeningHour`, scope di `Plate` (`orderable`, `withDiet`, `freeFrom`, `withIngredients`, `withoutIngredients`, `derivedAllergens`, `syncIngredients`, `uniqueSlug`), checkout con quantità, unit_price e rifiuto dei piatti non ordinabili.
   - 8.1 BUG-1: `Restaurant::uniqueSlug()` e `unique:restaurants,name` in store; test `_CurrentBehaviour` rimosso, skip tolto, nuovo test sullo slug con suffisso `-2`.
 - **Baseline test:** `php artisan test` = 35.0s, 55 passed e 5 skipped (2026-11-22). Budget: al massimo circa 45s.
 - **Findings:**
+  - Immagini scartate per marchio riconoscibile: Coca-Cola, Sprite, Hendrick's, Jack Daniel's, Black Label, Bacardi, Lagavulin, una lattina con logo di una catena di burger. Le foto già nei seeder legacy non sono state toccate.
   - Nel modello `Plate`, `$plate->visible` dentro la classe legge la proprietà protetta `Model::$visible` e non la colonna: nel codice del modello usare `getAttribute`/`setAttribute('visible')`.
   - MySQL: un indice composito che inizia con la colonna di una FK la sostituisce come indice della FK. Per questo i `down()` creano prima un indice semplice e poi eliminano quello composito. Rollback a 11 step verificato.
   - DB dev: `migrate:fresh --seed` già eseguito al passo 8.2 (seeder legacy), perché un rollback fallito aveva lasciato lo schema a metà. Prima c'erano righe `order_plate` duplicate (fino a 83 porzioni) da prove manuali.
   - Il pivot ingredienti si chiama `plate_ingredient` (come da brief, non l'alfabetico di Laravel): le relazioni passano il nome della tabella.
   - Derivazione: `gluten_free`/`lactose_free` = yes solo con `allergen_info=complete` del ristorante e senza cross-contact; nessuna derivazione se c'è un ingrediente `unverified`.
-  - Tempo dei test salito a circa 41s (era 35) con le sole tabelle di riferimento e i nuovi test: da tenere d'occhio per il budget di 45s.
+  - Test: con `$seed = true` nel `TestCase` base il DB in memoria si semina **una volta per processo** (RefreshDatabase migra una volta e usa le transazioni); `DatabaseSeederTest` svuota le tabelle nel proprio setUp. Suite: 62 test in circa 9,5s (baseline 35s), stabile in ordine casuale.
+  - `Eloquent\Collection::only()` filtra per chiave primaria e non per chiave dell'array: usare `->toBase()->only()` (bug trovato in `OrdersTableSeeder`).
+  - `PlatesTableSeeder` e `OrdersTableSeeder` legacy: slug e menu in memoria, `withTrashed` (un piatto eliminato soft non viene ricreato). Dati prodotti identici.
+  - (superato) Tempo dei test salito a circa 41s (era 35) con le sole tabelle di riferimento e i nuovi test: da tenere d'occhio per il budget di 45s.
   - Gli 8.2 e 8.4 sono in un solo commit: la UNIQUE (`order_id`, `plate_id`) rompe il checkout senza il raggruppamento delle quantità.
-- **Problemi aperti / da decidere:** (nessuno)
+- **Problemi aperti / da decidere:**
+  - Il validatore dei dati sta nello scratchpad (che può essere cancellato): le sue regole andranno nel test `CatalogDataTest` (ingredienti esistenti, course, immagini, tier, segmenti).
+  - Immagini: nessuna foto di champagne valida, tutte fuori tema o con marchio. Champagne e spumanti useranno `wine_white`/`wine_rose`/`wine_cellar`: limite da riportare nel report. Poche foto anche per `chinese`, `french`, `hummus`, `falafel` e `african`: si usano categorie affini (`dumplings`, `noodles`, `mezze`, `stew`, `curry`).
+  - L'endpoint interno `unsplash.com/napi` (autori e flag Unsplash+) è stato negato dal classificatore dei permessi: niente scraping. Gli ID verificano solo il CDN; l'autore si ricava da `https://unsplash.com/photos/<id>`.
 - **Decisioni prese:**
   - I marchi reali storici restano.
   - Scala circa 60 proprietari e circa 250 ristoranti.
