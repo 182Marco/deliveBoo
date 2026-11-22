@@ -55,8 +55,9 @@
             <ul class="adm-lines">
                 @foreach ($data->plates as $plate)
                     <li class="adm-line">
-                        <span>{{ $plate->name }}</span>
-                        <span class="ui-price">€{{ number_format($plate->price, 2) }}</span>
+                        <span>@if ($plate->pivot->quantity > 1){{ $plate->pivot->quantity }} × @endif{{ $plate->name }}</span>
+                        {{-- the price paid, not the current one of the menu --}}
+                        <span class="ui-price">€{{ number_format($plate->pivot->quantity * $plate->pivot->unit_price, 2) }}</span>
                     </li>
                 @endforeach
             </ul>

@@ -31,10 +31,15 @@
             <div class="adm-fact">
                 <dt class="adm-fact-label">Status</dt>
                 <dd class="adm-fact-value">
-                    @if ($plate->visible == 1)
+                    @if ($plate->availability === 'available')
                         <span class="ui-badge ui-badge--basil">Available</span>
+                    @elseif ($plate->availability === 'sold_out')
+                        <span class="ui-badge ui-badge--tomato">Sold out</span>
                     @else
                         <span class="ui-badge ui-badge--tomato">Unavailable</span>
+                    @endif
+                    @if ($plate->available_from_month && $plate->available_to_month)
+                        <span class="ui-muted">Seasonal: {{ date('F', mktime(0, 0, 0, $plate->available_from_month, 1)) }}–{{ date('F', mktime(0, 0, 0, $plate->available_to_month, 1)) }}</span>
                     @endif
                 </dd>
             </div>
@@ -44,7 +49,23 @@
             </div>
             <div class="adm-fact">
                 <dt class="adm-fact-label">Ingredients</dt>
-                <dd class="adm-fact-value">{{ $plate->ingredients }}</dd>
+                <dd class="adm-fact-value">{{ $plate->ingredientList->pluck('name')->implode(', ') ?: $plate->ingredients }}</dd>
+            </div>
+            <div class="adm-fact">
+                <dt class="adm-fact-label">Allergens</dt>
+                <dd class="adm-fact-value">
+                    @if ($plate->allergen_info)
+                        {{ ucfirst($plate->allergen_info) }} declaration{{ $plate->allergens->isNotEmpty() ? ': ' . $plate->allergens->map(fn ($a) => $a->name . ($a->pivot->status === 'may_contain' ? ' (may contain)' : ''))->implode(', ') : ($plate->allergen_info === 'complete' ? ', none present' : '') }}
+                    @else
+                        Not declared
+                    @endif
+                </dd>
+            </div>
+            <div class="adm-fact">
+                <dt class="adm-fact-label">Dietary</dt>
+                <dd class="adm-fact-value">
+                    {{ $plate->dietaryTags->map(fn ($t) => $t->name . ': ' . ['yes' => 'yes', 'no' => 'no', 'unknown' => 'not verified'][$t->pivot->status] . ($t->pivot->source === 'ingredients' ? ' (from ingredients)' : ''))->implode(' · ') ?: 'Not declared' }}
+                </dd>
             </div>
         </dl>
     </div>

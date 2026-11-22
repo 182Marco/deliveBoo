@@ -25,20 +25,10 @@
             <x-field name="name" label="Name" :value="old('name', $plate->name)" star />
             <x-field name="price" label="Price (€)" inputmode="decimal" :value="old('price', $plate->price)" star />
             <x-field name="description" label="Description" as="textarea" :value="old('description', $plate->description)" star wide />
-            <x-field name="ingredients" label="Ingredients" :value="old('ingredients', $plate->ingredients)" hint="Separate them with commas." star wide />
+            <x-field name="ingredients" label="Ingredients" :value="old('ingredients', $plate->ingredients)" hint="Separate them with commas, main ones first." star wide />
         </div>
 
-        <fieldset class="adm-fieldset">
-            <legend class="adm-legend">Available now?</legend>
-            <div class="adm-checks">
-                <label class="ui-check" for="yes_visible">
-                    <input class="ui-check-input" type="radio" name="visible" id="yes_visible" value="1" @checked(old('visible', $plate->visible))> Yes, guests can order it
-                </label>
-                <label class="ui-check" for="no_visible">
-                    <input class="ui-check-input" type="radio" name="visible" id="no_visible" value="0" @checked(!old('visible', $plate->visible))> Not right now
-                </label>
-            </div>
-        </fieldset>
+        @include('admin.plates.partials.details', ['plate' => $plate])
 
         <div class="ui-field">
             <label class="ui-label" for="img">Photo</label>

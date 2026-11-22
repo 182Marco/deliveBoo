@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Plate;
 use App\Restaurant;
 use Illuminate\Http\JsonResponse;
 
@@ -29,16 +30,36 @@ class RestaurantController extends Controller
         return response()->json($rests);
     }
 
-    // restaurant details, average rate, type names and menu (4 plates per page)
+    // restaurant details, average rate, type names and menu (4 plates per page, by course).
+    // Every plate also says whether it can be ordered now and lists its structured ingredients.
     public function restMunu(string $slug): JsonResponse
     {
         $rest = Restaurant::where('slug', $slug)->firstOrFail();
+
+        $menu = $rest->plates()
+            ->with('ingredientList:id,name')
+            ->orderByRaw('case when course is null then 1 else 0 end')
+            ->orderByRaw($this->courseOrderSql())
+            ->orderBy('id')
+            ->paginate(4)
+            ->through(fn (Plate $p) => $p->setAttribute('restaurant_slug', $rest->slug)
+                ->setAttribute('orderable', $p->isOrderable())
+                ->setAttribute('ingredient_list', $p->ingredientList->pluck('name'))
+                ->makeHidden('ingredientList'));
 
         return response()->json([
             'averageRate' => (float) $rest->rates()->avg('rate'),
             'location' => $rest,
             'types' => $rest->types()->pluck('name'),
-            'menu' => $rest->plates()->paginate(4)->through(fn ($p) => $p->setAttribute('restaurant_slug', $rest->slug)),
+            'menu' => $menu,
         ]);
+    }
+
+    // menu order of the courses (Plate::COURSES), portable between MySQL and SQLite
+    private function courseOrderSql(): string
+    {
+        $cases = collect(Plate::COURSES)->map(fn ($course, $i) => "when '{$course}' then {$i}")->implode(' ');
+
+        return "case course {$cases} else 999 end";
     }
 }

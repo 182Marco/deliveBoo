@@ -33,6 +33,8 @@ class RestaurantController extends Controller
             'phone' => ['required'],
             'city' => ['required'],
             'address' => ['required'],
+            'description' => ['nullable', 'max:2000'],
+            'price_range' => ['nullable', 'integer', 'between:1,4'],
             'types' => ['nullable', 'exists:types,id'],
             'img' => ['nullable', 'mimes:jpg,png,jpeg,webp'],
         ], [
@@ -90,6 +92,8 @@ class RestaurantController extends Controller
             'phone' => ['required'],
             'city' => ['required'],
             'address' => ['required'],
+            'description' => ['nullable', 'max:2000'],
+            'price_range' => ['nullable', 'integer', 'between:1,4'],
             'types' => ['nullable', 'exists:types,id'],
             'img' => ['nullable', 'mimes:jpg,png,jpeg,webp'],
         ], [

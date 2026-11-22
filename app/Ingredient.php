@@ -31,7 +31,7 @@ class Ingredient extends Model
 
     public function plates(): BelongsToMany
     {
-        return $this->belongsToMany(Plate::class)->withPivot('is_main', 'position');
+        return $this->belongsToMany(Plate::class, 'plate_ingredient')->withPivot('is_main', 'position');
     }
 
     public function allergens(): BelongsToMany

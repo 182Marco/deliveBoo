@@ -20,6 +20,16 @@
             <x-field name="phone" label="Phone" type="tel" :value="old('phone')" star />
             <x-field name="city" label="City" :value="old('city')" star />
             <x-field name="address" label="Address" :value="old('address')" star wide />
+            <x-field name="description" label="Description" as="textarea" :value="old('description')" hint="What guests should know about your kitchen (optional)." wide />
+            <div class="ui-field">
+                <label class="ui-label" for="price_range">Price range</label>
+                <select class="ui-input" name="price_range" id="price_range">
+                    <option value="">Not set</option>
+                    @foreach ([1 => '€ · budget', 2 => '€€ · mid-range', 3 => '€€€ · premium', 4 => '€€€€ · fine dining'] as $value => $text)
+                        <option value="{{ $value }}" @selected((int) old('price_range') === $value)>{{ $text }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
 
         <fieldset class="adm-fieldset">

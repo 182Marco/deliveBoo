@@ -142,12 +142,12 @@ class CrudTest extends TestCase
 
     public function testStorePlateValidationMessages()
     {
-        $this->post(route('admin.plates.store'), ['name' => str_repeat('a', 51)])
+        $this->post(route('admin.plates.store'), ['name' => str_repeat('a', 81)])
             ->assertSessionHasErrors([
-                'name' => 'you have exceeded the 50 characters allowed for the name',
+                'name' => 'you have exceeded the 80 characters allowed for the name',
                 'ingredients' => 'Required Field!',
                 'description' => 'Required Field!',
-                'visible' => 'Required Field!',
+                'availability' => 'Required Field!',
                 'price' => 'Required Field!',
             ]);
 
@@ -155,30 +155,84 @@ class CrudTest extends TestCase
             ->assertSessionHasErrors('img');
     }
 
-    public function testUpdatePlateKeepsSlugAndChecksUniqueName()
+    public function testUpdatePlateKeepsSlugAndChecksUniqueNameInsideTheRestaurant()
     {
         $plate = $this->ownedPlate();
-        $other = Plate::where('id', '!=', $plate->id)->firstOrFail();
+        $sameMenu = Plate::where('restaurant_id', $plate->restaurant_id)->where('id', '!=', $plate->id)->firstOrFail();
+        $otherMenu = Plate::where('restaurant_id', '!=', $plate->restaurant_id)->firstOrFail();
 
         $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => 'Renamed', 'price' => 3]))
             ->assertRedirect(route('admin.plates.show', $plate->slug));
         $this->assertSame('Renamed', $plate->fresh()->name);
         $this->assertSame($plate->slug, $plate->fresh()->slug);
 
-        $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => $other->name]))
+        // the same dish name can exist in another restaurant, not twice in the same menu
+        $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => $otherMenu->name]))
+            ->assertSessionHasNoErrors();
+        $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => $sameMenu->name]))
             ->assertSessionHasErrors(['name' => 'This name is already used']);
     }
 
-    public function testDestroyPlateDetachesOrdersAndRedirectsToRestaurantPlates()
+    public function testStorePlateWithANameUsedElsewhereGetsAUniqueSlug()
+    {
+        $existing = Plate::where('restaurant_id', '!=', $this->ownedRestaurant()->id)->firstOrFail();
+
+        $this->post(route('admin.plates.store'), $this->plateData(['name' => $existing->name]))->assertRedirect();
+
+        $new = Plate::where('restaurant_id', $this->ownedRestaurant()->id)->where('name', $existing->name)->firstOrFail();
+        $this->assertNotSame($existing->slug, $new->slug);
+    }
+
+    public function testStorePlateSavesStructuredIngredientsAndOnlyTheDeclaredDietaryInfo()
+    {
+        $this->post(route('admin.plates.store'), $this->plateData([
+            'name' => 'House Salad', 'ingredients' => 'Romaine lettuce, Smoked yuzu dust , romaine lettuce',
+            'visible' => null, 'availability' => 'sold_out', 'course' => 'salad',
+            'diet' => ['vegan' => 'yes', 'halal' => '', 'spicy' => 'unknown'],
+            'allergen_info' => '', 'allergens' => ['mustard' => 'may_contain', 'eggs' => ''],
+        ]))->assertSessionHasNoErrors()->assertRedirect();
+
+        $plate = Plate::where('name', 'House Salad')->firstOrFail();
+        $this->assertSame(['romaine lettuce', 'smoked yuzu dust'], $plate->ingredientList->pluck('name')->all());
+        $this->assertSame('Romaine lettuce, Smoked yuzu dust', $plate->ingredients);
+        // an ingredient typed in the admin has no trusted reference data
+        $this->assertSame('unverified', \App\Ingredient::where('name', 'smoked yuzu dust')->value('info_status'));
+        $this->assertSame('sold_out', $plate->availability);
+        $this->assertFalse($plate->visible);
+
+        // "Not declared" writes nothing: only vegan (yes) and spicy (not verified) exist
+        $this->assertEqualsCanonicalizing(['vegan' => 'yes', 'spicy' => 'unknown'], $plate->dietaryTags->mapWithKeys(fn ($t) => [$t->code => $t->pivot->status])->all());
+        $this->assertSame(['mustard' => 'may_contain'], $plate->allergens->mapWithKeys(fn ($a) => [$a->code => $a->pivot->status])->all());
+        $this->assertNull($plate->allergen_info);
+        // nothing is derived while an ingredient is unverified
+        $this->assertSame(0, $plate->dietaryTags()->wherePivot('source', 'ingredients')->count());
+    }
+
+    public function testStorePlateWithoutAnyDietaryInfoWritesNoDeclaration()
+    {
+        $this->post(route('admin.plates.store'), $this->plateData(['name' => 'Plain Dish']))->assertSessionHasNoErrors();
+
+        $plate = Plate::where('name', 'Plain Dish')->firstOrFail();
+        $this->assertSame(0, $plate->allergens()->count());
+        $this->assertSame(0, $plate->dietaryTags()->wherePivot('source', 'restaurant')->count());
+        $this->assertNull($plate->allergen_info);
+        $this->assertGreaterThan(0, $plate->ingredientList()->count());
+    }
+
+    public function testDestroyPlateIsSoftAndKeepsTheOrderHistory()
     {
         $plate = Plate::has('orders')->where('restaurant_id', $this->ownedRestaurant()->id)->firstOrFail();
+        $lines = \DB::table('order_plate')->where('plate_id', $plate->id)->count();
 
         $this->delete(route('admin.plate.delete', $plate->id))
             ->assertRedirect(route('admin.plates.index', $this->ownedRestaurant()->slug))
             ->assertSessionHas('deleted', $plate->name);
 
         $this->assertNull(Plate::find($plate->id));
-        $this->assertSame(0, \DB::table('order_plate')->where('plate_id', $plate->id)->count());
+        $this->assertSoftDeleted($plate);
+        $this->assertSame($lines, \DB::table('order_plate')->where('plate_id', $plate->id)->count());
+        $order = \App\Order::whereHas('plates', fn ($q) => $q->where('plates.id', $plate->id))->firstOrFail();
+        $this->assertTrue($order->plates->contains('id', $plate->id));
     }
 
     public function testPaginationLinksUseFoodsyMarkup()

@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
         // Every seeder is idempotent: it finds records by natural key (email, name, ...)
         // and only creates what is missing, so it can be run again safely.
         $this->call([
+            // reference data
+            AllergensSeeder::class,
+            DietaryTagsSeeder::class,
+            // historic hand-written data
             UsersTableSeeder::class,
             TypesTableSeeder::class,
             RestaurantsTableSeeder::class,

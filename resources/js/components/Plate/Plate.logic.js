@@ -18,6 +18,13 @@ const plateLogic = {
         },
         price() {
             return formatPrice(this.plate.price);
+        },
+        // the API says whether it can be ordered now (availability and season); older payloads only have visible
+        orderable() {
+            return this.plate.orderable ?? Boolean(this.plate.visible);
+        },
+        unavailableLabel() {
+            return this.plate.availability === "sold_out" ? "Sold out" : "Currently unavailable";
         }
     },
     methods: {

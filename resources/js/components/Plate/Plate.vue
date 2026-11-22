@@ -2,7 +2,7 @@
     <article class="dish">
         <div class="dish-media">
             <FoodImage class="dish-photo" :src="plate.img" :alt="plate.name" />
-            <span v-if="!plate.visible" class="dish-flag">Currently unavailable</span>
+            <span v-if="!orderable" class="dish-flag">{{ unavailableLabel }}</span>
             <div class="dish-action">
                 <QuantityStepper
                     v-if="portionsInCart"
@@ -12,7 +12,7 @@
                     @decrement="removeOne"
                 />
                 <button
-                    v-else
+                    v-else-if="orderable"
                     type="button"
                     class="dish-add"
                     :aria-label="`Add ${plate.name} to your bag`"

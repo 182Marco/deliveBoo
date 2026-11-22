@@ -3,9 +3,10 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** 8.2 + 8.4 fatti (schema, modelli, checkout). Prossimo: 8.3, backoffice dei piatti (punto 3).
+- **Passo corrente:** 8.3 fatto (backoffice e sito). Prossimo: 8.5, il dataset. Ordine: 5a registro ingredienti (`data/ingredients.php` + `IngredientsSeeder`), 5b pool immagini verificate, 5c ricette per cucina, 5d generatore e profili, 5e ordini e voti.
 - **Passi fatti:**
   - 0. File di avanzamento creato.
+  - 8.3 admin: partial `admin/plates/partials/details.blade.php` (availability, course, serves, calorie, stagione, diete a 4 stati, allergeni contains/may_contain + `allergen_info`); `PlateController` con `rules()`/`saveDetails()`, nome unico per ristorante, slug unico, soft delete; `App\Dietary\Derivation` (regole derivate, condivise con i seeder); `AllergensSeeder`/`DietaryTagsSeeder` + `data/allergens.php`/`data/dietary_tags.php`; form ristorante con `description`/`price_range`; ordine admin con qty × unit_price; `Plate.vue` nasconde il bottone se `orderable` è false (l'API `restMunu` aggiunge `orderable`, `ingredient_list` e l'ordinamento per course).
   - 8.2+8.4 schema (11 migration `2026_11_23_*`), modelli `Ingredient`/`Allergen`/`DietaryTag`/`OpeningHour`, scope di `Plate` (`orderable`, `withDiet`, `freeFrom`, `withIngredients`, `withoutIngredients`, `derivedAllergens`, `syncIngredients`, `uniqueSlug`), checkout con quantità, unit_price e rifiuto dei piatti non ordinabili.
   - 8.1 BUG-1: `Restaurant::uniqueSlug()` e `unique:restaurants,name` in store; test `_CurrentBehaviour` rimosso, skip tolto, nuovo test sullo slug con suffisso `-2`.
 - **Baseline test:** `php artisan test` = 35.0s, 55 passed e 5 skipped (2026-11-22). Budget: al massimo circa 45s.
@@ -13,6 +14,9 @@
   - Nel modello `Plate`, `$plate->visible` dentro la classe legge la proprietà protetta `Model::$visible` e non la colonna: nel codice del modello usare `getAttribute`/`setAttribute('visible')`.
   - MySQL: un indice composito che inizia con la colonna di una FK la sostituisce come indice della FK. Per questo i `down()` creano prima un indice semplice e poi eliminano quello composito. Rollback a 11 step verificato.
   - DB dev: `migrate:fresh --seed` già eseguito al passo 8.2 (seeder legacy), perché un rollback fallito aveva lasciato lo schema a metà. Prima c'erano righe `order_plate` duplicate (fino a 83 porzioni) da prove manuali.
+  - Il pivot ingredienti si chiama `plate_ingredient` (come da brief, non l'alfabetico di Laravel): le relazioni passano il nome della tabella.
+  - Derivazione: `gluten_free`/`lactose_free` = yes solo con `allergen_info=complete` del ristorante e senza cross-contact; nessuna derivazione se c'è un ingrediente `unverified`.
+  - Tempo dei test salito a circa 41s (era 35) con le sole tabelle di riferimento e i nuovi test: da tenere d'occhio per il budget di 45s.
   - Gli 8.2 e 8.4 sono in un solo commit: la UNIQUE (`order_id`, `plate_id`) rompe il checkout senza il raggruppamento delle quantità.
 - **Problemi aperti / da decidere:** (nessuno)
 - **Decisioni prese:**

@@ -72,7 +72,7 @@ class Plate extends Model
 
     public function ingredientList(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class)->withPivot('is_main', 'position')->orderByPivot('position');
+        return $this->belongsToMany(Ingredient::class, 'plate_ingredient')->withPivot('is_main', 'position')->orderByPivot('position');
     }
 
     // what the restaurant declares: pivot status contains | may_contain
