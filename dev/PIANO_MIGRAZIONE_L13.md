@@ -9,11 +9,11 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
 - [x] Fase 0.c — Vitest: store.spec.js + payment.spec.js (Vue 2) — commit b3c1f23; 16 test verdi (`npm run test:js`)
 - [x] Fase 1 — Laravel 13, struttura slim, rotte a tupla, seeder namespaced — commit 54ed13d; Laravel 13.43.0 su PHP 8.4: 51 test, 629 asserzioni (come la baseline), 5 skip; `composer audit` pulito; smoke su SQLite ok (SPA, API, login reale con CSRF/sessione, paginazione Bootstrap, ordine + mail nel log)
 - [x] Fase 2 — sintassi moderna (API, Admin, modelli, mailable, test 404) — commit d37c3ee (API), d502aae (Admin + NotFoundTest), commit modelli/mail; 54 test, 647 asserzioni, 5 skip. Oggetto mail verificato: "Ordered Message" come prima
-- [ ] Fase 3 — Vite + Vue 3 (+ port degli spec)
+- [x] Fase 3 — Vite + Vue 3 (+ port degli spec) — commit a25e129; vite 8.3, Vue 3.5, router 4.6, vuex 4.1; Vitest 25 test (store 8, payment 8 con asserzioni invariate, nuovo app.smoke 9); PHP 54 test verdi anche senza build; smoke HTTP: asset Vite 200 su SPA, admin e stats
 - [ ] Fase 4 — Docker, deploy, documentazione, mappa
 - [ ] Verifica finale (checklist in fondo) — parti manuali da fare con l'utente
 
-**Prossimo passo:** Fase 3 (Vite + Vue 3). Prima decisione: `vuex-persistedstate` (tenere o plugin locale).
+**Prossimo passo:** Fase 4 (Dockerfile dev 8.4, Dockerfile prod multi-stage node 22 + php 8.4, render.yaml, build.sh, AGENTS/README/SETUP_LOCALE, dev/mappa.html blocco DATI).
 
 **Note di esecuzione:** (decisioni prese durante il lavoro, problemi incontrati)
 - Laravel 7 **non gira su PHP 8.4** (deprecazioni di Symfony 5 trasformate in eccezioni). Fino alla Fase 1 i test PHP si lanciano nel container PHP 8.0:
@@ -33,6 +33,11 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - Fase 1: `MAIL_FROM_ADDRESS=null` non è più accettato da Symfony Mailer → `.env.example` ora ha `noreply@deliveboo.test`. **Da verificare** il `.env` locale e le variabili su Render (Fase 4).
   - Tra Fase 1 e Fase 4 `docker/dev/Dockerfile` (PHP 8.0) e il `Dockerfile` di produzione (PHP 8.2) **non possono eseguire Laravel 13**: il branch non va deployato prima della Fase 4.
   - Smoke manuale veloce senza MySQL: `DB_CONNECTION=sqlite DB_DATABASE=<file in scratchpad> php artisan migrate --seed --force && php artisan serve --port=8013`.
+  - Fase 3, decisione: **tenuto `vuex-persistedstate`** (v4.0.0, funziona con Vuex 4, stessa chiave `vuex`); l'alternativa del plugin locale resta documentata.
+  - Fase 3, regressioni Vue 3 trovate da `app.smoke.spec.js` e corrette: `<router-view>` con un commento dentro (in Vue Router 4 diventa slot → pagina vuota in dev); primo render di `RestMenu`/`singleTypeRest` senza dati (Vue 2 lo saltava, Vue 3 lancia) → `v-if` sulla radice; istanza Braintree con `markRaw`.
+  - Fase 3: `package.json` ha `"type": "module"`; `vitest.config.mjs` assorbito in `vite.config.js` (chiave `test`).
+  - Fase 3: le viste con `@include('layouts/deleteConfirm')` **dopo** `@endsection` stampano lo script prima del layout: con i moduli Vite (differiti) la conferma di eliminazione aggancia comunque i form. Da verificare a mano che funzioni (prima poteva non agganciarli).
+  - Nessun browser headless nella Codespace: il rendering visivo resta nella checklist manuale.
   - Messaggio `max` dei piatti con doppio spazio ("the  50 characters") per via della regola `'max: 50'`: in Fase 2, con le regole ad array, diventa a spazio singolo → aggiornare l'asserzione in `CrudTest::testStorePlateValidationMessages` (cambio voluto, unico).
 
 > **Legenda revisione 2:** 🆕 = parte aggiunta · ✏️ = parte modificata. Tutto il resto è invariato rispetto alla versione 1.
