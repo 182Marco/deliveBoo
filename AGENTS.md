@@ -1,19 +1,22 @@
 # AGENTS.md
 
-Guida per agenti AI e nuovi sviluppatori. Panoramica completa: `README.md`; mappa interattiva dei file: `mappa.html`.
+Guida per agenti AI e nuovi sviluppatori. Panoramica completa: `README.md`; mappa interattiva dei file: `dev/mappa.html`.
 
 ## Progetto in breve
 DeliveBoo = Laravel 7 (PHP) + sito clienti Vue 2 SPA + pannello ristoratori in Blade. Lingua del codice: inglese (commenti misti IT/EN). Documentazione: italiano.
 
 ## Comandi
+Avvio con Docker (Codespace o PC nuovo) passo per passo: tab "Link di avvio" di `dev/mappa.html`. L'immagine PHP 8.0 di sviluppo è `docker/dev/Dockerfile`.
 ```bash
 composer install && npm install
 cp .env.example .env && php artisan key:generate
 php artisan migrate --seed         # tabelle + dati di prova
+php artisan db:seed                # rilanciabile: i seeder sono idempotenti
+php artisan db:seed --class=OrdersTableSeeder   # un solo seeder
 npm run dev | npm run watch        # compila resources/ -> public/
 npm run prod                       # build ottimizzata (usata dal Dockerfile)
 php artisan serve                  # http://127.0.0.1:8000
-php artisan test                   # solo test di esempio
+php artisan test                   # SQLite in memoria; include DatabaseSeederTest
 php artisan route:list             # verifica le rotte
 ```
 
@@ -25,6 +28,7 @@ php artisan route:list             # verifica le rotte
 | Nuovo componente Vue | `resources/js/components/` |
 | Nuovo stato/azione (carrello, fetch) | `resources/js/store.js` (mutations sincrone, actions con axios) |
 | Nuova pagina admin | rotta in `routes/web.php` dentro il gruppo `admin` (middleware `auth`), metodo in `Controllers/Admin`, vista in `resources/views/admin/...` che estende `layouts.app` |
+| Nuovi dati di prova | seeder in `database/seeds/`: riferimenti per chiave naturale (email, nome), **mai ID**; `firstOrNew` + `syncWithoutDetaching` per restare idempotenti |
 | Nuovo campo/tabella | **nuova** migration in `database/migrations` (non modificare quelle esistenti), aggiorna `$fillable` nel modello in `app/`, seeder se serve |
 | Nuovo JS per Blade | `resources/js/jsBack/` **e** aggiungilo in `webpack.mix.js` |
 | Stili | partial SCSS in `resources/sass/` importati da `app.scss` (o `<style>` nel componente Vue) |
@@ -36,7 +40,9 @@ php artisan route:list             # verifica le rotte
 - Paginazione lato server con `paginate(4)`; il front usa `jw-pagination`.
 
 ## Trappole
-- **URL API fissi** `http://127.0.0.1:8000/api/...` in `store.js` e `pages/Payment.vue`: in produzione non funzionano. Se tocchi quei file, passa a URL relativi.
+- **URL sempre relativi** nel front (`/api/...`, `/login`): mai `http://127.0.0.1:8000/...` scritto fisso, che non funziona da Codespace né in produzione. Nelle email (link assoluti) usa `url('/')`.
+- Laravel Mix 5 usa webpack 4, che con Node ≥ 17 dà `ERR_OSSL_EVP_UNSUPPORTED`: per questo gli script in `package.json` passano `NODE_OPTIONS=--openssl-legacy-provider`. Non toglierlo, a meno di aggiornare a Mix 6 o versioni successive.
+- Ogni file PHP deve iniziare esattamente con `<?php`: anche un solo a capo prima (era in `routes/api.php`) viene stampato a ogni richiesta, blocca header e cookie di sessione e il login dà **419 Page Expired**.
 - `public/js/*` e `public/css/app.css` sono **output di build**: non modificarli, modifica `resources/` e ricompila.
 - `resources/js/routes copy.js` è codice morto. `Admin/HomeController` è non instradato (la home admin è `RestaurantController@index`).
 - La rotta catch-all `Route::get('{any?}')` in `routes/web.php` deve restare **ultima**.
@@ -48,4 +54,10 @@ php artisan route:list             # verifica le rotte
 `vendor/`, `node_modules/`, `.env`, file in `storage/` (tranne i `.gitignore`), lock file se non cambi dipendenze.
 
 ## Prima di chiudere un lavoro
-`php artisan route:list` senza errori · `npm run dev` compila · se cambi struttura o file importanti, aggiorna `mappa.html` (array `D` con le spiegazioni) e `README.md`.
+`php artisan route:list` senza errori · `npm run dev` compila · se cambi struttura o file importanti, aggiorna `dev/mappa.html` e `README.md`.
+
+## Mappa del progetto (`dev/mappa.html`)
+- Segue la skill `skills/project-map-3-tabs/SKILL.md` (`.claude/skills` è un symlink a `skills/`): palette e misure fisse, **si modifica solo il blocco `DATI`** (`FILES` con le righe `F(...)`, `NODES`, `EDGES`, `TARGETS`, `NOTES`, `CMDS`…), mai CSS né `RENDER`.
+- Ha 4 tab: le 3 della skill (`graph`, `code`, `links`) più `cmd` "Comandi Laravel", aggiunta su richiesta.
+- Nuovo file → nuova riga `F(...)`; nuovo flusso → nodo/arco. Ogni `go` e `rel` deve essere un percorso presente in `FILES`.
+- `dev/` (come `skills/` e `.claude/`) è solo sviluppo: **mai referenziata** da `app/`, `resources/`, `routes/`, `public/` o dalla config, ed esclusa dall'immagine Docker tramite `.dockerignore`.

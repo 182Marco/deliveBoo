@@ -38,6 +38,7 @@ composer install
 php artisan key:generate
 php artisan migrate:fresh --seed
 ```
+`migrate:fresh` cancella e ricrea tutte le tabelle: va bene per il primo avvio. Dopo, per aggiungere i dati di prova mancanti senza perdere nulla, basta `php artisan db:seed` (si può rilanciare quante volte vuoi).
 
 ## 4. Front-end
 ```bash
@@ -49,7 +50,9 @@ npm run dev          # oppure: npm run watch
 ```bash
 php artisan serve --port=8000
 ```
-La porta **deve** essere 8000: `http://127.0.0.1:8000` è scritto fisso in `resources/js/store.js` e `resources/js/pages/Payment.vue`.
+Il front usa URL relativi, quindi funziona su qualsiasi porta; i link qui sotto assumono la 8000.
+
+> Alternativa più semplice, senza installare PHP né MySQL: Docker. Vedi i riquadri in cima alla tab "Link di avvio" di `dev/mappa.html`.
 
 - Sito clienti: http://127.0.0.1:8000
 - Pannello ristoratori: http://127.0.0.1:8000/login (utenti di prova in `database/seeds/UsersTableSeeder.php`)
@@ -62,6 +65,6 @@ php artisan storage:link
 ## Problemi comuni
 - **Errore 500** → manca `.env` o `APP_KEY`; leggi `storage/logs/laravel.log`.
 - **Pagina bianca** → non hai eseguito `npm run dev`.
-- **Liste vuote** → server non sulla porta 8000 o seed non eseguito.
+- **Liste vuote** → seed non eseguito, oppure `public/js` non ricompilato (`npm run dev`).
 - **"could not find driver"** → manca l'estensione PHP `pdo_sqlite`.
 - **Pagamento** → usa Braintree con un token nel codice, non verificato: potrebbe non funzionare in locale.

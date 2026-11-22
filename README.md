@@ -2,7 +2,7 @@
 
 Clone di Deliveroo: i clienti scelgono un tipo di cucina, trovano i ristoranti, riempiono il carrello e pagano; i ristoratori gestiscono ristoranti, piatti, ordini e statistiche da un pannello riservato.
 
-> 🗺️ **Apri [`mappa.html`](mappa.html) nel browser** per una mappa interattiva: grafo di "cosa fa cosa" e albero di tutti i file con una spiegazione semplice per ognuno.
+> 🗺️ **Apri [`dev/mappa.html`](dev/mappa.html) nel browser** (doppio clic, nessun server) per la mappa interattiva: grafico concettuale, albero di tutti i file con una spiegazione semplice per ognuno, link di avvio con server e Docker, comandi Laravel. È uno strumento solo di sviluppo: segue la skill `skills/project-map-3-tabs` e non finisce nella build.
 
 ## Stack
 
@@ -56,6 +56,18 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 ## Avvio in locale
 
+Con Docker (consigliato, anche da Codespace) servono solo Docker e Node 18+:
+
+```bash
+cp .env.example .env    # poi DB_HOST=db, DB_DATABASE=deliveboo, DB_USERNAME=deliveboo, DB_PASSWORD=local_password, MAIL_MAILER=log
+docker compose build && docker compose run --rm app composer install
+docker compose run --rm app php artisan key:generate
+docker compose up -d && docker compose exec app php artisan migrate --seed
+npm install && npm run watch   # http://127.0.0.1:8000 (Codespace: indirizzo inoltrato della porta 8000)
+```
+
+Senza Docker (PHP 7.4–8.1 e MySQL sul computer):
+
 ```bash
 composer install
 npm install
@@ -67,6 +79,20 @@ php artisan serve      # http://127.0.0.1:8000
 ```
 
 Comandi utili: `npm run prod` (build ottimizzata), `php artisan test`, `php artisan migrate:fresh --seed`.
+
+### Database: migrations e seed
+
+```bash
+php artisan migrate                                  # crea/aggiorna le tabelle
+php artisan db:seed                                  # tutti i seeder (DatabaseSeeder)
+php artisan db:seed --class=PlatesTableSeeder        # un solo seeder
+```
+
+Ordine dei seeder: Users → Types → Restaurants → Plates → Orders → Rates. Un seeder lanciato da solo richiede che i precedenti siano già stati eseguiti; se manca un riferimento si ferma con un errore chiaro e non scrive nulla (ogni seeder gira in una transazione).
+
+**Rilanciare il seed è sicuro**: i seeder sono idempotenti. Trovano i record tramite chiavi naturali (email dell'utente, nome di tipo e ristorante, ristorante + nome del piatto, ristorante + email + data dell'ordine) e creano solo quello che manca. Non sovrascrivono i record esistenti e non cancellano nulla. Le pivot usano `syncWithoutDetaching`. Per i voti, che non hanno una chiave, il seeder aggiunge solo le righe mancanti per arrivare al numero previsto per ogni (ristorante, voto). `php artisan migrate:fresh --seed` invece **cancella tutte le tabelle** e ricrea il DB da zero: usalo solo se vuoi perdere i dati.
+
+`php artisan test` gira su SQLite in memoria (vedi `phpunit.xml`) e non tocca il DB di sviluppo. `tests/Feature/DatabaseSeederTest.php` verifica che due seed consecutivi diano gli stessi conteggi e che i dati siano coerenti (FK, piatti degli ordini, prezzi, slug).
 
 ## Deploy
 
