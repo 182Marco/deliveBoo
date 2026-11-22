@@ -16,6 +16,14 @@ final class MenuPlan
     // [min, max] number of drinks by tier
     private const DRINKS = ['base' => [3, 7], 'mid' => [8, 22], 'high' => [30, 70]];
 
+    // cuisines whose menus are long whatever the segment: a sushi bar lists nigiri, sashimi,
+    // maki, temaki, gunkan, fried dishes and starters
+    private const CUISINE_SIZE = ['sushi' => [80, 150]];
+
+    // fine dining and starred kitchens: few dishes (tasting menus and a short à la carte),
+    // [food min, food max, drinks min, drinks max]: the wine list stays long
+    private const SHORT_MENU = ['fine_dining' => [5, 10, 25, 45], 'starred' => [5, 10, 25, 45]];
+
     private const LOWER = ['high' => ['mid', 1.3], 'mid' => ['base', 1.15], 'base' => [null, 1.0]];
 
     /**
@@ -28,8 +36,9 @@ final class MenuPlan
         $rng = new Rng("menu:{$restaurant['name']}");
         $cuisine = Catalog::cuisines()[$restaurant['cuisine']];
         $tier = Catalog::tier($restaurant['segment']);
-        [$min, $max] = self::SIZE[$restaurant['segment']];
+        [$min, $max] = self::CUISINE_SIZE[$restaurant['cuisine']] ?? self::SIZE[$restaurant['segment']];
         $target = $rng->int($min, $max);
+        $short = self::SHORT_MENU[$restaurant['segment']] ?? null;
         if ($profile['menu_max']) {
             $target = max($profile['menu_min'], min($target, $profile['menu_max']));
         }
@@ -43,7 +52,9 @@ final class MenuPlan
             }
         }
         [$dMin, $dMax] = self::DRINKS[$tier];
-        $drinkCount = min(count($drinkPool), $rng->int($dMin, $dMax), max(2, intdiv($target, 2)));
+        $drinkCount = $short
+            ? min(count($drinkPool), $rng->int($short[2], $short[3]))
+            : min(count($drinkPool), $rng->int($dMin, $dMax), max(2, intdiv($target, 2)));
         if ($profile['menu_max']) {
             $drinkCount = min($drinkCount, max(2, intdiv($target, 3)));
         }
@@ -65,7 +76,9 @@ final class MenuPlan
                 $candidates[] = [$recipe, is_array($variants[0]) ? $variants : [$variants], $markup, $markup > 1 ? 0.5 : 1.0 / (1 + $pos / 12)];
             }
         }
-        $foodTarget = max(1, $target - $drinkCount - count($items));
+        $foodTarget = $short
+            ? max(0, min($rng->int($short[0], $short[1]), $profile['menu_max'] ?? PHP_INT_MAX) - count($items))
+            : max(1, $target - $drinkCount - count($items));
         $weights = array_map(fn ($c) => $c[3], $candidates);
         while (count($items) < $foodTarget + count(Catalog::concepts()[$restaurant['concept']]['signatures']) && $weights) {
             $k = $rng->weighted($weights);

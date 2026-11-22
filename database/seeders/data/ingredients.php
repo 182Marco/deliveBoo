@@ -204,4 +204,10 @@ return [
     'buttermilk|dairy|dairy|1|low|milk',
     'snails|mollusc|mollusc|0||molluscs',
     'hibiscus|herb_spice|plant|0||',
+    'wasabi|herb_spice|plant|0||mustard',
+    'shiso|herb_spice|plant|0||',
+    'inari tofu|legume|plant|0|high|soybeans',
+    'takuan|vegetable|plant|0||',
+    'yuzu kosho|condiment|plant|0||',
+    'tobiko|fish|fish|0||fish',
 ];
