@@ -8,12 +8,12 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
 - [x] Fase 0.b — test PHP di caratterizzazione (PublicApi, Ownership + SEC-1/2, Crud, Auth, Routes) + fix nome vista mail — commit 663cc37; suite: 51 test, 629 asserzioni, 5 skip (SEC-1..4, BUG-1)
 - [x] Fase 0.c — Vitest: store.spec.js + payment.spec.js (Vue 2) — commit b3c1f23; 16 test verdi (`npm run test:js`)
 - [x] Fase 1 — Laravel 13, struttura slim, rotte a tupla, seeder namespaced — commit 54ed13d; Laravel 13.43.0 su PHP 8.4: 51 test, 629 asserzioni (come la baseline), 5 skip; `composer audit` pulito; smoke su SQLite ok (SPA, API, login reale con CSRF/sessione, paginazione Bootstrap, ordine + mail nel log)
-- [ ] Fase 2 — sintassi moderna (API, Admin, modelli, mailable, test 404)
+- [x] Fase 2 — sintassi moderna (API, Admin, modelli, mailable, test 404) — commit d37c3ee (API), d502aae (Admin + NotFoundTest), commit modelli/mail; 54 test, 647 asserzioni, 5 skip. Oggetto mail verificato: "Ordered Message" come prima
 - [ ] Fase 3 — Vite + Vue 3 (+ port degli spec)
 - [ ] Fase 4 — Docker, deploy, documentazione, mappa
 - [ ] Verifica finale (checklist in fondo) — parti manuali da fare con l'utente
 
-**Prossimo passo:** Fase 2 (sintassi moderna: API, Admin, modelli, mailable, test 404).
+**Prossimo passo:** Fase 3 (Vite + Vue 3). Prima decisione: `vuex-persistedstate` (tenere o plugin locale).
 
 **Note di esecuzione:** (decisioni prese durante il lavoro, problemi incontrati)
 - Laravel 7 **non gira su PHP 8.4** (deprecazioni di Symfony 5 trasformate in eccezioni). Fino alla Fase 1 i test PHP si lanciano nel container PHP 8.0:
