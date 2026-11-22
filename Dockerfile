@@ -1,36 +1,38 @@
-FROM php:8.2-apache
+# Immagine di produzione (Render): asset compilati con Node, poi PHP 8.4 + Apache.
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip \
-    nodejs npm
+# 1) asset front-end con Vite (richiede Node >= 20.19)
+FROM node:22-bookworm-slim AS assets
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY vite.config.js ./
+COPY resources ./resources
+RUN npm run build
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# 2) applicazione Laravel 13 (PHP >= 8.3)
+FROM php:8.4-apache
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+RUN apt-get update \
+    && apt-get install -y git unzip libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Apache serve public/ (prima la DocumentRoot era la radice del progetto) con mod_rewrite per index.php
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
+    && a2enmod rewrite
+
 WORKDIR /var/www/html
-
-# Copy project files
-COPY . .
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# 🚨 AGGIUNTA QUI
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Install Laravel dependencies
-RUN composer install --optimize-autoloader --no-dev
-RUN npm install && npm run prod
+COPY . .
+COPY --from=assets /app/public/build ./public/build
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN composer install --optimize-autoloader --no-dev --no-interaction \
+    && chown -R www-data:www-data storage bootstrap/cache
 
-# Expose port
 EXPOSE 80
-
 CMD ["apache2-foreground"]

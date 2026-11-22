@@ -1,7 +1,7 @@
 services:
   app:
-    build: docker/dev          # PHP 8.0 + estensioni + composer
-    image: deliveboo-php80
+    build: docker/dev          # PHP 8.4 + estensioni + composer
+    image: deliveboo-php84
     working_dir: /app
     volumes:
       - .:/app
