@@ -32,7 +32,7 @@ class OrderedMessage extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mails.orderedmessage')
+        return $this->markdown('mails.orderedMessage')
                     ->with([
                         'contact' => $this->contact
                     ]);
