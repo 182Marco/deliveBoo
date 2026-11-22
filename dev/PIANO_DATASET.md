@@ -3,7 +3,13 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** ✅ **LAVORO COMPLETATO** (8 commit, da `bd4ecd2` a `cb57947` più questo). Prova sull'app in esecuzione: API ok (43 tipi, menu di Aurora con 97 voci, `orderable` e `ingredient_list`), login Romiti ok, admin paginato, form del piatto con i campi alimentari. Metriche: 3628 piatti di cibo con 795 descrizioni distinte, una stessa descrizione condivisa al massimo da 11 marchi (mediana 2). Restano solo i punti aperti qui sotto.
+- **Passo corrente:** ✅ FASE 2 COMPLETATA:
+  - menu: stellati e fine dining con 5-10 piatti più 25-45 bevande; sushi bar con 82-111 voci (`7f0d530`);
+  - foto del piatto anche come link https (`3cb0707`);
+  - ristoranti storici con segmento, descrizione, posizione e orari (`695cf11`);
+  - docs: mappa e README (`f41e951`);
+  - riseed: il DB conteneva solo dati seminati (conteggi identici, 0 ordini non demo), quindi `migrate:fresh --seed` e poi `db:seed` di controllo (idempotente). Ora: 6516 piatti, 2371 righe di orari, 712 ingredienti.
+  - Nota: il ristorante storico Hyack (sushi) mantiene il suo menu scritto a mano di 21 piatti.
 - **Report di verifica (MySQL dev, dopo `migrate:fresh --seed`):**
   - integrità: 0 violazioni (proprietari, slug, tipi, piatti senza ingredienti, prezzi, quantità, righe di altri ristoranti, totali);
   - 60 utenti, 261 ristoranti (Romiti 33), 6224 piatti, 706 ingredienti (608 usati), 43/43 cucine usate, 11249 ordini (10909 pagati, 1324 clienti);
