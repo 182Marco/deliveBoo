@@ -1,12 +1,13 @@
-// Braintree payment flow of resources/js/pages/Payment.vue, fully offline:
+// Braintree payment flow of resources/js/pages/Payment, fully offline:
 // braintree-web and axios are mocked, no request leaves the test and no payment happens.
-// Only mountPayment() depends on the Vue version: the assertions must not change in the Vue 3 port.
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { shallowMount } from "@vue/test-utils";
+import axios from "axios";
 import braintree from "braintree-web";
-import Payment from "../../resources/js/pages/Payment.vue";
-import createStore from "../../resources/js/store.js";
+import Payment from "../../resources/js/pages/Payment/Payment.vue";
+import { createAppStore as createStore } from "../../resources/js/store.js";
 
+vi.mock("axios", () => ({ default: { post: vi.fn() } }));
 vi.mock("braintree-web", () => ({
     default: { client: { create: vi.fn() }, hostedFields: { create: vi.fn() } }
 }));
@@ -50,8 +51,7 @@ beforeEach(() => {
     braintree.client.create.mockReset().mockResolvedValue(clientInstance);
     braintree.hostedFields.create.mockReset().mockResolvedValue(hostedFieldInstance);
 
-    // Payment.vue uses the global window.axios set by resources/js/vue.js
-    window.axios = { post: vi.fn() };
+    axios.post.mockReset();
     vi.spyOn(console, "log").mockImplementation(() => {});
     vi.spyOn(console, "error").mockImplementation(() => {});
 });
@@ -82,7 +82,7 @@ describe("Braintree initialisation", () => {
         wrapper.vm.payWithCreditCard();
         await flush();
         expect(hostedFieldInstance.tokenize).not.toHaveBeenCalled();
-        expect(window.axios.post).not.toHaveBeenCalled();
+        expect(axios.post).not.toHaveBeenCalled();
     });
 });
 
@@ -93,20 +93,20 @@ describe("tokenization", () => {
         wrapper.vm.payWithCreditCard();
         await flush();
         expect(hostedFieldInstance.tokenize).not.toHaveBeenCalled();
-        expect(window.axios.post).not.toHaveBeenCalled();
+        expect(axios.post).not.toHaveBeenCalled();
     });
 
     it("on success stores the nonce and posts the exact order payload", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "fake-valid-nonce" });
-        window.axios.post.mockResolvedValue({ data: {} });
+        axios.post.mockResolvedValue({ data: {} });
         const wrapper = await mountReady();
 
         wrapper.vm.payWithCreditCard();
         await flush();
 
         expect(wrapper.vm.nonce).toBe("fake-valid-nonce");
-        expect(window.axios.post).toHaveBeenCalledTimes(1);
-        expect(window.axios.post).toHaveBeenCalledWith("/api/orders", {
+        expect(axios.post).toHaveBeenCalledTimes(1);
+        expect(axios.post).toHaveBeenCalledWith("/api/orders", {
             restaurant_id: 7,
             price: 6.5,
             ...CUSTOMER,
@@ -122,7 +122,7 @@ describe("tokenization", () => {
         await flush();
 
         expect(wrapper.vm.error).toBe("All fields are empty.");
-        expect(window.axios.post).not.toHaveBeenCalled();
+        expect(axios.post).not.toHaveBeenCalled();
         expect(store.state.cart).toHaveLength(2);
         expect(router.push).not.toHaveBeenCalled();
     });
@@ -132,7 +132,7 @@ describe("order response", () => {
     it("with validation errors shows them and keeps cart and page", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
         const errors = { customer_email: ["The customer email field is required."] };
-        window.axios.post.mockResolvedValue({ data: { errors } });
+        axios.post.mockResolvedValue({ data: { errors } });
         const wrapper = await mountReady();
 
         wrapper.vm.payWithCreditCard();
@@ -146,7 +146,7 @@ describe("order response", () => {
 
     it("without errors completes the order: clears fields and cart, goes to success", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
-        window.axios.post.mockResolvedValue({ data: { ...CUSTOMER } });
+        axios.post.mockResolvedValue({ data: { ...CUSTOMER } });
         const wrapper = await mountReady();
 
         wrapper.vm.payWithCreditCard();
@@ -163,7 +163,7 @@ describe("order response", () => {
 
     it("on network error keeps cart and page (sending stays true: current behaviour)", async () => {
         hostedFieldInstance.tokenize.mockResolvedValue({ nonce: "n" });
-        window.axios.post.mockRejectedValue(new Error("Network Error"));
+        axios.post.mockRejectedValue(new Error("Network Error"));
         const wrapper = await mountReady();
 
         wrapper.vm.payWithCreditCard();

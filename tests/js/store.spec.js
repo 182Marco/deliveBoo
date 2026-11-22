@@ -1,7 +1,7 @@
 // Characterization of resources/js/store.js (Vuex): mutations, getters, actions.
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import axios from "axios";
-import createStore from "../../resources/js/store.js";
+import { createAppStore as createStore } from "../../resources/js/store.js";
 
 vi.mock("axios", () => ({ default: { get: vi.fn() } }));
 

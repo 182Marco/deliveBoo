@@ -4,8 +4,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import axios from "axios";
 import App from "../../resources/js/App.vue";
-import router from "../../resources/js/routes.js";
-import createStore from "../../resources/js/store.js";
+import { router } from "../../resources/js/routes.js";
+import { createAppStore as createStore } from "../../resources/js/store.js";
 
 vi.mock("axios", () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 vi.mock("braintree-web", () => ({
@@ -31,7 +31,6 @@ let warnings;
 beforeEach(() => {
     localStorage.clear();
     axios.get.mockImplementation(url => Promise.resolve(api(url)));
-    window.axios = axios; // set by resources/js/bootstrap.js in the real page
     window.scrollTo = vi.fn();
     warnings = [];
     vi.spyOn(console, "warn").mockImplementation((...a) => warnings.push(a.join(" ")));
