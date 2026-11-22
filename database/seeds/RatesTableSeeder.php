@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Rate;
+use App\Restaurant;
+use Illuminate\Support\Facades\DB;
 
 class RatesTableSeeder extends Seeder
 {
@@ -13,253 +15,272 @@ class RatesTableSeeder extends Seeder
     public function run()
     {
 
-
+        // data: restaurant = restaurant name
         $rates =[
-            // id 1 o'Vesuvio
+            // o'Vesuvio
             [
-                "restaurant_id" => "1",
+                "restaurant" => "'O vesuvio",
                 "rate" => "1",
             ],
             [
-                "restaurant_id" => "1",
+                "restaurant" => "'O vesuvio",
                 "rate" => "3",
             ],
             [
-                "restaurant_id" => "1",
+                "restaurant" => "'O vesuvio",
                 "rate" => "5",
             ],
-            // id 2 Casa Guadalajara
+            // Casa Guadalajara
             [
-                "restaurant_id" => "2",
+                "restaurant" => "Casa Guadalajara",
                 "rate" => "3",
             ],
             [
-                "restaurant_id" => "2",
+                "restaurant" => "Casa Guadalajara",
                 "rate" => "3",
             ],
             [
-                "restaurant_id" => "2",
+                "restaurant" => "Casa Guadalajara",
                 "rate" => "5",
             ],
             [
-                "restaurant_id" => "2",
+                "restaurant" => "Casa Guadalajara",
                 "rate" => "5",
             ],
-              // id 3 Hyack
+              // Hyack
             [
-                "restaurant_id" => "3",
+                "restaurant" => "Hyack",
                 "rate" => "4",
             ],
             [
-                "restaurant_id" => "3",
+                "restaurant" => "Hyack",
                 "rate" => "3",
             ],
             [
-                "restaurant_id" => "3",
+                "restaurant" => "Hyack",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "3",
+                "restaurant" => "Hyack",
                 "rate" => "5",
             ], 
-             // id 4 thai food  
+             // thai food
             [
-                "restaurant_id" => "4",
+                "restaurant" => "thai food",
                 "rate" => "2",
             ],  
             [
-                "restaurant_id" => "4",
+                "restaurant" => "thai food",
                 "rate" => "1",
             ],  
             [
-                "restaurant_id" => "4",
+                "restaurant" => "thai food",
                 "rate" => "2",
             ],  
-            // id 5 Il cacciatore
+            // Il cacciatore
             [
-                "restaurant_id" => "5",
+                "restaurant" => "Il cacciatore",
                 "rate" => "2",
             ], 
             [
-                "restaurant_id" => "5",
+                "restaurant" => "Il cacciatore",
                 "rate" => "2",
             ], 
             [
-                "restaurant_id" => "5",
+                "restaurant" => "Il cacciatore",
                 "rate" => "2",
             ], 
-            // id 6 Il Peri's
+            // Il Peri's
             [
-                "restaurant_id" => "6",
+                "restaurant" => "Peri's",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "6",
+                "restaurant" => "Peri's",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "6",
+                "restaurant" => "Peri's",
                 "rate" => "4",
             ], 
-            // id 7 La cabrera
+            // La cabrera
             [
-                "restaurant_id" => "7",
+                "restaurant" => "La cabrera",
                 "rate" => "1",
             ], 
             [
-                "restaurant_id" => "7",
+                "restaurant" => "La cabrera",
                 "rate" => "2",
             ], 
             [
-                "restaurant_id" => "7",
+                "restaurant" => "La cabrera",
                 "rate" => "1",
             ], 
-            // id 8 the garage
+            // the garage
             [
-                "restaurant_id" => "8",
+                "restaurant" => "the garage",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "8",
+                "restaurant" => "the garage",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "8",
+                "restaurant" => "the garage",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "8",
+                "restaurant" => "the garage",
                 "rate" => "1",
             ], 
             [
-                "restaurant_id" => "8",
+                "restaurant" => "the garage",
                 "rate" => "1",
             ], 
-            // id 9 la-lanterna
+            // la-lanterna
             [
-                "restaurant_id" => "9",
+                "restaurant" => "La lanterna",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "9",
+                "restaurant" => "La lanterna",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "9",
+                "restaurant" => "La lanterna",
                 "rate" => "5",
             ], 
             [
-                "restaurant_id" => "9",
+                "restaurant" => "La lanterna",
                 "rate" => "2",
             ], 
-            // id 10 green-food
+            // green-food
             [
-                "restaurant_id" => "10",
+                "restaurant" => "Green food",
                 "rate" => "5",
             ], 
             [
-                "restaurant_id" => "10",
+                "restaurant" => "Green food",
                 "rate" => "5",
             ], 
             [
-                "restaurant_id" => "10",
+                "restaurant" => "Green food",
                 "rate" => "5",
             ], 
-            // id 11 la-gondola
+            // la-gondola
             [
-                "restaurant_id" => "11",
+                "restaurant" => "La gondola",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "11",
+                "restaurant" => "La gondola",
                 "rate" => "5",
             ], 
             [
-                "restaurant_id" => "11",
+                "restaurant" => "La gondola",
                 "rate" => "4",
             ], 
-            // id 12 il-rancio
+            // il-rancio
             [
-                "restaurant_id" => "12",
+                "restaurant" => "Il Rancio",
                 "rate" => "2",
             ], 
             [
-                "restaurant_id" => "12",
+                "restaurant" => "Il Rancio",
                 "rate" => "2",
             ], 
             [
-                "restaurant_id" => "12",
+                "restaurant" => "Il Rancio",
                 "rate" => "4",
             ], 
-            // id 13 Burger King
+            // Burger King
             [
-                "restaurant_id" => "13",
+                "restaurant" => "Burger King",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "13",
+                "restaurant" => "Burger King",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "13",
+                "restaurant" => "Burger King",
                 "rate" => "2",
             ], 
             [
-                "restaurant_id" => "13",
+                "restaurant" => "Burger King",
                 "rate" => "1",
             ], 
-            // id 14 Mc Donald's
+            // Mc Donald's
             [
-                "restaurant_id" => "14",
-                "rate" => "1",
-            ], 
-            [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "rate" => "1",
             ], 
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
+                "rate" => "1",
+            ], 
+            [
+                "restaurant" => "Mc Donald's",
                 "rate" => "2",
             ], 
-            // id 15 Starbucks
+            // Starbucks
             [
-                "restaurant_id" => "15",
+                "restaurant" => "Starbucks",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "15",
+                "restaurant" => "Starbucks",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "15",
+                "restaurant" => "Starbucks",
                 "rate" => "4",
             ], 
-            // id 16 Esencia
+            // Esencia
             [
-                "restaurant_id" => "16",
+                "restaurant" => "Esencia",
                 "rate" => "4",
             ], 
             [
-                "restaurant_id" => "16",
+                "restaurant" => "Esencia",
                 "rate" => "3",
             ], 
             [
-                "restaurant_id" => "16",
+                "restaurant" => "Esencia",
                 "rate" => "1",
             ],       
             [
-                "restaurant_id" => "16",
+                "restaurant" => "Esencia",
                 "rate" => "4",
             ],       
         ];
 
-
-
+        // rates have no natural key (the same vote can appear many times),
+        // so the seeder "tops up": for every (restaurant, vote) it only creates
+        // the rows still missing to reach the number listed above.
+        // Running it again creates nothing; existing rates are never deleted.
+        $expected = [];
         foreach($rates as $rate){
-            $new_rate = new Rate();
-            $new_rate->restaurant_id = $rate['restaurant_id'];
-            $new_rate->rate = $rate['rate'];
-            $new_rate->save();
-        };
+            $key = $rate['restaurant'] . '|' . $rate['rate'];
+            $expected[$key] = ($expected[$key] ?? 0) + 1;
+        }
+
+        DB::transaction(function () use ($expected) {
+            foreach($expected as $key => $count){
+                [$restaurant_name, $vote] = explode('|', $key);
+                $restaurant = Restaurant::where('name', $restaurant_name)->first();
+                if (!$restaurant) {
+                    throw new RuntimeException("RatesTableSeeder: restaurant {$restaurant_name} not found, run RestaurantsTableSeeder first.");
+                }
+
+                $existing = Rate::where('restaurant_id', $restaurant->id)->where('rate', $vote)->count();
+                for ($i = $existing; $i < $count; $i++) {
+                    $new_rate = new Rate();
+                    $new_rate->restaurant_id = $restaurant->id;
+                    $new_rate->rate = $vote;
+                    $new_rate->save();
+                }
+            }
+        });
     }
 }

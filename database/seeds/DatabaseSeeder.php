@@ -11,21 +11,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        {
-            // this is need to run globally "php artisan seed"
-            // refferening to all those seeeder
-            // which are in this array.
-            // REMEMBER!
-            // they must be ordered in sequence -> interpretated as a cascade ->
-            // first I have to populate those table whitch give data to other tables
-            $this->call([
-                UsersTableSeeder::class, 
-                TypesTableSeeder::class,
-                RestaurantsTableSeeder::class,
-                PlatesTableSeeder::class, 
-                OrdersTableSeeder::class, 
-                RatesTableSeeder::class
-            ]);
-        }
+        // "php artisan db:seed" runs all the seeders listed here.
+        // REMEMBER! They must be ordered as a cascade: first the tables
+        // that give data to the others (users -> types -> restaurants -> plates -> orders / rates).
+        // Every seeder is idempotent: it finds records by natural key (email, name, ...)
+        // and only creates what is missing, so it can be run again safely.
+        $this->call([
+            UsersTableSeeder::class,
+            TypesTableSeeder::class,
+            RestaurantsTableSeeder::class,
+            PlatesTableSeeder::class,
+            OrdersTableSeeder::class,
+            RatesTableSeeder::class,
+        ]);
     }
 }

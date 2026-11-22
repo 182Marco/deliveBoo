@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Type;
-
-use function PHPSTORM_META\type;
+use Illuminate\Support\Facades\DB;
 
 class TypesTableSeeder extends Seeder
 {
@@ -17,7 +16,6 @@ class TypesTableSeeder extends Seeder
 
 
         $types =[
-            // Mc Downalds Plates
             [
                 "name" => "Mexican",
                 "img" => "https://www.generazionepost.it/wp-content/uploads/2020/01/Cibo-Messicano.jpg",
@@ -58,11 +56,16 @@ class TypesTableSeeder extends Seeder
 
 
 
-        foreach($types as $type){
-            $new_type = new Type();
-            $new_type->name = $type['name'];
-            $new_type->img = $type['img'];
-            $new_type->save();
-        };
+        // idempotent: types are identified by their name.
+        DB::transaction(function () use ($types) {
+            foreach($types as $type){
+                $new_type = Type::firstOrNew(['name' => $type['name']]);
+                if ($new_type->exists) {
+                    continue;
+                }
+                $new_type->img = $type['img'];
+                $new_type->save();
+            }
+        });
     }
 }

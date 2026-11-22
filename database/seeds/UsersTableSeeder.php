@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
@@ -100,17 +101,23 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
-        foreach($users as $user){
-            // instance
-            $new_user = new User();
-            // populate
-            $new_user->name = $user['name'];
-            $new_user->last_name = $user['last_name'];
-            $new_user->email = $user['email'];
-            $new_user->password =  Hash::make($user['password']);
-            $new_user->vat_number = $user['vat_number'];
-            // save
-            $new_user->save();
+        // idempotent: users are identified by their email (UNIQUE).
+        // Existing users are never overwritten (password or data changed by hand stay as they are).
+        DB::transaction(function () use ($users) {
+            foreach($users as $user){
+                // instance (existing or new)
+                $new_user = User::firstOrNew(['email' => $user['email']]);
+                if ($new_user->exists) {
+                    continue;
+                }
+                // populate
+                $new_user->name = $user['name'];
+                $new_user->last_name = $user['last_name'];
+                $new_user->password =  Hash::make($user['password']);
+                $new_user->vat_number = $user['vat_number'];
+                // save
+                $new_user->save();
+            }
+        });
     }
-}
 }

@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 use App\Order;
+use App\Plate;
+use App\Restaurant;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OrdersTableSeeder extends Seeder
 {
@@ -12,241 +16,797 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-                // 'delivered','price','address','customer_name','customer_lastName','customer_phone','customer_address'
+        // data: restaurant = restaurant name, plates = plate names of that restaurant.
+        // The order price is not written here: it is the sum of the plate prices.
         $orders =[
-            // Mc Downalds Plates
+            // Mc Donald's orders
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "cristina.dami@gmail.com",
                 "customer_name" => "Cristina",
                 "customer_lastName" => "d'Amico",
                 "customer_address" => "via Cerretani, 14",
                 "customer_phone" => "334567882",
-                "price" => 4,     
                 "created_at" => "2021-01-03 11:09:12",
+                "plates" => ["My Selection BBQ", "Chicken Mayo", "Fries", "Happy Meal"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "flavio.corradini@libero.com",
                 "customer_name" => "Flavio",
                 "customer_lastName" => "Corradini",
                 "customer_address" => "via Visconti, 7",
                 "customer_phone" => "333824572",
-                "price" => 23.45,
-                "created_at" => "2021-01-10 8:05:12",           
+                "created_at" => "2021-01-10 8:05:12",
+                "plates" => ["Crispy McBacon", "Big Mac", "Hash Brown", "Coca-Cola Zero"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "edoardo.anselmi@libero.com",
                 "customer_name" => "Edoardo",
                 "customer_lastName" => "Anselmi",
                 "customer_address" => "via Turati, 25",
                 "customer_phone" => "3338904572",
-                "price" => 37.22, 
-                "created_at" => "2021-01-28 10:15:46",                        
+                "created_at" => "2021-01-28 10:15:46",
+                "plates" => ["Fanta", "Vanilla Milkshake", "Vanilla Cone"],
             ],
             [
-                "restaurant_id" => "14",
-                "customer_email" => "giulio.bonomi@libero.com", 
+                "restaurant" => "Mc Donald's",
+                "customer_email" => "giulio.bonomi@libero.com",
                 "customer_name" => "Giulio",
                 "customer_lastName" => "Bonomi",
                 "customer_address" => "via Vespri Siciliani, 12",
                 "customer_phone" => "333464572",
-                "price" => 24.75, 
-                "created_at" => "2021-02-13 17:53:08",                        
+                "created_at" => "2021-02-13 17:53:08",
+                "plates" => ["Chicken Mayo", "Fries", "Scrambled Eggs"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "carlo.Schicchi@yhaoo.com",
                 "customer_name" => "Carlo",
                 "customer_lastName" => "Schicchi",
                 "customer_address" => "via Pastrengo, 45",
                 "customer_phone" => "3478248972",
-                "price" => 9.7,    
-                "created_at" => "2021-03-19 11:23:01",                        
+                "created_at" => "2021-03-19 11:23:01",
+                "plates" => ["Big Mac", "Cheeseburger", "Vanilla Cone", "Coca-Cola Zero"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "marino.petacci@gmail.com",
                 "customer_name" => "Marino",
                 "customer_lastName" => "Petacci",
                 "customer_address" => "via goito, 22",
                 "customer_phone" => "32682678789",
-                "price" => 22.3,   
-                "created_at" => "2021-04-19 18:00:22",                        
+                "created_at" => "2021-04-19 18:00:22",
+                "plates" => ["McToast", "Scrambled Eggs", "Vanilla Cone", "McFlurry Bounty"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "luca.fracci@gmail.com",
                 "customer_name" => "Luca",
                 "customer_lastName" => "Fracci",
                 "customer_address" => "via Matteotti, 55",
                 "customer_phone" => "32982498772",
-                "price" => 41,
-                "created_at" => "2021-04-26 20:00:00",                    
+                "created_at" => "2021-04-26 20:00:00",
+                "plates" => ["Fries", "McToast", "Fruit Bag (Apple)", "Hash Brown"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "matteo.mene@gmail.com",
                 "customer_name" => "Matteo",
                 "customer_lastName" => "Meneguzzi",
                 "customer_address" => "via Rossi, 1",
                 "customer_phone" => "332537892",
-                "price" => 7,       
-                "created_at" => "2021-05-06 05:10:03",                    
+                "created_at" => "2021-05-06 05:10:03",
+                "plates" => ["Fanta", "Fruit Bag (Apple)", "Vanilla Cone"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "sarah.pro@gmail.com",
                 "customer_name" => "Sarah",
                 "customer_lastName" => "Proietti",
                 "customer_address" => "via Gialla, 8",
                 "customer_phone" => "332577982",
-                "price" => 9,        
-                "created_at" => "2021-05-07 10:55:07",                         
+                "created_at" => "2021-05-07 10:55:07",
+                "plates" => ["Crispy McBacon", "Cheeseburger", "McToast"],
             ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "marco.mi@gmail.com",
                 "customer_name" => "Marco",
                 "customer_lastName" => "Milza",
                 "customer_address" => "via Lunga, 4",
                 "customer_phone" => "334447892",
-                "price" => 28,    
-                "created_at" => "2021-06-01 07:23:29",                         
-            ], 
+                "created_at" => "2021-06-01 07:23:29",
+                "plates" => ["Chicken Mayo", "Fries", "Fanta", "Vanilla Cone"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "giulia__malta@fastweb.com",
                 "customer_name" => "Giulia",
                 "customer_lastName" => "Maltagliati",
                 "customer_address" => "via Lunga, 4",
                 "customer_phone" => "329997202",
-                "price" => 37.8,  
-                "created_at" => "2021-07-03 18:55:59",                         
-            ], 
+                "created_at" => "2021-07-03 18:55:59",
+                "plates" => ["Big Mac", "McFlurry Bounty", "Fruit Bag (Apple)", "Vanilla Milkshake", "Hash Brown", "Coca-Cola Zero"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "sabrinaVigano@gmail.com",
                 "customer_name" => "Sabrina",
                 "customer_lastName" => "Vigano",
                 "customer_address" => "via Pascoli, 13",
                 "customer_phone" => "3998971892",
-                "price" => 34.75,
-                "created_at" => "2021-08-23 23:15:19",                         
-            ], 
+                "created_at" => "2021-08-23 23:15:19",
+                "plates" => ["Chicken Mayo", "McToast", "Fanta", "Scrambled Eggs"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "marta_linzari@gmail.com",
                 "customer_name" => "Marta",
                 "customer_lastName" => "Linzari",
                 "customer_address" => "via Risorgimento, 36",
                 "customer_phone" => "33389790392",
-                "price" => 15.7,      
-                "created_at" => "2021-09-13 13:11:11",                         
-            ], 
+                "created_at" => "2021-09-13 13:11:11",
+                "plates" => ["Cheeseburger", "Fanta", "Fruit Bag (Apple)", "Coca-Cola Zero"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "pinodonati@gmail.com",
                 "customer_name" => "Pino",
                 "customer_lastName" => "Donati",
                 "customer_address" => "via Mazzini, 11",
                 "customer_phone" => "32901798792",
-                "price" => 15.7, 
-                "created_at" => "2021-09-22 13:25:33",                         
-            ], 
+                "created_at" => "2021-09-22 13:25:33",
+                "plates" => ["Crispy McBacon", "Fries", "Fanta"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "pinodonati@gmail.com",
                 "customer_name" => "Pino",
                 "customer_lastName" => "Donati",
                 "customer_address" => "via Mazzini, 11",
                 "customer_phone" => "32901798792",
-                "price" => 33.3, 
-                "created_at" => "2021-10-10 13:10:13",                         
-            ], 
+                "created_at" => "2021-10-10 13:10:13",
+                "plates" => ["My Selection BBQ", "Fries", "Coca-Cola Zero"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "pinodonati@gmail.com",
                 "customer_name" => "Pino",
                 "customer_lastName" => "Donati",
                 "customer_address" => "via Mazzini, 11",
                 "customer_phone" => "32901798792",
-                "price" => 22.9, 
-                "created_at" => "2021-11-07 07:29:19",                         
-            ], 
+                "created_at" => "2021-11-07 07:29:19",
+                "plates" => ["Crispy McBacon", "Big Mac", "Fries", "Fanta", "Vanilla Milkshake"],
+            ],
             [
-                "restaurant_id" => "14",
+                "restaurant" => "Mc Donald's",
                 "customer_email" => "marta_linzari@gmail.com",
                 "customer_name" => "Marta",
                 "customer_lastName" => "Linzari",
                 "customer_address" => "via Risorgimento, 36",
                 "customer_phone" => "33389790392",
-                "price" => 30.5,      
-                "created_at" => "2021-12-13 10:34:21",                         
-            ], 
+                "created_at" => "2021-12-13 10:34:21",
+                "plates" => ["Happy Meal", "Fries", "Coca-Cola Zero"],
+            ],
+            // 'O vesuvio orders
+            [
+                "restaurant" => "'O vesuvio",
+                "customer_email" => "federica.villa@gmail.com",
+                "customer_name" => "Federica",
+                "customer_lastName" => "Villa",
+                "customer_address" => "via Dante, 61",
+                "customer_phone" => "3182517000",
+                "created_at" => "2021-05-08 21:02:28",
+                "plates" => ["kapuziner barrel", "water glass bottle", "Marinara Pizza"],
+            ],
+            [
+                "restaurant" => "'O vesuvio",
+                "customer_email" => "giorgio.testa@gmail.com",
+                "customer_name" => "Giorgio",
+                "customer_lastName" => "Testa",
+                "customer_address" => "piazza Duomo, 15",
+                "customer_phone" => "3314260878",
+                "created_at" => "2021-03-27 11:47:06",
+                "plates" => ["kapuziner", "Margherita Pizza", "Tuna and Onion Pizza", "4 seasons pizza"],
+            ],
+            [
+                "restaurant" => "'O vesuvio",
+                "customer_email" => "roberta.caruso@gmail.com",
+                "customer_name" => "Roberta",
+                "customer_lastName" => "Caruso",
+                "customer_address" => "via Garibaldi, 29",
+                "customer_phone" => "3360973226",
+                "created_at" => "2021-11-15 21:53:17",
+                "plates" => ["Ortolana", "Marinara Pizza", "Diavola Pizza", "4 seasons pizza"],
+            ],
+            [
+                "restaurant" => "'O vesuvio",
+                "customer_email" => "valentina.ricci@gmail.com",
+                "customer_name" => "Valentina",
+                "customer_lastName" => "Ricci",
+                "customer_address" => "via Dante, 18",
+                "customer_phone" => "3400921369",
+                "created_at" => "2021-08-16 12:41:34",
+                "plates" => ["Tuna and Onion Pizza", "4 seasons pizza"],
+            ],
+            // Casa Guadalajara orders
+            [
+                "restaurant" => "Casa Guadalajara",
+                "customer_email" => "alessandro.ferri@gmail.com",
+                "customer_name" => "Alessandro",
+                "customer_lastName" => "Ferri",
+                "customer_address" => "via Cavour, 75",
+                "customer_phone" => "3804007775",
+                "created_at" => "2021-09-25 14:12:48",
+                "plates" => ["Guacamole", "Corn on the cob"],
+            ],
+            [
+                "restaurant" => "Casa Guadalajara",
+                "customer_email" => "riccardo.barbieri@gmail.com",
+                "customer_name" => "Riccardo",
+                "customer_lastName" => "Barbieri",
+                "customer_address" => "via Leopardi, 58",
+                "customer_phone" => "3849279795",
+                "created_at" => "2021-12-27 15:03:17",
+                "plates" => ["tortillas", "tacos"],
+            ],
+            [
+                "restaurant" => "Casa Guadalajara",
+                "customer_email" => "lorenzo.greco@gmail.com",
+                "customer_name" => "Lorenzo",
+                "customer_lastName" => "Greco",
+                "customer_address" => "via Cavour, 18",
+                "customer_phone" => "3761869814",
+                "created_at" => "2021-10-05 21:59:27",
+                "plates" => ["tacos", "Pozole", "Corn on the cob"],
+            ],
+            // Hyack orders
+            [
+                "restaurant" => "Hyack",
+                "customer_email" => "andrea.gatti@gmail.com",
+                "customer_name" => "Andrea",
+                "customer_lastName" => "Gatti",
+                "customer_address" => "via Marconi, 12",
+                "customer_phone" => "3564880891",
+                "created_at" => "2021-05-04 16:00:28",
+                "plates" => ["SPRING ROLL", "AVOCADO", "Combo M", "Sushi Tacos LOBSTER"],
+            ],
+            [
+                "restaurant" => "Hyack",
+                "customer_email" => "paola.marini@gmail.com",
+                "customer_name" => "Paola",
+                "customer_lastName" => "Marini",
+                "customer_address" => "viale Europa, 27",
+                "customer_phone" => "3246833296",
+                "created_at" => "2021-10-04 22:57:06",
+                "plates" => ["TWIN SALMON", "Tartare TUNA"],
+            ],
+            [
+                "restaurant" => "Hyack",
+                "customer_email" => "davide.conti@gmail.com",
+                "customer_name" => "Davide",
+                "customer_lastName" => "Conti",
+                "customer_address" => "via Marconi, 75",
+                "customer_phone" => "3892584925",
+                "created_at" => "2021-02-01 16:47:21",
+                "plates" => ["WAKAME", "EDAMAME BEANS", "DIABLO T", "Temari CRISPY LOBSTER"],
+            ],
+            [
+                "restaurant" => "Hyack",
+                "customer_email" => "tommaso.costa@gmail.com",
+                "customer_name" => "Tommaso",
+                "customer_lastName" => "Costa",
+                "customer_address" => "via Marconi, 62",
+                "customer_phone" => "3482048277",
+                "created_at" => "2021-03-24 12:02:00",
+                "plates" => ["EDAMAME BEANS", "SHRIMP", "Tartare TUNA"],
+            ],
+            [
+                "restaurant" => "Hyack",
+                "customer_email" => "federica.villa@gmail.com",
+                "customer_name" => "Federica",
+                "customer_lastName" => "Villa",
+                "customer_address" => "viale Europa, 68",
+                "customer_phone" => "3503544734",
+                "created_at" => "2021-04-09 20:32:17",
+                "plates" => ["TWIN SALMON", "Platters VEGETARIAN", "Temari TUNA TATAKI"],
+            ],
+            // thai food orders
+            [
+                "restaurant" => "thai food",
+                "customer_email" => "federica.villa@gmail.com",
+                "customer_name" => "Federica",
+                "customer_lastName" => "Villa",
+                "customer_address" => "via Verdi, 44",
+                "customer_phone" => "3789808954",
+                "created_at" => "2021-06-03 13:14:01",
+                "plates" => ["Green Curry", "Tom Yum Soup", "Som Tam", "Mango Sticky Rice"],
+            ],
+            [
+                "restaurant" => "thai food",
+                "customer_email" => "federica.villa@gmail.com",
+                "customer_name" => "Federica",
+                "customer_lastName" => "Villa",
+                "customer_address" => "viale Europa, 27",
+                "customer_phone" => "3844652798",
+                "created_at" => "2021-09-06 11:21:32",
+                "plates" => ["Green Curry", "Tom Yum Soup"],
+            ],
+            [
+                "restaurant" => "thai food",
+                "customer_email" => "alessandro.ferri@gmail.com",
+                "customer_name" => "Alessandro",
+                "customer_lastName" => "Ferri",
+                "customer_address" => "via Marconi, 62",
+                "customer_phone" => "3164141004",
+                "created_at" => "2021-06-09 11:12:26",
+                "plates" => ["Pad Thai", "Green Curry", "Tom Yum Soup", "Mango Sticky Rice"],
+            ],
+            // Il cacciatore orders
+            [
+                "restaurant" => "Il cacciatore",
+                "customer_email" => "paola.marini@gmail.com",
+                "customer_name" => "Paola",
+                "customer_lastName" => "Marini",
+                "customer_address" => "via Garibaldi, 53",
+                "customer_phone" => "3385865688",
+                "created_at" => "2021-12-24 12:29:44",
+                "plates" => ["Risotto ai Funghi Porcini", "Chestnut Tiramisu"],
+            ],
+            [
+                "restaurant" => "Il cacciatore",
+                "customer_email" => "lorenzo.greco@gmail.com",
+                "customer_name" => "Lorenzo",
+                "customer_lastName" => "Greco",
+                "customer_address" => "piazza Duomo, 37",
+                "customer_phone" => "3583021089",
+                "created_at" => "2021-11-19 22:41:33",
+                "plates" => ["Risotto ai Funghi Porcini", "Pheasant Terrine"],
+            ],
+            [
+                "restaurant" => "Il cacciatore",
+                "customer_email" => "silvia.lombardi@gmail.com",
+                "customer_name" => "Silvia",
+                "customer_lastName" => "Lombardi",
+                "customer_address" => "via Cavour, 69",
+                "customer_phone" => "3861568290",
+                "created_at" => "2021-08-28 15:27:45",
+                "plates" => ["Pappardelle al Cinghiale", "Risotto ai Funghi Porcini", "Pheasant Terrine", "Chestnut Tiramisu"],
+            ],
+            // Peri's orders
+            [
+                "restaurant" => "Peri's",
+                "customer_email" => "nicola.fontana@gmail.com",
+                "customer_name" => "Nicola",
+                "customer_lastName" => "Fontana",
+                "customer_address" => "via Dante, 49",
+                "customer_phone" => "3214024578",
+                "created_at" => "2021-06-09 15:38:14",
+                "plates" => ["Lobster", "Fish Wrapped in Grape Leaves"],
+            ],
+            [
+                "restaurant" => "Peri's",
+                "customer_email" => "elena.rinaldi@gmail.com",
+                "customer_name" => "Elena",
+                "customer_lastName" => "Rinaldi",
+                "customer_address" => "via Garibaldi, 17",
+                "customer_phone" => "3398955706",
+                "created_at" => "2021-12-01 21:15:25",
+                "plates" => ["Oysters", "Swordfish", "Lobster", "Pan-frying"],
+            ],
+            [
+                "restaurant" => "Peri's",
+                "customer_email" => "gabriele.pellegrini@gmail.com",
+                "customer_name" => "Gabriele",
+                "customer_lastName" => "Pellegrini",
+                "customer_address" => "via Marconi, 19",
+                "customer_phone" => "3244599760",
+                "created_at" => "2021-05-16 21:35:17",
+                "plates" => ["Sea Salad", "Pan-frying", "Fish Wrapped in Grape Leaves"],
+            ],
+            [
+                "restaurant" => "Peri's",
+                "customer_email" => "giorgio.testa@gmail.com",
+                "customer_name" => "Giorgio",
+                "customer_lastName" => "Testa",
+                "customer_address" => "via Roma, 17",
+                "customer_phone" => "3673091040",
+                "created_at" => "2021-06-27 16:11:50",
+                "plates" => ["Swordfish", "Spaghetti with clams", "Pan-frying", "Fish Wrapped in Grape Leaves"],
+            ],
+            // La cabrera orders
+            [
+                "restaurant" => "La cabrera",
+                "customer_email" => "ilaria.bianchi@gmail.com",
+                "customer_name" => "Ilaria",
+                "customer_lastName" => "Bianchi",
+                "customer_address" => "corso Italia, 3",
+                "customer_phone" => "3924440570",
+                "created_at" => "2021-06-22 16:09:46",
+                "plates" => ["Bife de Chorizo", "Empanadas Criollas", "Choripan"],
+            ],
+            [
+                "restaurant" => "La cabrera",
+                "customer_email" => "valentina.ricci@gmail.com",
+                "customer_name" => "Valentina",
+                "customer_lastName" => "Ricci",
+                "customer_address" => "viale Europa, 80",
+                "customer_phone" => "3802167235",
+                "created_at" => "2021-08-06 11:00:14",
+                "plates" => ["Empanadas Criollas", "Choripan", "Papas Fritas"],
+            ],
+            [
+                "restaurant" => "La cabrera",
+                "customer_email" => "valentina.ricci@gmail.com",
+                "customer_name" => "Valentina",
+                "customer_lastName" => "Ricci",
+                "customer_address" => "via Leopardi, 27",
+                "customer_phone" => "3457040879",
+                "created_at" => "2021-01-22 12:09:12",
+                "plates" => ["Bife de Chorizo", "Empanadas Criollas", "Choripan", "Papas Fritas"],
+            ],
+            // the garage orders
+            [
+                "restaurant" => "the garage",
+                "customer_email" => "nicola.fontana@gmail.com",
+                "customer_name" => "Nicola",
+                "customer_lastName" => "Fontana",
+                "customer_address" => "corso Italia, 56",
+                "customer_phone" => "3936418191",
+                "created_at" => "2021-12-24 14:55:36",
+                "plates" => ["Tuna and Onion Pizza", "Italian Pecorino, Parsley Sandwich", "Softshell Crab Sandwich with Slaw"],
+            ],
+            [
+                "restaurant" => "the garage",
+                "customer_email" => "beatrice.sala@gmail.com",
+                "customer_name" => "Beatrice",
+                "customer_lastName" => "Sala",
+                "customer_address" => "piazza Duomo, 66",
+                "customer_phone" => "3425842951",
+                "created_at" => "2021-01-17 20:54:02",
+                "plates" => ["Diavola Pizza", "Tuna and Onion Pizza", "Softshell Crab Sandwich with Slaw"],
+            ],
+            [
+                "restaurant" => "the garage",
+                "customer_email" => "francesca.moro@gmail.com",
+                "customer_name" => "Francesca",
+                "customer_lastName" => "Moro",
+                "customer_address" => "via Garibaldi, 73",
+                "customer_phone" => "3437096973",
+                "created_at" => "2021-04-23 19:03:54",
+                "plates" => ["Margherita Pizza", "Diavola Pizza", "4 seasons pizza", "Softshell Crab Sandwich with Slaw"],
+            ],
+            // La lanterna orders
+            [
+                "restaurant" => "La lanterna",
+                "customer_email" => "lorenzo.greco@gmail.com",
+                "customer_name" => "Lorenzo",
+                "customer_lastName" => "Greco",
+                "customer_address" => "piazza Duomo, 16",
+                "customer_phone" => "3730647870",
+                "created_at" => "2021-10-10 22:08:02",
+                "plates" => ["Fregola with Clams", "Culurgiones", "Porceddu"],
+            ],
+            [
+                "restaurant" => "La lanterna",
+                "customer_email" => "davide.conti@gmail.com",
+                "customer_name" => "Davide",
+                "customer_lastName" => "Conti",
+                "customer_address" => "via Dante, 56",
+                "customer_phone" => "3884659024",
+                "created_at" => "2021-09-02 16:54:43",
+                "plates" => ["Fregola with Clams", "Culurgiones", "Porceddu", "Bottarga Carpaccio"],
+            ],
+            [
+                "restaurant" => "La lanterna",
+                "customer_email" => "alessandro.ferri@gmail.com",
+                "customer_name" => "Alessandro",
+                "customer_lastName" => "Ferri",
+                "customer_address" => "via Garibaldi, 64",
+                "customer_phone" => "3751796415",
+                "created_at" => "2021-05-10 16:13:49",
+                "plates" => ["Fregola with Clams", "Culurgiones", "Bottarga Carpaccio", "Seadas"],
+            ],
+            // Green food orders
+            [
+                "restaurant" => "Green food",
+                "customer_email" => "elena.rinaldi@gmail.com",
+                "customer_name" => "Elena",
+                "customer_lastName" => "Rinaldi",
+                "customer_address" => "via Marconi, 48",
+                "customer_phone" => "3551419405",
+                "created_at" => "2021-04-11 22:30:58",
+                "plates" => ["Buddha Bowl", "Lentil Soup"],
+            ],
+            [
+                "restaurant" => "Green food",
+                "customer_email" => "roberta.caruso@gmail.com",
+                "customer_name" => "Roberta",
+                "customer_lastName" => "Caruso",
+                "customer_address" => "corso Italia, 24",
+                "customer_phone" => "3633916353",
+                "created_at" => "2021-09-17 20:49:26",
+                "plates" => ["Buddha Bowl", "Vegan Burger", "Lentil Soup"],
+            ],
+            [
+                "restaurant" => "Green food",
+                "customer_email" => "nicola.fontana@gmail.com",
+                "customer_name" => "Nicola",
+                "customer_lastName" => "Fontana",
+                "customer_address" => "piazza Duomo, 5",
+                "customer_phone" => "3250480911",
+                "created_at" => "2021-07-13 17:50:54",
+                "plates" => ["Buddha Bowl", "Tofu Poke"],
+            ],
+            [
+                "restaurant" => "Green food",
+                "customer_email" => "nicola.fontana@gmail.com",
+                "customer_name" => "Nicola",
+                "customer_lastName" => "Fontana",
+                "customer_address" => "via Verdi, 56",
+                "customer_phone" => "3904544017",
+                "created_at" => "2021-08-02 11:07:11",
+                "plates" => ["Buddha Bowl", "Lentil Soup", "Tofu Poke", "Raw Chocolate Cake"],
+            ],
+            // La gondola orders
+            [
+                "restaurant" => "La gondola",
+                "customer_email" => "riccardo.barbieri@gmail.com",
+                "customer_name" => "Riccardo",
+                "customer_lastName" => "Barbieri",
+                "customer_address" => "via Verdi, 7",
+                "customer_phone" => "3244965930",
+                "created_at" => "2021-08-11 17:02:45",
+                "plates" => ["the Squid", "The Tart", "Three chocolate mousse", "Brunello di Montalcino"],
+            ],
+            [
+                "restaurant" => "La gondola",
+                "customer_email" => "chiara.galli@gmail.com",
+                "customer_name" => "Chiara",
+                "customer_lastName" => "Galli",
+                "customer_address" => "via Cavour, 16",
+                "customer_phone" => "3256132372",
+                "created_at" => "2021-01-13 11:31:55",
+                "plates" => ["the Lamb", "Warm fish salad", "Puligny Montrachet"],
+            ],
+            [
+                "restaurant" => "La gondola",
+                "customer_email" => "beatrice.sala@gmail.com",
+                "customer_name" => "Beatrice",
+                "customer_lastName" => "Sala",
+                "customer_address" => "via Garibaldi, 55",
+                "customer_phone" => "3701928513",
+                "created_at" => "2021-09-20 13:39:12",
+                "plates" => ["the Squid", "The Swordfish"],
+            ],
+            [
+                "restaurant" => "La gondola",
+                "customer_email" => "beatrice.sala@gmail.com",
+                "customer_name" => "Beatrice",
+                "customer_lastName" => "Sala",
+                "customer_address" => "via Marconi, 79",
+                "customer_phone" => "3848398639",
+                "created_at" => "2021-02-25 20:54:27",
+                "plates" => ["the Lamb", "Warm fish salad", "Puligny Montrachet"],
+            ],
+            // Il Rancio orders
+            [
+                "restaurant" => "Il Rancio",
+                "customer_email" => "lorenzo.greco@gmail.com",
+                "customer_name" => "Lorenzo",
+                "customer_lastName" => "Greco",
+                "customer_address" => "piazza Duomo, 72",
+                "customer_phone" => "3514399904",
+                "created_at" => "2021-09-24 13:22:29",
+                "plates" => ["Umbrian Black Truffle Strangozzi", "Roast Pigeon", "Norcia Lentil Soup", "Rocciata"],
+            ],
+            [
+                "restaurant" => "Il Rancio",
+                "customer_email" => "andrea.gatti@gmail.com",
+                "customer_name" => "Andrea",
+                "customer_lastName" => "Gatti",
+                "customer_address" => "corso Italia, 65",
+                "customer_phone" => "3726656386",
+                "created_at" => "2021-09-03 18:07:05",
+                "plates" => ["Umbrian Black Truffle Strangozzi", "Roast Pigeon", "Norcia Lentil Soup"],
+            ],
+            [
+                "restaurant" => "Il Rancio",
+                "customer_email" => "martina.colombo@gmail.com",
+                "customer_name" => "Martina",
+                "customer_lastName" => "Colombo",
+                "customer_address" => "viale Europa, 75",
+                "customer_phone" => "3222142226",
+                "created_at" => "2021-08-11 19:48:56",
+                "plates" => ["Umbrian Black Truffle Strangozzi", "Torta al Testo", "Roast Pigeon", "Norcia Lentil Soup"],
+            ],
+            [
+                "restaurant" => "Il Rancio",
+                "customer_email" => "tommaso.costa@gmail.com",
+                "customer_name" => "Tommaso",
+                "customer_lastName" => "Costa",
+                "customer_address" => "corso Italia, 19",
+                "customer_phone" => "3522225041",
+                "created_at" => "2021-04-03 19:04:14",
+                "plates" => ["Umbrian Black Truffle Strangozzi", "Torta al Testo", "Norcia Lentil Soup", "Rocciata"],
+            ],
+            [
+                "restaurant" => "Il Rancio",
+                "customer_email" => "tommaso.costa@gmail.com",
+                "customer_name" => "Tommaso",
+                "customer_lastName" => "Costa",
+                "customer_address" => "piazza Duomo, 40",
+                "customer_phone" => "3705299053",
+                "created_at" => "2021-02-06 15:24:59",
+                "plates" => ["Torta al Testo", "Roast Pigeon", "Norcia Lentil Soup", "Rocciata"],
+            ],
+            // Burger King orders
+            [
+                "restaurant" => "Burger King",
+                "customer_email" => "roberta.caruso@gmail.com",
+                "customer_name" => "Roberta",
+                "customer_lastName" => "Caruso",
+                "customer_address" => "piazza Duomo, 46",
+                "customer_phone" => "3476792383",
+                "created_at" => "2021-08-15 22:13:25",
+                "plates" => ["CRAZY CHEESE BBQ", "TRIPLE WHOPPER", "French Fries"],
+            ],
+            [
+                "restaurant" => "Burger King",
+                "customer_email" => "gabriele.pellegrini@gmail.com",
+                "customer_name" => "Gabriele",
+                "customer_lastName" => "Pellegrini",
+                "customer_address" => "corso Italia, 24",
+                "customer_phone" => "3629003020",
+                "created_at" => "2021-11-06 12:09:32",
+                "plates" => ["DOUBLE CHICKEN BBQ", "CRAZY CHEESE BBQ"],
+            ],
+            [
+                "restaurant" => "Burger King",
+                "customer_email" => "paola.marini@gmail.com",
+                "customer_name" => "Paola",
+                "customer_lastName" => "Marini",
+                "customer_address" => "viale Europa, 38",
+                "customer_phone" => "3237845952",
+                "created_at" => "2021-09-03 16:03:28",
+                "plates" => ["MIXED SALAD", "KING FUSION PERUGINA"],
+            ],
+            [
+                "restaurant" => "Burger King",
+                "customer_email" => "elena.rinaldi@gmail.com",
+                "customer_name" => "Elena",
+                "customer_lastName" => "Rinaldi",
+                "customer_address" => "via Leopardi, 26",
+                "customer_phone" => "3252021190",
+                "created_at" => "2021-05-27 15:52:28",
+                "plates" => ["CRAZY CHEESE BBQ", "KING FUSION PERUGINA"],
+            ],
+            [
+                "restaurant" => "Burger King",
+                "customer_email" => "alessandro.ferri@gmail.com",
+                "customer_name" => "Alessandro",
+                "customer_lastName" => "Ferri",
+                "customer_address" => "corso Italia, 46",
+                "customer_phone" => "3549711529",
+                "created_at" => "2021-11-27 13:07:50",
+                "plates" => ["TRIPLE WHOPPER", "DOUBLE CHEESE BACON", "KING FUSION PERUGINA"],
+            ],
+            // Starbucks orders
+            [
+                "restaurant" => "Starbucks",
+                "customer_email" => "ilaria.bianchi@gmail.com",
+                "customer_name" => "Ilaria",
+                "customer_lastName" => "Bianchi",
+                "customer_address" => "via Garibaldi, 33",
+                "customer_phone" => "3492023100",
+                "created_at" => "2021-12-24 11:11:18",
+                "plates" => ["Caramel Macchiato", "Blueberry Muffin"],
+            ],
+            [
+                "restaurant" => "Starbucks",
+                "customer_email" => "federica.villa@gmail.com",
+                "customer_name" => "Federica",
+                "customer_lastName" => "Villa",
+                "customer_address" => "via Verdi, 49",
+                "customer_phone" => "3160621060",
+                "created_at" => "2021-09-02 14:41:40",
+                "plates" => ["Caramel Macchiato", "Frappuccino Mocha", "Blueberry Muffin"],
+            ],
+            [
+                "restaurant" => "Starbucks",
+                "customer_email" => "gabriele.pellegrini@gmail.com",
+                "customer_name" => "Gabriele",
+                "customer_lastName" => "Pellegrini",
+                "customer_address" => "via Roma, 43",
+                "customer_phone" => "3750488733",
+                "created_at" => "2021-05-12 18:25:59",
+                "plates" => ["Caffe Latte", "Chocolate Chip Cookie"],
+            ],
+            [
+                "restaurant" => "Starbucks",
+                "customer_email" => "roberta.caruso@gmail.com",
+                "customer_name" => "Roberta",
+                "customer_lastName" => "Caruso",
+                "customer_address" => "piazza Duomo, 5",
+                "customer_phone" => "3721801874",
+                "created_at" => "2021-03-12 17:04:16",
+                "plates" => ["Caffe Latte", "Blueberry Muffin"],
+            ],
+            // Esencia orders
+            [
+                "restaurant" => "Esencia",
+                "customer_email" => "federica.villa@gmail.com",
+                "customer_name" => "Federica",
+                "customer_lastName" => "Villa",
+                "customer_address" => "via Marconi, 69",
+                "customer_phone" => "3316119677",
+                "created_at" => "2021-10-21 15:44:23",
+                "plates" => ["Gazpacho", "Jamon Iberico"],
+            ],
+            [
+                "restaurant" => "Esencia",
+                "customer_email" => "paola.marini@gmail.com",
+                "customer_name" => "Paola",
+                "customer_lastName" => "Marini",
+                "customer_address" => "viale Europa, 7",
+                "customer_phone" => "3377600398",
+                "created_at" => "2021-10-14 17:40:03",
+                "plates" => ["Tortilla Espanola", "Jamon Iberico", "Crema Catalana"],
+            ],
+            [
+                "restaurant" => "Esencia",
+                "customer_email" => "giorgio.testa@gmail.com",
+                "customer_name" => "Giorgio",
+                "customer_lastName" => "Testa",
+                "customer_address" => "via Cavour, 72",
+                "customer_phone" => "3791907586",
+                "created_at" => "2021-11-25 12:32:17",
+                "plates" => ["Patatas Bravas", "Gazpacho", "Tortilla Espanola", "Jamon Iberico"],
+            ],
         ];
 
-        foreach($orders as $order){
-            // instance                               
-            $new_order = new Order();
-            // populate
-            $new_order->restaurant_id = $order['restaurant_id'];
-            $new_order->customer_email = $order['customer_email'];
-            $new_order->customer_name = $order['customer_name'];
-            $new_order->customer_lastName = $order['customer_lastName'];
-            $new_order->customer_address = $order['customer_address'];
-            $new_order->customer_phone = $order['customer_phone'];
-            $new_order->price = $order['price'];
-            $new_order->created_at = $order['created_at'];
-            
-            // save
-            $new_order->save();
-        } 
+        // idempotent: an order is identified by (restaurant, customer email, created_at),
+        // plates are looked up by name inside the restaurant of the order.
+        DB::transaction(function () use ($orders) {
+            foreach($orders as $order){
+                $restaurant = Restaurant::where('name', $order['restaurant'])->first();
+                if (!$restaurant) {
+                    throw new RuntimeException("OrdersTableSeeder: restaurant {$order['restaurant']} not found, run RestaurantsTableSeeder first.");
+                }
 
-        // seeding many to many with orders
-        //    seedind the many to many with types
+                $plates = Plate::where('restaurant_id', $restaurant->id)
+                    ->whereIn('name', $order['plates'])
+                    ->get();
+                if ($plates->count() !== count($order['plates'])) {
+                    throw new RuntimeException("OrdersTableSeeder: some plates of an order for {$order['restaurant']} were not found, run PlatesTableSeeder first.");
+                }
 
-           $cristina_Dam = Order::find(1);
-           $cristina_Dam ->plates()->sync([2,5,6,8]); 
+                // normalized date, so "8:05:12" and "08:05:12" are the same order
+                $created_at = Carbon::parse($order['created_at'])->format('Y-m-d H:i:s');
 
-           $flavio_corra = Order::find(2);
-           $flavio_corra ->plates()->sync([1,3,16,18]); 
+                // instance (existing or new)
+                $new_order = Order::firstOrNew([
+                    'restaurant_id' => $restaurant->id,
+                    'customer_email' => $order['customer_email'],
+                    'created_at' => $created_at,
+                ]);
+                if (!$new_order->exists) {
+                    // populate
+                    $new_order->customer_name = $order['customer_name'];
+                    $new_order->customer_lastName = $order['customer_lastName'];
+                    $new_order->customer_address = $order['customer_address'];
+                    $new_order->customer_phone = $order['customer_phone'];
+                    $new_order->price = round($plates->sum('price'), 2);
+                    $new_order->created_at = $created_at;
+                    // save
+                    $new_order->save();
+                }
 
-           $edo_anselmi = Order::find(3);
-           $edo_anselmi ->plates()->sync([10,14,15]);
-
-           $giulio_bonomi = Order::find(4);
-           $giulio_bonomi ->plates()->sync([5,6,12]);
-
-           $carlo_Schicchi= Order::find(5);
-           $carlo_Schicchi->plates()->sync([3,4,15,18]);
-
-           $marino_petacci= Order::find(6);
-           $marino_petacci->plates()->sync([9,12,15,17]);
-
-           $luca_fracci= Order::find(7);
-           $luca_fracci->plates()->sync([6,9,13,16]);
-
-           $matteo_mene= Order::find(8);
-           $matteo_mene->plates()->sync([10,13,15]);
-
-           $sarah_pro= Order::find(9);
-           $sarah_pro->plates()->sync([1,4,9]);
-
-           $marco_mi= Order::find(10);
-           $marco_mi->plates()->sync([5,6,10,15]);
-
-           $giulia_maltagliati= Order::find(11);
-           $giulia_maltagliati->plates()->sync([3,7,13,14,16,18]);
-     
-           $sabrina_vigano= Order::find(12);
-           $sabrina_vigano->plates()->sync([5,9,10,12]);
-
-           $marta_linzari= Order::find(13);
-           $marta_linzari->plates()->sync([4,10,13,18]);
-
-           $pino_donati= Order::find(14);
-           $pino_donati->plates()->sync([1,6,10]);
-        }
+                // seeding the many to many with plates (never duplicates, never detaches)
+                $new_order->plates()->syncWithoutDetaching($plates->pluck('id')->all());
+            }
+        });
+    }
 }
