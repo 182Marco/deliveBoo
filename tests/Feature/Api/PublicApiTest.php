@@ -164,6 +164,20 @@ class PublicApiTest extends TestCase
         });
     }
 
+    // the restaurateur sees the proof of payment: provider and transaction id
+    public function testOrderDetailShowsTheProviderAndTheTransactionId()
+    {
+        Mail::fake();
+        $this->postJson('/api/orders', $this->orderPayload())->assertOk();
+        $order = Order::latest('id')->first();
+
+        $this->actingAs($order->restaurant->user)
+            ->get(route('admin.orders.show', $order->id))
+            ->assertOk()
+            ->assertSee('Demo payment (offline)')
+            ->assertSee($order->transaction_id);
+    }
+
     public function testDeclinedPaymentReturnsAnErrorAndKeepsAFailedOrderOutOfTheAdmin()
     {
         Mail::fake();

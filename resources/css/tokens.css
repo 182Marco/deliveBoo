@@ -1,0 +1,112 @@
+/*
+ * Foodsy design tokens, art direction "Mercato": a contemporary food market.
+ * Porcelain surfaces, rosemary-green depth, paprika actions, pantry accents (olive, saffron, tomato).
+ * Every colour, size and timing of the interface lives here; shared by the customer site
+ * (resources/css/site.css) and the partner area (resources/css/admin.css).
+ *
+ * Breakpoints cannot be custom properties inside @media: the whole project uses
+ * 600px (large phone), 900px (tablet) and 1200px (desktop), mobile first (min-width).
+ */
+:root {
+    /* brand: #d0682c is the official colour (logo, favicon, large brand surfaces with dark text) */
+    --brand: #d0682c;
+    /* paprika for actions: white text on it passes WCAG AA (5.5:1), #d0682c does not (3.6:1) */
+    --brand-strong: #a8501c;
+    --brand-deep: #85400f;
+    --brand-soft: #f8dcc8;
+    --brand-wash: #fcefe4;
+
+    /* inks: warm near-black, never pure grey */
+    --ink: #1c1a17;
+    --ink-soft: #4a453e;
+    --ink-muted: #6e675e;
+    --ink-inverse: #faf8f4;
+    --ink-inverse-soft: #c9d1c8;
+
+    /* surfaces: porcelain page, white cards, oat wells */
+    --paper: #faf8f4;
+    --surface: #ffffff;
+    --oat: #f1ece3;
+    --oat-deep: #e6ded1;
+    --line: #e8e1d6;
+    --line-strong: #d5cbbb;
+    --scrim: rgb(20 24 20 / 0.6);
+
+    /* rosemary: the dark of the brand (footer, featured bands, bag) */
+    --forest: #1f2b23;
+    --forest-soft: #2e3d32;
+    --forest-line: #3c4c40;
+
+    /* pantry accents and states */
+    --olive: #56682b;
+    --olive-soft: #e7ecd6;
+    --saffron: #e5a13a;
+    --saffron-soft: #fbebd0;
+    --saffron-ink: #7a5000;
+    --tomato: #c4372c;
+    --tomato-soft: #fae1dd;
+
+    /* photo scrim: text over photos is always on this gradient */
+    --photo-fade: linear-gradient(180deg, rgb(20 24 20 / 0) 35%, rgb(20 24 20 / 0.78) 100%);
+
+    /* type: Bricolage Grotesque for display, names and prices; Figtree for reading */
+    --font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+    --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-md: 1.125rem;
+    --text-lg: 1.375rem;
+    --text-xl: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
+    --text-2xl: clamp(2rem, 1.5rem + 2vw, 3rem);
+    --text-3xl: clamp(2.75rem, 1.6rem + 4.6vw, 5.25rem);
+    --leading-tight: 1.02;
+    --leading-snug: 1.25;
+    --leading-normal: 1.55;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-bold: 700;
+    --weight-black: 800;
+    --tracking-display: -0.035em;
+    --tracking-title: -0.02em;
+    --tracking-caps: 0.12em;
+
+    /* spacing: 4px base */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 2.5rem;
+    --space-8: 3rem;
+    --space-9: 4rem;
+    --space-10: 6rem;
+    --section: clamp(3.5rem, 2.25rem + 5vw, 6.5rem);
+
+    /* radius: soft rectangles for photos and cards, pills for actions;
+       the tray (the bar under the cloche of the logo) is the graphic motif */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 28px;
+    --radius-pill: 999px;
+    --tray-width: 28px;
+    --tray-height: 4px;
+
+    /* elevation: warm-tinted */
+    --shadow-sm: 0 1px 2px rgb(28 26 23 / 0.06), 0 2px 6px rgb(28 26 23 / 0.04);
+    --shadow-md: 0 12px 28px -14px rgb(28 26 23 / 0.28);
+    --shadow-lg: 0 28px 60px -24px rgb(28 26 23 / 0.42);
+
+    /* motion */
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --duration-fast: 140ms;
+    --duration: 240ms;
+
+    /* layout */
+    --container: 1280px;
+    --container-narrow: 760px;
+    --gutter: clamp(1rem, 4vw, 2.5rem);
+    --header-height: 68px;
+}

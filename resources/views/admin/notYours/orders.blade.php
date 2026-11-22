@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Not available')
+
 @section('content')
-<div class="container mt-5">
-    <h1>Here there are orders not belonging to one of your restaurants... </h1>
-    <h2 class="mt-4">we're sure it was just a mistake happened by accident :-)</h2>
+<div class="ui-container ui-container--narrow">
+    <div class="ui-empty">
+        <img class="ui-empty-mark" src="{{ asset('images/foodsy-mark.svg') }}" alt="">
+        <h1 class="ui-subtitle">These orders belong to another partner</h1>
+        <p class="ui-muted">You can only manage your own restaurants. It was probably just a wrong link.</p>
+        <a class="ui-btn ui-btn--primary" href="{{ route('admin.restaurants.index') }}">Go to your restaurants</a>
+    </div>
 </div>
 @endsection
-
-
-

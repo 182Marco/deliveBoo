@@ -1,33 +1,53 @@
 @extends('layouts.app')
 
+@section('title', 'Statistics')
+
 @section('content')
-{{-- confirm box to avoid user clicks by mistake--}}
-<section class="container">
-    {{-- <h1>{{$related_orders}}</h1> --}}
-        <a class="btn btn-warning btn-sm font-weight-bold my-3 mr-4" href="{{ route('admin.orders.index', $restaurant_id) }}">BACK TO ORDERS INDEX</a> 
-        <canvas id="expensessChart"></canvas>
-        <p class="mt-5">The average expense: <span id="txtAverageEl"></span></p>
-        <p class="mb-5">The greatest company fan is: <span id="biggestFan"></span>, who bought: <span id="purchaseTimes"></span> times and spent <span id="biggestFanExpense"></span> in total</p>
-        <canvas id="fansChart"></canvas>
-        <canvas id="incomeByMonthPoints" class="mt-5"></canvas>
-        <p class="mt-5">Current month income is <span id="monthIncomeEL"></span></p>
-        <p >Current year income is <span id="monthYearEL"></span></p>
-        <p >Current month income represents <span id="incomePercEl"></span> of annual income  </p> 
-        <canvas id="incomeMonth" ></canvas>
-</section>
+<div class="ui-container">
+    <a class="adm-back" href="{{ url()->previous() }}"><x-icon name="arrow-left" size="18" /> Back</a>
+
+    <div class="adm-page-head">
+        <div class="adm-page-intro">
+            <p class="ui-eyebrow">Statistics</p>
+            <h1 class="ui-title">How your kitchen is doing</h1>
+            <p class="ui-muted">Computed from paid orders only.</p>
+        </div>
+    </div>
+
+    {{-- the values are written by resources/js/jsBack/chart.js --}}
+    <div class="adm-kpis">
+        <div class="adm-kpi">
+            <span class="adm-kpi-label">Average order</span>
+            <span class="adm-kpi-value" id="txtAverageEl">–</span>
+        </div>
+        <div class="adm-kpi">
+            <span class="adm-kpi-label">This month</span>
+            <span class="adm-kpi-value" id="monthIncomeEL">–</span>
+        </div>
+        <div class="adm-kpi">
+            <span class="adm-kpi-label">This year</span>
+            <span class="adm-kpi-value" id="monthYearEL">–</span>
+        </div>
+        <div class="adm-kpi">
+            <span class="adm-kpi-label">Month share of year</span>
+            <span class="adm-kpi-value" id="incomePercEl">–</span>
+        </div>
+    </div>
+
+    <div class="ui-notice adm-flash">
+        <x-icon name="user" />
+        <p>Your most loyal guest is <strong id="biggestFan">–</strong>: <strong id="purchaseTimes">–</strong> orders, <strong id="biggestFanExpense">–</strong> spent in total.</p>
+    </div>
+
+    <div class="adm-charts">
+        <div class="adm-chart"><canvas id="expensessChart"></canvas></div>
+        <div class="adm-chart"><canvas id="fansChart"></canvas></div>
+        <div class="adm-chart"><canvas id="incomeByMonthPoints"></canvas></div>
+        <div class="adm-chart"><canvas id="incomeMonth"></canvas></div>
+    </div>
+</div>
 
 {{-- passing json to js --}}
-<script type="text/javascript">const relatedOrders = {!! json_encode($related_orders) !!};</script>
- {{-- the releted script --}}
- @vite('resources/js/jsBack/chart.js')
-@endsection 
-
-
-<style>
-    p{
-        font-size: 1.4rem
-    }
-    p > span{
-        color: #5b6acd
-    }
-</style>
+<script>const relatedOrders = {!! json_encode($related_orders) !!};</script>
+@vite('resources/js/jsBack/chart.js')
+@endsection

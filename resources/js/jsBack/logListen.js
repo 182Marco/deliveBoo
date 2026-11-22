@@ -8,6 +8,6 @@ logBtn?.addEventListener("click", () => localStorage.setItem(LOG_KEY, true));
 
 // removed once shown: coming back to restaurant.index later must not show it again
 if (localStorage.getItem(LOG_KEY) && loggedMsg) {
-    loggedMsg.classList.remove("no-show");
+    loggedMsg.hidden = false;
     localStorage.removeItem(LOG_KEY);
 }

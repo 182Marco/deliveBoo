@@ -1,130 +1,59 @@
 @extends('layouts.app')
 
+@section('title', 'Edit ' . $restaurant->name)
+
 @section('content')
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-               <h1 class="my-3">EDIT RESTAURANT</h1>
-            </div >
-        </div >
-
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-
-
-                <form action="{{ route('admin.restaurants.update', $restaurant->id)}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PATCH')
-
-
-                    {{-- Name --}}
-                    <div>
-                        <label class="form-label" for="name">Name*</label>
-                        <input class="form-control @error('name')
-                            is-invalid
-                        @enderror" type="text" id="name" name="name" value="{{old('name', $restaurant->name)}}">
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    
-
-                    {{-- Phone --}}
-                    <div>
-                        <label class="form-label" for="phone">Phone*</label>
-                        <input class="form-control @error('phone')
-                            is-invalid
-                        @enderror" type="text" id="phone" name="phone" value="{{old('phone', $restaurant->phone)}}">
-
-                        @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    {{-- City --}}
-                    <div>
-                        <label class="form-label" for="city">City*</label>
-                        <input class="form-control @error('city')
-                            is-invalid
-                        @enderror" type="text" id="city" name="city" value="{{old('city', $restaurant->city)}}">
-
-                        @error('city')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                {{-- Address --}}
-                    <div class="mb-3">
-                        <label class="form-label" for="address">Address*</label>
-                        <input class="form-control @error('address')
-                            is-invalid
-                        @enderror" type="text" id="address" name="address" value="{{old('address', $restaurant->address)}}">
-
-                        @error('address')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                {{--Add Types--}}
-                <h4>Types</h4>
-                <div class="mb-3">
-
-                    @foreach ($types as $type)
-                    <span class="d-inline-block mr-3">
-                        <input type="checkbox" name="types[]" id="type {{ $loop->iteration }}" value="{{ $type->id}}"
-                        
-                        @if ($errors->any() && in_array($type->id, old('types'))) 
-                            checked
-                        @elseif (! $errors->any() && $restaurant->types->contains($type->id))
-                            checked    
-                        @endif>
-
-                        <label for="type {{ $loop->iteration }}"> {{ $type->name }} </label>
-                    </span>
-                    @endforeach
-
-                    @error('types')
-                    <div>{{ $message }}</div>
-                        
-                    @enderror
-                </div>
-
-                    {{-- Add Restaurant Image --}}
-                    <div class="mb-3">
-                        <div>
-                            <label for="img" class="form-label">Restaurant Image</label>
-                        </div>
-
-                     @if ($restaurant->img)
-                        <div class="mb-3">
-                            <img width="200" src="{{ asset('storage/' . $restaurant->img) }}" alt="{{ $restaurant->name }}">
-                        </div>
-                    @endif
-
-                        <input type="file" name="img" id="img">
-                        @error('img')
-                            <div>{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <button class="btn btn-success btn-block my-5" type="submit">Update</button>    
-                </form>
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary text-right" href="{{ route('admin.restaurants.index') }}">Restaurants</a>
-                </div>
-            </div>
+<div class="ui-container">
+    <a class="adm-back" href="{{ route('admin.restaurants.index') }}"><x-icon name="arrow-left" size="18" /> Your restaurants</a>
+    <div class="adm-page-head">
+        <div class="adm-page-intro">
+            <p class="ui-eyebrow">Edit restaurant</p>
+            <h1 class="ui-title">{{ $restaurant->name }}</h1>
+            <p class="ui-muted">Fields marked with <span class="ui-required">*</span> are required.</p>
         </div>
     </div>
 
-    
+    <form class="adm-form ui-card ui-card--pad" action="{{ route('admin.restaurants.update', $restaurant->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+        <div class="adm-form-grid">
+            <x-field name="name" label="Name" :value="old('name', $restaurant->name)" star wide />
+            <x-field name="phone" label="Phone" type="tel" :value="old('phone', $restaurant->phone)" star />
+            <x-field name="city" label="City" :value="old('city', $restaurant->city)" star />
+            <x-field name="address" label="Address" :value="old('address', $restaurant->address)" star wide />
+        </div>
+
+        <fieldset class="adm-fieldset">
+            <legend class="adm-legend">Cuisines</legend>
+            <div class="adm-checks">
+                @foreach ($types as $type)
+                    <label class="ui-check" for="type{{ $loop->iteration }}">
+                        <input class="ui-check-input" type="checkbox" name="types[]" id="type{{ $loop->iteration }}" value="{{ $type->id }}"
+                            @checked($errors->any() ? in_array($type->id, old('types', [])) : $restaurant->types->contains($type->id))>
+                        {{ $type->name }}
+                    </label>
+                @endforeach
+            </div>
+            @error('types')
+                <p class="ui-field-error" role="alert">{{ $message }}</p>
+            @enderror
+        </fieldset>
+
+        <div class="ui-field">
+            <label class="ui-label" for="img">Cover photo</label>
+            @if ($restaurant->img)
+                <x-photo class="adm-current-photo" :src="$restaurant->img" :alt="$restaurant->name" />
+            @endif
+            <input class="ui-file" type="file" name="img" id="img" accept="image/*">
+            @error('img')
+                <p class="ui-field-error" role="alert">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="adm-form-foot">
+            <button class="ui-btn ui-btn--primary" type="submit">Save changes</button>
+            <a class="ui-btn ui-btn--ghost" href="{{ route('admin.restaurants.index') }}">Cancel</a>
+        </div>
+    </form>
+</div>
 @endsection

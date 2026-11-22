@@ -1,42 +1,48 @@
 @extends('layouts.app')
 
+@section('title', 'Orders')
+
 @section('content')
-<div class="container">
-    
-    <a class="btn btn-warning btn-sm font-weight-bold my-3 mr-4" href="{{ route('admin.restaurants.index', $restaurant_id) }}">BACK TO RESTAURANTS INDEX</a> 
-    <a class="btn btn-primary btn-sm font-weight-bold my-3" href="{{ route('admin.stats.show', $restaurant_id) }}">SHOW ME GRAPHS</a> 
+<div class="ui-container">
+    <a class="adm-back" href="{{ route('admin.restaurants.index') }}"><x-icon name="arrow-left" size="18" /> Your restaurants</a>
 
-    <h2 class="my-3 font-weight-bold">All your orders</h2>
+    <div class="adm-page-head">
+        <div class="adm-page-intro">
+            <p class="ui-eyebrow">Orders</p>
+            <h1 class="ui-title">Paid orders</h1>
+            <p class="ui-muted">Newest first.</p>
+        </div>
+        <a class="ui-btn ui-btn--dark" href="{{ route('admin.stats.show', $restaurant_id) }}"><x-icon name="chart" size="18" /> Statistics</a>
+    </div>
 
-    <table class="table"> 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Customer Name</th>
-                <th>Customer Last Name</th>
-                <th>Customer Address</th>
-                <th>Date</th>
-                <th>Price</th>
-                {{-- <th colspan="3">Buttons</th> --}}
-                <th>Buttons</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($orders as $order)              
-              <tr>
-                  
-                <td>{{ $order->id}}</td>
-                <td>{{ $order->customer_name }}</td>
-                <td>{{ $order->customer_lastName }}</td>
-                <td>{{ $order->customer_address }}</td>
-                <td>{{ $order->created_at->toDateString() }}</td>
-                <td>{{number_format($order->price,2)}} €</td>         
-                <td> <a class="btn btn-success btn-sm font-weight-bold" href="{{ route('admin.orders.show', $order->id) }}">SHOW</a> </td>
-                </td>
-              </tr>  
+    @if ($orders->isEmpty())
+        <div class="ui-empty">
+            <img class="ui-empty-mark" src="{{ asset('images/foodsy-mark.svg') }}" alt="">
+            <p class="ui-subtitle">No orders yet</p>
+            <p class="ui-muted">Paid orders will show up here as soon as guests check out.</p>
+        </div>
+    @else
+        {{-- kitchen tickets, newest first: who, where, when and how much at a glance --}}
+        <ul class="adm-tickets">
+            @foreach ($orders as $order)
+                <li class="adm-ticket">
+                    <div class="adm-ticket-top">
+                        <span class="adm-mono">#{{ $order->id }}</span>
+                        <span class="adm-ticket-date">{{ $order->created_at->format('j M Y') }}</span>
+                    </div>
+                    <h2 class="adm-ticket-name">{{ $order->customer_name }} {{ $order->customer_lastName }}</h2>
+                    <p class="adm-meta"><x-icon name="pin" size="16" /> {{ $order->customer_address }}</p>
+                    <div class="adm-ticket-foot">
+                        <span class="adm-ticket-total ui-price">€{{ number_format($order->price, 2) }}</span>
+                        <a class="ui-btn ui-btn--outline ui-btn--sm" href="{{ route('admin.orders.show', $order->id) }}">
+                            Details <x-icon name="arrow-right" size="16" />
+                        </a>
+                    </div>
+                </li>
             @endforeach
-        </tbody>
-    </table>  
+        </ul>
+    @endif
+
     {{ $orders->links() }}
 </div>
 @endsection

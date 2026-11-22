@@ -1,182 +1,60 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-		<style>
-			* {
-				font-family: sans-serif !important;
-			}
-		</style>
-
-    <style type="text/css">
-        html,
-        body {
-	        margin: 0 auto !important;
-            padding: 0 !important;
-            height: 100% !important;
-            width: 100% !important;
-        }
-        * {
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        /* What is does: Centers email on Android 4.4 */
-        div[style*="margin: 16px 0"] {
-            margin:0 !important;
-        }
-        table,
-        td {
-            mso-table-lspace: 0pt !important;
-            mso-table-rspace: 0pt !important;
-        }
-        table {
-            border-spacing: 0 !important;
-            border-collapse: collapse !important;
-            table-layout: fixed !important;
-            Margin: 0 auto !important;
-        }
-				.shadow-table{
-					box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-				}
-        table table table {
-            table-layout: auto;
-        }
-        img {
-            -ms-interpolation-mode:bicubic;
-        }
-        .mobile-link--footer a,
-        a[x-apple-data-detectors] {
-            color:inherit !important;
-            text-decoration: underline !important;
-        }
-    </style>
-
-    <style>
-        .button-td,
-        .button-a {
-            transition: all 100ms ease-in;
-        }
-        .button-td:hover,
-        .button-a:hover {
-            background: #555555 !important;
-            border-color: #555555 !important;
-        }
-        /* Media Queries */
-        @media screen and (max-width: 600px) {
-            .email-container {
-                width: 100% !important;
-                margin: auto !important;
-                box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-            }
-            .fluid,
-            .fluid-centered {
-                max-width: 100% !important;
-                height: auto !important;
-                Margin-left: auto !important;
-                Margin-right: auto !important;
-            }
-            .fluid-centered {
-                Margin-left: auto !important;
-                Margin-right: auto !important;
-            }
-            .stack-column,
-            .stack-column-center {
-                display: block !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                direction: ltr !important;
-            }
-            .stack-column-center {
-                text-align: center !important;
-            }
-            .center-on-narrow {
-                text-align: center !important;
-                display: block !important;
-                Margin-left: auto !important;
-                Margin-right: auto !important;
-                float: none !important;
-            }
-            table.center-on-narrow {
-                display: inline-block !important;
-            }
-        }
-    </style>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Your Foodsy order is confirmed</title>
 </head>
-<body bgcolor="#E0F3F9" width="100%" style="Margin: 0;">
-    <center style="width: 100%; background: #E0F3F9;">
-
-
-
-        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" style="margin: auto;" class="email-container">
-
+{{-- inline styles only, table layout: what every mail client understands. Colours from resources/css/tokens.css --}}
+<body style="margin:0; padding:0; background-color:#faf8f4;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#faf8f4;">
         <tr>
-				<td>
-					<img src="https://static-www.quotidianopiemontese.it/wp-content/2021/01/Delivero-posate.jpg" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px;">
-				</td>
+            <td align="center" style="padding:32px 16px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px; background-color:#ffffff; border:1px solid #e8e1d6; border-radius:18px;">
+                    <tr>
+                        <td style="padding:32px 40px 0; font-family:Arial, Helvetica, sans-serif; font-size:26px; font-weight:900; letter-spacing:-0.5px; color:#1c1a17;">
+                            <img src="{{ url('/images/foodsy-mark.png') }}" width="36" height="36" alt="" style="vertical-align:middle; border:0;">
+                            <span style="vertical-align:middle;">Foodsy</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:28px 40px 8px; font-family:Arial, Helvetica, sans-serif; font-size:30px; font-weight:900; letter-spacing:-0.8px; line-height:1.15; color:#1c1a17;">
+                            Thank you, {{ $contact['customer_name'] }}!
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0 40px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; color:#4a453e;">
+                            Your order is confirmed and the kitchen is getting it ready. Your favourite food is on its way.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0 40px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f1ece3; border-radius:12px;">
+                                <tr>
+                                    <td style="padding:18px 20px 6px; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; color:#6e675e;">Delivering to</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:0 20px 16px; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#1c1a17;">{{ $contact['customer_address'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px 20px 18px; border-top:1px dashed #d5cbbb; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#1c1a17;">
+                                        <strong>Total paid</strong>
+                                        <span style="float:right; font-family:Arial, Helvetica, sans-serif; font-size:22px; font-weight:900; color:#a8501c;">€{{ number_format((float) $contact['price'], 2) }}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="padding:28px 40px 36px;">
+                            <a href="{{ url('/') }}" style="display:inline-block; padding:14px 26px; border-radius:999px; background-color:#a8501c; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; text-decoration:none;">Order again on Foodsy</a>
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin:20px 0 0; font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#6e675e;">© {{ date('Y') }} Foodsy · Good food, beautifully delivered.</p>
+            </td>
         </tr>
-
-            <tr>
-                <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color:#2E3333;">
-                    <h1>Thank You {{  $contact['customer_name']}}!</h1>
-                    Your favorite food is on its way!
-                    <br><br>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" valign="top" style="padding: 10px;">
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                        <tr>
-                            
-                            <td class="stack-column-center">
-                                <table cellspacing="0" cellpadding="0" border="0">
-                                    <tr>
-                                        <td style="padding: 10px; text-align: center">
-                                            <img src="https://www.cookipedia.co.uk/wiki/images/thumb/1/17/Mini_bangers_and_mash_party_food_recipe.jpg/300px-Mini_bangers_and_mash_party_food_recipe.jpg" width="270" height="270" alt="alt_text" border="0" class="fluid">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                            The food you love, delivered to your home!
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                     
-                            <td class="stack-column-center">
-                                <table cellspacing="0" cellpadding="0" border="0">
-                                    <tr>
-                                        <td style="padding: 10px; text-align: center">
-                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/300px-Eq_it-na_pizza-margherita_sep2005_sml.jpg" width="270" height="270" alt="alt_text" border="0" class="fluid">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
-                                            The great classics that warm the heart, perfect at any time!
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-<tr>
-    <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color:#2E3333;">
-        <strong>Total: </strong> {{  $contact['price']}} €.
-        <strong>Delivering to: </strong> {{  $contact['customer_address']}}.
-        <br><br>
-        <h2>Thank you for choosing Deliveroo!</h2>
-        <br><br>
-        @component('mail::button', ['url' => url('/')])
-Deliveroo
-@endcomponent
-        </table>
-    </td>
-</tr>
-    </center>
+    </table>
 </body>
 </html>

@@ -5,9 +5,10 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-// order confirmation sent to the customer (subject: "Ordered Message", from the class name)
+// order confirmation sent to the customer: a plain HTML view with inline styles (mail clients ignore stylesheets)
 class OrderedMessage extends Mailable
 {
     use Queueable, SerializesModels;
@@ -17,8 +18,13 @@ class OrderedMessage extends Mailable
     {
     }
 
+    public function envelope(): Envelope
+    {
+        return new Envelope(subject: 'Your Foodsy order is confirmed');
+    }
+
     public function content(): Content
     {
-        return new Content(markdown: 'mails.orderedMessage');
+        return new Content(view: 'mails.orderedMessage');
     }
 }

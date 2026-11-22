@@ -22,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // the admin views are Bootstrap 4: since Laravel 8 ->links() defaults to Tailwind
-        Paginator::useBootstrapFour();
+        // pagination markup of the Foodsy design system (resources/views/pagination/foodsy.blade.php)
+        Paginator::defaultView('pagination.foodsy');
+        Paginator::defaultSimpleView('pagination.foodsy');
     }
 }

@@ -1,38 +1,53 @@
 @extends('layouts.app')
 
+@section('title', $plate->name)
+
 @section('content')
+<div class="ui-container">
+    <a class="adm-back" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}"><x-icon name="arrow-left" size="18" /> Menu</a>
 
-<div class="container">
-    <h2 class="mt-3 font-weight-bold">Piatto: {{ $plate->name }}</h2>
-
-    <div class="my-5">
-        <a class="btn btn-warning font-weight-bold" href="{{ route('admin.plates.edit', $plate->slug) }}">Edit</a>
-        <a class="btn btn-primary font-weight-bold ml-3" href="{{ route('admin.restaurants.index') }}"> back to Restaurants</a>
-        <a class="btn btn-primary font-weight-bold ml-3" href="{{ route('admin.plates.index', $plate->restaurant_id) }}">Plates List</a>
+    <div class="adm-page-head">
+        <div class="adm-page-intro">
+            <p class="ui-eyebrow">Dish</p>
+            <h1 class="ui-title">{{ $plate->name }}</h1>
+        </div>
+        <div class="adm-actions">
+            <a class="ui-btn ui-btn--outline" href="{{ route('admin.plates.edit', $plate->slug) }}"><x-icon name="edit" size="18" /> Edit</a>
+            <form class="delete-post-form adm-inline-form" action="{{ route('admin.plate.delete', $plate->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="ui-btn ui-btn--danger" type="submit"><x-icon name="trash" size="18" /> Delete</button>
+            </form>
+        </div>
     </div>
 
-    {{-- plate Image --}}
-    <div class="mb-5 row">
-        @if ($plate->img)
-            <div class="col-md-6">
-                <img class="img-fluid" src="{{ asset('storage/' . $plate->img) }}" alt="{{$plate->name}}">
+    <div class="adm-detail">
+        <x-photo class="adm-detail-photo" :src="$plate->img" :alt="$plate->name" />
+        <dl class="adm-facts">
+            <div class="adm-fact">
+                <dt class="adm-fact-label">Price</dt>
+                <dd class="adm-fact-value ui-price">€{{ number_format($plate->price, 2) }}</dd>
             </div>
-        @endif
+            <div class="adm-fact">
+                <dt class="adm-fact-label">Status</dt>
+                <dd class="adm-fact-value">
+                    @if ($plate->visible == 1)
+                        <span class="ui-badge ui-badge--basil">Available</span>
+                    @else
+                        <span class="ui-badge ui-badge--tomato">Unavailable</span>
+                    @endif
+                </dd>
+            </div>
+            <div class="adm-fact">
+                <dt class="adm-fact-label">Description</dt>
+                <dd class="adm-fact-value">{{ $plate->description }}</dd>
+            </div>
+            <div class="adm-fact">
+                <dt class="adm-fact-label">Ingredients</dt>
+                <dd class="adm-fact-value">{{ $plate->ingredients }}</dd>
+            </div>
+        </dl>
     </div>
-
-
-    <p> <strong>Description: </strong><em> {{ $plate->description }}</em></p>
-    <p> <strong>Ingredients:</strong><em> {{ $plate->ingredients }}</em></p>
-    <p> <strong>Price:</strong><em> {{ number_format($plate->price,2)}} €</em></p>
-    <p> <strong>Now available: </strong> <em>@if($plate->visible == 1) yes @else no @endif </em> </p>
-
-    <form class="delete-post-form font-weight-bold" action="{{ route('admin.plate.delete', $plate->id )}}" method="POST">
-        @csrf
-        @method('DELETE')
-        <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
-    </form>
-
 </div>
-{{-- confirm box to avoid user clicks by mistake--}}
 @include('layouts/deleteConfirm')
-@endsection 
+@endsection

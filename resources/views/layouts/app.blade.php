@@ -1,86 +1,64 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-
-    <!-- Scripts -->
-    @vite('resources/js/app.js')
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    @vite('resources/sass/app.scss')
+    <meta name="theme-color" content="#faf8f4">
+    <title>@yield('title', 'Partner hub') · Foodsy</title>
+    @include('partials.favicon')
+    @vite(['resources/css/admin.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+    <a class="adm-skip" href="#main">Skip to content</a>
+    <header class="adm-header">
+        <div class="ui-container adm-header-inner">
+            <a class="adm-brand" href="{{ auth()->check() ? route('admin.restaurants.index') : url('/') }}" aria-label="Foodsy partner hub">
+                <x-logo />
+                <span class="adm-brand-tag">Partner</span>
+            </a>
 
-                <!--LOGO-->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="nav-logo" src="{{ asset('/images/logoColBrand.png') }}">
+            <nav class="adm-nav" aria-label="Partner">
+                @auth
+                    <a class="adm-nav-link {{ request()->routeIs('admin.*') ? 'adm-nav-link--active' : '' }}" href="{{ route('admin.restaurants.index') }}">Restaurants</a>
+                @endauth
+                <a class="adm-nav-link" href="{{ url('/') }}" target="_blank" rel="noopener">
+                    View site <x-icon name="external" size="16" />
                 </a>
+            </nav>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                        <!--LINK HOME SITE-->
-                        <a class="nav-link" target="_blank" href="{{ url('/') }}">View Site</a>
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.restaurants.index') }}">Restaurants</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+            <div class="adm-account">
+                @guest
+                    <a class="ui-btn ui-btn--ghost ui-btn--sm" href="{{ route('login') }}">Log in</a>
+                    @if (Route::has('register'))
+                        <a class="ui-btn ui-btn--primary ui-btn--sm" href="{{ route('register') }}">Join Foodsy</a>
+                    @endif
+                @else
+                    <details class="adm-menu">
+                        <summary class="adm-menu-trigger">
+                            <span class="adm-avatar" aria-hidden="true">{{ mb_strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}</span>
+                            <span class="adm-menu-name">{{ Auth::user()->name }}</span>
+                            <x-icon name="chevron-down" size="16" />
+                        </summary>
+                        <div class="adm-menu-panel">
+                            <a class="adm-menu-item" href="{{ route('admin.restaurants.index') }}">
+                                <x-icon name="store" size="18" /> My restaurants
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="adm-menu-item">
+                                    <x-icon name="logout" size="18" /> Log out
+                                </button>
+                            </form>
+                        </div>
+                    </details>
+                @endguest
             </div>
-        </nav>
+        </div>
+    </header>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <main id="main" class="adm-main" tabindex="-1">
+        @yield('content')
+    </main>
 </body>
 </html>

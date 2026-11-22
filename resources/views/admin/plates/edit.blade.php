@@ -1,113 +1,61 @@
 @extends('layouts.app')
+
+@section('title', 'Edit ' . $plate->name)
+
 @section('content')
-
-    <div class="container">
-        
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                
-                <h2 class="my-3 font-weight-bold">EDIT THE PLATE</h2>
-
-                <a class="btn btn-primary font-weight-bold" href="{{ route('admin.plates.index', $plate->slug) }}">Plates List</a>
-
-                <form class="delete-post-form font-weight-bold mt-3" action="{{ route('admin.plate.delete', $plate->id )}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
-                </form>
-
-                <form action="{{ route('admin.plates.update', $plate->id)}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    @method('PATCH')
-
-
-                    {{-- Name --}}
-                    <div class="my-2">
-                        <label class="form-label" for="name">Name*</label>
-                        <input class="form-control @error('name')
-                            is-invalid
-                        @enderror" type="text" id="name" name="name" value="{{old('name', $plate->name)}}">
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>    
-                        @enderror
-                    </div>
-
-                    {{-- description --}}
-                    <div class="my-2">
-                        <label class="form-label" for="description">description*</label>
-                        <textarea class="form-control" @error('description') is-invalid @enderror name="description"
-                         id="description" cols="30" rows="4">{{old('description', $plate->description)}}
-                        </textarea>
-
-                        @error('description')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>    
-                        @enderror
-                    </div>
-
-                    {{-- ingredients --}}
-                    <div class="my-2">
-                        <label class="form-label" for="ingredients">ingredients*</label>
-                        <input class="form-control @error('ingredients')
-                            is-invalid
-                        @enderror" type="text" id="ingredients" name="ingredients" value="{{old('ingredients', $plate->ingredients)}}">
-                    
-                        @error('ingredients')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>    
-                        @enderror
-                    </div>
- 
-                    {{-- price --}}
-                    <div class="my-2">
-                        <label class="form-label" for="price">price*</label>
-                        <input class="form-control @error('price')
-                            is-invalid
-                        @enderror" type="text" id="price" name="price" value="{{old('price', $plate->price)}}">
-
-                        @error('price')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>    
-                        @enderror
-                    </div>
-                    
-                    {{-- Is visible --}}
-                    <div class="my-3">
-                        <p class="font-weight-bold my-0 d-inline-block mr-2">Available now?</p>
-
-                        <label id="yes_visible">yes</label>
-                        <input type="radio" name="visible" id="yes_visible" value="1" @if(old('visible')) checked  @endif>
-
-                        <label id="no_visible">no</label>
-                        <input type="radio" name="visible" id="no_visible" value="0" @if(!old('visible')) checked @endif>
-                    </div>
-
-                    {{-- Add plate Image --}}
-                    <div class="my-2">
-                            <label for="img" class="form-label font-weight-bold">plate Image: </label> 
-                     @if ($plate->img)
-                        <div class="mb-3">
-                            <img width="200" src="{{ asset('storage/' . $plate->img) }}" alt="{{ $plate->name }}">
-                        </div>
-                    @endif
-                        <input class="d-inline-block ml-2" type="file" name="img" id="img">
-                        @error('img')
-                            <div>{{ $message }}</div>
-                        @enderror
-                    </div>
-    
-                    <button class="mt-3 btn btn-primary font-weight-bold" type="submit">Update</button>
-                </form>
-                </div>
-            </div>
+<div class="ui-container">
+    <a class="adm-back" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}"><x-icon name="arrow-left" size="18" /> Menu</a>
+    <div class="adm-page-head">
+        <div class="adm-page-intro">
+            <p class="ui-eyebrow">Edit dish</p>
+            <h1 class="ui-title">{{ $plate->name }}</h1>
+            <p class="ui-muted">Fields marked with <span class="ui-required">*</span> are required.</p>
         </div>
+        <form class="delete-post-form adm-inline-form" action="{{ route('admin.plate.delete', $plate->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="ui-btn ui-btn--danger" type="submit"><x-icon name="trash" size="18" /> Delete dish</button>
+        </form>
     </div>
 
-    
-@endsection 
+    <form class="adm-form ui-card ui-card--pad" action="{{ route('admin.plates.update', $plate->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+        <div class="adm-form-grid">
+            <x-field name="name" label="Name" :value="old('name', $plate->name)" star />
+            <x-field name="price" label="Price (€)" inputmode="decimal" :value="old('price', $plate->price)" star />
+            <x-field name="description" label="Description" as="textarea" :value="old('description', $plate->description)" star wide />
+            <x-field name="ingredients" label="Ingredients" :value="old('ingredients', $plate->ingredients)" hint="Separate them with commas." star wide />
+        </div>
+
+        <fieldset class="adm-fieldset">
+            <legend class="adm-legend">Available now?</legend>
+            <div class="adm-checks">
+                <label class="ui-check" for="yes_visible">
+                    <input class="ui-check-input" type="radio" name="visible" id="yes_visible" value="1" @checked(old('visible', $plate->visible))> Yes, guests can order it
+                </label>
+                <label class="ui-check" for="no_visible">
+                    <input class="ui-check-input" type="radio" name="visible" id="no_visible" value="0" @checked(!old('visible', $plate->visible))> Not right now
+                </label>
+            </div>
+        </fieldset>
+
+        <div class="ui-field">
+            <label class="ui-label" for="img">Photo</label>
+            @if ($plate->img)
+                <x-photo class="adm-current-photo" :src="$plate->img" :alt="$plate->name" />
+            @endif
+            <input class="ui-file" type="file" name="img" id="img" accept="image/*">
+            @error('img')
+                <p class="ui-field-error" role="alert">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="adm-form-foot">
+            <button class="ui-btn ui-btn--primary" type="submit">Save changes</button>
+            <a class="ui-btn ui-btn--ghost" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}">Cancel</a>
+        </div>
+    </form>
+</div>
+@include('layouts/deleteConfirm')
+@endsection

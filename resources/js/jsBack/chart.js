@@ -12,6 +12,11 @@ import {
     sum
 } from "./chart.utils.js";
 
+// type and colours of the partner area (resources/css/tokens.css)
+Chart.defaults.font.family = "'Figtree', system-ui, sans-serif";
+Chart.defaults.color = "#4a453e";
+Chart.defaults.borderColor = "#e8e1d6";
+
 const setText = (selector, text) => {
     document.querySelector(selector).textContent = text;
 };
@@ -22,7 +27,7 @@ const orders = relatedOrders;
 
 // every order and the average
 const average = averageExpense(orders);
-setText("#txtAverageEl", `${average} €`);
+setText("#txtAverageEl", `€${average}`);
 drawChart("#expensessChart", expensesChart(orders, average));
 
 // customers who bought more than once
@@ -30,7 +35,7 @@ const spendthrifts = spendthriftsOf(orders);
 const champion = biggestSpendthrift(spendthrifts);
 setText("#biggestFan", `${champion.name} ${champion.lastName}`);
 setText("#purchaseTimes", `${champion.purchaseTimes}`);
-setText("#biggestFanExpense", `${champion.totalExpenses.toFixed(2)} €`);
+setText("#biggestFanExpense", `€${champion.totalExpenses.toFixed(2)}`);
 drawChart("#fansChart", fansChart(spendthrifts));
 
 // income month by month and current month against the whole year
@@ -39,7 +44,7 @@ drawChart("#incomeByMonthPoints", monthlyChart(incomes));
 
 const monthIncome = currentMonthIncome(incomes, new Date().getMonth());
 const yearIncome = sum(incomes);
-setText("#monthIncomeEL", `${monthIncome.toFixed(2)} €`);
-setText("#monthYearEL", `${yearIncome.toFixed(2)} €`);
-setText("#incomePercEl", `${incomeShare(monthIncome, yearIncome)} %`);
+setText("#monthIncomeEL", `€${monthIncome.toFixed(2)}`);
+setText("#monthYearEL", `€${yearIncome.toFixed(2)}`);
+setText("#incomePercEl", `${incomeShare(monthIncome, yearIncome)}%`);
 drawChart("#incomeMonth", monthVsYearChart(monthIncome, yearIncome));

@@ -1,0 +1,5 @@
+/* customer site (Vue SPA): imported once by resources/js/vue.js */
+@import "./tokens.css";
+@import "./fonts.css";
+@import "./base.css";
+@import "./ui.css";

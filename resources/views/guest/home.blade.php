@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
     <head>
-        <!-- Scripts -->
-        @vite('resources/js/vue.js')
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Scripts -->
-        <title>Delivero</title>
-        {{-- Font Awesome --}}
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' integrity='sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==' crossorigin='anonymous'/>
+        <title>Foodsy · Good food, beautifully delivered</title>
+        <meta name="description" content="Order from the best-loved restaurants in town and enjoy restaurant-quality dishes at home.">
+        <meta name="theme-color" content="#faf8f4">
+        @include('partials.favicon')
+        @vite('resources/js/vue.js')
     </head>
-    <body class="body-guest">
+    <body>
         <div id="root"></div>
     </body>
 </html>

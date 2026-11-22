@@ -1,25 +1,16 @@
 @extends('layouts.app')
 
+@section('title', 'Partner hub')
+
+{{-- not routed: the partner home is RestaurantController@index --}}
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <p class="mb-3">{{ __('Successfully logged in!') }}</p>  
-                    <span >Click here to see you're restaurants</span>
-                    <a href="{{ route('admin.restaurants.index') }}" class="btn btn-success ml-3">my restaurants</a>
-                </div>
-            </div>
-        </div>
+<div class="ui-container ui-container--narrow">
+    @if (session('status'))
+        <div class="ui-notice ui-notice--success adm-flash" role="status">{{ session('status') }}</div>
+    @endif
+    <div class="ui-empty">
+        <p class="ui-subtitle">You are logged in</p>
+        <a class="ui-btn ui-btn--primary" href="{{ route('admin.restaurants.index') }}">My restaurants</a>
     </div>
 </div>
 @endsection
