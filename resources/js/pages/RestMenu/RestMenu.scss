@@ -1,0 +1,83 @@
+@import "../../../sass/variables";
+@import "../../../sass/mixins";
+@import "../../../sass/reset";
+@import "../../../sass/utilities";
+
+.cont {
+    margin-top: 80px;
+}
+
+.txt.box {
+    @include media-desk-first(tablet) {
+        padding: 0 20px;
+    }
+}
+
+.items-box {
+    display: flex;
+    align-items: center;
+    @include media-desk-first(l-tablet) {
+        flex-direction: column;
+        margin: 0;
+        margin-bottom: 30px;
+    }
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 2.3rem;
+    line-height: 36px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background-color: #f7f7f7;
+    padding-bottom: 0px;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.img-box {
+    margin-right: 30px;
+    width: 370px;
+    height: 280px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+    @include media-desk-first(desktop) {
+        padding-left: 20px;
+    }
+    @include media-desk-first(tablet) {
+        padding-left: 0;
+        width: 80vw;
+        height: 190px;
+    }
+    img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+.little-title {
+    display: inline-block;
+    margin-right: 20px;
+    color: #888;
+}
+
+.label {
+    display: inline-block;
+    background-color: #198dcc;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 8px 15px 0 0;
+}

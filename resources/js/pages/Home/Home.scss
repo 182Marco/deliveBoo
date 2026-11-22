@@ -1,0 +1,10 @@
+@import "../../../sass/variables";
+@import "../../../sass/mixins";
+@import "../../../sass/reset";
+@import "../../../sass/utilities";
+
+.main {
+    @include media-desk-first(desktop) {
+        padding: 0 20px;
+    }
+}
