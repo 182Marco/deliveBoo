@@ -580,6 +580,21 @@
     background-color: var(--oat);
 }
 
+/* tiles refused: a note over the map, the circles stay visible and usable */
+.plat-map-notice {
+    position: absolute;
+    right: var(--space-3);
+    bottom: var(--space-6);
+    left: var(--space-3);
+    z-index: 1000;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--saffron-soft);
+    color: var(--saffron-ink);
+    font-size: var(--text-sm);
+    box-shadow: var(--shadow-md);
+}
+
 .plat-map-status {
     padding: var(--space-5);
     color: var(--ink-muted);

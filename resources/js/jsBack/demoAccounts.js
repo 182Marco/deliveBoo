@@ -4,6 +4,10 @@
 // the value differs, it is back.
 
 const HIDDEN = "auth-demo-trigger--hidden";
+const DOT_ACTIVE = "auth-demo-dot--active";
+
+// index of the card at the start of a horizontal row of equal cards
+const cardInView = (scrollLeft, step) => (step > 0 ? Math.round(scrollLeft / step) : 0);
 
 // strict equality with one of the demo emails (no trimming, no case folding)
 const isDemoEmail = (value, emails) => emails.includes(value);
@@ -37,7 +41,25 @@ const initDemoAccounts = root => {
         trigger.setAttribute("aria-hidden", String(hidden));
     };
 
-    trigger.addEventListener("click", () => openDialog(dialog));
+    // under 900px the accounts are a swipeable row: the dots follow it and jump to a card
+    const list = dialog.querySelector(".auth-demo-list");
+    const items = list ? [...list.children] : [];
+    const dots = [...dialog.querySelectorAll("[data-demo-dot]")];
+    const markDot = index => dots.forEach((dot, i) => {
+        dot.classList.toggle(DOT_ACTIVE, i === index);
+        dot.setAttribute("aria-current", String(i === index));
+    });
+    const step = () => (items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : 0);
+    list?.addEventListener("scroll", () => markDot(Math.min(cardInView(list.scrollLeft, step()), items.length - 1)), { passive: true });
+    dots.forEach((dot, i) =>
+        dot.addEventListener("click", () => items[i]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" }))
+    );
+
+    trigger.addEventListener("click", () => {
+        if (list) list.scrollLeft = 0;
+        markDot(0);
+        openDialog(dialog);
+    });
     dialog.querySelector("[data-demo-close]")?.addEventListener("click", () => closeDialog(dialog));
     // a click on the backdrop (outside the panel) closes it
     dialog.addEventListener("click", event => {
@@ -66,4 +88,4 @@ const initDemoAccounts = root => {
 
 initDemoAccounts(document);
 
-export { initDemoAccounts, isDemoEmail };
+export { cardInView, initDemoAccounts, isDemoEmail };

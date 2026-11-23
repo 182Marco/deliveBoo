@@ -44,6 +44,13 @@
                 </li>
             @endforeach
         </ul>
+        {{-- under 900px the cards are a swipeable row: the dots say which one is in view --}}
+        <div class="auth-demo-dots">
+            @foreach (config('demo.accounts') as $account)
+                <button type="button" @class(['auth-demo-dot', 'auth-demo-dot--active' => $loop->first]) data-demo-dot="{{ $loop->index }}"
+                    aria-label="{{ __('partner.auth.demo.slide', ['n' => $loop->iteration, 'total' => $loop->count]) }}"></button>
+            @endforeach
+        </div>
     </dialog>
     @vite('resources/js/jsBack/demoAccounts.js')
 @endif

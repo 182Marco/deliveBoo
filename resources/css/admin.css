@@ -818,15 +818,17 @@
     pointer-events: none;
 }
 
-/* phones: a bottom sheet; from 600px a centred card */
+/* phones: the whole screen; from 600px a centred card as tall as its content; the accounts are a
+   swipeable row up to 900px and three columns after it (never a vertical scroll) */
 .auth-dialog {
     width: 100%;
     max-width: none;
-    max-height: calc(100dvh - var(--space-7));
-    margin: auto 0 0;
-    padding: clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem);
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: var(--space-4);
     border: 0;
-    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    border-radius: 0;
     background-color: var(--surface);
     color: var(--ink);
     box-shadow: var(--shadow-lg);
@@ -867,35 +869,75 @@
 }
 
 .auth-dialog-text {
-    margin-top: var(--space-3);
+    margin-top: var(--space-2);
     font-size: var(--text-sm);
     line-height: var(--leading-normal);
     color: var(--ink-soft);
 }
 
+/* a row of cards that snaps one card at a time; the next one peeks in */
 .auth-demo-list {
+    position: relative;
     display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 92%;
     gap: var(--space-3);
-    margin-top: var(--space-5);
+    margin: var(--space-4) calc(-1 * var(--space-4)) 0;
+    padding: var(--space-1) var(--space-4) var(--space-2);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--space-4);
+    scrollbar-width: none;
     list-style: none;
+}
+
+.auth-demo-list::-webkit-scrollbar {
+    display: none;
 }
 
 .auth-demo-item {
     display: flex;
+    scroll-snap-align: start;
+}
+
+.auth-demo-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.auth-demo-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--line-strong);
+    cursor: pointer;
+    transition: transform var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
+}
+
+.auth-demo-dot--active {
+    background-color: var(--brand-strong);
+    transform: scale(1.35);
 }
 
 /* one account = one big button. Icon and who on top, what it does below, then credentials and "Use this account" */
 .auth-demo-account {
     display: grid;
     grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
         "icon who"
         "about about"
         "foot foot";
     align-items: center;
-    gap: var(--space-3) var(--space-4);
+    align-content: start;
+    gap: var(--space-2) var(--space-3);
     width: 100%;
-    padding: var(--space-4);
+    padding: var(--space-3) var(--space-4);
     border: 1.5px solid var(--line);
     border-radius: var(--radius-lg);
     background-color: var(--surface);
@@ -951,6 +993,7 @@
 
 .auth-demo-about {
     grid-area: about;
+    align-self: start;
     font-size: var(--text-sm);
     line-height: var(--leading-normal);
     color: var(--ink-soft);
@@ -1044,24 +1087,24 @@
 
 @media (min-width: 600px) {
     .auth-dialog {
-        width: min(100% - 2 * var(--gutter), 660px);
+        width: min(100% - 2 * var(--gutter), 720px);
+        height: fit-content;
         max-height: calc(100dvh - 2 * var(--gutter));
         margin: auto;
+        padding: var(--space-6);
         border-radius: var(--radius-xl);
     }
 
-    /* from 600px the text lines up under the name, and the button sits next to the credentials */
     .auth-demo-account {
-        grid-template-areas:
-            "icon who"
-            ". about"
-            ". foot";
-        padding: var(--space-5);
+        gap: var(--space-3);
+        padding: var(--space-4);
     }
 
-    .auth-demo-go {
-        flex: 0 0 auto;
-        margin-left: auto;
+    .auth-demo-list {
+        grid-auto-columns: 64%;
+        margin-inline: calc(-1 * var(--space-6));
+        padding-inline: var(--space-6);
+        scroll-padding-inline: var(--space-6);
     }
 
     .adm-grid {
@@ -1086,6 +1129,24 @@
 }
 
 @media (min-width: 900px) {
+    .auth-dialog {
+        width: min(100% - 2 * var(--gutter), 1040px);
+        padding: clamp(1.5rem, 1rem + 1.4vw, 2.5rem);
+    }
+
+    /* the three accounts side by side, no row to swipe */
+    .auth-demo-list {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: var(--space-5) 0 0;
+        padding: 0;
+        overflow: visible;
+    }
+
+    .auth-demo-dots {
+        display: none;
+    }
+
     .adm-nav {
         display: flex;
     }

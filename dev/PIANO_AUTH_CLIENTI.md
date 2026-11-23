@@ -19,7 +19,7 @@ Avatar: progetto indipendente (`AVATAR_IMPLEMENTATION_PLAN.md`); qui si consuma 
   - `vat_number` è **NOT NULL UNIQUE** e `password` **NOT NULL**: va cambiato per i clienti e per Google;
   - mancano `role`, ban e `google_id`.
 - **Account esistenti**:
-  - **Federico Romiti**: `federico_romiti@gmail.com` / `12345678` (`UsersTableSeeder`, ristoratore storico);
+  - **Federico Romiti**: `federico_romiti@gmail.com` / `foodsy-owner` (`UsersTableSeeder`, ristoratore storico);
   - ristoratori generati: password `foodsy-demo` (`config/seeding.php`);
   - nessun admin e nessun utente cliente;
   - nessun "Mario Rossi": negli ordini da ospite ci sono solo altri Rossi sintetici.
@@ -201,7 +201,7 @@ Vincoli: niente servizi a pagamento, niente tile self-hosted o salvate dal backe
 - **`DemoAccountsSeeder`** (idempotente, per email):
   - **Admin** `admin@foodsy.test`;
   - **Mario Rossi** `customer@foodsy.test` (cliente; D2b);
-  - **Federico Romiti** `restaurant_owner@foodsy.test` (D2 + D2b, email migrata ovunque), password storica `12345678`, `role=restaurateur`.
+  - **Federico Romiti** `restaurant_owner@foodsy.test` (D2 + D2b, email migrata ovunque), password `foodsy-owner` (dal 2026-11-25, in linea con gli altri account demo), `role=restaurateur`.
 - **Protezione degli account demo** (D6): non si possono bannare né modificare dal pannello e le loro password non si cambiano da UI quando `DEMO_ACCOUNTS` è attivo. Il resto dei dati resta modificabile dai visitatori, senza reset periodico.
 - **Login**:
   - box elegante `<x-demo-accounts>` (eyebrow "Progetto portfolio", 3 righe ruolo/email/password, bottone "Usa" che compila il form);
@@ -380,7 +380,7 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 
 ### 2.2a — Email dell'account demo Federico Romiti (D2, 2026-11-24) ✅
 - Stato: completato. `federico_romiti@gmail.com` → `federico.romiti@foodsy.test` ovunque.
-- Modifiche: seeder (`UsersTableSeeder`, `RestaurantsTableSeeder` ×3, `Support/CatalogPlan::ROMITI`), test (`Concerns/SeededFixtures`, `UserRolesTest`), `dev/mappa.html` (blocco `DATI`: credenziali di avvio, più conteggio ristoranti corretto a 33); migration di dati `2026_11_24_010000_move_demo_restaurateur_email` (idempotente; i ristoranti seguono per `user_id`, ordini e voti non dipendono dall'email; rimuove eventuali token di reset della vecchia email). Password invariata (`12345678`).
+- Modifiche: seeder (`UsersTableSeeder`, `RestaurantsTableSeeder` ×3, `Support/CatalogPlan::ROMITI`), test (`Concerns/SeededFixtures`, `UserRolesTest`), `dev/mappa.html` (blocco `DATI`: credenziali di avvio, più conteggio ristoranti corretto a 33); migration di dati `2026_11_24_010000_move_demo_restaurateur_email` (idempotente; i ristoranti seguono per `user_id`, ordini e voti non dipendono dall'email; rimuove eventuali token di reset della vecchia email). Password invariata (`foodsy-owner`).
 - DB di sviluppo: migration applicata, l'utente id 9 ha la nuova email ed è `restaurateur`.
 - Verifica: `grep -r "federico_romiti@gmail.com"` fuori da `vendor/`, `node_modules/`, `public/` → solo la migration (valore da sostituire) e questo piano (storia).
 - Test: `php artisan test` **143 passati**.
@@ -393,7 +393,7 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
   | Ruolo | Account | Email | Password | Dopo il login |
   |---|---|---|---|---|
   | admin | Foodsy Admin | `admin@foodsy.test` | `foodsy-admin` | `/platform` (dallo step 3.1) |
-  | restaurateur | Federico Romiti | `federico.romiti@foodsy.test` | `12345678` (storica del seed) | `/admin` |
+  | restaurateur | Federico Romiti | `federico.romiti@foodsy.test` | `foodsy-owner` | `/admin` |
   | customer | Mario Rossi | `mario.rossi@foodsy.test` | `foodsy-demo` | sito |
 - Modifiche:
   - `config/demo.php`: `enabled` (`DEMO_ACCOUNTS`, di default attivo fuori da `production`: un deploy pubblico lo accende esplicitamente) e i 3 account; `.env.example` con le variabili.
@@ -428,7 +428,7 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
   | Ruolo | Account | Email | Password |
   |---|---|---|---|
   | admin | Foodsy Admin | `admin@foodsy.test` | `foodsy-admin` |
-  | restaurateur | Federico Romiti | `restaurant_owner@foodsy.test` | `12345678` |
+  | restaurateur | Federico Romiti | `restaurant_owner@foodsy.test` | `foodsy-owner` |
   | customer | Mario Rossi | `customer@foodsy.test` | `foodsy-demo` |
 - Modifiche: `config/demo.php` e `.env.example` (`DEMO_RESTAURATEUR_EMAIL`, `DEMO_CUSTOMER_EMAIL`), seeder (`UsersTableSeeder`, `RestaurantsTableSeeder` ×3, `Support/CatalogPlan::ROMITI`), test (`Concerns/SeededFixtures`, `UserRolesTest`, `tests/js/account.spec.js`), `README.md`, `dev/mappa.html` (credenziali di avvio e nuova riga della migration). Migration di dati `2026_11_24_020000_rename_demo_account_emails` (idempotente, reversibile; elimina eventuali token di reset delle vecchie email). Le email delle sezioni storiche del registro (2.2a, 2.2) restano come erano.
 - DB di sviluppo: migration applicata; id 9 → `restaurant_owner@foodsy.test`, id 62 → `customer@foodsy.test`.
@@ -614,3 +614,9 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
   2. un pagamento in sandbox Braintree da cliente loggato, per vedere l'ordine comparire in «I miei ordini» (con il driver `fake` è verificato dai test);
   3. decisioni ancora aperte del piano: 7 (2FA admin, rinviata) e 8 (commissione reale, futura).
 - Prossimo passo: revisione del branch `feat/auth-platform` e merge su `main` (non fatto: serve la tua conferma).
+
+### Ritocchi dopo il piano (2026-11-25)
+- **Password dell'account demo ristoratore**: `foodsy-owner` (era la password storica del seed), in linea con `foodsy-admin` e `foodsy-demo`. Cambiata in `config/demo.php`, `.env.example`, `UsersTableSeeder`, test, README, mappa e in questo documento; migration di dati `2026_11_25_010000_set_demo_restaurateur_password` per i DB già popolati (i seeder non sovrascrivono un account). DB dev: migration applicata e `db:seed` rilanciato (idempotente, conteggi invariati); i tre account entrano con le nuove credenziali.
+- **Login**: pagina alta uno schermo (layout `auth` variante `fit`), «Use test users» sotto «Log in» con la finestra degli account demo. La finestra non scorre mai in verticale (verificato in 5 lingue da 360×640 a 1440×900; solo a 320×568 resta lo scroll interno come rete di sicurezza): fila di card con snap e puntini sotto i 900 px, tre colonne da 900 px.
+- **Mappa del backoffice, tile in 403** (segnalato dall'utente, non riproducibile da qui: le tile rispondono 200 con e senza Referer): `referrerPolicy` esplicita sulle tile e avviso sulla mappa se vengono rifiutate. Se il 403 continua, la causa è il contesto in cui si apre la pagina (anteprima incorporata, privacy del browser): alternativa da decidere un fornitore di tile diverso (cambierebbe la decisione D1).
+

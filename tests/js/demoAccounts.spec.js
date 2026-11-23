@@ -1,11 +1,11 @@
 // Login page: "Use test users" and the demo accounts dialog (resources/js/jsBack/demoAccounts.js,
 // markup of resources/views/components/demo-accounts.blade.php).
-import { describe, it, expect, beforeEach } from "vitest";
-import { initDemoAccounts, isDemoEmail } from "../../resources/js/jsBack/demoAccounts.js";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { cardInView, initDemoAccounts, isDemoEmail } from "../../resources/js/jsBack/demoAccounts.js";
 
 const ACCOUNTS = [
     ["admin@foodsy.test", "foodsy-admin"],
-    ["restaurant_owner@foodsy.test", "12345678"],
+    ["restaurant_owner@foodsy.test", "foodsy-owner"],
     ["customer@foodsy.test", "foodsy-demo"]
 ];
 
@@ -18,7 +18,10 @@ const page = (email = "") => {
             <button type="button" class="auth-demo-trigger" data-demo-open>Use test users</button>
             <dialog id="demoDialog">
                 <button type="button" data-demo-close>Close</button>
-                ${ACCOUNTS.map(([e, p]) => `<button type="button" class="auth-demo-account" data-demo-email="${e}" data-demo-password="${p}">${e}</button>`).join("")}
+                <ul class="auth-demo-list">
+                    ${ACCOUNTS.map(([e, p]) => `<li><button type="button" class="auth-demo-account" data-demo-email="${e}" data-demo-password="${p}">${e}</button></li>`).join("")}
+                </ul>
+                <div>${ACCOUNTS.map((_, i) => `<button type="button" class="auth-demo-dot${i ? "" : " auth-demo-dot--active"}" data-demo-dot="${i}"></button>`).join("")}</div>
             </dialog>
         </form>`;
     initDemoAccounts(document);
@@ -57,7 +60,7 @@ describe("Use test users", () => {
         $('[data-demo-email="restaurant_owner@foodsy.test"]').click();
 
         expect($("#email").value).toBe("restaurant_owner@foodsy.test");
-        expect($("#password").value).toBe("12345678");
+        expect($("#password").value).toBe("foodsy-owner");
         expect(dialog().open).toBe(false);
         expect(triggerHidden()).toBe(true);
         expect($("[data-demo-open]").getAttribute("aria-hidden")).toBe("true");
@@ -86,6 +89,29 @@ describe("Use test users", () => {
         $("[data-demo-open]").click();
         dialog().dispatchEvent(new MouseEvent("click", { bubbles: true }));
         expect(dialog().open).toBe(false);
+    });
+});
+
+describe("the row of accounts under 900px", () => {
+    beforeEach(() => page());
+
+    it("finds the card in view from the scroll position", () => {
+        expect(cardInView(0, 300)).toBe(0);
+        expect(cardInView(290, 300)).toBe(1);
+        expect(cardInView(620, 300)).toBe(2);
+        expect(cardInView(120, 0)).toBe(0);
+    });
+
+    it("a dot brings its card into view; opening starts again from the first one", () => {
+        const items = [...document.querySelectorAll(".auth-demo-list > li")];
+        items.forEach(item => (item.scrollIntoView = vi.fn()));
+        $('[data-demo-dot="2"]').click();
+        expect(items[2].scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth", block: "nearest", inline: "start" });
+
+        $("[data-demo-open]").click();
+        const dots = [...document.querySelectorAll("[data-demo-dot]")];
+        expect(dots.map(d => d.classList.contains("auth-demo-dot--active"))).toEqual([true, false, false]);
+        expect(dots[0].getAttribute("aria-current")).toBe("true");
     });
 });
 

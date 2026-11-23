@@ -77,7 +77,8 @@ class UsersTableSeeder extends Seeder
                 "name" => "Federico",
                 "last_name" => "Romiti",
                 "email" => "restaurant_owner@foodsy.test",
-                "password" => "12345678",
+                // the demo restaurateur: same password as config/demo.php (in line with the other demo accounts)
+                "password" => "foodsy-owner",
                 "vat_number" => "56712099077",
             ],
             [

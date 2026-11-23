@@ -39,10 +39,23 @@ const label = text => Object.assign(document.createElement("span"), { textConten
 const renderPlatformMap = (element, data, text) => {
     element.replaceChildren();
     const map = L.map(element, { scrollWheelZoom: false });
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
+        // OSM answers 403 to tiles without a Referer: send the origin even where the page context
+        // would strip it (strict privacy settings, embedded previews)
+        referrerPolicy: "strict-origin-when-cross-origin",
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
     }).addTo(map);
+    // tiles refused (403) or unreachable before any loaded: say so on the map, the circles and the
+    // numbers on the right still work
+    let loaded = false;
+    tiles.on("tileload", () => {
+        loaded = true;
+    });
+    tiles.once("tileerror", () => {
+        if (loaded || element.querySelector(".plat-map-notice")) return;
+        element.append(Object.assign(document.createElement("p"), { className: "plat-map-notice", textContent: text.tilesBlocked }));
+    });
 
     const restaurantMax = maxOf(data.restaurants, "gross_value");
     const restaurants = L.layerGroup(

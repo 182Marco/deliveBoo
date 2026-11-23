@@ -22,7 +22,7 @@ return [
             'name' => 'Federico',
             'last_name' => 'Romiti',
             'email' => env('DEMO_RESTAURATEUR_EMAIL', 'restaurant_owner@foodsy.test'),
-            'password' => env('DEMO_RESTAURATEUR_PASSWORD', '12345678'),
+            'password' => env('DEMO_RESTAURATEUR_PASSWORD', 'foodsy-owner'),
         ],
         'customer' => [
             'role' => 'customer',

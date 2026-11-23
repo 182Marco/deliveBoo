@@ -19,6 +19,7 @@
         'rating' => __('platform.charts.col.rating'),
         'restaurantsInZone' => $m('map.restaurantsInZone'),
         'error' => $m('map.error'),
+        'tilesBlocked' => $m('map.tilesBlocked'),
     ];
 @endphp
 

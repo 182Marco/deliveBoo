@@ -760,7 +760,8 @@
                 },
                 "trigger": { "en": "Use test users", "it": "Usa gli utenti di prova", "de": "Testkonten verwenden", "fr": "Utiliser les comptes de test", "es": "Usar usuarios de prueba" },
                 "choose": { "en": "Use this account", "it": "Usa questo account", "de": "Dieses Konto verwenden", "fr": "Utiliser ce compte", "es": "Usar esta cuenta" },
-                "close": { "en": "Close", "it": "Chiudi", "de": "Schließen", "fr": "Fermer", "es": "Cerrar" }
+                "close": { "en": "Close", "it": "Chiudi", "de": "Schließen", "fr": "Fermer", "es": "Cerrar" },
+                "slide": { "en": "Account :n of :total", "it": "Account :n di :total", "de": "Konto :n von :total", "fr": "Compte :n sur :total", "es": "Cuenta :n de :total" }
             },
             "google": {
                 "continue": { "en": "Continue with Google", "it": "Continua con Google", "de": "Weiter mit Google", "fr": "Continuer avec Google", "es": "Continuar con Google" },
@@ -829,6 +830,7 @@
                 "label": { "en": "Map of restaurants and orders", "it": "Mappa di ristoranti e ordini", "de": "Karte der Restaurants und Bestellungen", "fr": "Carte des restaurants et des commandes", "es": "Mapa de restaurantes y pedidos" },
                 "loading": { "en": "Loading the map…", "it": "Caricamento della mappa…", "de": "Karte wird geladen…", "fr": "Chargement de la carte…", "es": "Cargando el mapa…" },
                 "error": { "en": "The map could not be loaded. The numbers on the right are still up to date.", "it": "Non è stato possibile caricare la mappa. I numeri a destra sono comunque aggiornati.", "de": "Die Karte konnte nicht geladen werden. Die Zahlen rechts sind trotzdem aktuell.", "fr": "La carte n'a pas pu être chargée. Les chiffres à droite restent à jour.", "es": "No se pudo cargar el mapa. Las cifras de la derecha siguen actualizadas." },
+                "tilesBlocked": { "en": "The map background did not load at this address (the OpenStreetMap tiles were refused). Restaurants, zones and the numbers on the right are still correct.", "it": "Lo sfondo della mappa non si è caricato a questo indirizzo (le tile di OpenStreetMap sono state rifiutate). Ristoranti, zone e numeri a destra restano corretti.", "de": "Der Kartenhintergrund wurde unter dieser Adresse nicht geladen (die OpenStreetMap-Kacheln wurden abgelehnt). Restaurants, Zonen und die Zahlen rechts stimmen trotzdem.", "fr": "Le fond de carte ne s'est pas chargé à cette adresse (les tuiles OpenStreetMap ont été refusées). Les restaurants, les zones et les chiffres à droite restent corrects.", "es": "El fondo del mapa no se cargó en esta dirección (las teselas de OpenStreetMap fueron rechazadas). Los restaurantes, las zonas y las cifras de la derecha siguen siendo correctos." },
                 "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
                 "zones": { "en": "Zones (cities)", "it": "Zone (città)", "de": "Zonen (Orte)", "fr": "Zones (villes)", "es": "Zonas (ciudades)" },
                 "legend": { "en": "Circle size = gross order value in the period · grey = no orders", "it": "Grandezza del cerchio = valore lordo nel periodo · grigio = nessun ordine", "de": "Kreisgröße = Bruttowert im Zeitraum · grau = keine Bestellungen", "fr": "Taille du cercle = valeur brute sur la période · gris = aucune commande", "es": "Tamaño del círculo = valor bruto en el periodo · gris = sin pedidos" },
