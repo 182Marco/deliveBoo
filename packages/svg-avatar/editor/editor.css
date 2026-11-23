@@ -1,0 +1,205 @@
+/*
+ * svg-avatar editor. One class per selector, modifiers as extra classes.
+ * Theme it from the host with custom properties on the mount element (all optional):
+ * --sa-ink, --sa-muted, --sa-surface, --sa-well, --sa-line, --sa-accent, --sa-accent-ink,
+ * --sa-radius, --sa-font, --sa-heading-font
+ */
+.sa-editor {
+    display: grid;
+    gap: 24px;
+    color: var(--sa-ink, #1d1d1f);
+    font-family: var(--sa-font, system-ui, sans-serif);
+}
+
+@media (min-width: 900px) {
+    .sa-editor {
+        grid-template-columns: minmax(220px, 320px) 1fr;
+        align-items: start;
+    }
+}
+
+.sa-editor-aside {
+    display: grid;
+    gap: 16px;
+}
+
+@media (min-width: 900px) {
+    .sa-editor-aside {
+        position: sticky;
+        top: 16px;
+    }
+}
+
+.sa-editor-preview {
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    border-radius: var(--sa-radius, 16px);
+    background-color: var(--sa-well, #f2f2f2);
+}
+
+.sa-editor-preview-frame {
+    width: min(100%, 240px);
+    aspect-ratio: 1;
+    line-height: 0;
+}
+
+.sa-editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sa-editor-action {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--sa-line, #c9c9c9);
+    border-radius: 999px;
+    background-color: var(--sa-surface, #ffffff);
+    color: var(--sa-ink, #1d1d1f);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sa-editor-action:hover {
+    border-color: var(--sa-ink, #1d1d1f);
+}
+
+.sa-editor-action:focus-visible {
+    outline: 3px solid var(--sa-accent, #2a5bd7);
+    outline-offset: 2px;
+}
+
+.sa-editor-action:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.sa-editor-sections {
+    display: grid;
+    gap: 28px;
+    min-width: 0;
+}
+
+.sa-editor-section {
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+}
+
+.sa-editor-heading {
+    margin: 0;
+    font-family: var(--sa-heading-font, inherit);
+    font-size: 1.125rem;
+}
+
+.sa-editor-group {
+    display: grid;
+    gap: 8px;
+}
+
+.sa-editor-group-label {
+    margin: 0;
+    color: var(--sa-muted, #5f5f63);
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.sa-editor-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sa-editor-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sa-editor-looks {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    background-color: var(--sa-well, #f2f2f2);
+}
+
+.sa-editor-option {
+    display: inline-grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 4px;
+    border: 1px solid var(--sa-line, #c9c9c9);
+    border-radius: var(--sa-radius, 16px);
+    background-color: var(--sa-surface, #ffffff);
+    color: var(--sa-ink, #1d1d1f);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+}
+
+.sa-editor-option:hover {
+    transform: translateY(-1px);
+}
+
+.sa-editor-option:focus-visible {
+    outline: 3px solid var(--sa-accent, #2a5bd7);
+    outline-offset: 2px;
+}
+
+.sa-editor-option--selected {
+    border-color: var(--sa-accent, #2a5bd7);
+    box-shadow: 0 0 0 2px var(--sa-accent, #2a5bd7);
+}
+
+.sa-editor-thumb {
+    display: block;
+    width: 56px;
+    height: 56px;
+    line-height: 0;
+}
+
+@media (min-width: 600px) {
+    .sa-editor-thumb {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.sa-editor-swatch {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+
+.sa-editor-divider {
+    flex-basis: 100%;
+    margin: 4px 0 0;
+    color: var(--sa-muted, #5f5f63);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.sa-editor-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sa-editor-option {
+        transition: none;
+    }
+}

@@ -1,0 +1,126 @@
+{
+    "note": "Trait values and forbidden override pairs accepted by any server-side validator. Regenerate when parts.json, rules.json or the default palette change.",
+    "traits": {
+        "face": [
+            "oval",
+            "round",
+            "square",
+            "heart"
+        ],
+        "hair": [
+            "buzz",
+            "crop",
+            "sidePart",
+            "quiff",
+            "curly",
+            "afro",
+            "pixie",
+            "bob",
+            "long",
+            "wavy",
+            "bun",
+            "ponytail"
+        ],
+        "eyes": [
+            "open",
+            "lashes",
+            "happy",
+            "wink",
+            "sleepy"
+        ],
+        "brows": [
+            "soft",
+            "bold",
+            "arched",
+            "flat"
+        ],
+        "mouth": [
+            "laugh",
+            "grin",
+            "smile",
+            "smirk",
+            "calm"
+        ],
+        "clothes": [
+            "tee",
+            "stripes",
+            "vneck",
+            "hoodie",
+            "shirt",
+            "blazer",
+            "turtleneck",
+            "strapTop"
+        ],
+        "accessory": [
+            "none",
+            "roundGlasses",
+            "squareGlasses",
+            "sunglasses",
+            "earrings",
+            "beanie"
+        ],
+        "nose": [
+            "soft",
+            "button",
+            "long"
+        ],
+        "bgColor": [
+            "oat",
+            "peach",
+            "sage",
+            "butter",
+            "sky",
+            "rose"
+        ],
+        "skinColor": [
+            "porcelain",
+            "light",
+            "tan",
+            "olive",
+            "brown",
+            "deep"
+        ],
+        "hairColor": [
+            "black",
+            "espresso",
+            "chestnut",
+            "copper",
+            "honey",
+            "silver"
+        ],
+        "clothColor": [
+            "forest",
+            "olive",
+            "saffron",
+            "paprika",
+            "denim",
+            "stone"
+        ],
+        "accentColor": [
+            "tomato",
+            "mustard",
+            "teal",
+            "plum"
+        ],
+        "irisColor": [
+            "brown",
+            "hazel",
+            "green",
+            "blue"
+        ]
+    },
+    "excludedPairs": [
+        {
+            "accessory": "beanie",
+            "hair": "afro"
+        },
+        {
+            "accessory": "beanie",
+            "hair": "curly"
+        },
+        {
+            "accessory": "beanie",
+            "hair": "bun"
+        }
+    ]
+}

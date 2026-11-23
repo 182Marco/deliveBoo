@@ -1,0 +1,119 @@
+{
+    "bg": {
+        "oat": "#f1ece3",
+        "peach": "#f8dcc8",
+        "sage": "#e2e9cf",
+        "butter": "#fbebd0",
+        "sky": "#dce6ee",
+        "rose": "#f5dfe0"
+    },
+    "skin": {
+        "porcelain": [
+            "#f7dcc8",
+            "#e6bca0"
+        ],
+        "light": [
+            "#efc6a6",
+            "#d9a384"
+        ],
+        "tan": [
+            "#dca57c",
+            "#c1865c"
+        ],
+        "olive": [
+            "#c08b5f",
+            "#a26e48"
+        ],
+        "brown": [
+            "#97613e",
+            "#7a4b2d"
+        ],
+        "deep": [
+            "#6a4029",
+            "#52301d"
+        ]
+    },
+    "hair": {
+        "black": [
+            "#2b2321",
+            "#171312"
+        ],
+        "espresso": [
+            "#4a3024",
+            "#2f1e16"
+        ],
+        "chestnut": [
+            "#7d4a2b",
+            "#58331d"
+        ],
+        "copper": [
+            "#b5582c",
+            "#86401e"
+        ],
+        "honey": [
+            "#d9a85c",
+            "#a87b36"
+        ],
+        "silver": [
+            "#c4bcb1",
+            "#8f877b"
+        ]
+    },
+    "cloth": {
+        "forest": [
+            "#2e3d32",
+            "#1d271f"
+        ],
+        "olive": [
+            "#6b7d36",
+            "#52602a"
+        ],
+        "saffron": [
+            "#e5a13a",
+            "#c0822a"
+        ],
+        "paprika": [
+            "#c0602a",
+            "#9a4a1c"
+        ],
+        "denim": [
+            "#41607f",
+            "#304963"
+        ],
+        "stone": [
+            "#e6ded1",
+            "#c9bca7"
+        ]
+    },
+    "accent": {
+        "tomato": [
+            "#c4372c",
+            "#9c2a21"
+        ],
+        "mustard": [
+            "#d9962e",
+            "#b07722"
+        ],
+        "teal": [
+            "#2f7a78",
+            "#235e5c"
+        ],
+        "plum": [
+            "#7a4a6e",
+            "#5d3754"
+        ]
+    },
+    "iris": {
+        "brown": "#6b4423",
+        "hazel": "#8b7334",
+        "green": "#4f7d4d",
+        "blue": "#4b78a8"
+    },
+    "fixed": {
+        "ink": "#2a2320",
+        "mouth": "#7a2e24",
+        "white": "#ffffff",
+        "blush": "#e98a7f",
+        "metal": "#e5a13a"
+    }
+}

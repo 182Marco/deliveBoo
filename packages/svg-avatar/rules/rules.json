@@ -1,0 +1,9 @@
+{
+    "hideLayers": [
+        { "tag": "coversEars", "layers": ["ears"] },
+        { "tag": "hat", "layers": ["hairFront"] }
+    ],
+    "exclude": [
+        { "accessory": ["beanie"], "hair": ["afro", "curly", "bun"], "prefer": "accessory" }
+    ]
+}

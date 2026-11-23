@@ -1,0 +1,365 @@
+{
+    "note": "seed -> expected traits with the default palette. Any other implementation (e.g. a PHP adapter) must reproduce it exactly.",
+    "cases": [
+        {
+            "seed": "",
+            "traits": {
+                "face": "round",
+                "hair": "bun",
+                "eyes": "sleepy",
+                "brows": "flat",
+                "mouth": "calm",
+                "clothes": "vneck",
+                "accessory": "roundGlasses",
+                "bgColor": "rose",
+                "skinColor": "brown",
+                "hairColor": "copper",
+                "clothColor": "olive",
+                "accentColor": "mustard",
+                "irisColor": "blue"
+            }
+        },
+        {
+            "seed": "a",
+            "traits": {
+                "face": "square",
+                "hair": "bob",
+                "eyes": "open",
+                "brows": "flat",
+                "mouth": "laugh",
+                "clothes": "shirt",
+                "accessory": "sunglasses",
+                "bgColor": "oat",
+                "skinColor": "olive",
+                "hairColor": "copper",
+                "clothColor": "denim",
+                "accentColor": "teal",
+                "irisColor": "brown"
+            }
+        },
+        {
+            "seed": "user-1",
+            "traits": {
+                "face": "round",
+                "hair": "buzz",
+                "eyes": "lashes",
+                "brows": "arched",
+                "mouth": "laugh",
+                "clothes": "hoodie",
+                "accessory": "none",
+                "bgColor": "rose",
+                "skinColor": "brown",
+                "hairColor": "copper",
+                "clothColor": "forest",
+                "accentColor": "mustard",
+                "irisColor": "hazel"
+            }
+        },
+        {
+            "seed": "user-2",
+            "traits": {
+                "face": "round",
+                "hair": "wavy",
+                "eyes": "open",
+                "brows": "bold",
+                "mouth": "smirk",
+                "clothes": "stripes",
+                "accessory": "squareGlasses",
+                "bgColor": "sky",
+                "skinColor": "porcelain",
+                "hairColor": "espresso",
+                "clothColor": "stone",
+                "accentColor": "teal",
+                "irisColor": "brown"
+            }
+        },
+        {
+            "seed": "user-42",
+            "traits": {
+                "face": "oval",
+                "hair": "pixie",
+                "eyes": "wink",
+                "brows": "flat",
+                "mouth": "grin",
+                "clothes": "turtleneck",
+                "accessory": "squareGlasses",
+                "bgColor": "peach",
+                "skinColor": "deep",
+                "hairColor": "honey",
+                "clothColor": "olive",
+                "accentColor": "tomato",
+                "irisColor": "green"
+            }
+        },
+        {
+            "seed": "user-1000",
+            "traits": {
+                "face": "square",
+                "hair": "curly",
+                "eyes": "happy",
+                "brows": "arched",
+                "mouth": "grin",
+                "clothes": "vneck",
+                "accessory": "none",
+                "bgColor": "sage",
+                "skinColor": "porcelain",
+                "hairColor": "espresso",
+                "clothColor": "olive",
+                "accentColor": "plum",
+                "irisColor": "green"
+            }
+        },
+        {
+            "seed": "anna@example.com",
+            "traits": {
+                "face": "heart",
+                "hair": "bun",
+                "eyes": "open",
+                "brows": "bold",
+                "mouth": "calm",
+                "clothes": "vneck",
+                "accessory": "none",
+                "bgColor": "sky",
+                "skinColor": "brown",
+                "hairColor": "black",
+                "clothColor": "paprika",
+                "accentColor": "plum",
+                "irisColor": "blue"
+            }
+        },
+        {
+            "seed": "Zürich ☕",
+            "traits": {
+                "face": "oval",
+                "hair": "bob",
+                "eyes": "open",
+                "brows": "arched",
+                "mouth": "smirk",
+                "clothes": "blazer",
+                "accessory": "beanie",
+                "bgColor": "butter",
+                "skinColor": "tan",
+                "hairColor": "chestnut",
+                "clothColor": "saffron",
+                "accentColor": "plum",
+                "irisColor": "green"
+            }
+        },
+        {
+            "seed": "0",
+            "traits": {
+                "face": "oval",
+                "hair": "crop",
+                "eyes": "wink",
+                "brows": "soft",
+                "mouth": "grin",
+                "clothes": "tee",
+                "accessory": "none",
+                "bgColor": "sage",
+                "skinColor": "light",
+                "hairColor": "copper",
+                "clothColor": "stone",
+                "accentColor": "mustard",
+                "irisColor": "brown"
+            }
+        },
+        {
+            "seed": "seed with spaces",
+            "traits": {
+                "face": "heart",
+                "hair": "long",
+                "eyes": "sleepy",
+                "brows": "flat",
+                "mouth": "laugh",
+                "clothes": "blazer",
+                "accessory": "none",
+                "bgColor": "sky",
+                "skinColor": "deep",
+                "hairColor": "copper",
+                "clothColor": "saffron",
+                "accentColor": "mustard",
+                "irisColor": "blue"
+            }
+        },
+        {
+            "seed": "s1",
+            "traits": {
+                "face": "round",
+                "hair": "buzz",
+                "eyes": "lashes",
+                "brows": "flat",
+                "mouth": "grin",
+                "clothes": "vneck",
+                "accessory": "beanie",
+                "bgColor": "rose",
+                "skinColor": "tan",
+                "hairColor": "copper",
+                "clothColor": "forest",
+                "accentColor": "tomato",
+                "irisColor": "green"
+            }
+        },
+        {
+            "seed": "s2",
+            "traits": {
+                "face": "oval",
+                "hair": "afro",
+                "eyes": "sleepy",
+                "brows": "flat",
+                "mouth": "grin",
+                "clothes": "stripes",
+                "accessory": "none",
+                "bgColor": "rose",
+                "skinColor": "porcelain",
+                "hairColor": "copper",
+                "clothColor": "forest",
+                "accentColor": "teal",
+                "irisColor": "hazel"
+            }
+        },
+        {
+            "seed": "s3",
+            "traits": {
+                "face": "round",
+                "hair": "sidePart",
+                "eyes": "wink",
+                "brows": "soft",
+                "mouth": "smile",
+                "clothes": "blazer",
+                "accessory": "squareGlasses",
+                "bgColor": "butter",
+                "skinColor": "tan",
+                "hairColor": "copper",
+                "clothColor": "forest",
+                "accentColor": "teal",
+                "irisColor": "hazel"
+            }
+        },
+        {
+            "seed": "s4",
+            "traits": {
+                "face": "heart",
+                "hair": "pixie",
+                "eyes": "sleepy",
+                "brows": "arched",
+                "mouth": "smile",
+                "clothes": "turtleneck",
+                "accessory": "none",
+                "bgColor": "sage",
+                "skinColor": "light",
+                "hairColor": "honey",
+                "clothColor": "stone",
+                "accentColor": "teal",
+                "irisColor": "brown"
+            }
+        },
+        {
+            "seed": "s5",
+            "traits": {
+                "face": "oval",
+                "hair": "quiff",
+                "eyes": "open",
+                "brows": "arched",
+                "mouth": "calm",
+                "clothes": "strapTop",
+                "accessory": "roundGlasses",
+                "bgColor": "peach",
+                "skinColor": "olive",
+                "hairColor": "copper",
+                "clothColor": "paprika",
+                "accentColor": "tomato",
+                "irisColor": "hazel"
+            }
+        },
+        {
+            "seed": "s6",
+            "traits": {
+                "face": "heart",
+                "hair": "long",
+                "eyes": "open",
+                "brows": "arched",
+                "mouth": "grin",
+                "clothes": "shirt",
+                "accessory": "earrings",
+                "bgColor": "rose",
+                "skinColor": "light",
+                "hairColor": "copper",
+                "clothColor": "paprika",
+                "accentColor": "mustard",
+                "irisColor": "green"
+            }
+        },
+        {
+            "seed": "s7",
+            "traits": {
+                "face": "oval",
+                "hair": "afro",
+                "eyes": "sleepy",
+                "brows": "soft",
+                "mouth": "smile",
+                "clothes": "shirt",
+                "accessory": "none",
+                "bgColor": "rose",
+                "skinColor": "tan",
+                "hairColor": "honey",
+                "clothColor": "forest",
+                "accentColor": "mustard",
+                "irisColor": "brown"
+            }
+        },
+        {
+            "seed": "s8",
+            "traits": {
+                "face": "heart",
+                "hair": "curly",
+                "eyes": "sleepy",
+                "brows": "bold",
+                "mouth": "calm",
+                "clothes": "blazer",
+                "accessory": "none",
+                "bgColor": "rose",
+                "skinColor": "light",
+                "hairColor": "copper",
+                "clothColor": "paprika",
+                "accentColor": "mustard",
+                "irisColor": "hazel"
+            }
+        },
+        {
+            "seed": "s9",
+            "traits": {
+                "face": "square",
+                "hair": "wavy",
+                "eyes": "sleepy",
+                "brows": "soft",
+                "mouth": "grin",
+                "clothes": "blazer",
+                "accessory": "squareGlasses",
+                "bgColor": "sage",
+                "skinColor": "brown",
+                "hairColor": "copper",
+                "clothColor": "saffron",
+                "accentColor": "teal",
+                "irisColor": "brown"
+            }
+        },
+        {
+            "seed": "s10",
+            "traits": {
+                "face": "heart",
+                "hair": "wavy",
+                "eyes": "sleepy",
+                "brows": "soft",
+                "mouth": "grin",
+                "clothes": "shirt",
+                "accessory": "sunglasses",
+                "bgColor": "butter",
+                "skinColor": "porcelain",
+                "hairColor": "copper",
+                "clothColor": "olive",
+                "accentColor": "teal",
+                "irisColor": "green"
+            }
+        }
+    ]
+}

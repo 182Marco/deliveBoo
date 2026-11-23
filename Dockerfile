@@ -7,6 +7,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY vite.config.js ./
 COPY resources ./resources
+# local packages imported by the front end (alias in vite.config.js), e.g. svg-avatar
+COPY packages ./packages
 RUN npm run build
 
 # 2) applicazione Laravel 13 (PHP >= 8.3)

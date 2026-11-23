@@ -1,0 +1,10 @@
+.sa-avatar {
+    display: inline-block;
+    flex: none;
+    vertical-align: middle;
+    clip-path: circle(50%);
+}
+
+.sa-avatar--square {
+    clip-path: none;
+}
