@@ -263,7 +263,8 @@
             "platform": { "en": "Backoffice", "it": "Backoffice", "de": "Backoffice", "fr": "Back-office", "es": "Backoffice" },
             "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" },
             "settings": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" },
-            "orders": { "en": "My orders", "it": "I miei ordini", "de": "Meine Bestellungen", "fr": "Mes commandes", "es": "Mis pedidos" }
+            "orders": { "en": "My orders", "it": "I miei ordini", "de": "Meine Bestellungen", "fr": "Mes commandes", "es": "Mis pedidos" },
+            "avatar": { "en": "Customise avatar", "it": "Personalizza avatar", "de": "Avatar anpassen", "fr": "Personnaliser l'avatar", "es": "Personalizar avatar" }
         },
         "orders": {
             "eyebrow": { "en": "Order history", "it": "Storico ordini", "de": "Bestellverlauf", "fr": "Historique des commandes", "es": "Historial de pedidos" },

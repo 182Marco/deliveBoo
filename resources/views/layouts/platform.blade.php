@@ -38,6 +38,9 @@
                         <a class="adm-menu-item" href="{{ route('account') }}">
                             <x-icon name="shield" size="18" /> {{ __('partner.account.menu') }}
                         </a>
+                        <a class="adm-menu-item" href="{{ route('account.avatar.edit') }}">
+                            <x-icon name="user" size="18" /> {{ __('partner.header.customizeAvatar') }}
+                        </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="adm-menu-item">
@@ -67,12 +70,18 @@
 
     <main id="main" class="plat-main" tabindex="-1">
         <div class="ui-container plat-page">
-            <div class="plat-intro">
-                <h1 class="ui-title plat-title">@yield('heading')</h1>
-                @hasSection('lead')
-                    <p class="plat-lead">@yield('lead')</p>
-                @endif
-            </div>
+            {{-- a page with its own heading (the avatar editor) leaves these sections out --}}
+            @hasSection('heading')
+                <div class="plat-intro">
+                    <h1 class="ui-title plat-title">@yield('heading')</h1>
+                    @hasSection('lead')
+                        <p class="plat-lead">@yield('lead')</p>
+                    @endif
+                </div>
+            @endif
+            @if (session('avatarSaved'))
+                <div class="ui-notice ui-notice--success adm-flash" role="status">{{ __('partner.avatar.saved') }}</div>
+            @endif
             @if (session('status'))
                 <div class="ui-notice ui-notice--success" role="status">{{ session('status') }}</div>
             @endif

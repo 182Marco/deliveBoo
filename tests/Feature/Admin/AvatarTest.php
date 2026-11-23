@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\Concerns\SeededFixtures;
 use Tests\TestCase;
 
-/** The partner header shows the user's avatar placeholder, drawn in the browser by jsBack/avatar.js. */
+/** Avatar of the logged-in user: header placeholder (jsBack/avatar.js) and the editor page /account/avatar, every role. */
 class AvatarTest extends TestCase
 {
     use RefreshDatabase, SeededFixtures;
@@ -35,14 +35,14 @@ class AvatarTest extends TestCase
     {
         $this->actingAs($this->owner())
             ->get(route('admin.restaurants.index'))
-            ->assertSee(route('admin.avatar.edit'), false)
+            ->assertSee(route('account.avatar.edit'), false)
             ->assertSee(__('partner.header.customizeAvatar'));
     }
 
     public function testGuestsCannotOpenOrSaveTheEditor()
     {
-        $this->get(route('admin.avatar.edit'))->assertRedirect(route('login'));
-        $this->put(route('admin.avatar.update'), ['seed' => 'abc', 'overrides' => '{}'])->assertRedirect(route('login'));
+        $this->get(route('account.avatar.edit'))->assertRedirect(route('login'));
+        $this->put(route('account.avatar.update'), ['seed' => 'abc', 'overrides' => '{}'])->assertRedirect(route('login'));
     }
 
     public function testEditShowsTheCurrentValueSafelyEscaped()
@@ -51,7 +51,7 @@ class AvatarTest extends TestCase
         $owner->avatar = ['seed' => '"><script>alert(1)</script>', 'overrides' => ['hair' => 'bun']];
         $owner->save();
 
-        $html = $this->actingAs($owner)->get(route('admin.avatar.edit'))->assertOk()->getContent();
+        $html = $this->actingAs($owner)->get(route('account.avatar.edit'))->assertOk()->getContent();
 
         $this->assertStringNotContainsString('<script>alert(1)', $html);
         $this->assertStringContainsString('data-avatar-editor', $html);
@@ -68,8 +68,8 @@ class AvatarTest extends TestCase
         $owner = $this->owner();
         $from = route('admin.plates.index', $owner->restaurants()->first()->slug);
 
-        $this->actingAs($owner)->withHeader('referer', $from)->get(route('admin.avatar.edit'))->assertOk();
-        $this->put(route('admin.avatar.update'), [
+        $this->actingAs($owner)->withHeader('referer', $from)->get(route('account.avatar.edit'))->assertOk();
+        $this->put(route('account.avatar.update'), [
             'seed' => 'my-seed_1',
             'overrides' => json_encode(['hair' => 'bun', 'nose' => 'button', 'skinColor' => 'deep']),
         ])->assertRedirect($from)->assertSessionHas('avatarSaved');
@@ -108,9 +108,9 @@ class AvatarTest extends TestCase
         $owner->save();
 
         $this->actingAs($owner)
-            ->from(route('admin.avatar.edit'))
-            ->put(route('admin.avatar.update'), $payload)
-            ->assertRedirect(route('admin.avatar.edit'))
+            ->from(route('account.avatar.edit'))
+            ->put(route('account.avatar.update'), $payload)
+            ->assertRedirect(route('account.avatar.edit'))
             ->assertSessionHasErrors();
 
         $this->assertSame('kept', $owner->fresh()->avatarSeed());
@@ -119,10 +119,10 @@ class AvatarTest extends TestCase
     public function testRejectedSubmitReopensTheEditorOnTheSubmittedValue()
     {
         $this->actingAs($this->owner())
-            ->from(route('admin.avatar.edit'))
-            ->put(route('admin.avatar.update'), ['seed' => 'abc', 'overrides' => '{"hair":"afro","accessory":"beanie"}']);
+            ->from(route('account.avatar.edit'))
+            ->put(route('account.avatar.update'), ['seed' => 'abc', 'overrides' => '{"hair":"afro","accessory":"beanie"}']);
 
-        $this->get(route('admin.avatar.edit'))
+        $this->get(route('account.avatar.edit'))
             ->assertSee(__('partner.avatar.invalid'))
             ->assertSee('data-avatar-unsaved', false)
             ->assertSee('&quot;seed&quot;:&quot;abc&quot;', false);
@@ -134,7 +134,7 @@ class AvatarTest extends TestCase
         $other = \App\User::where('id', '!=', $owner->id)->first();
         $before = $other->avatar;
 
-        $this->actingAs($owner)->put(route('admin.avatar.update'), ['seed' => 'mine', 'overrides' => '{}'])->assertRedirect();
+        $this->actingAs($owner)->put(route('account.avatar.update'), ['seed' => 'mine', 'overrides' => '{}'])->assertRedirect();
 
         $this->assertSame($before, $other->fresh()->avatar);
         $this->assertSame('mine', $owner->fresh()->avatarSeed());
@@ -146,19 +146,76 @@ class AvatarTest extends TestCase
         return [
             'external site' => ['https://evil.test/admin/restaurants'],
             'protocol-relative' => ['//evil.test/admin'],
-            'outside the partner area' => ['http://localhost/login'],
-            'the editor itself' => ['http://localhost/admin/avatar'],
+            'the login page' => ['http://localhost/login'],
+            'the editor itself' => ['http://localhost/account/avatar'],
+            'its old address' => ['http://localhost/admin/avatar'],
+            'the backoffice (not a partner page)' => ['http://localhost/platform/charts'],
         ];
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('unsafeReferers')]
-    public function testUnsafePreviousPagesFallBackToTheRestaurantList(string $referer)
+    public function testUnsafePreviousPagesFallBackToTheHomeOfTheRole(string $referer)
     {
-        $this->actingAs($this->owner())->withHeader('referer', $referer)->get(route('admin.avatar.edit'))
-            ->assertSee('href="'.route('admin.restaurants.index').'"', false);
+        $this->actingAs($this->owner())->withHeader('referer', $referer)->get(route('account.avatar.edit'))
+            ->assertSee('href="'.url('/admin').'"', false);
 
-        $this->put(route('admin.avatar.update'), ['seed' => 'abc', 'overrides' => '{}'])
-            ->assertRedirect(route('admin.restaurants.index'));
+        $this->put(route('account.avatar.update'), ['seed' => 'abc', 'overrides' => '{}'])
+            ->assertRedirect(url('/admin'));
+    }
+
+    private function demo(string $key): \App\User
+    {
+        return \App\User::where('email', config("demo.accounts.{$key}.email"))->firstOrFail();
+    }
+
+    public function testTheOldPartnerAddressRedirects()
+    {
+        $this->actingAs($this->owner())->get('/admin/avatar')->assertRedirect('/account/avatar');
+    }
+
+    public function testACustomerCustomisesTheAvatarFromTheSite()
+    {
+        $mario = $this->demo('customer');
+        $from = url('/my-orders');
+
+        $html = $this->actingAs($mario)->withHeader('referer', $from)->get(route('account.avatar.edit'))->assertOk()
+            ->assertSee('data-avatar-editor', false)
+            ->getContent();
+        // the signed-in frame without anything of the partner hub, with the customer's own orders
+        $this->assertStringNotContainsString(__('partner.header.tag'), $html);
+        $this->assertStringNotContainsString(route('admin.restaurants.index'), $html);
+        $this->assertStringContainsString(__('site.account.orders'), $html);
+
+        $this->put(route('account.avatar.update'), ['seed' => 'mario-look', 'overrides' => '{"hair":"bun"}'])
+            ->assertRedirect($from)->assertSessionHas('avatarSaved');
+        $this->assertSame('mario-look', $mario->fresh()->avatarSeed());
+        // the site gets the new avatar from /api/me
+        $this->getJson('/api/me')->assertJsonPath('user.avatar_seed', 'mario-look');
+    }
+
+    public function testACustomerNeverGoesBackToTheAreasOfOtherRoles()
+    {
+        $this->actingAs($this->demo('customer'))->withHeader('referer', url('/admin/restaurants'))->get(route('account.avatar.edit'))->assertOk();
+        $this->put(route('account.avatar.update'), ['seed' => 'abc', 'overrides' => '{}'])->assertRedirect(url('/'));
+    }
+
+    public function testAnAdminCustomisesTheAvatarInsideTheBackoffice()
+    {
+        $admin = $this->demo('admin');
+        $from = url('/platform/users');
+
+        $this->actingAs($admin)->get(route('platform.charts'))->assertOk()
+            ->assertSee('href="'.route('account.avatar.edit').'"', false)
+            ->assertSee(__('partner.header.customizeAvatar'));
+
+        $this->withHeader('referer', $from)->get(route('account.avatar.edit'))->assertOk()
+            ->assertSee('plat-header', false)
+            ->assertSee('data-avatar-editor', false)
+            ->assertDontSee(__('partner.header.tag'));
+
+        $this->put(route('account.avatar.update'), ['seed' => 'boss', 'overrides' => '{}'])->assertRedirect($from);
+        $this->get($from)->assertSee(__('partner.avatar.saved'));
+        $this->assertSame('boss', $admin->fresh()->avatarSeed());
     }
 
     public function testCatalogMatchesTheSharedOptionsFixture()

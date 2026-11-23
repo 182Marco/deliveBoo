@@ -39,6 +39,7 @@ const menuMobileLogic = {
             const area = accountAreaLink(this.user.role);
             return [
                 { href: "/account", icon: "user", text: "account.settings" },
+                { href: "/account/avatar", icon: "edit", text: "account.avatar" },
                 ...(area ? [{ href: this.user.home, icon: area.icon, text: area.text }] : [])
             ];
         }

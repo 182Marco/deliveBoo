@@ -1,4 +1,5 @@
-@extends('layouts.app')
+{{-- every role: the frame of the user's area (AvatarController picks it) --}}
+@extends($layout)
 
 @section('title', __('partner.avatar.title'))
 
@@ -22,7 +23,7 @@
         <div class="ui-notice ui-notice--error adm-flash" role="alert">{{ __('partner.avatar.invalid') }}</div>
     @endif
 
-    <form class="adm-avatar-form" method="POST" action="{{ route('admin.avatar.update') }}" data-avatar-form @if ($errors->any()) data-avatar-unsaved @endif>
+    <form class="adm-avatar-form" method="POST" action="{{ route('account.avatar.update') }}" data-avatar-form @if ($errors->any()) data-avatar-unsaved @endif>
         @csrf
         @method('PUT')
         <input type="hidden" name="seed" value="{{ $value['seed'] }}" data-avatar-seed-input>

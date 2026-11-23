@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Admin\AvatarController;
+use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PlateController;
@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::post('account/profile', [AccountController::class, 'completeProfile'])->name('account.profile');
     Route::get('account/google/link', [GoogleController::class, 'link'])->middleware('throttle:20,1')->name('account.google.link');
     Route::delete('account/google', [AccountController::class, 'unlinkGoogle'])->name('account.google.unlink');
+    // avatar of the logged-in user, every role: editor page (packages/svg-avatar) and save
+    Route::get('account/avatar', [AvatarController::class, 'edit'])->name('account.avatar.edit');
+    Route::put('account/avatar', [AvatarController::class, 'update'])->name('account.avatar.update');
 });
 
 // ROTTE AREA ADMIN
@@ -65,9 +68,8 @@ Route::prefix('admin')
         });
         // stats
         Route::resource('stats', StatsController::class)->only(['index', 'show']);
-        // avatar of the logged-in user: editor page (packages/svg-avatar) and save
-        Route::get('avatar', [AvatarController::class, 'edit'])->name('avatar.edit');
-        Route::put('avatar', [AvatarController::class, 'update'])->name('avatar.update');
+        // the avatar editor moved to /account/avatar (every role): old links keep working
+        Route::permanentRedirect('avatar', '/account/avatar');
     });
 
 // PLATFORM BACKOFFICE: admins only. One group, one authorization for the four tabs

@@ -85,7 +85,8 @@ describe("AccountMenu", () => {
         expect(wrapper.find(".account-full").text()).toBe("Mario Rossi");
         // "My orders" (SPA route) and "Your account": no partner hub / backoffice link
         expect(wrapper.findComponent(RouterLinkStub).props("to")).toEqual({ name: "myOrders" });
-        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href")).filter(Boolean)).toEqual(["/account"]);
+        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href")).filter(Boolean)).toEqual(["/account", "/account/avatar"]);
+        expect(wrapper.find('a[href="/account/avatar"]').text()).toBe("Customise avatar");
     });
 
     it("closes the menu when opening My orders", async () => {
@@ -97,10 +98,20 @@ describe("AccountMenu", () => {
         expect(details.open).toBe(false);
     });
 
+    it("offers the avatar editor to every role", () => {
+        for (const role of ["customer", "restaurateur", "admin"]) {
+            store.commit("setUser", { ...MARIO, role, home: role === "admin" ? "/platform" : "/" });
+            mountMenu();
+            expect(wrapper.find('a.account-item[href="/account/avatar"]').exists()).toBe(true);
+            wrapper.unmount();
+            wrapper = null;
+        }
+    });
+
     it("links partners and admins to their area", () => {
         store.commit("setUser", { ...MARIO, role: "restaurateur", home: "/admin" });
         mountMenu();
-        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href"))).toEqual(["/account", "/admin"]);
+        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href"))).toEqual(["/account", "/account/avatar", "/admin"]);
         // their orders are guest orders: no "My orders"
         expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(false);
     });
@@ -172,7 +183,7 @@ describe("MenuMobile account (under 600px the header has no avatar)", () => {
         const block = wrapper.find(".drawer-account");
         expect(block.find(".drawer-who-name").text()).toBe("Mario Rossi");
         expect(block.findAllComponents(RouterLinkStub).map(l => l.props("to"))).toContainEqual({ name: "myOrders" });
-        expect(block.findAll("a.drawer-link").map(a => a.attributes("href")).filter(Boolean)).toEqual(["/account"]);
+        expect(block.findAll("a.drawer-link").map(a => a.attributes("href")).filter(Boolean)).toEqual(["/account", "/account/avatar"]);
         expect(block.find("button.drawer-logout").exists()).toBe(true);
     });
 
@@ -180,7 +191,7 @@ describe("MenuMobile account (under 600px the header has no avatar)", () => {
         store.commit("setUser", { ...MARIO, role: "restaurateur", home: "/admin" });
         mountDrawer();
         const block = wrapper.find(".drawer-account");
-        expect(block.findAll("a.drawer-link").map(a => a.attributes("href"))).toEqual(["/account", "/admin"]);
+        expect(block.findAll("a.drawer-link").map(a => a.attributes("href"))).toEqual(["/account", "/account/avatar", "/admin"]);
         expect(block.findAllComponents(RouterLinkStub).some(l => l.props("to")?.name === "myOrders")).toBe(false);
     });
 

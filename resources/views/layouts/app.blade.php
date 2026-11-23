@@ -13,19 +13,27 @@
     @endauth
 </head>
 <body>
+    {{-- the signed-in frame: the partner hub, and the pages every role shares (the avatar editor):
+         a customer sees no partner badge nor restaurant links, but their own orders --}}
+    @php($partner = auth()->user()?->hasRole(\App\User::RESTAURATEUR) ?? false)
+    @php($customer = auth()->user()?->hasRole(\App\User::CUSTOMER) ?? false)
     <a class="adm-skip" href="#main">{{ __('site.skip') }}</a>
     <header class="adm-header">
         <div class="ui-container adm-header-inner">
-            <a class="adm-brand" href="{{ auth()->check() ? route('admin.restaurants.index') : url('/') }}" aria-label="{{ __('partner.header.brand') }}">
+            <a class="adm-brand" href="{{ auth()->check() ? url(auth()->user()->homePath()) : url('/') }}" aria-label="{{ auth()->check() && ! $partner ? __('site.nav.home') : __('partner.header.brand') }}">
                 {{-- crowded bar: only the mark under 600px, like the platform backoffice --}}
                 <x-logo wide />
-                <span class="adm-brand-tag">{{ __('partner.header.tag') }}</span>
+                @unless (auth()->check() && ! $partner)
+                    <span class="adm-brand-tag">{{ __('partner.header.tag') }}</span>
+                @endunless
             </a>
 
-            <nav class="adm-nav" aria-label="{{ __('partner.header.nav') }}">
-                @auth
+            <nav class="adm-nav" aria-label="{{ auth()->check() && ! $partner ? __('site.nav.main') : __('partner.header.nav') }}">
+                @if ($partner)
                     <a class="adm-nav-link {{ request()->routeIs('admin.*') ? 'adm-nav-link--active' : '' }}" href="{{ route('admin.restaurants.index') }}">{{ __('partner.header.restaurants') }}</a>
-                @endauth
+                @elseif ($customer)
+                    <a class="adm-nav-link" href="{{ url('/my-orders') }}">{{ __('site.account.orders') }}</a>
+                @endif
                 <a class="adm-nav-link" href="{{ url('/') }}" target="_blank" rel="noopener">
                     {{ __('partner.header.viewSite') }} <x-icon name="external" size="16" />
                 </a>
@@ -46,13 +54,19 @@
                             <x-icon name="chevron-down" size="16" />
                         </summary>
                         <div class="adm-menu-panel">
-                            <a class="adm-menu-item" href="{{ route('admin.restaurants.index') }}">
-                                <x-icon name="store" size="18" /> {{ __('partner.header.myRestaurants') }}
-                            </a>
+                            @if ($partner)
+                                <a class="adm-menu-item" href="{{ route('admin.restaurants.index') }}">
+                                    <x-icon name="store" size="18" /> {{ __('partner.header.myRestaurants') }}
+                                </a>
+                            @elseif ($customer)
+                                <a class="adm-menu-item" href="{{ url('/my-orders') }}">
+                                    <x-icon name="receipt" size="18" /> {{ __('site.account.orders') }}
+                                </a>
+                            @endif
                             <a class="adm-menu-item" href="{{ route('account') }}">
                                 <x-icon name="shield" size="18" /> {{ __('partner.account.menu') }}
                             </a>
-                            <a class="adm-menu-item" href="{{ route('admin.avatar.edit') }}">
+                            <a class="adm-menu-item" href="{{ route('account.avatar.edit') }}">
                                 <x-icon name="user" size="18" /> {{ __('partner.header.customizeAvatar') }}
                             </a>
                             <form method="POST" action="{{ route('logout') }}">

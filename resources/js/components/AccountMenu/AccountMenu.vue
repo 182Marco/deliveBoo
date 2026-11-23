@@ -34,6 +34,11 @@
                 <Icon name="user" :size="18" />
                 {{ t("account.settings") }}
             </a>
+            <!-- every role: the editor page is served by Laravel (/account/avatar) -->
+            <a class="account-item" href="/account/avatar">
+                <Icon name="edit" :size="18" />
+                {{ t("account.avatar") }}
+            </a>
             <a v-if="areaLink" class="account-item" :href="user.home">
                 <Icon :name="areaLink.icon" :size="18" />
                 {{ t(areaLink.text) }}
