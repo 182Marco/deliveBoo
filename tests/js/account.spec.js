@@ -83,13 +83,14 @@ describe("AccountMenu", () => {
         expect(wrapper.find("summary svg").exists()).toBe(true);
         expect(wrapper.find(".account-name").text()).toBe("Mario");
         expect(wrapper.find(".account-full").text()).toBe("Mario Rossi");
-        expect(wrapper.find("a.account-item").exists()).toBe(false);
+        // only "Your account": no partner hub / backoffice link
+        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href"))).toEqual(["/account"]);
     });
 
     it("links partners and admins to their area", () => {
         store.commit("setUser", { ...MARIO, role: "restaurateur", home: "/admin" });
         mountMenu();
-        expect(wrapper.find("a.account-item").attributes("href")).toBe("/admin");
+        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href"))).toEqual(["/account", "/admin"]);
     });
 
     it("uses the Google photo and falls back to the avatar when it does not load", async () => {

@@ -261,7 +261,8 @@
             "signedIn": { "en": "Signed in as", "it": "Accesso come", "de": "Angemeldet als", "fr": "Connecté en tant que", "es": "Sesión iniciada como" },
             "partnerHub": { "en": "Partner hub", "it": "Area partner", "de": "Partnerbereich", "fr": "Espace partenaire", "es": "Área de partners" },
             "platform": { "en": "Backoffice", "it": "Backoffice", "de": "Backoffice", "fr": "Back-office", "es": "Backoffice" },
-            "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" }
+            "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" },
+            "settings": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" }
         }
     },
     "partner": {
@@ -729,6 +730,19 @@
                     "customer": { "en": "A regular customer with a long order history.", "it": "Un cliente abituale con un lungo storico di ordini.", "de": "Ein Stammkunde mit langer Bestellhistorie.", "fr": "Un client régulier avec un long historique de commandes.", "es": "Un cliente habitual con un largo historial de pedidos." }
                 },
                 "use": { "en": "Log in as :name", "it": "Entra come :name", "de": "Als :name anmelden", "fr": "Se connecter en tant que :name", "es": "Entrar como :name" }
+            },
+            "google": {
+                "continue": { "en": "Continue with Google", "it": "Continua con Google", "de": "Weiter mit Google", "fr": "Continuer avec Google", "es": "Continuar con Google" },
+                "or": { "en": "or", "it": "oppure", "de": "oder", "fr": "ou", "es": "o" },
+                "state": { "en": "The Google sign-in expired or was not valid. Please try again.", "it": "L'accesso con Google è scaduto o non era valido. Riprova.", "de": "Die Google-Anmeldung ist abgelaufen oder ungültig. Bitte versuch es erneut.", "fr": "La connexion Google a expiré ou n'était pas valide. Veuillez réessayer.", "es": "El acceso con Google caducó o no era válido. Inténtalo de nuevo." },
+                "failed": { "en": "Google sign-in did not work. Please try again.", "it": "L'accesso con Google non è riuscito. Riprova.", "de": "Die Google-Anmeldung hat nicht funktioniert. Bitte versuch es erneut.", "fr": "La connexion Google n'a pas fonctionné. Veuillez réessayer.", "es": "El acceso con Google no funcionó. Inténtalo de nuevo." },
+                "unverified": { "en": "Your Google email address is not verified.", "it": "L'indirizzo email del tuo account Google non è verificato.", "de": "Die E-Mail-Adresse deines Google-Kontos ist nicht bestätigt.", "fr": "L'adresse e-mail de votre compte Google n'est pas vérifiée.", "es": "El email de tu cuenta de Google no está verificado." },
+                "exists": { "en": "An account with this email already exists. Log in with your password, then link Google from your account page.", "it": "Esiste già un account con questa email. Accedi con la password, poi collega Google dalla pagina del tuo account.", "de": "Es gibt bereits ein Konto mit dieser E-Mail. Melde dich mit deinem Passwort an und verknüpfe Google dann auf deiner Kontoseite.", "fr": "Un compte existe déjà avec cet e-mail. Connectez-vous avec votre mot de passe, puis associez Google depuis la page de votre compte.", "es": "Ya existe una cuenta con este email. Entra con tu contraseña y vincula Google desde la página de tu cuenta." },
+                "admin": { "en": "Admin accounts sign in with their password only.", "it": "Gli account admin accedono solo con la password.", "de": "Admin-Konten melden sich nur mit Passwort an.", "fr": "Les comptes admin se connectent uniquement avec leur mot de passe.", "es": "Las cuentas admin solo entran con contraseña." },
+                "taken": { "en": "This Google account is already linked to another Foodsy account.", "it": "Questo account Google è già collegato a un altro account Foodsy.", "de": "Dieses Google-Konto ist bereits mit einem anderen Foodsy-Konto verknüpft.", "fr": "Ce compte Google est déjà associé à un autre compte Foodsy.", "es": "Esta cuenta de Google ya está vinculada a otra cuenta de Foodsy." },
+                "linked": { "en": "Google account linked.", "it": "Account Google collegato.", "de": "Google-Konto verknüpft.", "fr": "Compte Google associé.", "es": "Cuenta de Google vinculada." },
+                "unlinked": { "en": "Google account unlinked.", "it": "Account Google scollegato.", "de": "Google-Konto getrennt.", "fr": "Compte Google dissocié.", "es": "Cuenta de Google desvinculada." },
+                "needPassword": { "en": "To unlink Google your account needs a password: use “Forgot your password?” on the login page first.", "it": "Per scollegare Google il tuo account deve avere una password: usa prima «Hai dimenticato la password?» nella pagina di accesso.", "de": "Um Google zu trennen, braucht dein Konto ein Passwort: Nutze zuerst „Passwort vergessen?“ auf der Anmeldeseite.", "fr": "Pour dissocier Google, votre compte doit avoir un mot de passe : utilisez d'abord « Mot de passe oublié ? » sur la page de connexion.", "es": "Para desvincular Google tu cuenta necesita una contraseña: usa antes «¿Has olvidado tu contraseña?» en la página de acceso." }
             }
         },
         "dialog": {
@@ -739,6 +753,24 @@
         },
         "toast": {
             "loggedIn": { "en": "Welcome back, you are logged in.", "it": "Bentornato, hai effettuato l'accesso.", "de": "Willkommen zurück, du bist angemeldet.", "fr": "Bon retour, vous êtes connecté.", "es": "Hola de nuevo, has iniciado sesión." }
+        },
+        "account": {
+            "title": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" },
+            "lead": { "en": "Your details and how you sign in to Foodsy.", "it": "I tuoi dati e come accedi a Foodsy.", "de": "Deine Daten und wie du dich bei Foodsy anmeldest.", "fr": "Vos informations et votre façon de vous connecter à Foodsy.", "es": "Tus datos y cómo entras en Foodsy." },
+            "role": { "en": "Account type", "it": "Tipo di account", "de": "Kontotyp", "fr": "Type de compte", "es": "Tipo de cuenta" },
+            "google": { "en": "Google sign-in", "it": "Accesso con Google", "de": "Google-Anmeldung", "fr": "Connexion Google", "es": "Acceso con Google" },
+            "googleLinked": { "en": "Linked: you can sign in with Google.", "it": "Collegato: puoi accedere con Google.", "de": "Verknüpft: Du kannst dich mit Google anmelden.", "fr": "Associé : vous pouvez vous connecter avec Google.", "es": "Vinculado: puedes entrar con Google." },
+            "googleNotLinked": { "en": "Not linked yet.", "it": "Non ancora collegato.", "de": "Noch nicht verknüpft.", "fr": "Pas encore associé.", "es": "Aún no vinculado." },
+            "link": { "en": "Link Google", "it": "Collega Google", "de": "Google verknüpfen", "fr": "Associer Google", "es": "Vincular Google" },
+            "unlink": { "en": "Unlink Google", "it": "Scollega Google", "de": "Google trennen", "fr": "Dissocier Google", "es": "Desvincular Google" },
+            "googleOff": { "en": "Google sign-in is not configured in this environment.", "it": "L'accesso con Google non è configurato in questo ambiente.", "de": "Die Google-Anmeldung ist in dieser Umgebung nicht eingerichtet.", "fr": "La connexion Google n'est pas configurée dans cet environnement.", "es": "El acceso con Google no está configurado en este entorno." },
+            "googleAdmin": { "en": "Admin accounts sign in with their password only.", "it": "Gli account admin accedono solo con la password.", "de": "Admin-Konten melden sich nur mit Passwort an.", "fr": "Les comptes admin se connectent uniquement avec leur mot de passe.", "es": "Las cuentas admin solo entran con contraseña." },
+            "completeTitle": { "en": "Complete your partner profile", "it": "Completa il tuo profilo partner", "de": "Vervollständige dein Partnerprofil", "fr": "Complétez votre profil partenaire", "es": "Completa tu perfil de partner" },
+            "completeLead": { "en": "Add your VAT number to open the partner hub.", "it": "Aggiungi la partita IVA per aprire l'area partner.", "de": "Füge deine MWST-Nummer hinzu, um den Partnerbereich zu öffnen.", "fr": "Ajoutez votre numéro de TVA pour ouvrir l'espace partenaire.", "es": "Añade tu NIF/IVA para abrir el área de partners." },
+            "save": { "en": "Save and continue", "it": "Salva e continua", "de": "Speichern und weiter", "fr": "Enregistrer et continuer", "es": "Guardar y continuar" },
+            "saved": { "en": "Profile saved.", "it": "Profilo salvato.", "de": "Profil gespeichert.", "fr": "Profil enregistré.", "es": "Perfil guardado." },
+            "open": { "en": "Open", "it": "Apri", "de": "Öffnen", "fr": "Ouvrir", "es": "Abrir" },
+            "menu": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" }
         }
     },
     "platform": {

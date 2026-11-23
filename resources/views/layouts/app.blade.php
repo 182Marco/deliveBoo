@@ -48,6 +48,9 @@
                             <a class="adm-menu-item" href="{{ route('admin.restaurants.index') }}">
                                 <x-icon name="store" size="18" /> {{ __('partner.header.myRestaurants') }}
                             </a>
+                            <a class="adm-menu-item" href="{{ route('account') }}">
+                                <x-icon name="shield" size="18" /> {{ __('partner.account.menu') }}
+                            </a>
                             <a class="adm-menu-item" href="{{ route('admin.avatar.edit') }}">
                                 <x-icon name="user" size="18" /> {{ __('partner.header.customizeAvatar') }}
                             </a>

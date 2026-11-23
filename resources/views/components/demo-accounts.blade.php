@@ -25,7 +25,7 @@
                         <input type="hidden" name="email" value="{{ $account['email'] }}">
                         <input type="hidden" name="password" value="{{ $account['password'] }}">
                         <button type="submit" class="ui-btn ui-btn--outline ui-btn--sm ui-btn--block">
-                            {{ __('partner.auth.demo.use', ['name' => $account['name']]) }}
+                            {{ __('partner.auth.demo.use', ['name' => __('partner.auth.demo.roles.'.$account['role'])]) }}
                         </button>
                     </form>
                 </li>

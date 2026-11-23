@@ -41,6 +41,15 @@ return [
         'driver' => env('PAYMENT_DRIVER', 'fake'),
     ],
 
+    // "Continue with Google" (laravel/socialite). Off until GOOGLE_CLIENT_ID is set; the callback is
+    // relative, so it follows the host of the request (localhost, Codespaces, production): every host
+    // used must be listed in the Google Cloud console (dev/PIANO_AUTH_CLIENTI.md, "Trappole").
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI', '/auth/google/callback'),
+    ],
+
     'braintree' => [
         'environment' => env('BRAINTREE_ENVIRONMENT', 'sandbox'),
         'merchant_id' => env('BRAINTREE_MERCHANT_ID'),

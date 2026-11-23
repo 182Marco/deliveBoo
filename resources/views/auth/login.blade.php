@@ -32,6 +32,7 @@
         </p>
     </form>
 
+    <x-google-button />
     <x-demo-accounts />
     @vite('resources/js/jsBack/logListen.js')
 @endsection

@@ -642,6 +642,48 @@
     color: var(--ink-soft);
 }
 
+/* "or" between the password form and "Continue with Google" */
+.auth-or {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+}
+
+.auth-or::before,
+.auth-or::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--line);
+}
+
+.auth-or-text {
+    text-transform: lowercase;
+}
+
+.auth-google {
+    gap: var(--space-3);
+}
+
+/* "Your account": name, email, type */
+.auth-facts {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2) var(--space-5);
+    font-size: var(--text-sm);
+}
+
+.auth-fact-label {
+    color: var(--ink-muted);
+}
+
+.auth-fact-value {
+    overflow-wrap: anywhere;
+    font-weight: var(--weight-bold);
+}
+
 /* demo accounts of the portfolio on the login page: one oat panel, a row per account */
 .auth-demo {
     display: flex;

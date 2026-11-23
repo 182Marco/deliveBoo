@@ -26,6 +26,10 @@
                 <span class="account-full">{{ fullName }}</span>
                 <span class="account-email">{{ user.email }}</span>
             </p>
+            <a class="account-item" href="/account">
+                <Icon name="user" :size="18" />
+                {{ t("account.settings") }}
+            </a>
             <a v-if="areaLink" class="account-item" :href="user.home">
                 <Icon :name="areaLink.icon" :size="18" />
                 {{ t(areaLink.text) }}

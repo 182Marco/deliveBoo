@@ -48,6 +48,8 @@
             {{ $partner ? __('partner.auth.register.submit') : __('partner.auth.register.customer.submit') }}
         </button>
 
+        <x-google-button :role="$role" />
+
         <p class="auth-switch">
             {{ __('partner.auth.register.already') }} <a class="ui-link" href="{{ route('login') }}">{{ __('partner.auth.register.login') }}</a>
         </p>

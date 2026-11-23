@@ -35,6 +35,9 @@
                         <x-icon name="chevron-down" size="16" />
                     </summary>
                     <div class="adm-menu-panel">
+                        <a class="adm-menu-item" href="{{ route('account') }}">
+                            <x-icon name="shield" size="18" /> {{ __('partner.account.menu') }}
+                        </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="adm-menu-item">

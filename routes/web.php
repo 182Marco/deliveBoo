@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AvatarController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PlateController;
 use App\Http\Controllers\Admin\RestaurantController;
@@ -23,9 +25,23 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(); // login, register, password reset (laravel/ui)
 
+// "Continue with Google" (404 while GOOGLE_CLIENT_ID is empty); the callback serves login and linking
+Route::middleware('throttle:20,1')->group(function () {
+    Route::get('auth/google', [GoogleController::class, 'redirect'])->middleware('guest')->name('google.redirect');
+    Route::get('auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
+});
+
+// "Your account", every role: Google link, VAT number of a restaurateur created through Google
+Route::middleware('auth')->group(function () {
+    Route::get('account', [AccountController::class, 'show'])->name('account');
+    Route::post('account/profile', [AccountController::class, 'completeProfile'])->name('account.profile');
+    Route::get('account/google/link', [GoogleController::class, 'link'])->middleware('throttle:20,1')->name('account.google.link');
+    Route::delete('account/google', [AccountController::class, 'unlinkGoogle'])->name('account.google.unlink');
+});
+
 // ROTTE AREA ADMIN
 Route::prefix('admin')
-    ->middleware(['auth', 'role:restaurateur'])
+    ->middleware(['auth', 'role:restaurateur', 'profile.complete'])
     ->name('admin.')
     ->group(function () {
         // home admin
