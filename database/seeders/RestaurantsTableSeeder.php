@@ -84,7 +84,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=1600&q=75",
             ],
             [
-                "owner" => "federico.romiti@foodsy.test",
+                "owner" => "restaurant_owner@foodsy.test",
                 "name" => "the garage",
                 "types" => ["Pizzeria", "Fast Food"],
                 "phone" => "044 740 33 05",
@@ -129,7 +129,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=75",
             ],
             [
-                "owner" => "federico.romiti@foodsy.test",
+                "owner" => "restaurant_owner@foodsy.test",
                 "name" => "Burger King",
                 "types" => ["Fast Food"],
                 "phone" => "044 821 45 87",
@@ -138,7 +138,7 @@ class RestaurantsTableSeeder extends Seeder
                 "img" => "https://images.unsplash.com/photo-1602030638412-bb8dcc0bc8b0?auto=format&fit=crop&w=1600&q=75",
             ],
             [
-                "owner" => "federico.romiti@foodsy.test",
+                "owner" => "restaurant_owner@foodsy.test",
                 "name" => "Mc Donald's",
                 "types" => ["Fast Food"],
                 "phone" => "044 730 87 23",

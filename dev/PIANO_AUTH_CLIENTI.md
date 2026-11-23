@@ -200,8 +200,8 @@ Vincoli: niente servizi a pagamento, niente tile self-hosted o salvate dal backe
   - **nessuna credenziale nel codice di produzione** oltre ai default di sviluppo.
 - **`DemoAccountsSeeder`** (idempotente, per email):
   - **Admin** `admin@foodsy.test`;
-  - **Mario Rossi** `mario.rossi@foodsy.test` (cliente);
-  - **Federico Romiti** `federico.romiti@foodsy.test` (D2, email migrata ovunque), password storica `12345678`, `role=restaurateur`.
+  - **Mario Rossi** `customer@foodsy.test` (cliente; D2b);
+  - **Federico Romiti** `restaurant_owner@foodsy.test` (D2 + D2b, email migrata ovunque), password storica `12345678`, `role=restaurateur`.
 - **Protezione degli account demo** (D6): non si possono bannare né modificare dal pannello e le loro password non si cambiano da UI quando `DEMO_ACCOUNTS` è attivo. Il resto dei dati resta modificabile dai visitatori, senza reset periodico.
 - **Login**:
   - box elegante `<x-demo-accounts>` (eyebrow "Progetto portfolio", 3 righe ruolo/email/password, bottone "Usa" che compila il form);
@@ -291,6 +291,7 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 
 ## Decisioni prese (2026-11-23)
 - **D2 — Email di Federico Romiti: sì.** Diventa `federico.romiti@foodsy.test` **ovunque** compaia la vecchia `federico_romiti@gmail.com`: `database/seeders/UsersTableSeeder.php`, `database/seeders/RestaurantsTableSeeder.php`, `database/seeders/Support/CatalogPlan.php`, `tests/Feature/Concerns/SeededFixtures.php`, `dev/mappa.html` (solo blocco `DATI`); più una migration di dati che aggiorna il DB già popolato (idempotente: solo se la nuova email non esiste). Verifica finale: `grep -r "federico_romiti@gmail.com"` senza risultati fuori da `vendor/`/`node_modules/` (eccezioni: la migration, che contiene la vecchia email come valore da sostituire, e questo piano, che la cita come storia). Step **2.2a**.
+- **D2b — Email degli account demo per ruolo (2026-11-24).** Su richiesta dell'utente le email demo prendono il nome del ruolo, non della persona: Federico Romiti `federico.romiti@foodsy.test` → **`restaurant_owner@foodsy.test`**, Mario Rossi `mario.rossi@foodsy.test` → **`customer@foodsy.test`** (admin invariato: `admin@foodsy.test`). Cambiate ovunque, `dev/mappa.html` compresa, più una nuova migration di dati per i DB già popolati (la 2.2a resta com'è: le migration esistenti non si modificano). Step **2.2b**.
 - **D3 — Arricchimenti: sì.** `CustomerProfilesSeeder` crea Mario Rossi con lo storico ricco **e** registra come clienti una parte dei clienti sintetici degli ordini da ospite (~300 più frequenti, `created_at` = primo ordine), collegando i loro ordini tramite `user_id`. Step **7.3**.
 - **D1 — Mappa: Leaflet + OpenStreetMap.** Caricamento lazy, tile esterne con attribuzione, dati aggregati, modulo isolato, peso misurato: dettagli in «Tab Mappe: implementazione». Step **4.3**.
 - **D4 — Ristoratore bannato: approvata la proposta.** I suoi ristoranti restano visibili ma non accettano ordini (controllo lato server in `POST /api/orders`). Step **5.3**.
@@ -419,4 +420,18 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: `composer.json`/`composer.lock`, `config/sanctum.php`, `bootstrap/app.php`, `routes/api.php`, `app/Http/Controllers/Api/MeController.php`, `resources/js/{api/account.js,api/index.js,store.js,App.logic.js}`, `resources/js/components/{AccountMenu/*,Header/*,MenuMobile/MenuMobile.logic.js,index.js}`, `resources/js/utils/strings.json`, `tests/Feature/Api/MeTest.php`, `tests/js/{account.spec.js,app.smoke.spec.js}`, `AGENTS.md`, `dev/mappa.html`.
 - Test: `MeTest` (6), `account.spec.js` (11). `php artisan test` **157 passati** · `npm run test:js` **260 passati** · `npm run build` ok.
 - Problemi aperti: verifica visiva nel browser di header, menu, schede di registrazione e box demo (non ho un browser in questa sessione).
+- Prossimo step: 2.2b, poi 3.1.
+
+### 2.2b — Email degli account demo per ruolo (D2b, 2026-11-24) ✅
+- Stato: completato. Credenziali demo attuali:
+
+  | Ruolo | Account | Email | Password |
+  |---|---|---|---|
+  | admin | Foodsy Admin | `admin@foodsy.test` | `foodsy-admin` |
+  | restaurateur | Federico Romiti | `restaurant_owner@foodsy.test` | `12345678` |
+  | customer | Mario Rossi | `customer@foodsy.test` | `foodsy-demo` |
+- Modifiche: `config/demo.php` e `.env.example` (`DEMO_RESTAURATEUR_EMAIL`, `DEMO_CUSTOMER_EMAIL`), seeder (`UsersTableSeeder`, `RestaurantsTableSeeder` ×3, `Support/CatalogPlan::ROMITI`), test (`Concerns/SeededFixtures`, `UserRolesTest`, `tests/js/account.spec.js`), `README.md`, `dev/mappa.html` (credenziali di avvio e nuova riga della migration). Migration di dati `2026_11_24_020000_rename_demo_account_emails` (idempotente, reversibile; elimina eventuali token di reset delle vecchie email). Le email delle sezioni storiche del registro (2.2a, 2.2) restano come erano.
+- DB di sviluppo: migration applicata; id 9 → `restaurant_owner@foodsy.test`, id 62 → `customer@foodsy.test`.
+- Verifica: le vecchie email compaiono solo nelle due migration (valori da sostituire), nella riga della mappa che descrive la migration 2.2a e in questo registro.
+- Test: `php artisan test` **157 passati** · `npm run test:js` **260 passati**.
 - Prossimo step: **3.1 scheletro del backoffice `/platform`** (gruppo di rotte, layout con 4 tab, filtri condivisi, audit log, test di accesso).

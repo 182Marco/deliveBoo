@@ -9,14 +9,14 @@ use App\User;
 
 /**
  * Shared fixtures on top of the idempotent seeders (natural keys, never ids).
- * owner  = federico.romiti@foodsy.test, owns "Mc Donald's" (and others)
+ * owner  = restaurant_owner@foodsy.test, owns "Mc Donald's" (and others)
  * other  = domenico.politi@gmail.com, owns "Il cacciatore", not "Mc Donald's"
  */
 trait SeededFixtures
 {
     protected function owner()
     {
-        return User::where('email', 'federico.romiti@foodsy.test')->firstOrFail();
+        return User::where('email', 'restaurant_owner@foodsy.test')->firstOrFail();
     }
 
     protected function otherUser()

@@ -10,7 +10,7 @@ import { accountAreaLink, fullName } from "../../resources/js/components/Account
 vi.mock("axios", () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 
 const MARIO = {
-    id: 62, name: "Mario", last_name: "Rossi", email: "mario.rossi@foodsy.test", phone: null,
+    id: 62, name: "Mario", last_name: "Rossi", email: "customer@foodsy.test", phone: null,
     role: "customer", home: "/", avatar_url: null, avatar_seed: "user-62", avatar_overrides: {}
 };
 
@@ -57,7 +57,7 @@ describe("store", () => {
         const saved = JSON.parse(localStorage.getItem("vuex"));
         expect(saved.typesSelected).toEqual([3]);
         expect(saved).not.toHaveProperty("user");
-        expect(localStorage.getItem("vuex")).not.toContain("mario.rossi");
+        expect(localStorage.getItem("vuex")).not.toContain("customer@foodsy.test");
     });
 
     it("logs out on the server and forgets the account", async () => {

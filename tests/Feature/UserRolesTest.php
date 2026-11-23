@@ -25,7 +25,7 @@ class UserRolesTest extends TestCase
             [config('demo.accounts.admin.email'), config('demo.accounts.customer.email')],
             User::where('role', '!=', User::RESTAURATEUR)->pluck('email')->all(),
         );
-        $this->assertSame(User::RESTAURATEUR, User::where('email', 'federico.romiti@foodsy.test')->value('role'));
+        $this->assertSame(User::RESTAURATEUR, User::where('email', 'restaurant_owner@foodsy.test')->value('role'));
     }
 
     public function testNewUserIsACustomerByDefaultAndNeedsNoVatNumberNorPassword()
