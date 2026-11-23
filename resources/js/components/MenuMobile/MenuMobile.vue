@@ -1,6 +1,17 @@
 <template>
-    <div v-if="menuMobile" class="drawer-backdrop" @click.self="toggleMenuMobile" @keydown.esc="toggleMenuMobile">
-        <section id="mobile-menu" class="drawer" role="dialog" aria-modal="true" :aria-label="t('drawer.label')">
+    <Transition name="drawer-fade">
+        <div v-if="menuMobile" class="drawer-backdrop" @click="toggleMenuMobile"></div>
+    </Transition>
+    <Transition name="drawer-slide">
+        <section
+            v-if="menuMobile"
+            id="mobile-menu"
+            class="drawer"
+            role="dialog"
+            aria-modal="true"
+            :aria-label="t('drawer.label')"
+            @keydown.esc="toggleMenuMobile"
+        >
             <div class="drawer-head">
                 <Logo />
                 <button
@@ -38,7 +49,7 @@
                 <a class="ui-btn ui-btn--primary ui-btn--block" href="/register">{{ t("drawer.cta") }}</a>
             </div>
         </section>
-    </div>
+    </Transition>
 </template>
 
 <script>
