@@ -20,7 +20,7 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
   - [ ] **Manuale** — pagamento nel browser con driver `fake` (4111… ok, 4000 0000 0000 0002 rifiutata) · facoltativo: account sandbox Braintree, `PAYMENT_DRIVER=braintree`, stessa prova
   - [ ] **Manuale** — DB di sviluppo `deliveboo`: `docker compose build && docker compose up -d && docker compose exec app php artisan migrate` (migration dei prezzi e delle colonne di pagamento: già applicate il 2026-11-22; nessun reseed) — comando ora anche in `dev/mappa.html` (Link di avvio → Codespace, Note Docker, Comandi Laravel → Migrations)
   - [ ] **Manuale** — prima del merge: variabili su Render (`APP_KEY`; facoltative `MAIL_*`, `PAYMENT_DRIVER`/`BRAINTREE_*`), poi deploy
-  - [ ] **Da decidere** — correzioni separate `fix(security)` SEC-1..SEC-4 e `fix` BUG-1
+  - [x] Correzioni `fix(security)` SEC-1..SEC-4 (2026-11-23, branch `feat/auth-platform`, Policy `RestaurantPolicy`/`PlatePolicy`, step 1.1 di `dev/PIANO_AUTH_CLIENTI.md`) e `fix` BUG-1
 
 **Prossimo passo:** verifiche manuali con l'utente (browser, Braintree sandbox, migrate del DB di sviluppo), poi decidere sulle correzioni SEC-1..4 / BUG-1 e sul merge di `upgrade/laravel-13` in `master`.
 
@@ -30,10 +30,10 @@ Branch: `upgrade/laravel-13`. Regola: a ogni passo completato si spunta qui e si
 - Verifiche Composer eseguite su una copia in scratchpad, lock del progetto non toccato.
 - Comando compatto per un solo file: `docker run --rm -v "$PWD":/app -w /app deliveboo-php80 vendor/bin/phpunit --colors=never tests/Feature/AuthTest.php`.
 - **Problemi emersi in Fase 0.b** (tutti fissati come `_CurrentBehaviour` + test corretto in skip; correzione in commit separati, **non** durante la migrazione):
-  - **SEC-1** `PlateController@store`: piatto creabile in un ristorante altrui (`restaurant_id` dal form).
-  - **SEC-2** `StatsController@show`: ordini e dati cliente di qualsiasi ristorante leggibili.
-  - 🆕 **SEC-3** `RestaurantController@update/@destroy`: nessun controllo proprietario (un utente può modificare/cancellare ristoranti altrui).
-  - 🆕 **SEC-4** `PlateController@update/@destroy`: idem per i piatti.
+  - ✅ **SEC-1** `PlateController@store`: piatto creabile in un ristorante altrui (`restaurant_id` dal form).
+  - ✅ **SEC-2** `StatsController@show`: ordini e dati cliente di qualsiasi ristorante leggibili.
+  - 🆕 ✅ **SEC-3** `RestaurantController@update/@destroy`: nessun controllo proprietario (un utente può modificare/cancellare ristoranti altrui).
+  - 🆕 ✅ **SEC-4** `PlateController@update/@destroy`: idem per i piatti.
   - ✅ **BUG-1** `RestaurantController@store`: non impostava `slug` (NOT NULL) → 500. Corretto con `Restaurant::uniqueSlug` (lavoro dataset, `dev/PIANO_DATASET.md`).
   - Minore, solo annotato: `plates/create/{slug}` di un ristorante altrui mostra il form (lista solo i ristoranti dell'utente, nessun dato esposto).
   - Fase 0.c: installare vite 7 ha portato `sass` da 1.37 a 1.108 (peer opzionale di vite `^1.70`, non riportabile indietro senza `--legacy-peer-deps`). Il CSS compilato da Mix è equivalente (formato colori e ordine delle regole): i file in `public/` **non** sono stati ricommitati; si rigenerano comunque in Fase 3 con Vite.

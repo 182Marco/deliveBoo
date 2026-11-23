@@ -41,14 +41,21 @@ class PlateController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate($this->rules());
+        $request->validate($this->rules(['restaurant_id' => ['required', 'integer']]));
 
-        // all(), not validated(): restaurant_id comes from the form without a rule
+        // SEC-1: the restaurant of the form must be one of the logged user's
+        $restaurant = Restaurant::find($request->integer('restaurant_id'));
+        if (! $restaurant || $request->user()->cannot('manage', $restaurant)) {
+            return view('admin.notYours.plate');
+        }
+
+        // all(), not validated(): the other fields have no rule for every key
         $data = $this->plateData($request->except(['diet', 'allergens', 'img_url']));
         $data['img'] = $this->photo($request);
 
         $new_plate = new Plate($data);
-        $new_plate->slug = Plate::uniqueSlug($data['name'], Restaurant::find($data['restaurant_id'] ?? null)?->slug);
+        $new_plate->restaurant_id = $restaurant->id;
+        $new_plate->slug = Plate::uniqueSlug($data['name'], $restaurant->slug);
         DB::transaction(function () use ($new_plate, $request) {
             $new_plate->save();
             $this->saveDetails($new_plate, $request);
@@ -86,6 +93,10 @@ class PlateController extends Controller
     public function update(Request $request, $id)
     {
         $plate = Plate::findOrFail($id);
+        // SEC-4: only the owner of the restaurant changes its plates
+        if ($request->user()->cannot('manage', $plate)) {
+            return view('admin.notYours.plate');
+        }
         // the same dish name can exist in many restaurants, not twice in the same menu
         $request->validate($this->rules([
             'name' => ['required', Rule::unique('plates')->where('restaurant_id', $plate->restaurant_id)->whereNull('deleted_at')->ignore($id), 'max:80'],
@@ -115,6 +126,10 @@ class PlateController extends Controller
     public function destroy($id)
     {
         $plate = Plate::findOrFail($id);
+        // SEC-4
+        if (auth()->user()->cannot('manage', $plate)) {
+            return view('admin.notYours.plate');
+        }
         $rest_slug = $plate->restaurant?->slug;
 
         // soft delete: the dish leaves the menu but stays in the history of its orders

@@ -193,4 +193,4 @@ vite.config.js  entry point della build e configurazione di Vitest
 - `Admin/HomeController` non è collegato a nessuna rotta; `StatsController@index` è vuoto.
 - `public/build` è generata da Vite: modificare i sorgenti in `resources/` e ricompilare.
 - I ristoranti storici del seed hanno ancora nomi e piatti di marchi reali (scelta voluta); tutto il catalogo generato è sintetico.
-- Mancano alcuni controlli del proprietario nell'admin (SEC-1..SEC-4: creazione piatti, modifica/eliminazione di ristoranti e piatti, statistiche) (BUG-1, lo slug mancante alla creazione di un ristorante, è corretto). Sono fissati dai test come comportamento attuale e vanno corretti in commit separati: dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.
+- I controlli del proprietario nell'area partner (SEC-1..SEC-4: creazione piatti, modifica/eliminazione di ristoranti e piatti, statistiche) sono corretti con le Policy `RestaurantPolicy` e `PlatePolicy`; BUG-1 (slug alla creazione di un ristorante) è corretto. Dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.

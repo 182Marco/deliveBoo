@@ -83,6 +83,12 @@ class RestaurantController extends Controller
 
     public function update(Request $request, $id)
     {
+        // SEC-3: only the owner changes a restaurant
+        $restaurant = Restaurant::findOrFail($id);
+        if ($request->user()->cannot('manage', $restaurant)) {
+            return view('admin.notYours.restaurant');
+        }
+
         $request->validate([
             'name' => ['required', Rule::unique('restaurants')->ignore($id), 'max:80'],
             'phone' => ['required'],
@@ -94,7 +100,6 @@ class RestaurantController extends Controller
             'img' => ['nullable', 'mimes:jpg,png,jpeg,webp'],
         ]);
 
-        $restaurant = Restaurant::findOrFail($id);
         $data = $request->all();
 
         // replace the image: delete the previous one
@@ -116,6 +121,10 @@ class RestaurantController extends Controller
     public function destroy($id)
     {
         $restaurant = Restaurant::findOrFail($id);
+        // SEC-3
+        if (auth()->user()->cannot('manage', $restaurant)) {
+            return view('admin.notYours.restaurant');
+        }
 
         if ($restaurant->img) {
             Storage::delete($restaurant->img);

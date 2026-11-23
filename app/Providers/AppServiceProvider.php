@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Plate;
+use App\Policies\PlatePolicy;
+use App\Policies\RestaurantPolicy;
+use App\Restaurant;
+use Illuminate\Support\Facades\Gate;
+
 use App\I18n\StringsLoader;
 use App\Payments\BraintreeGateway;
 use App\Payments\FakeGateway;
@@ -29,5 +35,9 @@ class AppServiceProvider extends ServiceProvider
         // pagination markup of the Foodsy design system (resources/views/pagination/foodsy.blade.php)
         Paginator::defaultView('pagination.foodsy');
         Paginator::defaultSimpleView('pagination.foodsy');
+
+        // ownership rules of the partner hub (SEC-1..SEC-4)
+        Gate::policy(Restaurant::class, RestaurantPolicy::class);
+        Gate::policy(Plate::class, PlatePolicy::class);
     }
 }

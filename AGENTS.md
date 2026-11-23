@@ -88,7 +88,7 @@ php artisan route:list             # verifica le rotte
 - `POST /api/orders` risponde **200** anche con errori di validazione o pagamento rifiutato (`{errors}`, `errors.payment`): la pagina `Payment` legge quel formato, non trasformarlo in 422/402.
 - Area di servizio fittizia: **cantone di Zurigo e dintorni** (`database/seeders/data/cities.php`, cantone nella colonna `province`, CAP svizzeri a 4 cifre, telefoni 044/052…). Ristoranti storici e generati sono tutti lì; i seeder saltano i record esistenti, quindi per applicare un cambio di città a un DB già popolato serve `migrate:fresh --seed`.
 - Dataset ed evoluzione del DB per il futuro assistente AI: stato, scelte e problemi aperti in `dev/PIANO_DATASET.md`.
-- Problemi noti, fissati dai test come comportamento attuale e da correggere in commit separati: **SEC-1..SEC-4** (mancano controlli del proprietario in `PlateController@store/update/destroy`, `RestaurantController@update/destroy`, `StatsController@show`) (BUG-1, slug mancante in `RestaurantController@store`, è corretto: `Restaurant::uniqueSlug`). Dettagli in `dev/PIANO_MIGRAZIONE_L13.md`.
+- Proprietà nell'area partner: **SEC-1..SEC-4 corretti** con `App\Policies\RestaurantPolicy` e `PlatePolicy` (abilità `manage`, registrate in `AppServiceProvider`). Ogni azione su ristorante, piatto, ordini o statistiche usa `$user->cannot('manage', $model)` e mostra `admin/notYours/*`; in `PlateController@store` il ristorante arriva dal form e va sempre verificato. Test in `tests/Feature/Admin/OwnershipTest.php`.
 - La vista della mail è `mails/orderedMessage` (`O` maiuscola): su filesystem case-sensitive (Linux/Docker) il nome deve combaciare esattamente.
 
 ## Non toccare / non committare

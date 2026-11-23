@@ -11,11 +11,8 @@ use Tests\TestCase;
 /**
  * Who can see / change what in the admin area.
  *
- * Tests named *_CurrentBehaviour pin down existing vulnerabilities (SEC-n, see
- * dev/PIANO_MIGRAZIONE_L13.md): they must stay green during the migration so the
- * behaviour does not change by accident. The matching testOtherUserCannot* test
- * describes the secure behaviour and is skipped until the separate
- * "fix(security): SEC-n" commit, which deletes the _CurrentBehaviour test.
+ * SEC-1..SEC-4 (dev/PIANO_MIGRAZIONE_L13.md) are fixed by App\Policies\RestaurantPolicy and
+ * PlatePolicy: the testOtherUserCannot* tests pin down the secure behaviour.
  */
 class OwnershipTest extends TestCase
 {
@@ -125,25 +122,21 @@ class OwnershipTest extends TestCase
         $this->assertEquals($this->ownedRestaurant()->id, Plate::where('slug', 'owner-plate')->value('restaurant_id'));
     }
 
-    public function testOtherUserCanStorePlateInForeignRestaurant_CurrentBehaviour()
-    {
-        // SEC-1: restaurant_id comes from the form and is never checked against auth()->id()
-        $this->actingAs($this->otherUser());
-
-        $this->post(route('admin.plates.store'), $this->platePayload($this->ownedRestaurant()->id, 'Intruder Plate'))
-            ->assertRedirect(route('admin.plates.show', 'intruder-plate'));
-
-        $this->assertEquals($this->ownedRestaurant()->id, Plate::where('slug', 'intruder-plate')->value('restaurant_id'));
-    }
-
     public function testOtherUserCannotStorePlateInForeignRestaurant()
     {
-        $this->markTestSkipped('SEC-1: PlateController@store does not check the restaurant owner (separate fix(security) commit).');
-
         $this->actingAs($this->otherUser());
         $this->post(route('admin.plates.store'), $this->platePayload($this->ownedRestaurant()->id, 'Intruder Plate'))
             ->assertViewIs('admin.notYours.plate');
         $this->assertSame(0, Plate::where('slug', 'intruder-plate')->count());
+    }
+
+    public function testStorePlateNeedsAnExistingRestaurant()
+    {
+        $this->actingAs($this->owner());
+
+        $this->post(route('admin.plates.store'), $this->platePayload(null, 'Orphan Plate'))->assertSessionHasErrors('restaurant_id');
+        $this->post(route('admin.plates.store'), $this->platePayload(999999, 'Orphan Plate'))->assertViewIs('admin.notYours.plate');
+        $this->assertSame(0, Plate::where('slug', 'orphan-plate')->count());
     }
 
     public function testGuestCannotStorePlate()
@@ -169,21 +162,8 @@ class OwnershipTest extends TestCase
         }
     }
 
-    public function testOtherUserSeesForeignStats_CurrentBehaviour()
-    {
-        // SEC-2: orders (with customer names, emails, addresses) of any restaurant are readable
-        $this->actingAs($this->otherUser());
-
-        $response = $this->get(route('admin.stats.show', $this->ownedRestaurant()->id));
-
-        $response->assertOk()->assertViewIs('admin.stats.show');
-        $this->assertNotEmpty($response->viewData('related_orders'));
-    }
-
     public function testOtherUserCannotSeeForeignStats()
     {
-        $this->markTestSkipped('SEC-2: StatsController@show does not check the restaurant owner (separate fix(security) commit).');
-
         $this->actingAs($this->otherUser());
         $this->get(route('admin.stats.show', $this->ownedRestaurant()->id))->assertViewIs('admin.notYours.orders');
     }
@@ -195,57 +175,48 @@ class OwnershipTest extends TestCase
 
     // ---------------------------------------------------------------- update / destroy (SEC-3, SEC-4)
 
-    public function testOtherUserCanUpdateAndDeleteForeignRestaurant_CurrentBehaviour()
-    {
-        // SEC-3: RestaurantController@update / @destroy have no ownership check
-        $this->actingAs($this->otherUser());
-        $rest = $this->ownedRestaurant();
-
-        $this->patch(route('admin.restaurants.update', $rest->id), [
-            'name' => 'Hijacked', 'phone' => '1', 'city' => 'X', 'address' => 'Y',
-        ])->assertRedirect(route('admin.restaurants.show', $rest->id));
-        $this->assertSame('Hijacked', $rest->fresh()->name);
-
-        $this->delete(route('admin.restaurants.destroy', $rest->id))->assertRedirect(route('admin.restaurants.index'));
-        $this->assertNull(Restaurant::find($rest->id));
-    }
-
     public function testOtherUserCannotUpdateOrDeleteForeignRestaurant()
     {
-        $this->markTestSkipped('SEC-3: RestaurantController@update/@destroy do not check the owner (separate fix(security) commit).');
-
         $this->actingAs($this->otherUser());
         $rest = $this->ownedRestaurant();
         $this->patch(route('admin.restaurants.update', $rest->id), ['name' => 'Hijacked', 'phone' => '1', 'city' => 'X', 'address' => 'Y'])
             ->assertViewIs('admin.notYours.restaurant');
         $this->delete(route('admin.restaurants.destroy', $rest->id))->assertViewIs('admin.notYours.restaurant');
         $this->assertNotNull(Restaurant::find($rest->id));
+        $this->assertNotSame('Hijacked', $rest->fresh()->name);
     }
 
-    public function testOtherUserCanUpdateAndDeleteForeignPlate_CurrentBehaviour()
+    public function testOwnerCanUpdateOwnRestaurant()
     {
-        // SEC-4: PlateController@update / @destroy have no ownership check
-        $this->actingAs($this->otherUser());
-        $plate = $this->ownedPlate();
+        $this->actingAs($this->owner());
+        $rest = $this->ownedRestaurant();
 
-        $this->patch(route('admin.plates.update', $plate->id), [
-            'name' => 'Hijacked plate', 'ingredients' => 'a', 'description' => 'b', 'visible' => 1, 'price' => 1,
-        ])->assertRedirect(route('admin.plates.show', $plate->slug));
-        $this->assertSame('Hijacked plate', $plate->fresh()->name);
-
-        $this->delete(route('admin.plate.delete', $plate->id))->assertRedirect(route('admin.plates.index', $this->ownedRestaurant()->slug));
-        $this->assertNull(Plate::find($plate->id));
+        $this->patch(route('admin.restaurants.update', $rest->id), ['name' => 'Renamed by owner', 'phone' => '1', 'city' => 'X', 'address' => 'Y'])
+            ->assertRedirect(route('admin.restaurants.show', $rest->id));
+        $this->assertSame('Renamed by owner', $rest->fresh()->name);
     }
 
     public function testOtherUserCannotUpdateOrDeleteForeignPlate()
     {
-        $this->markTestSkipped('SEC-4: PlateController@update/@destroy do not check the owner (separate fix(security) commit).');
-
         $this->actingAs($this->otherUser());
         $plate = $this->ownedPlate();
         $this->patch(route('admin.plates.update', $plate->id), ['name' => 'Hijacked plate', 'ingredients' => 'a', 'description' => 'b', 'visible' => 1, 'price' => 1])
             ->assertViewIs('admin.notYours.plate');
         $this->delete(route('admin.plate.delete', $plate->id))->assertViewIs('admin.notYours.plate');
         $this->assertNotNull(Plate::find($plate->id));
+        $this->assertNotSame('Hijacked plate', $plate->fresh()->name);
+    }
+
+    public function testOwnerCanUpdateAndDeleteOwnPlate()
+    {
+        $this->actingAs($this->owner());
+        $plate = $this->ownedPlate();
+
+        $this->patch(route('admin.plates.update', $plate->id), ['name' => 'Owner edit', 'ingredients' => 'a', 'description' => 'b', 'visible' => 1, 'price' => 1])
+            ->assertRedirect(route('admin.plates.show', $plate->slug));
+        $this->assertSame('Owner edit', $plate->fresh()->name);
+
+        $this->delete(route('admin.plate.delete', $plate->id))->assertRedirect(route('admin.plates.index', $this->ownedRestaurant()->slug));
+        $this->assertNull(Plate::find($plate->id));
     }
 }

@@ -316,4 +316,12 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - Test: nessuno (solo documentazione).
 - Problemi aperti: solo 7 (2FA admin, rinviata) e 8 (commissione reale, futura). D1–D6 decise dall'utente e integrate nelle fasi.
 - Aggiornamento dello stesso giorno: integrate D1 (Leaflet + OSM con i 4 vincoli e le verifiche di peso), D4 (ban → niente ordini) e D5 (commissione simulata 25%: stima su dati attuali €99,152.05 su tutto lo storico).
-- Prossimo step: **1.1 fix SEC-1..SEC-4** (in attesa del via all'implementazione).
+- Prossimo step: 1.1.
+
+### 1.1 — Fix SEC-1..SEC-4 (2026-11-23) ✅
+- Stato: completato (branch `feat/auth-platform`).
+- Modifiche: Policy `manage` per ristoranti e piatti. SEC-1: `PlateController@store` richiede `restaurant_id` e verifica che il ristorante sia dell'utente, poi lo imposta lato server. SEC-2: `StatsController@show` → `admin.notYours.orders` per i non proprietari (404 se il ristorante non esiste). SEC-3: `RestaurantController@update/destroy`. SEC-4: `PlateController@update/destroy`. Il controllo avviene **prima** della validazione e di qualsiasi scrittura.
+- File: `app/Policies/RestaurantPolicy.php`, `app/Policies/PlatePolicy.php`, `app/Providers/AppServiceProvider.php`, `app/Http/Controllers/Admin/{PlateController,RestaurantController,StatsController}.php`, `tests/Feature/Admin/OwnershipTest.php`, `AGENTS.md`, `README.md`, `dev/PIANO_MIGRAZIONE_L13.md`.
+- Test: rimossi i 4 test `_CurrentBehaviour` delle vulnerabilità, attivati i 4 `testOtherUserCannot…`, aggiunti store senza ristorante o con ristorante inesistente e i casi positivi del proprietario (update ristorante, update/delete piatto). `php artisan test`: **118 passati, 0 skip** (21.831 asserzioni).
+- Problemi aperti: nessuno.
+- Prossimo step: **1.2 migration su `users`** (ruolo, nullable, Google, ban).
