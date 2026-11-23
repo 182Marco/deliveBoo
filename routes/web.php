@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AvatarController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PlateController;
 use App\Http\Controllers\Admin\RestaurantController;
@@ -44,6 +45,9 @@ Route::prefix('admin')
         });
         // stats
         Route::resource('stats', StatsController::class)->only(['index', 'show']);
+        // avatar of the logged-in user: editor page (packages/svg-avatar) and save
+        Route::get('avatar', [AvatarController::class, 'edit'])->name('avatar.edit');
+        Route::put('avatar', [AvatarController::class, 'update'])->name('avatar.update');
     });
 
 // language switch of the partner hub: sets the foodsy_locale cookie and goes back

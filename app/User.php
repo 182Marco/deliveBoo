@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Avatar\AvatarCatalog;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,21 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            // not fillable: written only by Admin\AvatarController
+            'avatar' => 'array',
         ];
+    }
+
+    /** seed for packages/svg-avatar: a saved random seed, or one derived from the id */
+    public function avatarSeed(): string
+    {
+        return $this->avatar['seed'] ?? 'user-'.$this->id;
+    }
+
+    /** traits chosen by the user on top of the seed (only known names and values) */
+    public function avatarOverrides(): array
+    {
+        return AvatarCatalog::sanitizeOverrides($this->avatar['overrides'] ?? []);
     }
 
     public function restaurants(): HasMany
