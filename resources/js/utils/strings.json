@@ -761,7 +761,27 @@
         },
         "maps": {
             "title": { "en": "Where Foodsy is busy", "it": "Dove si muove Foodsy", "de": "Wo bei Foodsy etwas los ist", "fr": "Où Foodsy est actif", "es": "Dónde se mueve Foodsy" },
-            "lead": { "en": "Restaurants and their orders on the map of the service area.", "it": "Ristoranti e ordini sulla mappa dell'area servita.", "de": "Restaurants und ihre Bestellungen auf der Karte des Liefergebiets.", "fr": "Les restaurants et leurs commandes sur la carte de la zone desservie.", "es": "Restaurantes y sus pedidos en el mapa del área de servicio." }
+            "lead": { "en": "Restaurants and their orders on the map of the service area.", "it": "Ristoranti e ordini sulla mappa dell'area servita.", "de": "Restaurants und ihre Bestellungen auf der Karte des Liefergebiets.", "fr": "Les restaurants et leurs commandes sur la carte de la zone desservie.", "es": "Restaurantes y sus pedidos en el mapa del área de servicio." },
+            "map": {
+                "label": { "en": "Map of restaurants and orders", "it": "Mappa di ristoranti e ordini", "de": "Karte der Restaurants und Bestellungen", "fr": "Carte des restaurants et des commandes", "es": "Mapa de restaurantes y pedidos" },
+                "loading": { "en": "Loading the map…", "it": "Caricamento della mappa…", "de": "Karte wird geladen…", "fr": "Chargement de la carte…", "es": "Cargando el mapa…" },
+                "error": { "en": "The map could not be loaded. The numbers on the right are still up to date.", "it": "Non è stato possibile caricare la mappa. I numeri a destra sono comunque aggiornati.", "de": "Die Karte konnte nicht geladen werden. Die Zahlen rechts sind trotzdem aktuell.", "fr": "La carte n'a pas pu être chargée. Les chiffres à droite restent à jour.", "es": "No se pudo cargar el mapa. Las cifras de la derecha siguen actualizadas." },
+                "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
+                "zones": { "en": "Zones (cities)", "it": "Zone (città)", "de": "Zonen (Orte)", "fr": "Zones (villes)", "es": "Zonas (ciudades)" },
+                "legend": { "en": "Circle size = gross order value in the period · grey = no orders", "it": "Grandezza del cerchio = valore lordo nel periodo · grigio = nessun ordine", "de": "Kreisgröße = Bruttowert im Zeitraum · grau = keine Bestellungen", "fr": "Taille du cercle = valeur brute sur la période · gris = aucune commande", "es": "Tamaño del círculo = valor bruto en el periodo · gris = sin pedidos" },
+                "located": { "en": ":count restaurants on the map", "it": ":count ristoranti sulla mappa", "de": ":count Restaurants auf der Karte", "fr": ":count restaurants sur la carte", "es": ":count restaurantes en el mapa" },
+                "restaurantsInZone": { "en": ":count restaurants", "it": ":count ristoranti", "de": ":count Restaurants", "fr": ":count restaurants", "es": ":count restaurantes" }
+            },
+            "zones": {
+                "title": { "en": "Zones by gross value", "it": "Zone per valore lordo", "de": "Zonen nach Bruttowert", "fr": "Zones par valeur brute", "es": "Zonas por valor bruto" },
+                "share": { "en": "Share", "it": "Quota", "de": "Anteil", "fr": "Part", "es": "Cuota" }
+            },
+            "missing": {
+                "title": { "en": "Without position", "it": "Senza posizione", "de": "Ohne Standort", "fr": "Sans position", "es": "Sin ubicación" },
+                "none": { "en": "Every restaurant of the selection has coordinates.", "it": "Tutti i ristoranti della selezione hanno le coordinate.", "de": "Alle Restaurants der Auswahl haben Koordinaten.", "fr": "Tous les restaurants de la sélection ont des coordonnées.", "es": "Todos los restaurantes de la selección tienen coordenadas." },
+                "text": { "en": ":count restaurants have no coordinates: they are counted in the zones but not drawn.", "it": ":count ristoranti non hanno coordinate: sono contati nelle zone ma non disegnati.", "de": ":count Restaurants haben keine Koordinaten: Sie zählen in den Zonen, werden aber nicht gezeichnet.", "fr": ":count restaurants n'ont pas de coordonnées : ils comptent dans les zones mais ne sont pas dessinés.", "es": ":count restaurantes no tienen coordenadas: cuentan en las zonas pero no se dibujan." }
+            },
+            "empty": { "en": "No restaurants match these filters.", "it": "Nessun ristorante corrisponde a questi filtri.", "de": "Keine Restaurants passen zu diesen Filtern.", "fr": "Aucun restaurant ne correspond à ces filtres.", "es": "Ningún restaurante coincide con estos filtros." }
         },
         "charts": {
             "title": { "en": "Sales and customers", "it": "Vendite e clienti", "de": "Umsatz und Kunden", "fr": "Ventes et clients", "es": "Ventas y clientes" },

@@ -19,7 +19,8 @@ export default defineConfig({
                 "resources/js/jsBack/logListen.js",
                 "resources/js/jsBack/avatar.js",
                 "resources/js/jsBack/avatarEditor.js",
-                "resources/js/jsBack/platform/charts.js"
+                "resources/js/jsBack/platform/charts.js",
+                "resources/js/jsBack/platform/maps.js"
             ],
             refresh: true
         }),

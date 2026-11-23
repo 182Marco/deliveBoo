@@ -65,6 +65,7 @@ Route::prefix('platform')
         Route::get('charts', [ChartController::class, 'index'])->name('charts');
         // aggregated data of the tabs as JSON (same group, same authorization)
         Route::get('data/charts', [ChartController::class, 'data'])->name('data.charts');
+        Route::get('data/map', [MapController::class, 'data'])->name('data.map');
         Route::get('tables/{section?}', [TableController::class, 'index'])->name('tables')
             ->whereIn('section', TableController::SECTIONS);
         Route::get('users', [UserController::class, 'index'])->name('users.index');
