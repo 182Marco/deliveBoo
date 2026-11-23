@@ -8,6 +8,7 @@ use App\Order;
 use App\Payments\PaymentGateway;
 use App\Plate;
 use App\Restaurant;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +66,8 @@ class OrderController extends Controller
             $order = new Order($r->only([
                 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'restaurant_id',
             ]));
+            // a logged-in customer owns the order (step 7.1); guests, partners and admins order as guests
+            $order->user_id = $r->user()?->hasRole(User::CUSTOMER) ? $r->user()->id : null;
             $order->price = $amount;
             $order->status = Order::PENDING;
             $order->payment_driver = $gateway->driver();

@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[Fillable(['price', 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'restaurant_id'])]
-// status, payment_driver, transaction_id and payment_error are not fillable on purpose:
-// only the payment flow (Api\OrderController) writes them
+// status, payment_driver, transaction_id, payment_error and user_id are not fillable on purpose:
+// only the payment flow (Api\OrderController) writes them (user_id from the session, never from the client)
 class Order extends Model
 {
     public const PENDING = 'pending';
@@ -52,6 +52,12 @@ class Order extends Model
     public function restaurant(): BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    // the customer account that placed the order; null for guest checkout
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function plates(): BelongsToMany

@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+// Step 7.1 of dev/PIANO_AUTH_CLIENTI.md: an order placed by a logged-in customer belongs to the account.
+// Nullable: guest checkout stays as it is. Deleting the account keeps the order (the restaurant's history).
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreignId('user_id')->nullable()->after('restaurant_id')->constrained()->nullOnDelete();
+            // "My orders": the account's orders, newest first
+            $table->index(['user_id', 'created_at']);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropIndex(['user_id', 'created_at']);
+            $table->dropColumn('user_id');
+        });
+    }
+};

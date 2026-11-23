@@ -8,6 +8,7 @@ import Payment from "../../resources/js/pages/Payment/Payment.vue";
 import { tokenizeCard } from "../../resources/js/api/fakeHostedFields.js";
 import { receiptFrom } from "../../resources/js/pages/SuccessPage/SuccessPage.utils.js";
 import { createAppStore as createStore } from "../../resources/js/store.js";
+import { customerFromUser, prefillCustomer } from "../../resources/js/pages/Payment/Payment.utils.js";
 
 vi.mock("axios", () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 vi.mock("braintree-web", () => ({
@@ -292,6 +293,57 @@ describe("order response", () => {
         expect(router.push).not.toHaveBeenCalled();
         expect(wrapper.vm.sending).toBe(false);
         expect(wrapper.vm.error).not.toBe("");
+    });
+});
+
+describe("logged-in customer (step 7.1)", () => {
+    const MARIO = { name: "Mario", last_name: "Rossi", email: "customer@foodsy.test", phone: "079 123 45 67", role: "customer" };
+
+    it("maps the account to the customer fields, never the address, phone without spaces", () => {
+        expect(customerFromUser(MARIO)).toEqual({
+            customer_name: "Mario",
+            customer_lastName: "Rossi",
+            customer_email: "customer@foodsy.test",
+            customer_phone: "0791234567"
+        });
+        expect(customerFromUser({ name: "Ada", last_name: null, email: "ada@example.com", phone: null })).toEqual({
+            customer_name: "Ada",
+            customer_email: "ada@example.com"
+        });
+        expect(customerFromUser(null)).toEqual({});
+    });
+
+    it("fills only the empty fields: what was typed wins", () => {
+        expect(prefillCustomer({ customer_name: "Marco", customer_email: " " }, MARIO)).toEqual({
+            customer_lastName: "Rossi",
+            customer_email: "customer@foodsy.test",
+            customer_phone: "0791234567"
+        });
+    });
+
+    it("prefills the form from the account, also when /api/me answers after the mount", async () => {
+        store.commit("setUser", MARIO);
+        const wrapper = mountPayment();
+        await flush();
+        expect(wrapper.vm.customer_email).toBe("customer@foodsy.test");
+        expect(wrapper.vm.customer_address).toBe("");
+
+        store.commit("setUser", null);
+        const late = mountPayment();
+        await flush();
+        expect(late.vm.customer_name).toBe("");
+        await late.setData({ customer_name: "Marco" });
+        store.commit("setUser", MARIO);
+        await flush();
+        expect(late.vm.customer_name).toBe("Marco");
+        expect(late.vm.customer_lastName).toBe("Rossi");
+    });
+
+    it("partners and admins are not prefilled (they order as guests)", async () => {
+        store.commit("setUser", { ...MARIO, role: "restaurateur" });
+        const wrapper = mountPayment();
+        await flush();
+        expect(wrapper.vm.customer_email).toBe("");
     });
 });
 

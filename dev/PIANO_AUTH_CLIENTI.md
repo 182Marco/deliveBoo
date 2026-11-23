@@ -1,6 +1,6 @@
 # Login clienti, Google OAuth e backoffice admin `/platform` — piano v2
 
-Stato: **v2 approvata il 2026-11-23 · fase F0 completata · nessun codice applicativo modificato**.
+Stato: **v2 approvata il 2026-11-23 · fasi F0–F6 chiuse, F7 in corso (7.1 fatto) · branch `feat/auth-platform`**.
 Fonte di verità del lavoro: dopo ogni step aggiornare il **Registro di avanzamento** in fondo (stato, modifiche, file, test, problemi aperti, prossimo step). Per riprendere a contesto azzerato: leggere questo file, poi `git log` e `git status`.
 Avatar: progetto indipendente (`AVATAR_IMPLEMENTATION_PLAN.md`); qui si consuma solo il pacchetto pubblico (`svg-avatar`, `svg-avatar/vue`, `<x-avatar>`), senza duplicare la generazione SVG né portarla nel backoffice.
 
@@ -547,3 +547,17 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - Test: `GoogleAuthTest` (13: spento senza client; bottoni con il ruolo; state in sessione e ruolo admin rifiutato; **callback falsificato respinto dal provider reale**; nuovo account; ristoratore → P. IVA prima dell'area partner; email non verificata; email esistente mai collegata; account collegato che entra con il suo ruolo anche con un'email Google diversa; admin e bannati; collegamento e Google id già usato; scollegamento solo con password; admin senza collegamento). `php artisan test` **220 passati** · `npm run test:js` **275**.
 - Problemi aperti: **prova manuale con un client Google** (creare credenziali OAuth «Web application» nella Google Cloud console, URI di reindirizzamento `http://localhost:8000/auth/google/callback` più quelli del Codespace e della produzione, schermata di consenso in modalità test con gli account di prova; poi `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` nel `.env`).
 - Prossimo step: **7.1 `orders.user_id`** (il checkout da loggato collega l'ordine e precompila i dati), poi 7.2 «I miei ordini» e 7.3 dataset di Mario Rossi e clienti registrati.
+
+### 7.1 — `orders.user_id` e checkout da loggato (2026-11-25) ✅
+- Stato: completato. Migration applicata anche al DB MySQL di sviluppo (container `app`): 11.534 ordini, tutti da ospite (`user_id` NULL), nessun dato toccato.
+- Modifiche:
+  - migration `2026_11_25_000000_add_user_id_to_orders_table`: `user_id` FK nullable verso `users`, `nullOnDelete` (l'account eliminato lascia lo storico del ristorante), indice `(user_id, created_at)` per «I miei ordini». `down()` verificato su SQLite.
+  - `Order::user()` e `User::orders()`; `user_id` **non** fillable.
+  - `Api\OrderController@store`: `user_id` dalla sessione (Sanctum SPA) **solo per i clienti**; ristoratori e admin ordinano come ospiti (decisione: «I miei ordini» è una funzione del cliente, le altre aree hanno la loro home). Collegati anche gli ordini `failed`/`pending`: lo storico del cliente è completo, «I miei ordini» deciderà cosa mostrare. Un `user_id` mandato dal client è ignorato.
+  - `POST /api/orders` con il middleware `active`: un account bannato viene disconnesso e riceve 403 invece di ordinare (D4 esteso ai clienti).
+  - Checkout: `customerFromUser`/`prefillCustomer` in `Payment.utils.js` e un `watch` immediato su `state.user` in `Payment.logic.js` (anche quando `/api/me` risponde dopo il mount). Si riempiono solo i campi vuoti; mai l'indirizzo (l'account non lo ha); telefono senza spazi per stare negli 11 caratteri del campo. Partner e admin non vengono precompilati. Ospite invariato.
+  - `UserFactory`: `role = customer` esplicito (uguale al default della colonna), perché `actingAs` usa il modello in memoria senza rileggere il DB.
+- File: migration, `app/{Order,User}.php`, `app/Http/Controllers/Api/OrderController.php`, `routes/api.php`, `database/factories/UserFactory.php`, `resources/js/pages/Payment/{Payment.utils,Payment.logic}.js`, `tests/Feature/Api/CustomerOrdersTest.php` (nuovo), `tests/js/payment.spec.js`, `AGENTS.md`, `dev/mappa.html` (relazione `users → orders`, file nuovi).
+- Test: `CustomerOrdersTest` (7: ospite senza account; cliente collegato; pagamento rifiutato collegato; account mai preso dal client; partner e admin come ospiti; bannato 403 e disconnesso; account eliminato → `user_id` NULL). Vitest: mappatura account → campi, solo campi vuoti, precompilamento anche con `/api/me` tardivo, partner non precompilati. `php artisan test` **227 passati** · `npm run test:js` **279** · `route:list` e `npm run build` ok.
+- Problemi aperti: nessuno. Il backoffice identifica ancora i clienti per email (`Tables::customers`): va bene finché gli ordini storici sono da ospite; si rivede al 7.3 se serve.
+- Prossimo step: **7.2** pagina SPA «I miei ordini» (`GET /api/me/orders` paginato, `auth:sanctum` + `active`, solo ordini propri).

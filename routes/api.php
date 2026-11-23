@@ -31,8 +31,9 @@ Route::controller(RestaurantController::class)->group(function () {
 
 // payment driver and client token for the card form of the Payment page
 Route::get('/payments/config', [PaymentController::class, 'config'])->middleware('throttle:30,1');
-// receive orders: the cart is charged server side (app/Payments) before confirming
-Route::post('/orders', [OrderController::class, 'store'])->middleware('throttle:10,1');
+// receive orders: the cart is charged server side (app/Payments) before confirming.
+// active: a banned account is logged out (403) instead of ordering; a logged-in customer owns the order
+Route::post('/orders', [OrderController::class, 'store'])->middleware(['active', 'throttle:10,1']);
 
 // the logged-in account of the Vue site ({ user: null } for guests; banned accounts are logged out)
 Route::get('/me', [MeController::class, 'show'])->middleware(['active', 'throttle:60,1']);

@@ -80,6 +80,22 @@ const validateCustomer = customer =>
             .map(([key, message]) => [key, [message]])
     );
 
+// customer fields known from the logged-in account (GET /api/me): never the address, which the account
+// does not have. The phone loses its spaces ("079 123 45 67" fits the 11 characters of the field)
+const customerFromUser = user =>
+    Object.fromEntries(
+        Object.entries({
+            customer_name: user?.name,
+            customer_lastName: user?.last_name,
+            customer_email: user?.email,
+            customer_phone: user?.phone && String(user.phone).replace(/\s+/g, "")
+        }).filter(([, value]) => value)
+    );
+
+// fills only the empty fields: what the customer already typed always wins
+const prefillCustomer = (current, user) =>
+    Object.fromEntries(Object.entries(customerFromUser(user)).filter(([key]) => !String(current[key] ?? "").trim()));
+
 // tokenize() error of the hosted fields (real or offline) -> { card_x: [message] }
 const cardErrors = error => {
     const keys =
@@ -110,10 +126,12 @@ export {
     CARD_FIELDS,
     cardErrors,
     CUSTOMER_FIELDS,
+    customerFromUser,
     emptyCustomer,
     generalErrors,
     paymentReceipt,
     pickCustomer,
+    prefillCustomer,
     testPayments,
     validateCustomer
 };

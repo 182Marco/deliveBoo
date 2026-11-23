@@ -12,6 +12,7 @@ import {
     generalErrors,
     paymentReceipt,
     pickCustomer,
+    prefillCustomer,
     testPayments,
     validateCustomer
 } from "./Payment.utils.js";
@@ -41,7 +42,7 @@ const paymentLogic = {
         sending: false
     }),
     computed: {
-        ...mapState(["total", "cart"]),
+        ...mapState(["total", "cart", "user"]),
         // shown on the pay button; the server charges its own total from the db prices
         amount() {
             return formatPrice(cartTotal(this.cart));
@@ -51,6 +52,15 @@ const paymentLogic = {
         },
         paymentErrors() {
             return generalErrors(this.errors);
+        }
+    },
+    watch: {
+        // logged-in customer: name, email and phone come from the account (/api/me may answer after mount)
+        user: {
+            immediate: true,
+            handler(user) {
+                if (user?.role === "customer") Object.assign(this.$data, prefillCustomer(this.$data, user));
+            }
         }
     },
     async mounted() {

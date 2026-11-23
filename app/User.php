@@ -98,4 +98,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Restaurant::class);
     }
+
+    // orders placed from the site while logged in as a customer (guest orders have no account)
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

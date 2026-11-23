@@ -26,6 +26,8 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'vat_number' => fake()->unique()->numerify('###########'),
             'remember_token' => Str::random(10),
+            // same as the column default, but also on the in-memory model (actingAs uses it as it is)
+            'role' => User::CUSTOMER,
         ];
     }
 }
