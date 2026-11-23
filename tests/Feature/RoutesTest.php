@@ -62,6 +62,7 @@ class RoutesTest extends TestCase
         foreach ([
             'GET api/types',
             'GET api/restaurantsTopRated',
+            'GET api/restaurantsSearch',
             'GET api/restaurants/{ids}',
             'GET api/restaurantsMenu/{slug}',
             'POST api/orders',

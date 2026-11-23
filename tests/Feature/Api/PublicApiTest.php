@@ -292,4 +292,29 @@ class PublicApiTest extends TestCase
         $this->assertStringContainsString('Thank you, Mario!', $html);
         $this->assertStringContainsString('via Roma 1', $html);
     }
+
+    public function testSearchFindsRestaurantsByNameWithPrefixMatchesFirst()
+    {
+        $rest = Restaurant::orderBy('id')->first();
+        $query = mb_substr($rest->name, 0, 4);
+
+        $response = $this->getJson('/api/restaurantsSearch?q=' . urlencode(mb_strtoupper($query)));
+
+        $response->assertOk()->assertJsonStructure([['id', 'name', 'slug', 'city', 'img', 'price_range', 'average', 'types']]);
+        $names = collect($response->json())->pluck('name');
+        $this->assertLessThanOrEqual(8, $names->count());
+        $this->assertTrue($names->every(fn ($name) => str_contains(mb_strtolower($name), mb_strtolower($query))));
+        // the names starting with the query come before the others
+        $starts = $names->map(fn ($name) => str_starts_with(mb_strtolower($name), mb_strtolower($query)));
+        $this->assertSame($starts->sortDesc()->values()->all(), $starts->values()->all());
+        $this->assertTrue($starts->first());
+    }
+
+    public function testSearchIgnoresShortQueriesAndTreatsWildcardsAsText()
+    {
+        $this->getJson('/api/restaurantsSearch?q=a')->assertOk()->assertExactJson([]);
+        $this->getJson('/api/restaurantsSearch')->assertOk()->assertExactJson([]);
+        $this->getJson('/api/restaurantsSearch?q=' . urlencode('%%'))->assertOk()->assertExactJson([]);
+        $this->getJson('/api/restaurantsSearch?q=' . urlencode('__'))->assertOk()->assertExactJson([]);
+    }
 }

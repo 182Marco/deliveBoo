@@ -47,6 +47,7 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 |---|---|---|
 | GET | `/api/types` | Tutti i tipi di cucina |
 | GET | `/api/restaurantsTopRated` | I 12 ristoranti con media voti più alta |
+| GET | `/api/restaurantsSearch?q=` | Ricerca per nome (lente nell'header): fino a 8 ristoranti, prima quelli il cui nome inizia con il testo; meno di 2 caratteri = lista vuota |
 | GET | `/api/restaurants/{ids}` | Ristoranti per tipi (`ids` = `1,3,5`), 4 per pagina |
 | GET | `/api/restaurantsMenu/{slug}` | Dettagli, tipi, media voti e menu paginato per portata (ogni piatto ha anche `orderable`, `availability`, `course`, `ingredient_list`) |
 | GET | `/api/payments/config` | Driver di pagamento, `testMode` e client token Braintree per il checkout |

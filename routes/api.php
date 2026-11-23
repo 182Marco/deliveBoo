@@ -20,6 +20,8 @@ Route::get('/types', [TypeController::class, 'index']);
 Route::controller(RestaurantController::class)->group(function () {
     // top rated restaurants
     Route::get('/restaurantsTopRated', 'restTopRated');
+    // search by restaurant name (header search box): ?q=, at most 8 suggestions
+    Route::get('/restaurantsSearch', 'search')->middleware('throttle:60,1');
     // restaurants by chosen types (comma separated ids)
     Route::get('/restaurants/{ids}', 'restByTypes');
     // restaurant menu

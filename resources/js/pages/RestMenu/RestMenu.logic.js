@@ -17,6 +17,12 @@ const restMenuLogic = {
     created() {
         this.getMenuAndDetails({ page: 1, slug: this.$route.params.slug });
     },
+    watch: {
+        // the page is reused when only the slug changes (e.g. a restaurant picked from the header search)
+        "$route.params.slug"(slug) {
+            if (slug) this.getMenuAndDetails({ page: 1, slug });
+        }
+    },
     methods: {
         ...mapActions(["getMenuAndDetails"])
     }

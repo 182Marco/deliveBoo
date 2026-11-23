@@ -2,6 +2,7 @@ import { mapGetters, mapState } from "vuex";
 import { Hamburger } from "../Hamburger";
 import { Icon } from "../Icon";
 import { Logo } from "../Logo";
+import { RestaurantSearch } from "../RestaurantSearch";
 import { cartTotal, formatPrice } from "../../utils";
 
 // sections of the home page reachable from every page
@@ -13,7 +14,7 @@ const LINKS = [
 
 const headerLogic = {
     name: "Header",
-    components: { Hamburger, Icon, Logo },
+    components: { Hamburger, Icon, Logo, RestaurantSearch },
     data: () => ({
         links: LINKS
     }),

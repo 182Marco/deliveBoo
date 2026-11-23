@@ -17,6 +17,7 @@
             </nav>
 
             <div class="header-actions">
+                <RestaurantSearch />
                 <a href="/login" class="header-partner">
                     <Icon name="store" :size="18" />
                     For restaurants

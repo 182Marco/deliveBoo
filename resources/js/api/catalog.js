@@ -10,6 +10,10 @@ const fetchRestaurantsByTypes = async (typeIds, page) =>
 const fetchRestaurantMenu = async (slug, page) =>
     (await axios.get(`/api/restaurantsMenu/${slug}?page=${page}`)).data;
 
+// suggestions of the header search; `signal` (AbortController) drops a request made obsolete by typing
+const searchRestaurants = async (query, signal) =>
+    (await axios.get("/api/restaurantsSearch", { params: { q: query }, signal })).data;
+
 const fetchTopRated = async () => (await axios.get("/api/restaurantsTopRated")).data;
 
-export { fetchTypes, fetchRestaurantsByTypes, fetchRestaurantMenu, fetchTopRated };
+export { fetchTypes, fetchRestaurantsByTypes, fetchRestaurantMenu, fetchTopRated, searchRestaurants };

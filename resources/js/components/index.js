@@ -11,6 +11,7 @@ export { OrderSummary } from "./OrderSummary";
 export { PaginateEl } from "./PaginateEl";
 export { Plate } from "./Plate";
 export { QuantityStepper } from "./QuantityStepper";
+export { RestaurantSearch } from "./RestaurantSearch";
 export { RestByTypes } from "./RestByTypes";
 export { StarsBox } from "./StarsBox";
 export { TopRated } from "./TopRated";
