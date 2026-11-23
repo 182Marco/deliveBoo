@@ -129,6 +129,29 @@
     font-weight: var(--weight-black);
 }
 
+/* "Customise avatar" page: the svg-avatar editor themed with the partner tokens */
+.adm-avatar-form {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.adm-avatar-editor {
+    --sa-ink: var(--ink);
+    --sa-muted: var(--ink-muted);
+    --sa-surface: var(--surface);
+    --sa-well: var(--oat);
+    --sa-line: var(--line-strong);
+    --sa-accent: var(--brand-strong);
+    --sa-radius: var(--radius-md);
+    --sa-font: var(--font-sans);
+    --sa-heading-font: var(--font-display);
+}
+
+/* the initial was replaced by the drawn avatar (resources/js/jsBack/avatar.js) */
+.adm-avatar--drawn {
+    background-color: transparent;
+}
+
 .adm-menu-name {
     display: none;
 }

@@ -8,6 +8,9 @@
     <title>@yield('title', __('partner.meta.hub')) · Foodsy</title>
     @include('partials.favicon')
     @vite(['resources/css/admin.css', 'resources/js/app.js'])
+    @auth
+        @vite('resources/js/jsBack/avatar.js')
+    @endauth
 </head>
 <body>
     <a class="adm-skip" href="#main">{{ __('site.skip') }}</a>
@@ -37,13 +40,16 @@
                 @else
                     <details class="adm-menu">
                         <summary class="adm-menu-trigger">
-                            <span class="adm-avatar" aria-hidden="true">{{ mb_strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}</span>
+                            <x-avatar :seed="Auth::user()->avatarSeed()" :overrides="Auth::user()->avatarOverrides()" :initial="mb_strtoupper(mb_substr(Auth::user()->name, 0, 1))" />
                             <span class="adm-menu-name">{{ Auth::user()->name }}</span>
                             <x-icon name="chevron-down" size="16" />
                         </summary>
                         <div class="adm-menu-panel">
                             <a class="adm-menu-item" href="{{ route('admin.restaurants.index') }}">
                                 <x-icon name="store" size="18" /> {{ __('partner.header.myRestaurants') }}
+                            </a>
+                            <a class="adm-menu-item" href="{{ route('admin.avatar.edit') }}">
+                                <x-icon name="user" size="18" /> {{ __('partner.header.customizeAvatar') }}
                             </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -59,6 +65,11 @@
     </header>
 
     <main id="main" class="adm-main" tabindex="-1">
+        @if (session('avatarSaved'))
+            <div class="ui-container">
+                <div class="ui-notice ui-notice--success adm-flash" role="status">{{ __('partner.avatar.saved') }}</div>
+            </div>
+        @endif
         @yield('content')
     </main>
 </body>
