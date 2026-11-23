@@ -1,4 +1,4 @@
-// partner area: "Customise avatar" page. Mounts the svg-avatar editor and keeps the form in sync;
+// "Customise avatar" page (/account/avatar, every role). Mounts the svg-avatar editor and keeps the form in sync;
 // saving is a normal form submit (validated by UpdateAvatarRequest).
 import { mountAvatarEditor } from "svg-avatar/editor";
 
@@ -34,6 +34,8 @@ const setupAvatarEditorPage = (root = document) => {
     editor = mountAvatarEditor(mountEl, {
         value: parse(mountEl.dataset.value, fallback),
         labels: parse(mountEl.dataset.labels, {}),
+        // one section at a time: horizontal scroll, two chevrons and dots (no long page of options)
+        layout: "slider",
         onChange: sync
     });
     sync(editor.getValue());

@@ -94,6 +94,157 @@
     font-size: 1.125rem;
 }
 
+/* slider layout: the bar above names the section, the heading stays for screen readers */
+.sa-editor-heading--hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* ---------- slider layout: one section at a time ---------- */
+.sa-editor-slider {
+    display: grid;
+    gap: 18px;
+    min-width: 0;
+}
+
+/* chevron · section name, count and dots · chevron */
+.sa-editor-slider-bar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--sa-line, #c9c9c9);
+}
+
+.sa-editor-nav {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 1.5px solid var(--sa-line, #c9c9c9);
+    border-radius: 999px;
+    background-color: var(--sa-surface, #ffffff);
+    color: var(--sa-ink, #1d1d1f);
+    cursor: pointer;
+    transition: transform 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.sa-editor-nav:hover {
+    border-color: var(--sa-accent, #2b2b2b);
+    color: var(--sa-accent, #2b2b2b);
+    transform: scale(1.05);
+}
+
+.sa-editor-nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+    transform: none;
+}
+
+.sa-editor-nav-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.sa-editor-slider-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    text-align: center;
+}
+
+.sa-editor-slider-status {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.sa-editor-slider-title {
+    margin: 0;
+    font-family: var(--sa-heading-font, inherit);
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.sa-editor-slider-count {
+    color: var(--sa-muted, #6b6b6b);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* small screens: chevrons, count and swipe are enough; the dots need the room of a wider column */
+.sa-editor-dots {
+    display: none;
+    justify-content: center;
+}
+
+@media (min-width: 600px) {
+    .sa-editor-dots {
+        display: flex;
+    }
+}
+
+/* a 24px target around an 8px dot */
+.sa-editor-dot {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.sa-editor-dot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: var(--sa-line, #c9c9c9);
+    transition: transform 140ms ease, background-color 140ms ease;
+}
+
+.sa-editor-dot--active::before {
+    background-color: var(--sa-accent, #2b2b2b);
+    transform: scale(1.4);
+}
+
+/* the row of slides: horizontal scroll that snaps one section at a time */
+.sa-editor-track {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    align-items: start;
+    overflow-x: auto;
+    /* as tall as the slide in view (set by the slider): the others are out of sight anyway */
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.sa-editor-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* room for the focus ring of the options at the edges */
+.sa-editor-slide {
+    min-width: 0;
+    padding: 4px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
 .sa-editor-group {
     display: grid;
     gap: 8px;
@@ -200,6 +351,14 @@
 
 @media (prefers-reduced-motion: reduce) {
     .sa-editor-option {
+        transition: none;
+    }
+
+    .sa-editor-nav {
+        transition: none;
+    }
+
+    .sa-editor-dot::before {
         transition: none;
     }
 }

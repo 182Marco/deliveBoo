@@ -60,9 +60,18 @@ const editor = mountAvatarEditor(element, {
     value: { seed: "user-42", overrides: { hair: "bun" } }, // the stored value (invalid parts are ignored)
     palette,  // optional, defaults to defaultPalette
     labels,   // optional translations, same shape as defaultEditorLabels (any subset, strings only)
+    layout: "list", // or "slider": one section at a time (see below)
     onChange: value => { /* { seed, overrides } */ }
 });
 ```
+
+**Layouts.** `"list"` (default) shows the nine sections one under the other. `"slider"` shows one
+section at a time in a row of slides: it moves with horizontal scrolling (trackpad, swipe; it snaps one
+section at a time), with the two chevrons of the bar above (disabled at both ends) and, from 600px, with
+one dot per section. The bar names the section and its position (`slideCount`, e.g. "2 / 9"); the track
+takes the height of the section in view; slides out of view are `inert`, so Tab stays in the visible
+section. Slider labels: `features` (region), `previous`, `next`, `slideCount`, `slideOf` (`:name`,
+`:current`, `:total`).
 
 The element's content is replaced. The value format is the same one `avatarTraits(seed, overrides)` reads.
 

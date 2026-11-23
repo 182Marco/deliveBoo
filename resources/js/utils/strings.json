@@ -332,6 +332,11 @@
                 "surprise": { "en": "Surprise me", "it": "Sorprendimi", "de": "Überrasch mich", "fr": "Surprenez-moi", "es": "Sorpréndeme" },
                 "reset": { "en": "Reset", "it": "Ripristina", "de": "Zurücksetzen", "fr": "Réinitialiser", "es": "Restablecer" },
                 "option": { "en": ":trait: :value", "it": ":trait: :value", "de": ":trait: :value", "fr": ":trait : :value", "es": ":trait: :value" },
+                "features": { "en": "Avatar features", "it": "Caratteristiche dell'avatar", "de": "Avatar-Merkmale", "fr": "Caractéristiques de l'avatar", "es": "Rasgos del avatar" },
+                "previous": { "en": "Previous", "it": "Precedente", "de": "Zurück", "fr": "Précédent", "es": "Anterior" },
+                "next": { "en": "Next", "it": "Successiva", "de": "Weiter", "fr": "Suivant", "es": "Siguiente" },
+                "slideCount": { "en": ":current / :total", "it": ":current / :total", "de": ":current / :total", "fr": ":current / :total", "es": ":current / :total" },
+                "slideOf": { "en": ":name, :current of :total", "it": ":name, :current di :total", "de": ":name, :current von :total", "fr": ":name, :current sur :total", "es": ":name, :current de :total" },
                 "ruleChanged": { "en": ":trait changed to :value to go with :cause.", "it": ":trait cambiato in :value per abbinarsi a :cause.", "de": ":trait wurde zu :value geändert, passend zu :cause.", "fr": ":trait changé en :value pour aller avec :cause.", "es": ":trait cambiado a :value para combinar con :cause." },
                 "sections": {
                     "face": { "en": "Face", "it": "Viso", "de": "Gesicht", "fr": "Visage", "es": "Cara" },

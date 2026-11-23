@@ -8,6 +8,12 @@ const defaultEditorLabels = Object.freeze({
     surprise: "Surprise me",
     reset: "Reset",
     option: ":trait: :value",
+    // slider layout
+    features: "Avatar features",
+    previous: "Previous",
+    next: "Next",
+    slideCount: ":current / :total",
+    slideOf: ":name, :current of :total",
     ruleChanged: ":trait changed to :value to go with :cause.",
     sections: {
         face: "Face", hair: "Hair", eyes: "Eyes", brows: "Eyebrows", nose: "Nose", mouth: "Mouth",

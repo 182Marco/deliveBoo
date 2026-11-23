@@ -5,7 +5,7 @@ import { randomSeed } from "../core/random/index.js";
 import { SECTIONS, LOOKS, THUMB_VIEWBOX, kindOf } from "./groups.js";
 import { resolveLabels, interpolate, traitLabel, variantLabel } from "./labels.js";
 import { createStore, editorReducer, initialState, isDirty, optionsFor, previewTraits, sideChanges, valueOf } from "./state/index.js";
-import { createLiveRegion, createLookFilter, createPreview, createRadioGroup, createSwatchGroup, createToolbar } from "./ui/index.js";
+import { createLiveRegion, createLookFilter, createPreview, createRadioGroup, createSlider, createSwatchGroup, createToolbar } from "./ui/index.js";
 import { h } from "./ui/dom.js";
 
 let instances = 0;
@@ -28,10 +28,13 @@ const swatchColor = (palette, trait, key) => {
  * Mounts the avatar editor inside `element` (its content is replaced).
  * @param {Element} element
  * @param {{ value?: { seed: string, overrides?: object }, palette?: object, labels?: object,
+ *           layout?: "list" | "slider",
  *           onChange?: (value: { seed: string, overrides: object }) => void }} [options]
+ * layout "list" (default): every section one under the other; "slider": one section at a time,
+ * moved by horizontal scrolling, two chevrons and dots.
  * @returns {{ getValue, setValue, isDirty, reset, destroy }}
  */
-const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: customLabels, onChange } = {}) => {
+const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: customLabels, layout = "list", onChange } = {}) => {
     if (!element || typeof element.replaceChildren !== "function") throw new TypeError("mountAvatarEditor: a DOM element is required");
 
     instances += 1;
@@ -87,17 +90,21 @@ const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: c
     }));
     const groupOf = Object.fromEntries(groups);
 
+    const slider = layout === "slider";
     const sections = SECTIONS.map(section => {
         const headingId = `${id}-section-${section.id}`;
-        return h("section", { class: "sa-editor-section", "aria-labelledby": headingId }, [
-            h("h2", { class: "sa-editor-heading", id: headingId }, [labels.sections[section.id]]),
+        return h("section", { class: "sa-editor-section", "aria-labelledby": slider ? null : headingId }, [
+            // in the slider the bar above names the section: the heading stays for screen readers
+            h("h2", { class: slider ? "sa-editor-heading sa-editor-heading--hidden" : "sa-editor-heading", id: headingId }, [labels.sections[section.id]]),
             ...section.traits.map(trait => groupOf[trait].el)
         ]);
     });
 
     const root = h("div", { class: "sa-editor", id }, [
         h("div", { class: "sa-editor-aside" }, [preview.el, toolbar.el, lookFilter.el]),
-        h("div", { class: "sa-editor-sections" }, sections),
+        slider
+            ? createSlider({ id, labels, signal, slides: sections, titles: SECTIONS.map(section => labels.sections[section.id]) }).el
+            : h("div", { class: "sa-editor-sections" }, sections),
         live.el
     ]);
 
