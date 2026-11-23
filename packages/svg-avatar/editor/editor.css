@@ -2,7 +2,7 @@
  * svg-avatar editor. One class per selector, modifiers as extra classes.
  * Theme it from the host with custom properties on the mount element (all optional):
  * --sa-ink, --sa-muted, --sa-surface, --sa-well, --sa-line, --sa-accent, --sa-accent-ink,
- * --sa-radius, --sa-font, --sa-heading-font
+ * --sa-radius, --sa-font, --sa-heading-font, --sa-preview-size (largest side of the preview, 240px)
  */
 .sa-editor {
     display: grid;
@@ -39,7 +39,7 @@
 }
 
 .sa-editor-preview-frame {
-    width: min(100%, 240px);
+    width: min(100%, var(--sa-preview-size, 240px));
     aspect-ratio: 1;
     line-height: 0;
 }
@@ -347,6 +347,73 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
+}
+
+/* ---------- fill mode (fillMedia matches): the editor takes the height of its element ----------
+   kept after every base rule it overrides */
+.sa-editor--fill {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    min-height: 0;
+}
+
+/* preview and the two actions on one row, the look filter under them */
+.sa-editor-aside--fill {
+    position: static;
+    display: grid;
+    grid-template-columns: calc(var(--sa-preview-size, 240px) + 16px) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px 12px;
+}
+
+.sa-editor-preview--fill {
+    padding: 8px;
+}
+
+.sa-editor-toolbar--fill {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.sa-editor-look--fill {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 10px;
+}
+
+.sa-editor-slider--fill {
+    flex: 1;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 8px;
+    min-height: 0;
+}
+
+.sa-editor-slider-bar--fill {
+    padding-bottom: 8px;
+}
+
+.sa-editor-nav--fill {
+    width: 42px;
+    height: 42px;
+}
+
+.sa-editor-track--fill {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
+}
+
+/* a long section (12 hairstyles) scrolls inside its slide: the preview stays where it is */
+.sa-editor-slide--fill {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -28,13 +28,16 @@ const swatchColor = (palette, trait, key) => {
  * Mounts the avatar editor inside `element` (its content is replaced).
  * @param {Element} element
  * @param {{ value?: { seed: string, overrides?: object }, palette?: object, labels?: object,
- *           layout?: "list" | "slider",
+ *           layout?: "list" | "slider", fillMedia?: string,
  *           onChange?: (value: { seed: string, overrides: object }) => void }} [options]
  * layout "list" (default): every section one under the other; "slider": one section at a time,
  * moved by horizontal scrolling, two chevrons and dots.
+ * fillMedia (slider only), a media query: while it matches, the editor fills the height of `element`
+ * (preview and controls on top, the slide in view takes the rest and scrolls on its own), so the
+ * preview stays on screen while choosing. The host gives `element` a height (e.g. a full-screen sheet).
  * @returns {{ getValue, setValue, isDirty, reset, destroy }}
  */
-const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: customLabels, layout = "list", onChange } = {}) => {
+const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: customLabels, layout = "list", fillMedia, onChange } = {}) => {
     if (!element || typeof element.replaceChildren !== "function") throw new TypeError("mountAvatarEditor: a DOM element is required");
 
     instances += 1;
@@ -91,6 +94,7 @@ const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: c
     const groupOf = Object.fromEntries(groups);
 
     const slider = layout === "slider";
+    let sliderUi = null;
     const sections = SECTIONS.map(section => {
         const headingId = `${id}-section-${section.id}`;
         return h("section", { class: "sa-editor-section", "aria-labelledby": slider ? null : headingId }, [
@@ -100,11 +104,11 @@ const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: c
         ]);
     });
 
+    if (slider) sliderUi = createSlider({ id, labels, signal, slides: sections, titles: SECTIONS.map(section => labels.sections[section.id]) });
+    const aside = h("div", { class: "sa-editor-aside" }, [preview.el, toolbar.el, lookFilter.el]);
     const root = h("div", { class: "sa-editor", id }, [
-        h("div", { class: "sa-editor-aside" }, [preview.el, toolbar.el, lookFilter.el]),
-        slider
-            ? createSlider({ id, labels, signal, slides: sections, titles: SECTIONS.map(section => labels.sections[section.id]) }).el
-            : h("div", { class: "sa-editor-sections" }, sections),
+        aside,
+        slider ? sliderUi.el : h("div", { class: "sa-editor-sections" }, sections),
         live.el
     ]);
 
@@ -139,6 +143,22 @@ const mountAvatarEditor = (element, { value, palette = defaultPalette, labels: c
 
     render();
     element.replaceChildren(root);
+
+    // ---- fill mode, while the host's media query matches
+    const fillQuery = slider && fillMedia && globalThis.matchMedia ? globalThis.matchMedia(fillMedia) : null;
+    const applyFill = () => {
+        const on = !!fillQuery?.matches;
+        root.classList.toggle("sa-editor--fill", on);
+        aside.classList.toggle("sa-editor-aside--fill", on);
+        preview.el.classList.toggle("sa-editor-preview--fill", on);
+        toolbar.el.classList.toggle("sa-editor-toolbar--fill", on);
+        lookFilter.el.classList.toggle("sa-editor-look--fill", on);
+        sliderUi?.setFill(on);
+    };
+    if (fillQuery) {
+        fillQuery.addEventListener?.("change", applyFill, { signal });
+        applyFill();
+    }
 
     // ---- public handle
     return {

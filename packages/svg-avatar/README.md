@@ -61,6 +61,7 @@ const editor = mountAvatarEditor(element, {
     palette,  // optional, defaults to defaultPalette
     labels,   // optional translations, same shape as defaultEditorLabels (any subset, strings only)
     layout: "list", // or "slider": one section at a time (see below)
+    fillMedia,      // slider only, optional media query: while it matches the editor fills `element` (see below)
     onChange: value => { /* { seed, overrides } */ }
 });
 ```
@@ -72,6 +73,13 @@ one dot per section. The bar names the section and its position (`slideCount`, e
 takes the height of the section in view; slides out of view are `inert`, so Tab stays in the visible
 section. Slider labels: `features` (region), `previous`, `next`, `slideCount`, `slideOf` (`:name`,
 `:current`, `:total`).
+
+**Fill mode** (`fillMedia`, slider only). While the media query matches (e.g. `"(max-width: 599.98px)"`),
+the editor fills the height of `element`: preview and actions on one row, the look filter under them,
+the slider takes the rest and a long section scrolls inside its slide, so the preview never leaves the
+screen. The host gives `element` a height (a full-screen sheet, for example) and can size the preview
+with `--sa-preview-size` (default 240px). When the query stops matching the editor goes back to its
+normal layout, without remounting.
 
 The element's content is replaced. The value format is the same one `avatarTraits(seed, overrides)` reads.
 

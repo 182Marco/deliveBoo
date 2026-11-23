@@ -30,7 +30,7 @@ const slideAt = (scrollLeft, width, total) =>
 
 /**
  * @param {{ id: string, labels: object, signal: AbortSignal, slides: Element[], titles: string[] }} options
- * @returns {{ el: Element, goTo: (index: number) => void, current: () => number }}
+ * @returns {{ el: Element, goTo: (index: number) => void, current: () => number, setFill: (on: boolean) => void }}
  */
 const createSlider = ({ id, labels, signal, slides, titles }) => {
     const total = slides.length;
@@ -38,6 +38,8 @@ const createSlider = ({ id, labels, signal, slides, titles }) => {
     let current = 0;
     // while the chevrons or the dots scroll to a slide, the slides passed on the way are ignored
     let target = null;
+    // "fill": the slider takes the height the host gives it and each slide scrolls on its own
+    let fill = false;
 
     const prev = h("button", { type: "button", class: "sa-editor-nav", "aria-controls": trackId, "aria-label": labels.previous }, [chevron("prev")]);
     const next = h("button", { type: "button", class: "sa-editor-nav", "aria-controls": trackId, "aria-label": labels.next }, [chevron("next")]);
@@ -51,20 +53,22 @@ const createSlider = ({ id, labels, signal, slides, titles }) => {
     });
     const track = h("div", { class: "sa-editor-track", id: trackId }, slides);
 
-    const el = h("div", { class: "sa-editor-slider", role: "region", "aria-label": labels.features }, [
-        h("div", { class: "sa-editor-slider-bar" }, [
-            prev,
-            h("div", { class: "sa-editor-slider-center" }, [
-                h("div", { class: "sa-editor-slider-status", "aria-live": "polite" }, [title, count]),
-                h("div", { class: "sa-editor-dots" }, dots)
-            ]),
-            next
+    const bar = h("div", { class: "sa-editor-slider-bar" }, [
+        prev,
+        h("div", { class: "sa-editor-slider-center" }, [
+            h("div", { class: "sa-editor-slider-status", "aria-live": "polite" }, [title, count]),
+            h("div", { class: "sa-editor-dots" }, dots)
         ]),
-        track
+        next
     ]);
+    const el = h("div", { class: "sa-editor-slider", role: "region", "aria-label": labels.features }, [bar, track]);
 
     // the track follows the height of the slide in view (a short section leaves no empty band)
     const fitHeight = () => {
+        if (fill) {
+            track.style.height = "";
+            return;
+        }
         const height = slides[current]?.offsetHeight ?? 0;
         track.style.height = height > 0 ? `${height}px` : "";
     };
@@ -122,9 +126,20 @@ const createSlider = ({ id, labels, signal, slides, titles }) => {
     next.addEventListener("click", () => goTo(current + 1), { signal });
     dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i), { signal }));
 
+    const setFill = on => {
+        fill = !!on;
+        el.classList.toggle("sa-editor-slider--fill", fill);
+        bar.classList.toggle("sa-editor-slider-bar--fill", fill);
+        [prev, next].forEach(button => button.classList.toggle("sa-editor-nav--fill", fill));
+        track.classList.toggle("sa-editor-track--fill", fill);
+        slides.forEach(slide => slide.classList.toggle("sa-editor-slide--fill", fill));
+        fitHeight();
+        track.scrollLeft = current * track.clientWidth;
+    };
+
     show(0);
 
-    return { el, goTo, current: () => current };
+    return { el, goTo, current: () => current, setFill };
 };
 
 export { createSlider, slideAt };

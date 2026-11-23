@@ -2,6 +2,25 @@
 // saving is a normal form submit (validated by UpdateAvatarRequest).
 import { mountAvatarEditor } from "svg-avatar/editor";
 
+// phones: the form is a full-screen sheet over the page (resources/css/admin.css)
+const SHEET_MEDIA = "(max-width: 599.98px)";
+
+// while the sheet is open, the page and the site header behind it are out of reach (keyboard, readers)
+// and the page does not scroll under it
+const behindTheSheet = (root, sheet) => {
+    root.documentElement?.classList.add("adm-scroll-lock");
+    const query = globalThis.matchMedia?.(SHEET_MEDIA);
+    const behind = [...root.querySelectorAll(".adm-header, .plat-header, .adm-skip, [data-avatar-behind]")].filter(e => !e.contains(sheet));
+    const apply = () => behind.forEach(e => (e.inert = !!query?.matches));
+    query?.addEventListener?.("change", apply);
+    apply();
+    return () => {
+        query?.removeEventListener?.("change", apply);
+        behind.forEach(e => (e.inert = false));
+        root.documentElement?.classList.remove("adm-scroll-lock");
+    };
+};
+
 const parse = (raw, fallback) => {
     try {
         const value = JSON.parse(raw);
@@ -36,6 +55,8 @@ const setupAvatarEditorPage = (root = document) => {
         labels: parse(mountEl.dataset.labels, {}),
         // one section at a time: horizontal scroll, two chevrons and dots (no long page of options)
         layout: "slider",
+        // on phones the editor fills the sheet: the preview stays on screen while choosing
+        fillMedia: SHEET_MEDIA,
         onChange: sync
     });
     sync(editor.getValue());
@@ -48,12 +69,14 @@ const setupAvatarEditorPage = (root = document) => {
         }
     };
     window.addEventListener("beforeunload", guard);
+    const release = behindTheSheet(root.ownerDocument ?? root, form);
     form.addEventListener("submit", () => window.removeEventListener("beforeunload", guard));
 
     return {
         editor,
         destroy: () => {
             window.removeEventListener("beforeunload", guard);
+            release();
             editor.destroy();
         }
     };

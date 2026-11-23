@@ -10,8 +10,9 @@
 
 @section('content')
 <div class="ui-container">
-    <a class="adm-back" href="{{ $returnUrl }}"><x-icon name="arrow-left" size="18" /> {{ __('partner.avatar.cancel') }}</a>
-    <div class="adm-page-head">
+    {{-- under 600px the form below is a full-screen sheet over all of this (header included) --}}
+    <a class="adm-back" href="{{ $returnUrl }}" data-avatar-behind><x-icon name="arrow-left" size="18" /> {{ __('partner.avatar.cancel') }}</a>
+    <div class="adm-page-head" data-avatar-behind>
         <div class="adm-page-intro">
             <p class="ui-eyebrow">{{ __('partner.header.customizeAvatar') }}</p>
             <h1 class="ui-title">{{ __('partner.avatar.title') }}</h1>
@@ -19,13 +20,17 @@
         </div>
     </div>
 
-    @if ($errors->any())
-        <div class="ui-notice ui-notice--error adm-flash" role="alert">{{ __('partner.avatar.invalid') }}</div>
-    @endif
-
     <form class="adm-avatar-form" method="POST" action="{{ route('account.avatar.update') }}" data-avatar-form @if ($errors->any()) data-avatar-unsaved @endif>
         @csrf
         @method('PUT')
+        {{-- phones only: the bar of the sheet (the page heading and the site header stay behind it) --}}
+        <div class="adm-avatar-bar">
+            <p class="ui-eyebrow">{{ __('partner.header.customizeAvatar') }}</p>
+            <a class="ui-btn ui-btn--ghost ui-btn--icon" href="{{ $returnUrl }}" aria-label="{{ __('partner.avatar.cancel') }}"><x-icon name="close" size="20" /></a>
+        </div>
+        @if ($errors->any())
+            <div class="ui-notice ui-notice--error adm-flash" role="alert">{{ __('partner.avatar.invalid') }}</div>
+        @endif
         <input type="hidden" name="seed" value="{{ $value['seed'] }}" data-avatar-seed-input>
         <input type="hidden" name="overrides" value="{{ $json($value['overrides']) }}" data-avatar-overrides-input>
 
@@ -33,7 +38,7 @@
             <noscript><p class="ui-muted">{{ __('partner.avatar.noscript') }}</p></noscript>
         </div>
 
-        <div class="adm-form-foot">
+        <div class="adm-form-foot adm-avatar-foot">
             <button class="ui-btn ui-btn--primary" type="submit" data-avatar-save disabled>{{ __('partner.avatar.save') }}</button>
             <a class="ui-btn ui-btn--ghost" href="{{ $returnUrl }}">{{ __('partner.avatar.cancel') }}</a>
         </div>

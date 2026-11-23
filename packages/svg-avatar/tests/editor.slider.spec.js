@@ -115,3 +115,54 @@ describe("slider layout", () => {
         expect(title.textContent).toBe("Face");
     });
 });
+
+describe("fill mode (fillMedia)", () => {
+    const listeners = [];
+    const media = { matches: true };
+    const fakeMatchMedia = () => ({ get matches() { return media.matches; }, addEventListener: (_, fn) => listeners.push(fn) });
+    const flip = matches => {
+        media.matches = matches;
+        listeners.forEach(fn => fn());
+    };
+
+    it("fills the element while the query matches, and follows its changes", () => {
+        const original = globalThis.matchMedia;
+        globalThis.matchMedia = fakeMatchMedia;
+        try {
+            const { host } = setup({ fillMedia: "(max-width: 599px)" });
+            const root = host.querySelector(".sa-editor");
+            expect(root.classList.contains("sa-editor--fill")).toBe(true);
+            expect(host.querySelector(".sa-editor-aside").classList.contains("sa-editor-aside--fill")).toBe(true);
+            expect(host.querySelector(".sa-editor-track").classList.contains("sa-editor-track--fill")).toBe(true);
+            expect(slides(host).every(slide => slide.classList.contains("sa-editor-slide--fill"))).toBe(true);
+            // no fixed height: the slide in view takes the room the host gives
+            expect(host.querySelector(".sa-editor-track").style.height).toBe("");
+
+            flip(false);
+            expect(root.classList.contains("sa-editor--fill")).toBe(false);
+            expect(slides(host).some(slide => slide.classList.contains("sa-editor-slide--fill"))).toBe(false);
+        } finally {
+            globalThis.matchMedia = original;
+            media.matches = true;
+            listeners.length = 0;
+        }
+    });
+
+    it("needs the slider layout and does nothing without matchMedia", () => {
+        const original = globalThis.matchMedia;
+        globalThis.matchMedia = fakeMatchMedia;
+        try {
+            const host = document.createElement("div");
+            document.body.append(host);
+            const editor = mountAvatarEditor(host, { value: { seed: "user-1" }, fillMedia: "(max-width: 599px)" });
+            expect(host.querySelector(".sa-editor").classList.contains("sa-editor--fill")).toBe(false);
+            editor.destroy();
+            host.remove();
+        } finally {
+            globalThis.matchMedia = original;
+            listeners.length = 0;
+        }
+        const { host } = setup({ fillMedia: "(max-width: 599px)" });
+        expect(host.querySelector(".sa-editor").classList.contains("sa-editor--fill")).toBe(false);
+    });
+});

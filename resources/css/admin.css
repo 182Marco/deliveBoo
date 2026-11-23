@@ -129,13 +129,49 @@
     font-weight: var(--weight-black);
 }
 
-/* "Customise avatar" page: the svg-avatar editor themed with the partner tokens */
+/* "Customise avatar" page. Phones: the form is a full-screen sheet over the page and the site header
+   (100vw x 100dvh), the editor fills it in its "fill" mode (preview always in sight, the section of
+   the slider scrolls on its own). From 600px: the page as it is, header included. */
 .adm-avatar-form {
-    display: grid;
-    gap: var(--space-5);
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100vw;
+    height: 100dvh;
+    padding: var(--space-2) var(--space-4) var(--space-3);
+    overflow: hidden;
+    background-color: var(--paper);
+}
+
+.adm-avatar-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex: none;
+}
+
+/* the page behind the sheet does not scroll (class on <html>, set by jsBack/avatarEditor.js) */
+.adm-scroll-lock {
+    overflow: hidden;
+}
+
+.adm-avatar-foot {
+    flex: none;
+    flex-wrap: nowrap;
+    padding-top: var(--space-3);
 }
 
 .adm-avatar-editor {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-3);
+    --sa-preview-size: clamp(112px, 21dvh, 200px);
     --sa-ink: var(--ink);
     --sa-muted: var(--ink-muted);
     --sa-surface: var(--surface);
@@ -1086,6 +1122,36 @@
 }
 
 @media (min-width: 600px) {
+    .adm-avatar-form {
+        position: static;
+        display: grid;
+        gap: var(--space-5);
+        width: auto;
+        height: auto;
+        padding: 0;
+        overflow: visible;
+        background-color: transparent;
+    }
+
+    .adm-avatar-bar {
+        display: none;
+    }
+
+    .adm-scroll-lock {
+        overflow: visible;
+    }
+
+    .adm-avatar-foot {
+        flex-wrap: wrap;
+        padding-top: var(--space-5);
+    }
+
+    .adm-avatar-editor {
+        display: block;
+        padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+        --sa-preview-size: 240px;
+    }
+
     .auth-dialog {
         width: min(100% - 2 * var(--gutter), 720px);
         height: fit-content;
