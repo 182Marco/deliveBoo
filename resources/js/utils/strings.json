@@ -1000,7 +1000,102 @@
         },
         "users": {
             "title": { "en": "Accounts", "it": "Account", "de": "Konten", "fr": "Comptes", "es": "Cuentas" },
-            "lead": { "en": "Customers, restaurateurs and admins of the platform.", "it": "Clienti, ristoratori e admin della piattaforma.", "de": "Kunden, Gastronomen und Admins der Plattform.", "fr": "Clients, restaurateurs et admins de la plateforme.", "es": "Clientes, restauradores y admins de la plataforma." }
+            "lead": { "en": "Customers, restaurateurs and admins of the platform.", "it": "Clienti, ristoratori e admin della piattaforma.", "de": "Kunden, Gastronomen und Admins der Plattform.", "fr": "Clients, restaurateurs et admins de la plateforme.", "es": "Clientes, restauradores y admins de la plataforma." },
+            "search": { "en": "Search", "it": "Cerca", "de": "Suchen", "fr": "Rechercher", "es": "Buscar" },
+            "placeholder": { "en": "Name, email or company", "it": "Nome, email o ragione sociale", "de": "Name, E-Mail oder Firma", "fr": "Nom, e-mail ou société", "es": "Nombre, email o empresa" },
+            "filterRole": { "en": "Role", "it": "Ruolo", "de": "Rolle", "fr": "Rôle", "es": "Rol" },
+            "allRoles": { "en": "All roles", "it": "Tutti i ruoli", "de": "Alle Rollen", "fr": "Tous les rôles", "es": "Todos los roles" },
+            "filterStatus": { "en": "Status", "it": "Stato", "de": "Status", "fr": "Statut", "es": "Estado" },
+            "allStatuses": { "en": "All", "it": "Tutti", "de": "Alle", "fr": "Tous", "es": "Todos" },
+            "apply": { "en": "Apply", "it": "Applica", "de": "Anwenden", "fr": "Appliquer", "es": "Aplicar" },
+            "clear": { "en": "Clear", "it": "Pulisci", "de": "Leeren", "fr": "Effacer", "es": "Limpiar" },
+            "role": {
+                "customer": { "en": "Customer", "it": "Cliente", "de": "Kunde", "fr": "Client", "es": "Cliente" },
+                "restaurateur": { "en": "Restaurateur", "it": "Ristoratore", "de": "Gastronom", "fr": "Restaurateur", "es": "Restaurador" },
+                "admin": { "en": "Admin", "it": "Admin", "de": "Admin", "fr": "Admin", "es": "Admin" }
+            },
+            "status": {
+                "active": { "en": "Active", "it": "Attivo", "de": "Aktiv", "fr": "Actif", "es": "Activo" },
+                "banned": { "en": "Banned", "it": "Bannato", "de": "Gesperrt", "fr": "Banni", "es": "Bloqueado" }
+            },
+            "summary": { "en": "Customers: :customers · Restaurateurs: :restaurateurs · Admins: :admins · Banned: :banned", "it": "Clienti: :customers · Ristoratori: :restaurateurs · Admin: :admins · Bannati: :banned", "de": "Kunden: :customers · Gastronomen: :restaurateurs · Admins: :admins · Gesperrt: :banned", "fr": "Clients : :customers · Restaurateurs : :restaurateurs · Admins : :admins · Bannis : :banned", "es": "Clientes: :customers · Restauradores: :restaurateurs · Admins: :admins · Bloqueados: :banned" },
+            "new": { "en": "New account", "it": "Nuovo account", "de": "Neues Konto", "fr": "Nouveau compte", "es": "Nueva cuenta" },
+            "none": { "en": "No accounts match these filters.", "it": "Nessun account corrisponde a questi filtri.", "de": "Keine Konten passen zu diesen Filtern.", "fr": "Aucun compte ne correspond à ces filtres.", "es": "Ninguna cuenta coincide con estos filtros." },
+            "col": {
+                "name": { "en": "Name", "it": "Nome", "de": "Name", "fr": "Nom", "es": "Nombre" },
+                "email": { "en": "Email", "it": "Email", "de": "E-Mail", "fr": "E-mail", "es": "Email" },
+                "role": { "en": "Role", "it": "Ruolo", "de": "Rolle", "fr": "Rôle", "es": "Rol" },
+                "status": { "en": "Status", "it": "Stato", "de": "Status", "fr": "Statut", "es": "Estado" },
+                "created": { "en": "Created", "it": "Creato", "de": "Erstellt", "fr": "Créé", "es": "Creado" },
+                "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" }
+            },
+            "back": { "en": "Back to users", "it": "Torna agli utenti", "de": "Zurück zu den Benutzern", "fr": "Retour aux utilisateurs", "es": "Volver a usuarios" },
+            "edit": { "en": "Edit", "it": "Modifica", "de": "Bearbeiten", "fr": "Modifier", "es": "Editar" },
+            "ban": { "en": "Ban account", "it": "Banna account", "de": "Konto sperren", "fr": "Bannir le compte", "es": "Bloquear cuenta" },
+            "unban": { "en": "Lift the ban", "it": "Revoca il ban", "de": "Sperre aufheben", "fr": "Lever le bannissement", "es": "Levantar el bloqueo" },
+            "banReason": { "en": "Reason", "it": "Motivazione", "de": "Grund", "fr": "Motif", "es": "Motivo" },
+            "banReasonHint": { "en": "Required. It is saved with the ban and in the activity log.", "it": "Obbligatoria. Viene salvata con il ban e nel registro attività.", "de": "Pflichtfeld. Wird mit der Sperre und im Aktivitätsprotokoll gespeichert.", "fr": "Obligatoire. Enregistré avec le bannissement et dans le journal d'activité.", "es": "Obligatorio. Se guarda con el bloqueo y en el registro de actividad." },
+            "banEffect": { "en": "The account is logged out at once and cannot sign in until the ban is lifted. The restaurants of a restaurateur stay visible but stop taking orders.", "it": "L'account viene disconnesso subito e non può accedere finché il ban non viene revocato. I ristoranti di un ristoratore restano visibili ma smettono di accettare ordini.", "de": "Das Konto wird sofort abgemeldet und kann sich bis zur Aufhebung nicht anmelden. Die Restaurants eines Gastronomen bleiben sichtbar, nehmen aber keine Bestellungen mehr an.", "fr": "Le compte est déconnecté immédiatement et ne peut plus se connecter tant que le bannissement n'est pas levé. Les restaurants d'un restaurateur restent visibles mais ne prennent plus de commandes.", "es": "La cuenta se desconecta al instante y no puede entrar hasta que se levante el bloqueo. Los restaurantes de un restaurador siguen visibles pero dejan de aceptar pedidos." },
+            "unbanEffect": { "en": "The account can sign in again and its restaurants take orders again.", "it": "L'account può di nuovo accedere e i suoi ristoranti tornano ad accettare ordini.", "de": "Das Konto kann sich wieder anmelden und seine Restaurants nehmen wieder Bestellungen an.", "fr": "Le compte peut à nouveau se connecter et ses restaurants reprennent les commandes.", "es": "La cuenta puede volver a entrar y sus restaurantes vuelven a aceptar pedidos." },
+            "bannedOn": { "en": "Banned on :date by :admin", "it": "Bannato il :date da :admin", "de": "Gesperrt am :date von :admin", "fr": "Banni le :date par :admin", "es": "Bloqueado el :date por :admin" },
+            "reason": { "en": "Reason: :reason", "it": "Motivazione: :reason", "de": "Grund: :reason", "fr": "Motif : :reason", "es": "Motivo: :reason" },
+            "fact": {
+                "phone": { "en": "Phone", "it": "Telefono", "de": "Telefon", "fr": "Téléphone", "es": "Teléfono" },
+                "company": { "en": "Company", "it": "Ragione sociale", "de": "Firma", "fr": "Société", "es": "Empresa" },
+                "vat": { "en": "VAT number", "it": "Partita IVA", "de": "MWST-Nummer", "fr": "Numéro de TVA", "es": "NIF/IVA" },
+                "created": { "en": "Created on", "it": "Creato il", "de": "Erstellt am", "fr": "Créé le", "es": "Creado el" },
+                "verified": { "en": "Email verified", "it": "Email verificata", "de": "E-Mail bestätigt", "fr": "E-mail vérifié", "es": "Email verificado" },
+                "google": { "en": "Google sign-in", "it": "Accesso con Google", "de": "Google-Anmeldung", "fr": "Connexion Google", "es": "Acceso con Google" },
+                "linked": { "en": "Linked", "it": "Collegato", "de": "Verknüpft", "fr": "Associé", "es": "Vinculado" },
+                "notLinked": { "en": "Not linked", "it": "Non collegato", "de": "Nicht verknüpft", "fr": "Non associé", "es": "No vinculado" },
+                "yes": { "en": "Yes", "it": "Sì", "de": "Ja", "fr": "Oui", "es": "Sí" },
+                "no": { "en": "No", "it": "No", "de": "Nein", "fr": "Non", "es": "No" },
+                "orders": { "en": "Orders with this email", "it": "Ordini con questa email", "de": "Bestellungen mit dieser E-Mail", "fr": "Commandes avec cet e-mail", "es": "Pedidos con este email" },
+                "ordersValue": { "en": ":count · :value gross", "it": ":count · :value lordi", "de": ":count · :value brutto", "fr": ":count · :value brut", "es": ":count · :value bruto" }
+            },
+            "restaurantsTitle": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
+            "noRestaurants": { "en": "No restaurants.", "it": "Nessun ristorante.", "de": "Keine Restaurants.", "fr": "Aucun restaurant.", "es": "Sin restaurantes." },
+            "protected": {
+                "self": { "en": "This is your account: you cannot edit or ban it here.", "it": "Questo è il tuo account: qui non puoi modificarlo né bannarlo.", "de": "Das ist dein Konto: Du kannst es hier weder bearbeiten noch sperren.", "fr": "C'est votre compte : vous ne pouvez ni le modifier ni le bannir ici.", "es": "Es tu cuenta: aquí no puedes editarla ni bloquearla." },
+                "admin": { "en": "Admin accounts cannot be edited or banned from the backoffice.", "it": "Gli account admin non si possono modificare né bannare dal backoffice.", "de": "Admin-Konten können im Backoffice weder bearbeitet noch gesperrt werden.", "fr": "Les comptes admin ne peuvent être ni modifiés ni bannis depuis le back-office.", "es": "Las cuentas admin no se pueden editar ni bloquear desde el backoffice." },
+                "demo": { "en": "Demo account of the portfolio: protected from edits and bans.", "it": "Account demo del portfolio: protetto da modifiche e ban.", "de": "Demo-Konto des Portfolios: vor Änderungen und Sperren geschützt.", "fr": "Compte de démonstration du portfolio : protégé contre les modifications et les bannissements.", "es": "Cuenta de demostración del portfolio: protegida contra ediciones y bloqueos." }
+            },
+            "audit": {
+                "title": { "en": "Activity", "it": "Attività", "de": "Aktivität", "fr": "Activité", "es": "Actividad" },
+                "recent": { "en": "Latest activity", "it": "Attività recenti", "de": "Letzte Aktivitäten", "fr": "Activité récente", "es": "Actividad reciente" },
+                "none": { "en": "No activity yet.", "it": "Ancora nessuna attività.", "de": "Noch keine Aktivität.", "fr": "Aucune activité pour l'instant.", "es": "Aún no hay actividad." },
+                "by": { "en": "by :admin", "it": "da :admin", "de": "von :admin", "fr": "par :admin", "es": "por :admin" },
+                "changed": { "en": "Changed: :fields", "it": "Modificati: :fields", "de": "Geändert: :fields", "fr": "Modifié : :fields", "es": "Cambiado: :fields" },
+                "action": {
+                    "user": {
+                        "created": { "en": "Account created", "it": "Account creato", "de": "Konto erstellt", "fr": "Compte créé", "es": "Cuenta creada" },
+                        "updated": { "en": "Account edited", "it": "Account modificato", "de": "Konto bearbeitet", "fr": "Compte modifié", "es": "Cuenta editada" },
+                        "banned": { "en": "Account banned", "it": "Account bannato", "de": "Konto gesperrt", "fr": "Compte banni", "es": "Cuenta bloqueada" },
+                        "unbanned": { "en": "Ban lifted", "it": "Ban revocato", "de": "Sperre aufgehoben", "fr": "Bannissement levé", "es": "Bloqueo levantado" }
+                    },
+                    "admin": {
+                        "login": { "en": "Admin login", "it": "Accesso admin", "de": "Admin-Anmeldung", "fr": "Connexion admin", "es": "Acceso admin" }
+                    }
+                }
+            },
+            "form": {
+                "createTitle": { "en": "New account", "it": "Nuovo account", "de": "Neues Konto", "fr": "Nouveau compte", "es": "Nueva cuenta" },
+                "createLead": { "en": "Create a customer or restaurateur account. Admin accounts cannot be created here.", "it": "Crea un account cliente o ristoratore. Qui non si possono creare admin.", "de": "Erstelle ein Kunden- oder Gastronomenkonto. Admin-Konten können hier nicht erstellt werden.", "fr": "Créez un compte client ou restaurateur. Les comptes admin ne peuvent pas être créés ici.", "es": "Crea una cuenta de cliente o restaurador. Aquí no se pueden crear admins." },
+                "editTitle": { "en": "Edit :name", "it": "Modifica :name", "de": ":name bearbeiten", "fr": "Modifier :name", "es": "Editar :name" },
+                "editLead": { "en": "Personal data only: role, password and ban do not change here.", "it": "Solo dati anagrafici: ruolo, password e ban non cambiano qui.", "de": "Nur persönliche Daten: Rolle, Passwort und Sperre ändern sich hier nicht.", "fr": "Données personnelles uniquement : rôle, mot de passe et bannissement ne changent pas ici.", "es": "Solo datos personales: rol, contraseña y bloqueo no cambian aquí." },
+                "accountType": { "en": "Account type", "it": "Tipo di account", "de": "Kontotyp", "fr": "Type de compte", "es": "Tipo de cuenta" },
+                "vatHint": { "en": "Restaurateurs only: 11 digits.", "it": "Solo per i ristoratori: 11 cifre.", "de": "Nur für Gastronomen: 11 Ziffern.", "fr": "Restaurateurs uniquement : 11 chiffres.", "es": "Solo restauradores: 11 dígitos." },
+                "create": { "en": "Create account", "it": "Crea account", "de": "Konto erstellen", "fr": "Créer le compte", "es": "Crear cuenta" },
+                "save": { "en": "Save changes", "it": "Salva le modifiche", "de": "Änderungen speichern", "fr": "Enregistrer", "es": "Guardar cambios" },
+                "cancel": { "en": "Cancel", "it": "Annulla", "de": "Abbrechen", "fr": "Annuler", "es": "Cancelar" }
+            },
+            "flash": {
+                "created": { "en": "Account created.", "it": "Account creato.", "de": "Konto erstellt.", "fr": "Compte créé.", "es": "Cuenta creada." },
+                "updated": { "en": "Changes saved.", "it": "Modifiche salvate.", "de": "Änderungen gespeichert.", "fr": "Modifications enregistrées.", "es": "Cambios guardados." },
+                "unchanged": { "en": "Nothing to save: no field changed.", "it": "Niente da salvare: nessun campo è cambiato.", "de": "Nichts zu speichern: kein Feld wurde geändert.", "fr": "Rien à enregistrer : aucun champ n'a changé.", "es": "Nada que guardar: ningún campo cambió." },
+                "banned": { "en": "Account banned.", "it": "Account bannato.", "de": "Konto gesperrt.", "fr": "Compte banni.", "es": "Cuenta bloqueada." },
+                "unbanned": { "en": "Ban lifted.", "it": "Ban revocato.", "de": "Sperre aufgehoben.", "fr": "Bannissement levé.", "es": "Bloqueo levantado." }
+            }
         },
         "filters": {
             "label": { "en": "Filters", "it": "Filtri", "de": "Filter", "fr": "Filtres", "es": "Filtros" },
@@ -1020,9 +1115,6 @@
             },
             "zoneNote": { "en": "Zones are the areas of the restaurants: orders store no customer location.", "it": "Le zone sono le aree dei ristoranti: gli ordini non salvano la posizione del cliente.", "de": "Zonen sind die Gebiete der Restaurants: Bestellungen speichern keinen Kundenstandort.", "fr": "Les zones sont celles des restaurants : les commandes n'enregistrent pas la position du client.", "es": "Las zonas son las áreas de los restaurantes: los pedidos no guardan la ubicación del cliente." },
             "city": { "en": "City", "it": "Città", "de": "Ort", "fr": "Ville", "es": "Ciudad" }
-        },
-        "common": {
-            "comingSoon": { "en": "This section is being built.", "it": "Questa sezione è in costruzione.", "de": "Dieser Bereich wird gerade gebaut.", "fr": "Cette section est en construction.", "es": "Esta sección está en construcción." }
         }
     },
     "mail": {
@@ -1039,7 +1131,8 @@
     "api": {
         "order": {
             "notOnMenu": { "en": "Some plates are not on the menu of this restaurant.", "it": "Alcuni piatti non sono nel menu di questo ristorante.", "de": "Einige Gerichte stehen nicht auf der Speisekarte dieses Restaurants.", "fr": "Certains plats ne sont pas à la carte de ce restaurant.", "es": "Algunos platos no están en la carta de este restaurante." },
-            "notAvailable": { "en": "Not available right now: :plates.", "it": "Non disponibili al momento: :plates.", "de": "Gerade nicht verfügbar: :plates.", "fr": "Indisponible pour le moment : :plates.", "es": "No disponible ahora mismo: :plates." }
+            "notAvailable": { "en": "Not available right now: :plates.", "it": "Non disponibili al momento: :plates.", "de": "Gerade nicht verfügbar: :plates.", "fr": "Indisponible pour le moment : :plates.", "es": "No disponible ahora mismo: :plates." },
+            "notAccepting": { "en": "This restaurant is not taking orders right now.", "it": "Questo ristorante al momento non accetta ordini.", "de": "Dieses Restaurant nimmt gerade keine Bestellungen an.", "fr": "Ce restaurant ne prend pas de commandes pour le moment.", "es": "Este restaurante no acepta pedidos en este momento." }
         },
         "payment": {
             "unavailable": { "en": "Payment service unavailable, please try again later.", "it": "Servizio di pagamento non disponibile, riprova più tardi.", "de": "Zahlungsdienst nicht verfügbar, bitte versuch es später noch einmal.", "fr": "Service de paiement indisponible, veuillez réessayer plus tard.", "es": "Servicio de pago no disponible, inténtalo más tarde." },

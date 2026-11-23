@@ -72,7 +72,17 @@ Route::prefix('platform')
         Route::get('tables/customer', [TableController::class, 'customer'])->name('tables.customer');
         Route::get('tables/{section?}', [TableController::class, 'index'])->name('tables')
             ->whereIn('section', TableController::SECTIONS);
+        // tab Users: every action also goes through UserPolicy and the audit log
         Route::get('users', [UserController::class, 'index'])->name('users.index');
+        Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+        Route::get('users/{user}', [UserController::class, 'show'])->whereNumber('user')->name('users.show');
+        Route::get('users/{user}/edit', [UserController::class, 'edit'])->whereNumber('user')->name('users.edit');
+        Route::middleware('throttle:30,1')->group(function () {
+            Route::post('users', [UserController::class, 'store'])->name('users.store');
+            Route::put('users/{user}', [UserController::class, 'update'])->whereNumber('user')->name('users.update');
+            Route::post('users/{user}/ban', [UserController::class, 'ban'])->whereNumber('user')->name('users.ban');
+            Route::post('users/{user}/unban', [UserController::class, 'unban'])->whereNumber('user')->name('users.unban');
+        });
         // any other /platform path is a 404 here, not the Vue site of the catch-all
         Route::any('{any}', fn () => abort(404))->where('any', '.*')->name('missing');
     });

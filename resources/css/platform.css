@@ -483,6 +483,83 @@
     font-weight: var(--weight-regular);
 }
 
+/* ---------- users tab ---------- */
+.plat-toolbar--between {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.plat-toolbar--card {
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background-color: var(--surface);
+}
+
+.plat-panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+/* the ban panel: a tomato edge marks the destructive action */
+.plat-danger {
+    border-color: var(--tomato-soft);
+    box-shadow: inset 4px 0 0 var(--tomato);
+}
+
+.plat-form {
+    max-width: 760px;
+}
+
+.plat-fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: 0;
+    border: 0;
+}
+
+.plat-choice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+}
+
+.plat-audit {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: 0;
+    list-style: none;
+}
+
+.plat-audit-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+    font-size: var(--text-sm);
+}
+
+.plat-audit-when {
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.plat-audit-what {
+    font-weight: var(--weight-bold);
+}
+
+.plat-audit-meta {
+    color: var(--ink-soft);
+    overflow-wrap: anywhere;
+}
+
 /* ---------- maps tab ---------- */
 .plat-map-layout {
     display: grid;

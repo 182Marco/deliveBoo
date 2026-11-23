@@ -7,6 +7,7 @@ use App\Mail\OrderedMessage;
 use App\Order;
 use App\Payments\PaymentGateway;
 use App\Plate;
+use App\Restaurant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,11 @@ class OrderController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
+        }
+
+        // D4 (dev/PIANO_AUTH_CLIENTI.md): the restaurants of a banned restaurateur stay visible but take no orders
+        if (Restaurant::whereKey($r->restaurant_id)->whereHas('user', fn ($u) => $u->whereNotNull('banned_at'))->exists()) {
+            return response()->json(['errors' => ['restaurant_id' => [__('api.order.notAccepting')]]]);
         }
 
         // the amount is never taken from the client: it is the sum of the prices in the db.
