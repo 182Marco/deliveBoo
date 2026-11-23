@@ -19,11 +19,7 @@
             <div class="header-actions">
                 <RestaurantSearch />
                 <LocaleSwitch />
-                <!-- one login for customers, restaurateurs and admins (the role decides where it lands) -->
-                <a href="/login" class="header-partner">
-                    <Icon name="user" :size="18" />
-                    {{ t("header.login") }}
-                </a>
+                <AccountMenu />
                 <router-link :to="{ name: 'cart' }" class="header-bag" :aria-label="bagLabel">
                     <Icon name="bag" />
                     <span class="header-bag-text">{{ t("header.bag") }}</span>

@@ -1,4 +1,5 @@
 import { mapGetters, mapState } from "vuex";
+import { AccountMenu } from "../AccountMenu";
 import { Hamburger } from "../Hamburger";
 import { Icon } from "../Icon";
 import { LocaleSwitch } from "../LocaleSwitch";
@@ -15,7 +16,7 @@ const LINKS = [
 
 const headerLogic = {
     name: "Header",
-    components: { Hamburger, Icon, LocaleSwitch, Logo, RestaurantSearch },
+    components: { AccountMenu, Hamburger, Icon, LocaleSwitch, Logo, RestaurantSearch },
     data: () => ({
         links: LINKS
     }),

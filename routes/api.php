@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MeController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\RestaurantController;
@@ -32,3 +33,6 @@ Route::controller(RestaurantController::class)->group(function () {
 Route::get('/payments/config', [PaymentController::class, 'config'])->middleware('throttle:30,1');
 // receive orders: the cart is charged server side (app/Payments) before confirming
 Route::post('/orders', [OrderController::class, 'store'])->middleware('throttle:10,1');
+
+// the logged-in account of the Vue site ({ user: null } for guests; banned accounts are logged out)
+Route::get('/me', [MeController::class, 'show'])->middleware(['active', 'throttle:60,1']);

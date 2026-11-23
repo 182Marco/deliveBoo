@@ -8,9 +8,10 @@ const appLogic = {
     components: { Header, Footer },
     created() {
         this.getTypes();
+        this.loadUser();
     },
     methods: {
-        ...mapActions(["getTypes"]),
+        ...mapActions(["getTypes", "loadUser"]),
         t
     }
 };

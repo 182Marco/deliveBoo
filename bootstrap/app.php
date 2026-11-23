@@ -27,6 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => App\Http\Middleware\EnsureRole::class,
             'active' => App\Http\Middleware\EnsureActive::class,
         ]);
+        // Sanctum SPA mode: requests of the Vue site (same host) to /api get the session cookie and CSRF
+        // check of the web group, so /api/me knows the logged-in user (dev/PIANO_AUTH_CLIENTI.md, 2.3)
+        $middleware->statefulApi();
         $middleware->api(append: App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -21,11 +21,14 @@ const menuMobileLogic = {
     name: "MenuMobile",
     components: { Icon, Logo },
     data: () => ({
-        routeLinks: ROUTE_LINKS,
-        pageLinks: PAGE_LINKS
+        routeLinks: ROUTE_LINKS
     }),
     computed: {
-        ...mapState(["menuMobile"])
+        ...mapState(["menuMobile", "user"]),
+        // a logged-in account has its menu in the header: no "Log in" here
+        pageLinks() {
+            return this.user ? PAGE_LINKS.filter(link => link.href !== "/login") : PAGE_LINKS;
+        }
     },
     watch: {
         // keyboard users land on the close button, so Esc and Tab work at once

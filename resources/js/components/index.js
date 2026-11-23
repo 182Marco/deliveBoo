@@ -1,3 +1,4 @@
+export { AccountMenu } from "./AccountMenu";
 export { Content } from "./Content";
 export { Flag } from "./Flag";
 export { FoodImage } from "./FoodImage";

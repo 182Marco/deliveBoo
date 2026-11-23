@@ -24,6 +24,7 @@ function api(url) {
     if (url === "/api/restaurantsTopRated") return { data: [REST] };
     if (url.startsWith("/api/restaurantsMenu/")) return { data: { averageRate: 4.2, location: REST, types: ["Fast Food"], menu: PAGE([PLATE]) } };
     if (url.startsWith("/api/restaurants/")) return { data: PAGE([REST]) };
+    if (url === "/api/me") return { data: { user: null } };
     if (url === "/api/payments/config") return { data: { driver: "fake", authorization: null } };
     throw new Error("unexpected GET " + url);
 }

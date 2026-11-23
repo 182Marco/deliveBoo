@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import { fetchRestaurantMenu, fetchRestaurantsByTypes, fetchTypes } from "./api";
+import { fetchMe, fetchRestaurantMenu, fetchRestaurantsByTypes, fetchTypes, logout } from "./api";
 import { cartTotal, toPagination } from "./utils";
 
 const state = () => ({
@@ -18,7 +18,9 @@ const state = () => ({
     total: 0,
     menuMobile: false,
     restPagination: {},
-    menuPagination: {}
+    menuPagination: {},
+    // logged-in account from /api/me (null = guest); never saved in localStorage
+    user: null
 });
 
 const getters = {
@@ -71,6 +73,9 @@ const mutations = {
     },
     setMenuPagination: (state, { current, last }) => {
         state.menuPagination = { current, last };
+    },
+    setUser: (state, user) => {
+        state.user = user;
     }
 };
 
@@ -93,6 +98,22 @@ const actions = {
             console.error(error);
         }
     },
+    // asked on every load: the session lives in the Laravel cookie, not in the store
+    loadUser: async ({ commit }) => {
+        try {
+            commit("setUser", await fetchMe());
+        } catch (error) {
+            // 403 = banned account, logged out by the server
+            commit("setUser", null);
+        }
+    },
+    logoutUser: async ({ commit }) => {
+        try {
+            await logout();
+        } finally {
+            commit("setUser", null);
+        }
+    },
     getMenuAndDetails: async ({ commit }, { slug, page }) => {
         try {
             const restaurant = await fetchRestaurantMenu(slug, page);
@@ -104,10 +125,13 @@ const actions = {
     }
 };
 
+// everything but the account is kept in localStorage: a stale or shared browser must not show it
+const persisted = ({ user, ...rest }) => rest;
+
 // a new store for each app (and test): the state is restored from localStorage ("vuex")
 const createAppStore = () =>
     createStore({
-        plugins: [createPersistedState()],
+        plugins: [createPersistedState({ reducer: persisted })],
         state,
         getters,
         mutations,

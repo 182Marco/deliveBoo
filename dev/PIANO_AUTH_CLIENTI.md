@@ -404,4 +404,19 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: `config/demo.php`, `.env.example`, `database/seeders/{DemoAccountsSeeder,DatabaseSeeder}.php`, `app/Console/Commands/MakeAdmin.php`, `app/User.php`, `app/Policies/UserPolicy.php`, `app/Http/Controllers/Auth/{ForgotPasswordController,ResetPasswordController}.php`, `resources/views/components/demo-accounts.blade.php`, `resources/views/auth/login.blade.php`, `resources/css/admin.css`, `resources/js/utils/strings.json`, test, `AGENTS.md`, `README.md`, `dev/mappa.html` (file, comandi, credenziali di avvio).
 - Test: `DemoAccountsTest` (8: ruoli e password che funzionano, login di ogni account verso la sua home, seeder idempotente che non sovrascrive, box visibile solo se attivo, reset password bloccato per i demo e non per gli altri, policy con demo attivo/disattivo, `make-admin` con conferma sì/no, creazione e rifiuto dei bannati). Aggiornati `DatabaseSeederTest` (P. IVA e ristoranti solo per i ristoratori), `UserRolesTest`, `AccessControlTest` (ora il seed contiene un admin e un cliente). `php artisan test` **151 passati** · `npm run build` ok.
 - Problemi aperti: Mario Rossi per ora non ha ordini (storico ricco allo step 7.3, che richiede `orders.user_id` dello step 7.1). Verifica visiva del box nel browser da fare.
-- Prossimo step: **2.3 Sanctum, `GET /api/me`, header SPA con avatar e menu account**.
+- Prossimo step: 2.3.
+
+### 2.3 — Sanctum, `/api/me` e account nell'header (2026-11-24) ✅ — **fase F2 chiusa**
+- Stato: completato.
+- Modifiche:
+  - `composer require laravel/sanctum` (^4.5); `config/sanctum.php` con `Sanctum::currentRequestHost()` tra gli host stateful (la SPA è servita da Laravel stesso: funziona su Codespaces e in produzione senza elencare domini); `statefulApi()` in `bootstrap/app.php`. Nessuna tabella di token: solo modalità cookie.
+  - `GET /api/me` (`Api\MeController`, middleware `active` + `throttle:60,1`): `{ user: null }` per gli ospiti (200, nessun errore in console), altrimenti id, nome, cognome, email, telefono, ruolo, `home`, `avatar_url`, `avatar_seed`, `avatar_overrides`; mai Google id, ban o password. Bannato → logout e 403.
+  - SPA: `api/account.js` (`fetchMe`, `logout`), store `user` + `loadUser`/`logoutUser` (l'account **non** finisce in localStorage: `reducer` di `createPersistedState`), `App` chiede l'account a ogni caricamento.
+  - `components/AccountMenu`: ospite → «Accedi»; account → `<details>` con avatar `svg-avatar/vue` (o foto Google con fallback se non carica), nome, email, link all'area del ruolo (ristoratore «Area partner» `/admin`, admin «Backoffice» `/platform`), «Esci» (POST `/logout`, poi ricarica `/`). Chiusura con Esc e clic fuori. Il drawer mobile nasconde «Accedi» se loggati. Rimossi gli stili `header-partner` (ora `account-*`).
+  - Stringhe `site.account.*` in 5 lingue.
+- Verifica manuale sul server di sviluppo (curl): ospite → `{"user":null}`; POST `/api/orders` con `Referer` del sito **senza** `X-XSRF-TOKEN` → 419, **con** il token → 200 (axios lo manda da solo); login di Mario dal form → redirect `/`, poi `/api/me` restituisce Mario.
+- Peso: entry `vue` 284.44 → 289.13 kB (gzip 99.47 → 100.88 kB, +1.4 kB) per componente e avatar.
+- File: `composer.json`/`composer.lock`, `config/sanctum.php`, `bootstrap/app.php`, `routes/api.php`, `app/Http/Controllers/Api/MeController.php`, `resources/js/{api/account.js,api/index.js,store.js,App.logic.js}`, `resources/js/components/{AccountMenu/*,Header/*,MenuMobile/MenuMobile.logic.js,index.js}`, `resources/js/utils/strings.json`, `tests/Feature/Api/MeTest.php`, `tests/js/{account.spec.js,app.smoke.spec.js}`, `AGENTS.md`, `dev/mappa.html`.
+- Test: `MeTest` (6), `account.spec.js` (11). `php artisan test` **157 passati** · `npm run test:js` **260 passati** · `npm run build` ok.
+- Problemi aperti: verifica visiva nel browser di header, menu, schede di registrazione e box demo (non ho un browser in questa sessione).
+- Prossimo step: **3.1 scheletro del backoffice `/platform`** (gruppo di rotte, layout con 4 tab, filtri condivisi, audit log, test di accesso).

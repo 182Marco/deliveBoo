@@ -253,6 +253,12 @@
                 "demoName": { "en": "Demo payment", "it": "Pagamento demo", "de": "Demo-Zahlung", "fr": "Paiement de démonstration", "es": "Pago de demostración" },
                 "demoNote": { "en": "Simulated offline for this demo: no money moved.", "it": "Simulato offline per questa demo: nessun movimento di denaro.", "de": "Für diese Demo offline simuliert: Es ist kein Geld geflossen.", "fr": "Simulé hors ligne pour cette démo : aucun argent n'a circulé.", "es": "Simulado sin conexión para esta demo: no se ha movido dinero." }
             }
+        },
+        "account": {
+            "menu": { "en": "Account menu of :name", "it": "Menu account di :name", "de": "Kontomenü von :name", "fr": "Menu du compte de :name", "es": "Menú de la cuenta de :name" },
+            "signedIn": { "en": "Signed in as", "it": "Accesso come", "de": "Angemeldet als", "fr": "Connecté en tant que", "es": "Sesión iniciada como" },
+            "partnerHub": { "en": "Partner hub", "it": "Area partner", "de": "Partnerbereich", "fr": "Espace partenaire", "es": "Área de partners" },
+            "platform": { "en": "Backoffice", "it": "Backoffice", "de": "Backoffice", "fr": "Back-office", "es": "Backoffice" }
         }
     },
     "partner": {
