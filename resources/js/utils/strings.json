@@ -270,7 +270,167 @@
             "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
             "join": { "en": "Join Foodsy", "it": "Unisciti a Foodsy", "de": "Bei Foodsy mitmachen", "fr": "Rejoindre Foodsy", "es": "Únete a Foodsy" },
             "myRestaurants": { "en": "My restaurants", "it": "I miei ristoranti", "de": "Meine Restaurants", "fr": "Mes restaurants", "es": "Mis restaurantes" },
+            "customizeAvatar": { "en": "Customise avatar", "it": "Personalizza avatar", "de": "Avatar anpassen", "fr": "Personnaliser l'avatar", "es": "Personalizar avatar" },
             "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" }
+        },
+        "avatar": {
+            "title": { "en": "Customise your avatar", "it": "Personalizza il tuo avatar", "de": "Avatar anpassen", "fr": "Personnalisez votre avatar", "es": "Personaliza tu avatar" },
+            "intro": { "en": "Pick each feature or let us surprise you. Your avatar appears in the menu at the top right.", "it": "Scegli ogni dettaglio oppure lasciati sorprendere. L'avatar compare nel menu in alto a destra.", "de": "Wähle jedes Detail oder lass dich überraschen. Dein Avatar erscheint oben rechts im Menü.", "fr": "Choisissez chaque détail ou laissez-vous surprendre. Votre avatar apparaît dans le menu en haut à droite.", "es": "Elige cada detalle o déjate sorprender. Tu avatar aparece en el menú de arriba a la derecha." },
+            "save": { "en": "Save avatar", "it": "Salva avatar", "de": "Avatar speichern", "fr": "Enregistrer l'avatar", "es": "Guardar avatar" },
+            "cancel": { "en": "Cancel", "it": "Annulla", "de": "Abbrechen", "fr": "Annuler", "es": "Cancelar" },
+            "saved": { "en": "Avatar saved.", "it": "Avatar salvato.", "de": "Avatar gespeichert.", "fr": "Avatar enregistré.", "es": "Avatar guardado." },
+            "invalid": { "en": "This avatar can't be saved: reload the page and try again.", "it": "Non è possibile salvare questo avatar: ricarica la pagina e riprova.", "de": "Dieser Avatar kann nicht gespeichert werden: Lade die Seite neu und versuche es erneut.", "fr": "Impossible d'enregistrer cet avatar : rechargez la page et réessayez.", "es": "No se puede guardar este avatar: recarga la página e inténtalo de nuevo." },
+            "noscript": { "en": "The avatar editor needs JavaScript.", "it": "L'editor dell'avatar richiede JavaScript.", "de": "Der Avatar-Editor benötigt JavaScript.", "fr": "L'éditeur d'avatar nécessite JavaScript.", "es": "El editor de avatar necesita JavaScript." },
+            "editor": {
+                "preview": { "en": "Avatar preview", "it": "Anteprima dell'avatar", "de": "Avatar-Vorschau", "fr": "Aperçu de l'avatar", "es": "Vista previa del avatar" },
+                "look": { "en": "Suggestions for", "it": "Suggerimenti per", "de": "Vorschläge für", "fr": "Suggestions pour", "es": "Sugerencias para" },
+                "looks": {
+                    "all": { "en": "Everyone", "it": "Tutti", "de": "Alle", "fr": "Tout le monde", "es": "Todos" },
+                    "m": { "en": "Masculine", "it": "Maschile", "de": "Maskulin", "fr": "Masculin", "es": "Masculino" },
+                    "f": { "en": "Feminine", "it": "Femminile", "de": "Feminin", "fr": "Féminin", "es": "Femenino" }
+                },
+                "otherOptions": { "en": "Other options", "it": "Altre opzioni", "de": "Weitere Optionen", "fr": "Autres options", "es": "Otras opciones" },
+                "surprise": { "en": "Surprise me", "it": "Sorprendimi", "de": "Überrasch mich", "fr": "Surprenez-moi", "es": "Sorpréndeme" },
+                "reset": { "en": "Reset", "it": "Ripristina", "de": "Zurücksetzen", "fr": "Réinitialiser", "es": "Restablecer" },
+                "option": { "en": ":trait: :value", "it": ":trait: :value", "de": ":trait: :value", "fr": ":trait : :value", "es": ":trait: :value" },
+                "ruleChanged": { "en": ":trait changed to :value to go with :cause.", "it": ":trait cambiato in :value per abbinarsi a :cause.", "de": ":trait wurde zu :value geändert, passend zu :cause.", "fr": ":trait changé en :value pour aller avec :cause.", "es": ":trait cambiado a :value para combinar con :cause." },
+                "sections": {
+                    "face": { "en": "Face", "it": "Viso", "de": "Gesicht", "fr": "Visage", "es": "Cara" },
+                    "hair": { "en": "Hair", "it": "Capelli", "de": "Haare", "fr": "Cheveux", "es": "Pelo" },
+                    "eyes": { "en": "Eyes", "it": "Occhi", "de": "Augen", "fr": "Yeux", "es": "Ojos" },
+                    "brows": { "en": "Eyebrows", "it": "Sopracciglia", "de": "Augenbrauen", "fr": "Sourcils", "es": "Cejas" },
+                    "nose": { "en": "Nose", "it": "Naso", "de": "Nase", "fr": "Nez", "es": "Nariz" },
+                    "mouth": { "en": "Mouth", "it": "Bocca", "de": "Mund", "fr": "Bouche", "es": "Boca" },
+                    "clothes": { "en": "Outfit", "it": "Abbigliamento", "de": "Kleidung", "fr": "Tenue", "es": "Ropa" },
+                    "accessory": { "en": "Accessory", "it": "Accessorio", "de": "Accessoire", "fr": "Accessoire", "es": "Accesorio" },
+                    "background": { "en": "Background", "it": "Sfondo", "de": "Hintergrund", "fr": "Arrière-plan", "es": "Fondo" }
+                },
+                "traits": {
+                    "face": { "en": "Face shape", "it": "Forma del viso", "de": "Gesichtsform", "fr": "Forme du visage", "es": "Forma de la cara" },
+                    "skinColor": { "en": "Skin tone", "it": "Carnagione", "de": "Hautton", "fr": "Teint", "es": "Tono de piel" },
+                    "hair": { "en": "Hairstyle", "it": "Acconciatura", "de": "Frisur", "fr": "Coiffure", "es": "Peinado" },
+                    "hairColor": { "en": "Hair colour", "it": "Colore dei capelli", "de": "Haarfarbe", "fr": "Couleur des cheveux", "es": "Color de pelo" },
+                    "eyes": { "en": "Eye shape", "it": "Forma degli occhi", "de": "Augenform", "fr": "Forme des yeux", "es": "Forma de los ojos" },
+                    "irisColor": { "en": "Eye colour", "it": "Colore degli occhi", "de": "Augenfarbe", "fr": "Couleur des yeux", "es": "Color de ojos" },
+                    "brows": { "en": "Eyebrows", "it": "Sopracciglia", "de": "Augenbrauen", "fr": "Sourcils", "es": "Cejas" },
+                    "nose": { "en": "Nose", "it": "Naso", "de": "Nase", "fr": "Nez", "es": "Nariz" },
+                    "mouth": { "en": "Mouth", "it": "Bocca", "de": "Mund", "fr": "Bouche", "es": "Boca" },
+                    "clothes": { "en": "Outfit", "it": "Capo", "de": "Kleidungsstück", "fr": "Tenue", "es": "Prenda" },
+                    "clothColor": { "en": "Outfit colour", "it": "Colore del capo", "de": "Farbe der Kleidung", "fr": "Couleur de la tenue", "es": "Color de la prenda" },
+                    "accessory": { "en": "Accessory", "it": "Accessorio", "de": "Accessoire", "fr": "Accessoire", "es": "Accesorio" },
+                    "accentColor": { "en": "Accessory colour", "it": "Colore dell'accessorio", "de": "Farbe des Accessoires", "fr": "Couleur de l'accessoire", "es": "Color del accesorio" },
+                    "bgColor": { "en": "Background", "it": "Sfondo", "de": "Hintergrund", "fr": "Arrière-plan", "es": "Fondo" }
+                },
+                "variants": {
+                    "face": {
+                        "oval": { "en": "Oval", "it": "Ovale", "de": "Oval", "fr": "Ovale", "es": "Ovalada" },
+                        "round": { "en": "Round", "it": "Tondo", "de": "Rund", "fr": "Rond", "es": "Redonda" },
+                        "square": { "en": "Square", "it": "Squadrato", "de": "Eckig", "fr": "Carré", "es": "Cuadrada" },
+                        "heart": { "en": "Heart", "it": "A cuore", "de": "Herzförmig", "fr": "En cœur", "es": "De corazón" }
+                    },
+                    "hair": {
+                        "buzz": { "en": "Buzz cut", "it": "Rasati", "de": "Buzz Cut", "fr": "Coupe rase", "es": "Rapado" },
+                        "crop": { "en": "Crop", "it": "Corti", "de": "Kurzhaarschnitt", "fr": "Coupe courte", "es": "Corto" },
+                        "sidePart": { "en": "Side part", "it": "Riga laterale", "de": "Seitenscheitel", "fr": "Raie sur le côté", "es": "Raya al lado" },
+                        "quiff": { "en": "Quiff", "it": "Ciuffo", "de": "Tolle", "fr": "Banane", "es": "Tupé" },
+                        "curly": { "en": "Short curls", "it": "Ricci corti", "de": "Kurze Locken", "fr": "Boucles courtes", "es": "Rizos cortos" },
+                        "afro": { "en": "Afro", "it": "Afro", "de": "Afro", "fr": "Afro", "es": "Afro" },
+                        "pixie": { "en": "Pixie", "it": "Pixie", "de": "Pixie", "fr": "Pixie", "es": "Pixie" },
+                        "bob": { "en": "Bob", "it": "Caschetto", "de": "Bob", "fr": "Carré", "es": "Bob" },
+                        "long": { "en": "Long and straight", "it": "Lunghi e lisci", "de": "Lang und glatt", "fr": "Longs et lisses", "es": "Largo y liso" },
+                        "wavy": { "en": "Long and wavy", "it": "Lunghi e mossi", "de": "Lang und gewellt", "fr": "Longs et ondulés", "es": "Largo y ondulado" },
+                        "bun": { "en": "Bun", "it": "Chignon", "de": "Dutt", "fr": "Chignon", "es": "Moño" },
+                        "ponytail": { "en": "Ponytail", "it": "Coda di cavallo", "de": "Pferdeschwanz", "fr": "Queue de cheval", "es": "Coleta" }
+                    },
+                    "eyes": {
+                        "open": { "en": "Open", "it": "Aperti", "de": "Offen", "fr": "Ouverts", "es": "Abiertos" },
+                        "lashes": { "en": "With lashes", "it": "Con ciglia", "de": "Mit Wimpern", "fr": "Avec cils", "es": "Con pestañas" },
+                        "happy": { "en": "Smiling", "it": "Sorridenti", "de": "Lächelnd", "fr": "Souriants", "es": "Sonrientes" },
+                        "wink": { "en": "Wink", "it": "Occhiolino", "de": "Zwinkern", "fr": "Clin d'œil", "es": "Guiño" },
+                        "sleepy": { "en": "Sleepy", "it": "Assonnati", "de": "Verschlafen", "fr": "Endormis", "es": "Somnolientos" }
+                    },
+                    "brows": {
+                        "soft": { "en": "Soft", "it": "Morbide", "de": "Weich", "fr": "Doux", "es": "Suaves" },
+                        "bold": { "en": "Bold", "it": "Marcate", "de": "Kräftig", "fr": "Épais", "es": "Marcadas" },
+                        "arched": { "en": "Arched", "it": "Arcuate", "de": "Gebogen", "fr": "Arqués", "es": "Arqueadas" },
+                        "flat": { "en": "Straight", "it": "Dritte", "de": "Gerade", "fr": "Droits", "es": "Rectas" }
+                    },
+                    "nose": {
+                        "soft": { "en": "Soft", "it": "Morbido", "de": "Sanft", "fr": "Doux", "es": "Suave" },
+                        "button": { "en": "Button", "it": "A patatina", "de": "Stupsnase", "fr": "Retroussé", "es": "Respingona" },
+                        "long": { "en": "Long", "it": "Lungo", "de": "Lang", "fr": "Long", "es": "Largo" }
+                    },
+                    "mouth": {
+                        "laugh": { "en": "Laugh", "it": "Risata", "de": "Lachen", "fr": "Rire", "es": "Risa" },
+                        "grin": { "en": "Grin", "it": "Sorriso aperto", "de": "Grinsen", "fr": "Grand sourire", "es": "Sonrisa amplia" },
+                        "smile": { "en": "Smile", "it": "Sorriso", "de": "Lächeln", "fr": "Sourire", "es": "Sonrisa" },
+                        "smirk": { "en": "Half smile", "it": "Mezzo sorriso", "de": "Halbes Lächeln", "fr": "Demi-sourire", "es": "Media sonrisa" },
+                        "calm": { "en": "Calm", "it": "Calma", "de": "Ruhig", "fr": "Calme", "es": "Tranquila" }
+                    },
+                    "clothes": {
+                        "tee": { "en": "T-shirt", "it": "T-shirt", "de": "T-Shirt", "fr": "T-shirt", "es": "Camiseta" },
+                        "stripes": { "en": "Striped tee", "it": "Maglia a righe", "de": "Ringelshirt", "fr": "Marinière", "es": "Camiseta de rayas" },
+                        "vneck": { "en": "V-neck", "it": "Scollo a V", "de": "V-Ausschnitt", "fr": "Col V", "es": "Cuello de pico" },
+                        "hoodie": { "en": "Hoodie", "it": "Felpa con cappuccio", "de": "Hoodie", "fr": "Sweat à capuche", "es": "Sudadera con capucha" },
+                        "shirt": { "en": "Shirt", "it": "Camicia", "de": "Hemd", "fr": "Chemise", "es": "Camisa" },
+                        "blazer": { "en": "Blazer", "it": "Giacca", "de": "Blazer", "fr": "Blazer", "es": "Americana" },
+                        "turtleneck": { "en": "Turtleneck", "it": "Dolcevita", "de": "Rollkragen", "fr": "Col roulé", "es": "Cuello alto" },
+                        "strapTop": { "en": "Strap top", "it": "Top con spalline", "de": "Trägertop", "fr": "Débardeur à bretelles", "es": "Top de tirantes" }
+                    },
+                    "accessory": {
+                        "none": { "en": "None", "it": "Nessuno", "de": "Keins", "fr": "Aucun", "es": "Ninguno" },
+                        "roundGlasses": { "en": "Round glasses", "it": "Occhiali tondi", "de": "Runde Brille", "fr": "Lunettes rondes", "es": "Gafas redondas" },
+                        "squareGlasses": { "en": "Square glasses", "it": "Occhiali squadrati", "de": "Eckige Brille", "fr": "Lunettes carrées", "es": "Gafas cuadradas" },
+                        "sunglasses": { "en": "Sunglasses", "it": "Occhiali da sole", "de": "Sonnenbrille", "fr": "Lunettes de soleil", "es": "Gafas de sol" },
+                        "earrings": { "en": "Earrings", "it": "Orecchini", "de": "Ohrringe", "fr": "Boucles d'oreilles", "es": "Pendientes" },
+                        "beanie": { "en": "Beanie", "it": "Berretto", "de": "Mütze", "fr": "Bonnet", "es": "Gorro" }
+                    },
+                    "bgColor": {
+                        "oat": { "en": "Oat", "it": "Avena", "de": "Hafer", "fr": "Avoine", "es": "Avena" },
+                        "peach": { "en": "Peach", "it": "Pesca", "de": "Pfirsich", "fr": "Pêche", "es": "Melocotón" },
+                        "sage": { "en": "Sage", "it": "Salvia", "de": "Salbei", "fr": "Sauge", "es": "Salvia" },
+                        "butter": { "en": "Butter", "it": "Burro", "de": "Butter", "fr": "Beurre", "es": "Mantequilla" },
+                        "sky": { "en": "Sky", "it": "Cielo", "de": "Himmel", "fr": "Ciel", "es": "Cielo" },
+                        "rose": { "en": "Rose", "it": "Rosa", "de": "Rosé", "fr": "Rose", "es": "Rosa" }
+                    },
+                    "skinColor": {
+                        "porcelain": { "en": "Porcelain", "it": "Porcellana", "de": "Porzellan", "fr": "Porcelaine", "es": "Porcelana" },
+                        "light": { "en": "Light", "it": "Chiara", "de": "Hell", "fr": "Claire", "es": "Clara" },
+                        "tan": { "en": "Tan", "it": "Ambrata", "de": "Gebräunt", "fr": "Hâlée", "es": "Bronceada" },
+                        "olive": { "en": "Olive", "it": "Olivastra", "de": "Oliv", "fr": "Mate", "es": "Oliva" },
+                        "brown": { "en": "Brown", "it": "Bruna", "de": "Braun", "fr": "Brune", "es": "Morena" },
+                        "deep": { "en": "Deep", "it": "Scura", "de": "Dunkel", "fr": "Foncée", "es": "Oscura" }
+                    },
+                    "hairColor": {
+                        "black": { "en": "Black", "it": "Neri", "de": "Schwarz", "fr": "Noirs", "es": "Negro" },
+                        "espresso": { "en": "Espresso", "it": "Castano scuro", "de": "Dunkelbraun", "fr": "Brun foncé", "es": "Castaño oscuro" },
+                        "chestnut": { "en": "Chestnut", "it": "Castano", "de": "Kastanienbraun", "fr": "Châtain", "es": "Castaño" },
+                        "copper": { "en": "Copper", "it": "Ramati", "de": "Kupfer", "fr": "Cuivré", "es": "Cobrizo" },
+                        "honey": { "en": "Honey", "it": "Biondo miele", "de": "Honigblond", "fr": "Blond miel", "es": "Rubio miel" },
+                        "silver": { "en": "Silver", "it": "Grigi", "de": "Silbergrau", "fr": "Argentés", "es": "Canoso" }
+                    },
+                    "clothColor": {
+                        "forest": { "en": "Forest", "it": "Verde bosco", "de": "Waldgrün", "fr": "Vert forêt", "es": "Verde bosque" },
+                        "olive": { "en": "Olive", "it": "Oliva", "de": "Oliv", "fr": "Olive", "es": "Oliva" },
+                        "saffron": { "en": "Saffron", "it": "Zafferano", "de": "Safran", "fr": "Safran", "es": "Azafrán" },
+                        "paprika": { "en": "Paprika", "it": "Paprika", "de": "Paprika", "fr": "Paprika", "es": "Pimentón" },
+                        "denim": { "en": "Denim", "it": "Denim", "de": "Jeansblau", "fr": "Denim", "es": "Vaquero" },
+                        "stone": { "en": "Stone", "it": "Pietra", "de": "Stein", "fr": "Pierre", "es": "Piedra" }
+                    },
+                    "accentColor": {
+                        "tomato": { "en": "Tomato", "it": "Pomodoro", "de": "Tomate", "fr": "Tomate", "es": "Tomate" },
+                        "mustard": { "en": "Mustard", "it": "Senape", "de": "Senf", "fr": "Moutarde", "es": "Mostaza" },
+                        "teal": { "en": "Teal", "it": "Verde acqua", "de": "Petrol", "fr": "Bleu canard", "es": "Verde azulado" },
+                        "plum": { "en": "Plum", "it": "Prugna", "de": "Pflaume", "fr": "Prune", "es": "Ciruela" }
+                    },
+                    "irisColor": {
+                        "brown": { "en": "Brown", "it": "Marroni", "de": "Braun", "fr": "Marron", "es": "Marrones" },
+                        "hazel": { "en": "Hazel", "it": "Nocciola", "de": "Haselnuss", "fr": "Noisette", "es": "Avellana" },
+                        "green": { "en": "Green", "it": "Verdi", "de": "Grün", "fr": "Verts", "es": "Verdes" },
+                        "blue": { "en": "Blue", "it": "Azzurri", "de": "Blau", "fr": "Bleus", "es": "Azules" }
+                    }
+                }
+            }
         },
         "common": {
             "back": { "en": "Back", "it": "Indietro", "de": "Zurück", "fr": "Retour", "es": "Volver" },
