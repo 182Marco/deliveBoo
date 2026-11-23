@@ -117,6 +117,8 @@ class UsersTableSeeder extends Seeder
                 $new_user->last_name = $user['last_name'];
                 $new_user->password =  Hash::make($user['password']);
                 $new_user->vat_number = $user['vat_number'];
+                // role is not fillable: historic accounts are restaurateurs
+                $new_user->role = User::RESTAURATEUR;
                 // save
                 $new_user->save();
             }

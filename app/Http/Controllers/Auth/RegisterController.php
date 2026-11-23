@@ -65,12 +65,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = new User([
             'name' => $data['name'],
-            'last_name' => $data['name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'vat_number' => $data['vat_number'],
         ]);
+        // until the tabbed sign-up (step 2.1) this form is the partner hub one; role is never fillable
+        $user->role = User::RESTAURATEUR;
+        $user->save();
+
+        return $user;
     }
 }

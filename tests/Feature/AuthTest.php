@@ -53,8 +53,8 @@ class AuthTest extends TestCase
         $user = User::where('email', 'luca@example.com')->firstOrFail();
         $this->assertAuthenticatedAs($user);
         $this->assertEquals('10987654321', $user->vat_number);
-        // current behaviour (bug noted in the plan): last_name is saved with the first name
-        $this->assertSame('Luca', $user->last_name);
+        // the old bug (last_name saved with the first name) is fixed
+        $this->assertSame('Verdi', $user->last_name);
     }
 
     public function testRegisterRequiresElevenDigitVatNumber()

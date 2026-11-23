@@ -30,7 +30,7 @@ class OwnersSeeder extends Seeder
             }
             $rows[] = [
                 ...array_intersect_key($o, array_flip(['email', 'name', 'last_name', 'company_name', 'phone', 'vat_number'])),
-                'password' => $password, 'created_at' => $now, 'updated_at' => $now,
+                'role' => User::RESTAURATEUR, 'password' => $password, 'created_at' => $now, 'updated_at' => $now,
             ];
         }
         DB::transaction(fn () => collect($rows)->chunk(200)->each(fn ($c) => DB::table('users')->insert($c->values()->all())));

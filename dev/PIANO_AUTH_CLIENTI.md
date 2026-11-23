@@ -324,4 +324,17 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: `app/Policies/RestaurantPolicy.php`, `app/Policies/PlatePolicy.php`, `app/Providers/AppServiceProvider.php`, `app/Http/Controllers/Admin/{PlateController,RestaurantController,StatsController}.php`, `tests/Feature/Admin/OwnershipTest.php`, `AGENTS.md`, `README.md`, `dev/PIANO_MIGRAZIONE_L13.md`.
 - Test: rimossi i 4 test `_CurrentBehaviour` delle vulnerabilità, attivati i 4 `testOtherUserCannot…`, aggiunti store senza ristorante o con ristorante inesistente e i casi positivi del proprietario (update ristorante, update/delete piatto). `php artisan test`: **118 passati, 0 skip** (21.831 asserzioni).
 - Problemi aperti: nessuno.
-- Prossimo step: **1.2 migration su `users`** (ruolo, nullable, Google, ban).
+- Prossimo step: 1.2.
+
+### 1.2 — Ruoli e colonne account su `users` (2026-11-24) ✅
+- Stato: completato. Migration applicata anche al DB MySQL di sviluppo (`php artisan migrate` nel container `app`): 60 utenti → `restaurateur`, nessun dato perso.
+- Modifiche:
+  - migration `2026_11_24_000000_add_roles_and_account_columns_to_users_table`: `role` (default `customer`, indice), `google_id` UNIQUE nullable, `avatar_url`, `banned_at` (indice), `ban_reason`, `banned_by` (FK `users`, `nullOnDelete`); `vat_number` e `password` nullable (gli UNIQUE restano); dati: utenti esistenti → `restaurateur`. `down()` verificato su SQLite (rollback e nuovo migrate).
+  - `App\User`: costanti `CUSTOMER`/`RESTAURATEUR`/`ADMIN`, `ROLES`, `SIGNUP_ROLES` (mai admin), `hasRole()`, `isAdmin()`, `isBanned()`, `activeAdminCount()`, `bannedBy()`; cast `banned_at`; `google_id` nascosto. `role` e ban **non** fillable.
+  - Seeder: `UsersTableSeeder` e `OwnersSeeder` scrivono `role = restaurateur`.
+  - `RegisterController@create`: ruolo `restaurateur` impostato fuori dal mass assignment (fino alla registrazione a schede, step 2.1); **corretto** il bug storico che salvava il nome in `last_name`.
+  - `dev/mappa.html`: migration, Policy, test e tabella `users` (ruolo, Google, ban).
+- File: migration, `app/User.php`, `database/seeders/{UsersTableSeeder,OwnersSeeder}.php`, `app/Http/Controllers/Auth/RegisterController.php`, `tests/Feature/UserRolesTest.php` (nuovo), `tests/Feature/AuthTest.php`, `dev/mappa.html`.
+- Test: `UserRolesTest` (7 test: colonne, seed tutti ristoratori, default customer senza P. IVA né password, role/ban/google_id non assegnabili in massa, helper e conteggio admin attivi, `google_id` nascosto, registrazione → restaurateur con cognome giusto); `AuthTest` aggiornato al cognome corretto. `php artisan test`: **125 passati**.
+- Problemi aperti: nessuno.
+- Prossimo step: **1.3 middleware `role` e `active`, `UserPolicy`, Gate `platform`, `role:restaurateur` sul gruppo `admin`**.
