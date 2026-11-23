@@ -1,6 +1,6 @@
 <template>
     <nav v-if="paginate.last > 1" class="ui-pagination" :aria-label="t('pagination.label')">
-        <button type="button" class="ui-page" :disabled="isFirst" :aria-label="t('pagination.first')" @click="goTo(1)">
+        <button type="button" class="ui-page ui-page--edge" :disabled="isFirst" :aria-label="t('pagination.first')" @click="goTo(1)">
             <Icon name="chevrons-left" :size="18" />
         </button>
         <button
@@ -34,7 +34,7 @@
         >
             <Icon name="chevron-right" :size="18" />
         </button>
-        <button type="button" class="ui-page" :disabled="isLast" :aria-label="t('pagination.last')" @click="goTo(paginate.last)">
+        <button type="button" class="ui-page ui-page--edge" :disabled="isLast" :aria-label="t('pagination.last')" @click="goTo(paginate.last)">
             <Icon name="chevrons-right" :size="18" />
         </button>
     </nav>

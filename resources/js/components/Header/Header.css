@@ -35,6 +35,7 @@
     transition:
         color var(--duration-fast) var(--ease),
         background-color var(--duration-fast) var(--ease);
+    white-space: nowrap;
 }
 
 .header-link:hover {

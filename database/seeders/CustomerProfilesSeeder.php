@@ -286,7 +286,8 @@ class CustomerProfilesSeeder extends Seeder
         }
         $total = round(array_sum(array_map(fn ($l) => $l[0] * $l[1], $lines)), 2);
 
-        $recent = $created->greaterThan(Carbon::parse(OrderHistorySeeder::TO)->subDay());
+        // only the dinner of the last day is still on its way (earlier ones were delivered long ago)
+        $recent = $created->greaterThanOrEqualTo(Carbon::parse(OrderHistorySeeder::TO)->setTime(17, 0));
         $x = $rng->float();
         [$status, $fulfillment] = match (true) {
             $x < 0.03 => [Order::FAILED, null],

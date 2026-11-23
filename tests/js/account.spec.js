@@ -4,7 +4,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { mount, flushPromises, RouterLinkStub } from "@vue/test-utils";
 import axios from "axios";
 import { createAppStore } from "../../resources/js/store.js";
-import { AccountMenu } from "../../resources/js/components";
+import { AccountMenu, MenuMobile } from "../../resources/js/components";
 import { accountAreaLink, fullName } from "../../resources/js/components/AccountMenu/AccountMenu.utils.js";
 
 vi.mock("axios", () => ({ default: { get: vi.fn(), post: vi.fn() } }));
@@ -148,5 +148,52 @@ describe("utils", () => {
         expect(accountAreaLink("admin").text).toBe("account.platform");
         expect(fullName(MARIO)).toBe("Mario Rossi");
         expect(fullName(null)).toBe("");
+    });
+});
+
+describe("MenuMobile account (under 600px the header has no avatar)", () => {
+    const mountDrawer = () => {
+        store.commit("toggleMenuMobile");
+        wrapper = mount(MenuMobile, { global: { plugins: [store], stubs: { RouterLink: RouterLinkStub, Transition: false } }, attachTo: document.body });
+        return wrapper;
+    };
+    const hrefs = () => wrapper.findAll("a.drawer-link").map(a => a.attributes("href"));
+
+    it("offers the login to guests and no account block", () => {
+        mountDrawer();
+        expect(hrefs()).toContain("/login");
+        expect(wrapper.find(".drawer-account").exists()).toBe(false);
+    });
+
+    it("shows a customer's name, My orders, the account page and log out", () => {
+        store.commit("setUser", MARIO);
+        mountDrawer();
+        expect(hrefs()).not.toContain("/login");
+        const block = wrapper.find(".drawer-account");
+        expect(block.find(".drawer-who-name").text()).toBe("Mario Rossi");
+        expect(block.findAllComponents(RouterLinkStub).map(l => l.props("to"))).toContainEqual({ name: "myOrders" });
+        expect(block.findAll("a.drawer-link").map(a => a.attributes("href")).filter(Boolean)).toEqual(["/account"]);
+        expect(block.find("button.drawer-logout").exists()).toBe(true);
+    });
+
+    it("links partners to their area, without My orders", () => {
+        store.commit("setUser", { ...MARIO, role: "restaurateur", home: "/admin" });
+        mountDrawer();
+        const block = wrapper.find(".drawer-account");
+        expect(block.findAll("a.drawer-link").map(a => a.attributes("href"))).toEqual(["/account", "/admin"]);
+        expect(block.findAllComponents(RouterLinkStub).some(l => l.props("to")?.name === "myOrders")).toBe(false);
+    });
+
+    it("logs out, closes the drawer and reloads the home page", async () => {
+        const assign = vi.fn();
+        vi.stubGlobal("location", { ...window.location, assign });
+        store.commit("setUser", MARIO);
+        axios.post.mockResolvedValue({ status: 204 });
+        mountDrawer();
+        await wrapper.find("button.drawer-logout").trigger("click");
+        await flushPromises();
+        expect(axios.post).toHaveBeenCalledWith("/logout");
+        expect(store.state.menuMobile).toBe(false);
+        expect(assign).toHaveBeenCalledWith("/");
     });
 });

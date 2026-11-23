@@ -44,6 +44,32 @@
                 </a>
             </nav>
 
+            <nav v-if="user" class="drawer-nav drawer-account" :aria-label="t('account.menu', { name: user.name })">
+                <p class="drawer-who">
+                    <span class="drawer-who-label">{{ t("account.signedIn") }}</span>
+                    <span class="drawer-who-name">{{ fullName }}</span>
+                </p>
+                <router-link
+                    v-if="user.role === 'customer'"
+                    :to="{ name: 'myOrders' }"
+                    class="drawer-link"
+                    @click="toggleMenuMobile"
+                >
+                    <span class="drawer-link-icon"><Icon name="receipt" /></span>
+                    {{ t("account.orders") }}
+                    <Icon class="drawer-link-arrow" name="chevron-right" :size="18" />
+                </router-link>
+                <a v-for="link in accountLinks" :key="link.text" :href="link.href" class="drawer-link">
+                    <span class="drawer-link-icon"><Icon :name="link.icon" /></span>
+                    {{ t(link.text) }}
+                    <Icon class="drawer-link-arrow" name="chevron-right" :size="18" />
+                </a>
+                <button type="button" class="drawer-link drawer-logout" @click="onLogout">
+                    <span class="drawer-link-icon"><Icon name="logout" /></span>
+                    {{ t("account.logout") }}
+                </button>
+            </nav>
+
             <div class="drawer-foot">
                 <p class="drawer-note">{{ t("drawer.note") }}</p>
                 <a class="ui-btn ui-btn--primary ui-btn--block" href="/register?role=restaurateur">{{ t("drawer.cta") }}</a>

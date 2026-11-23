@@ -34,10 +34,21 @@ class MeTest extends TestCase
             ->assertJsonPath('user.home', '/')
             ->assertJsonPath('user.avatar_seed', $mario->avatarSeed());
         $this->assertEqualsCanonicalizing(
-            ['id', 'name', 'last_name', 'email', 'phone', 'role', 'home', 'avatar_url', 'avatar_seed', 'avatar_overrides'],
+            ['id', 'name', 'last_name', 'email', 'phone', 'last_address', 'role', 'home', 'avatar_url', 'avatar_seed', 'avatar_overrides'],
             array_keys($response->json('user')),
         );
         $this->assertStringNotContainsString('google-123', $response->getContent());
+    }
+
+    public function testCustomerGetsTheAddressOfTheLastOrder()
+    {
+        $mario = $this->mario();
+        $last = $mario->orders()->latest()->latest('id')->firstOrFail();
+
+        $this->actingAs($mario)->getJson('/api/me')->assertOk()->assertJsonPath('user.last_address', $last->customer_address);
+        // partners order as guests: nothing to propose
+        $owner = User::where('role', User::RESTAURATEUR)->firstOrFail();
+        $this->actingAs($owner)->getJson('/api/me')->assertOk()->assertJsonPath('user.last_address', null);
     }
 
     public function testPartnerAndAdminGetTheirHome()

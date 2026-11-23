@@ -1,14 +1,11 @@
 .orders {
+    /* short states (loading, guest, empty) do not pull the footer up */
+    min-height: 70vh;
     padding-block: var(--space-7) var(--section);
 }
 
 .orders-title {
     margin-bottom: var(--space-7);
-}
-
-.orders-loading {
-    padding-block: var(--space-7);
-    text-align: center;
 }
 
 .orders-cta {
@@ -145,6 +142,42 @@
 
 .orders-again {
     justify-self: start;
+}
+
+/* ---------- loading skeleton (opacity only) ---------- */
+@keyframes orders-pulse {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.45;
+    }
+}
+
+.orders-skeleton {
+    animation: orders-pulse 0.9s var(--ease) infinite alternate;
+}
+
+.orders-bone {
+    display: block;
+    border-radius: var(--radius-sm);
+    background-color: var(--oat);
+}
+
+.orders-bone--title {
+    width: 55%;
+    height: 1.25rem;
+    margin-bottom: var(--space-2);
+}
+
+.orders-bone--text {
+    width: 75%;
+    height: 0.875rem;
+}
+
+.orders-bone--line {
+    width: 100%;
+    height: 0.875rem;
 }
 
 @media (min-width: 600px) {

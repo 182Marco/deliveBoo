@@ -18,8 +18,16 @@
     background-color: var(--oat);
 }
 
+/* under 600px the header has no room for it: the account is in the mobile menu (MenuMobile) */
 .account {
     position: relative;
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .account {
+        display: block;
+    }
 }
 
 .account-trigger {
@@ -119,13 +127,12 @@
     background-color: var(--oat);
 }
 
-@media (min-width: 900px) {
+/* the name needs the room of the wide header, like "Log in" for guests */
+@media (min-width: 1200px) {
     .account-name {
         display: inline;
     }
-}
 
-@media (min-width: 1200px) {
     .account-login {
         display: inline-flex;
     }

@@ -6,7 +6,21 @@
             <p class="ui-lead">{{ t("orders.lead") }}</p>
         </div>
 
-        <p v-if="status === 'loading'" class="ui-muted orders-loading" role="status">{{ t("orders.loading") }}</p>
+        <!-- loading: cards of the same shape, so the page does not jump when the orders arrive -->
+        <div v-if="status === 'loading'" class="orders-list" role="status">
+            <span class="ui-sr-only">{{ t("orders.loading") }}</span>
+            <div v-for="n in 3" :key="`skeleton_${n}`" class="ui-card orders-card orders-skeleton" aria-hidden="true">
+                <div class="orders-head">
+                    <span class="orders-photo orders-bone"></span>
+                    <span class="orders-who">
+                        <span class="orders-bone orders-bone--title"></span>
+                        <span class="orders-bone orders-bone--text"></span>
+                    </span>
+                </div>
+                <span class="orders-bone orders-bone--line"></span>
+                <span class="orders-bone orders-bone--line"></span>
+            </div>
+        </div>
 
         <div v-else-if="status === 'guest'" class="ui-empty">
             <img class="ui-empty-mark" src="/images/foodsy-mark.svg" alt="" />

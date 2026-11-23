@@ -80,15 +80,16 @@ const validateCustomer = customer =>
             .map(([key, message]) => [key, [message]])
     );
 
-// customer fields known from the logged-in account (GET /api/me): never the address, which the account
-// does not have. The phone loses its spaces ("079 123 45 67" fits the 11 characters of the field)
+// customer fields known from the logged-in account (GET /api/me); the address is the one of the last order.
+// The phone loses its spaces ("079 123 45 67" fits the 11 characters of the field)
 const customerFromUser = user =>
     Object.fromEntries(
         Object.entries({
             customer_name: user?.name,
             customer_lastName: user?.last_name,
             customer_email: user?.email,
-            customer_phone: user?.phone && String(user.phone).replace(/\s+/g, "")
+            customer_phone: user?.phone && String(user.phone).replace(/\s+/g, ""),
+            customer_address: user?.last_address
         }).filter(([, value]) => value)
     );
 

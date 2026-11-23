@@ -1,7 +1,8 @@
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import { Icon } from "../Icon";
 import { Logo } from "../Logo";
 import { t } from "../../utils";
+import { accountAreaLink, fullName } from "../AccountMenu/AccountMenu.utils.js";
 
 // pages of the SPA (router) and pages served by Laravel (full reload); texts are keys of t()
 const ROUTE_LINKS = [
@@ -25,9 +26,21 @@ const menuMobileLogic = {
     }),
     computed: {
         ...mapState(["menuMobile", "user"]),
-        // a logged-in account has its menu in the header: no "Log in" here
+        // a logged-in account has its own block below: no "Log in" here
         pageLinks() {
             return this.user ? PAGE_LINKS.filter(link => link.href !== "/login") : PAGE_LINKS;
+        },
+        // under 600px the header has no room for the avatar: the account lives here
+        fullName() {
+            return fullName(this.user);
+        },
+        accountLinks() {
+            if (!this.user) return [];
+            const area = accountAreaLink(this.user.role);
+            return [
+                { href: "/account", icon: "user", text: "account.settings" },
+                ...(area ? [{ href: this.user.home, icon: area.icon, text: area.text }] : [])
+            ];
         }
     },
     watch: {
@@ -40,7 +53,14 @@ const menuMobileLogic = {
     },
     methods: {
         ...mapMutations(["toggleMenuMobile"]),
-        t
+        ...mapActions(["logoutUser"]),
+        t,
+        async onLogout() {
+            this.toggleMenuMobile();
+            await this.logoutUser();
+            // a fresh page: new CSRF token and nothing of the account left in memory (like AccountMenu)
+            window.location.assign("/");
+        }
     }
 };
 

@@ -28,6 +28,10 @@ class MeController extends Controller
             'last_name' => $user->last_name,
             'email' => $user->email,
             'phone' => $user->phone,
+            // the checkout proposes the address of the last order (customers only, their own orders)
+            'last_address' => $user->hasRole(User::CUSTOMER)
+                ? $user->orders()->latest()->latest('id')->value('customer_address')
+                : null,
             'role' => $user->role,
             // where the account menu sends partners and admins (the site is the customers' home)
             'home' => $user->homePath(),

@@ -299,13 +299,14 @@ describe("order response", () => {
 describe("logged-in customer (step 7.1)", () => {
     const MARIO = { name: "Mario", last_name: "Rossi", email: "customer@foodsy.test", phone: "079 123 45 67", role: "customer" };
 
-    it("maps the account to the customer fields, never the address, phone without spaces", () => {
+    it("maps the account to the customer fields, address of the last order, phone without spaces", () => {
         expect(customerFromUser(MARIO)).toEqual({
             customer_name: "Mario",
             customer_lastName: "Rossi",
             customer_email: "customer@foodsy.test",
             customer_phone: "0791234567"
         });
+        expect(customerFromUser({ ...MARIO, last_address: "Dienerstrasse 21" }).customer_address).toBe("Dienerstrasse 21");
         expect(customerFromUser({ name: "Ada", last_name: null, email: "ada@example.com", phone: null })).toEqual({
             customer_name: "Ada",
             customer_email: "ada@example.com"

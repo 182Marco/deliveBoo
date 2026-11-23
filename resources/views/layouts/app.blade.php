@@ -17,7 +17,8 @@
     <header class="adm-header">
         <div class="ui-container adm-header-inner">
             <a class="adm-brand" href="{{ auth()->check() ? route('admin.restaurants.index') : url('/') }}" aria-label="{{ __('partner.header.brand') }}">
-                <x-logo />
+                {{-- crowded bar: only the mark under 600px, like the platform backoffice --}}
+                <x-logo wide />
                 <span class="adm-brand-tag">{{ __('partner.header.tag') }}</span>
             </a>
 
