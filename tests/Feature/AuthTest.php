@@ -14,10 +14,15 @@ class AuthTest extends TestCase
 
     private function makeUser()
     {
-        return User::create([
+        // a partner account: role is not fillable, it is set by hand
+        $user = User::create([
             'name' => 'Anna', 'last_name' => 'Bianchi', 'email' => 'anna@example.com',
             'password' => Hash::make('secret123'), 'vat_number' => '12345678901',
         ]);
+        $user->role = User::RESTAURATEUR;
+        $user->save();
+
+        return $user;
     }
 
     public function testLoginPageRenders()
@@ -79,6 +84,49 @@ class AuthTest extends TestCase
         $this->actingAs($this->makeUser());
 
         $this->post('/logout')->assertRedirect('/');
+        $this->assertGuest();
+    }
+    // ---------------------------------------------------------------- roles and bans (step 1.4)
+
+    private function makeAccount(string $email, string $role, bool $banned = false)
+    {
+        $user = User::create(['name' => 'Role', 'last_name' => 'Test', 'email' => $email, 'password' => Hash::make('secret123')]);
+        $user->role = $role;
+        $user->banned_at = $banned ? now() : null;
+        $user->save();
+
+        return $user;
+    }
+
+    public function testLoginRedirectFollowsTheRole()
+    {
+        foreach ([[User::CUSTOMER, '/'], [User::RESTAURATEUR, '/admin'], [User::ADMIN, '/platform']] as [$role, $home]) {
+            $user = $this->makeAccount("{$role}@example.com", $role);
+
+            $this->post('/login', ['email' => "{$role}@example.com", 'password' => 'secret123'])->assertRedirect($home);
+            $this->assertAuthenticatedAs($user);
+            // a logged-in user opening /login goes back to the home of its role
+            $this->get('/login')->assertRedirect($home);
+            $this->post('/logout');
+        }
+    }
+
+    public function testBannedAccountCannotLogIn()
+    {
+        $this->makeAccount('banned@example.com', User::CUSTOMER, banned: true);
+
+        $this->from('/login')->post('/login', ['email' => 'banned@example.com', 'password' => 'secret123'])
+            ->assertRedirect('/login')
+            ->assertSessionHasErrors(['email' => __('auth.banned')]);
+        $this->assertGuest();
+    }
+
+    public function testBannedAccountWithWrongPasswordGetsTheUsualError()
+    {
+        $this->makeAccount('banned@example.com', User::CUSTOMER, banned: true);
+
+        $this->from('/login')->post('/login', ['email' => 'banned@example.com', 'password' => 'wrong-one'])
+            ->assertSessionHasErrors(['email' => __('auth.failed')]);
         $this->assertGuest();
     }
 }

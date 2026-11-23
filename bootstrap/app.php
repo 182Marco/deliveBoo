@@ -13,8 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // no "health" route: every unknown path must reach the SPA catch-all in web.php
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // logged-in users hitting /login or /register go to the admin home (ex RouteServiceProvider::HOME)
-        $middleware->redirectUsersTo('/admin');
+        // logged-in users hitting /login or /register go to the home of their role (User::homePath)
+        $middleware->redirectUsersTo(fn (Illuminate\Http\Request $request) => $request->user()?->homePath() ?? '/');
         // trust the proxy in front of the app (Codespaces, Render) so asset() / url() use the real host and https
         $middleware->trustProxies(at: '*');
         // language of every page and API answer (cookie written by the header switch, plain text

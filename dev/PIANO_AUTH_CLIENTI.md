@@ -350,4 +350,15 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: `app/Http/Middleware/{EnsureRole,EnsureActive}.php`, `app/Policies/UserPolicy.php`, `app/User.php`, `app/Providers/AppServiceProvider.php`, `bootstrap/app.php`, `routes/web.php`, `resources/js/utils/strings.json`, `tests/Feature/AccessControlTest.php` (nuovo), `AGENTS.md`, `dev/mappa.html`.
 - Test: `AccessControlTest` (10 test: ristoratore ok; cliente e admin respinti dall'area partner; scrittura con ruolo sbagliato senza effetti; JSON 403; ban → logout con errore anche su `/`; JSON 403 per i bannati; `homePath`; Gate `platform`; `UserPolicy` su account normali, sé stesso, altro admin, non admin). `php artisan test`: **135 passati**.
 - Problemi aperti: la protezione degli account demo nella policy arriva con `config/demo.php` (step 2.2 / 5.3).
-- Prossimo step: **1.4 redirect per ruolo dopo login/registrazione e login rifiutato ai bannati**.
+- Prossimo step: 1.4.
+
+### 1.4 — Redirect per ruolo e login dei bannati (2026-11-24) ✅ — **fase F1 chiusa**
+- Stato: completato.
+- Modifiche:
+  - `LoginController` e `RegisterController`: `redirectTo()` = `homePath()` dell'account (cliente `/`, ristoratore `/admin`, admin `/platform`, che esisterà dallo step 3.1); `redirect()->intended()` di laravel/ui resta.
+  - `bootstrap/app.php`: `redirectUsersTo` con closure per ruolo (un utente loggato che apre `/login` o `/register` torna alla sua home).
+  - Login di un account bannato: con password giusta → logout, sessione invalidata, errore `auth.banned`; con password sbagliata → il solito `auth.failed` (il form non rivela quali email sono bannate). Il throttling di laravel/ui resta attivo.
+- File: `app/Http/Controllers/Auth/{LoginController,RegisterController}.php`, `bootstrap/app.php`, `tests/Feature/AuthTest.php`.
+- Test: `AuthTest` + 3 (redirect di login e di `/login` per i 3 ruoli, bannato con password giusta, bannato con password sbagliata); l'utente di prova di `AuthTest` è ora esplicitamente `restaurateur`. Verifica di fine fase: `php artisan test` **138 passati** · `npm run test:js` **249 passati** · `npm run build` ok · `php artisan route:list` ok.
+- Problemi aperti: `/platform` per ora finisce nella catch-all della SPA (arriva allo step 3.1).
+- Prossimo step: **2.1 registrazione a schede (cliente di default, `?role=restaurateur`) e CTA della home**.

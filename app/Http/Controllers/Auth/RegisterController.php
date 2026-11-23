@@ -28,7 +28,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected function redirectTo(): string
+    {
+        return $this->guard()->user()?->homePath() ?? '/';
+    }
 
     /**
      * Create a new controller instance.
