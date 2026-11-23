@@ -375,4 +375,12 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: `app/Http/Controllers/Auth/RegisterController.php`, `resources/views/auth/{register,login}.blade.php`, `resources/views/layouts/auth.blade.php`, `resources/css/admin.css`, `resources/js/utils/strings.json`, `resources/js/pages/Home/Home.vue`, `resources/js/components/{Header/Header.vue,MenuMobile/MenuMobile.logic.js,MenuMobile/MenuMobile.vue,Footer/Footer.logic.js}`, `tests/Feature/{AuthTest,UserRolesTest}.php`, `dev/mappa.html`.
 - Test: `AuthTest` + 5 (cliente di default senza P. IVA → `/`; P. IVA ignorata per i clienti; `role=admin` rifiutato; P. IVA mancante o duplicata per i partner; `?role=` preseleziona la scheda, `admin` ricade su cliente). `php artisan test` **143 passati** · `npm run test:js` **249** · `npm run build` ok · smoke sul server di sviluppo: `/register`, `/register?role=restaurateur`, `/register?role=admin`, `/login` → 200.
 - Problemi aperti: verifica visiva nel browser delle schede (fatta solo con i test e l'HTML).
-- Prossimo step: **2.2a migrazione email di Federico Romiti**, poi **2.2 account demo e box nel login**.
+- Prossimo step: 2.2a.
+
+### 2.2a — Email dell'account demo Federico Romiti (D2, 2026-11-24) ✅
+- Stato: completato. `federico_romiti@gmail.com` → `federico.romiti@foodsy.test` ovunque.
+- Modifiche: seeder (`UsersTableSeeder`, `RestaurantsTableSeeder` ×3, `Support/CatalogPlan::ROMITI`), test (`Concerns/SeededFixtures`, `UserRolesTest`), `dev/mappa.html` (blocco `DATI`: credenziali di avvio, più conteggio ristoranti corretto a 33); migration di dati `2026_11_24_010000_move_demo_restaurateur_email` (idempotente; i ristoranti seguono per `user_id`, ordini e voti non dipendono dall'email; rimuove eventuali token di reset della vecchia email). Password invariata (`12345678`).
+- DB di sviluppo: migration applicata, l'utente id 9 ha la nuova email ed è `restaurateur`.
+- Verifica: `grep -r "federico_romiti@gmail.com"` fuori da `vendor/`, `node_modules/`, `public/` → solo la migration (valore da sostituire) e questo piano (storia).
+- Test: `php artisan test` **143 passati**.
+- Prossimo step: **2.2 `config/demo.php`, `DemoAccountsSeeder`, comando `foodsy:make-admin`, box demo nel login**.

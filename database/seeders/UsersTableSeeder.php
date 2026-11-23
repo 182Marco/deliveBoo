@@ -76,7 +76,7 @@ class UsersTableSeeder extends Seeder
             [
                 "name" => "Federico",
                 "last_name" => "Romiti",
-                "email" => "federico_romiti@gmail.com",
+                "email" => "federico.romiti@foodsy.test",
                 "password" => "12345678",
                 "vat_number" => "56712099077",
             ],

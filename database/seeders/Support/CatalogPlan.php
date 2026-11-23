@@ -7,7 +7,7 @@ namespace Database\Seeders\Support;
 // A concept (brand) belongs to one owner; chains have branches named after the neighbourhood.
 final class CatalogPlan
 {
-    public const ROMITI = 'federico_romiti@gmail.com';
+    public const ROMITI = 'federico.romiti@foodsy.test';
 
     // the restaurant group of the demo account: brand => branches (30 in all, full profile)
     public const ROMITI_BRANDS = [

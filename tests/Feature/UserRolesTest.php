@@ -21,7 +21,7 @@ class UserRolesTest extends TestCase
     public function testSeededAccountsAreRestaurateurs()
     {
         $this->assertSame(0, User::where('role', '!=', User::RESTAURATEUR)->count());
-        $this->assertSame(User::RESTAURATEUR, User::where('email', 'federico_romiti@gmail.com')->value('role'));
+        $this->assertSame(User::RESTAURATEUR, User::where('email', 'federico.romiti@foodsy.test')->value('role'));
     }
 
     public function testNewUserIsACustomerByDefaultAndNeedsNoVatNumberNorPassword()
