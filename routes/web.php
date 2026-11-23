@@ -6,6 +6,10 @@ use App\Http\Controllers\Admin\PlateController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\Platform\ChartController;
+use App\Http\Controllers\Platform\MapController;
+use App\Http\Controllers\Platform\TableController;
+use App\Http\Controllers\Platform\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +52,22 @@ Route::prefix('admin')
         // avatar of the logged-in user: editor page (packages/svg-avatar) and save
         Route::get('avatar', [AvatarController::class, 'edit'])->name('avatar.edit');
         Route::put('avatar', [AvatarController::class, 'update'])->name('avatar.update');
+    });
+
+// PLATFORM BACKOFFICE: admins only. One group, one authorization for the four tabs
+// (role:admin + the "platform" Gate; "active" already runs on every web request).
+Route::prefix('platform')
+    ->middleware(['auth', 'role:admin', 'can:platform'])
+    ->name('platform.')
+    ->group(function () {
+        Route::redirect('/', '/platform/maps')->name('home');
+        Route::get('maps', [MapController::class, 'index'])->name('maps');
+        Route::get('charts', [ChartController::class, 'index'])->name('charts');
+        Route::get('tables/{section?}', [TableController::class, 'index'])->name('tables')
+            ->whereIn('section', TableController::SECTIONS);
+        Route::get('users', [UserController::class, 'index'])->name('users.index');
+        // any other /platform path is a 404 here, not the Vue site of the catch-all
+        Route::any('{any}', fn () => abort(404))->where('any', '.*')->name('missing');
     });
 
 // language switch of the partner hub: sets the foodsy_locale cookie and goes back

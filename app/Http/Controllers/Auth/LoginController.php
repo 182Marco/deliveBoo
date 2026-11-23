@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AuditLog;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -38,6 +39,11 @@ class LoginController extends Controller
             $request->session()->regenerateToken();
 
             throw ValidationException::withMessages([$this->username() => [__('auth.banned')]]);
+        }
+
+        // every access to the platform backoffice leaves a trace
+        if ($user->isAdmin()) {
+            AuditLog::record(AuditLog::ADMIN_LOGIN, $user, actor: $user);
         }
     }
 

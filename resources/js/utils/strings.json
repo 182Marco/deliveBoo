@@ -26,12 +26,14 @@
             "restaurants": { "en": "All restaurants", "it": "Tutti i ristoranti", "de": "Alle Restaurants", "fr": "Tous les restaurants", "es": "Todos los restaurantes" },
             "bag": { "en": "Your bag", "it": "La tua borsa", "de": "Deine Tasche", "fr": "Votre sac", "es": "Tu bolsa" },
             "addRestaurant": { "en": "Add your restaurant", "it": "Aggiungi il tuo ristorante", "de": "Restaurant eintragen", "fr": "Ajoutez votre restaurant", "es": "Añade tu restaurante" },
-            "partnerLogin": { "en": "Partner login", "it": "Accesso partner", "de": "Partner-Login", "fr": "Espace partenaire", "es": "Acceso partners" }
+            "partnerLogin": { "en": "Partner login", "it": "Accesso partner", "de": "Partner-Login", "fr": "Espace partenaire", "es": "Acceso partners" },
+            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" }
         },
         "header": {
             "bag": { "en": "Bag", "it": "Borsa", "de": "Tasche", "fr": "Sac", "es": "Bolsa" },
             "bagFull": { "en": "Your bag: :count item, €:amount|Your bag: :count items, €:amount", "it": "La tua borsa: :count articolo, €:amount|La tua borsa: :count articoli, €:amount", "de": "Deine Tasche: :count Artikel, €:amount|Deine Tasche: :count Artikel, €:amount", "fr": "Votre sac : :count article, €:amount|Votre sac : :count articles, €:amount", "es": "Tu bolsa: :count artículo, €:amount|Tu bolsa: :count artículos, €:amount" },
-            "bagEmpty": { "en": "Your bag is empty", "it": "La tua borsa è vuota", "de": "Deine Tasche ist leer", "fr": "Votre sac est vide", "es": "Tu bolsa está vacía" }
+            "bagEmpty": { "en": "Your bag is empty", "it": "La tua borsa è vuota", "de": "Deine Tasche ist leer", "fr": "Votre sac est vide", "es": "Tu bolsa está vacía" },
+            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Connexion", "es": "Acceder" }
         },
         "drawer": {
             "open": { "en": "Open menu", "it": "Apri il menu", "de": "Menü öffnen", "fr": "Ouvrir le menu", "es": "Abrir el menú" },
@@ -258,7 +260,8 @@
             "menu": { "en": "Account menu of :name", "it": "Menu account di :name", "de": "Kontomenü von :name", "fr": "Menu du compte de :name", "es": "Menú de la cuenta de :name" },
             "signedIn": { "en": "Signed in as", "it": "Accesso come", "de": "Angemeldet als", "fr": "Connecté en tant que", "es": "Sesión iniciada como" },
             "partnerHub": { "en": "Partner hub", "it": "Area partner", "de": "Partnerbereich", "fr": "Espace partenaire", "es": "Área de partners" },
-            "platform": { "en": "Backoffice", "it": "Backoffice", "de": "Backoffice", "fr": "Back-office", "es": "Backoffice" }
+            "platform": { "en": "Backoffice", "it": "Backoffice", "de": "Backoffice", "fr": "Back-office", "es": "Backoffice" },
+            "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" }
         }
     },
     "partner": {
@@ -272,7 +275,7 @@
             "nav": { "en": "Partner", "it": "Partner", "de": "Partner", "fr": "Partenaire", "es": "Partner" },
             "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
             "viewSite": { "en": "View site", "it": "Vedi il sito", "de": "Zur Website", "fr": "Voir le site", "es": "Ver el sitio" },
-            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Connexion", "es": "Acceder" },
+            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
             "join": { "en": "Join Foodsy", "it": "Unisciti a Foodsy", "de": "Bei Foodsy mitmachen", "fr": "Rejoindre Foodsy", "es": "Únete a Foodsy" },
             "myRestaurants": { "en": "My restaurants", "it": "I miei ristoranti", "de": "Meine Restaurants", "fr": "Mes restaurants", "es": "Mis restaurantes" },
             "customizeAvatar": { "en": "Customise avatar", "it": "Personalizza avatar", "de": "Avatar anpassen", "fr": "Personnaliser l'avatar", "es": "Personalizar avatar" },
@@ -736,6 +739,70 @@
         },
         "toast": {
             "loggedIn": { "en": "Welcome back, you are logged in.", "it": "Bentornato, hai effettuato l'accesso.", "de": "Willkommen zurück, du bist angemeldet.", "fr": "Bon retour, vous êtes connecté.", "es": "Hola de nuevo, has iniciado sesión." }
+        }
+    },
+    "platform": {
+        "meta": {
+            "title": { "en": "Platform", "it": "Piattaforma", "de": "Plattform", "fr": "Plateforme", "es": "Plataforma" }
+        },
+        "header": {
+            "tag": { "en": "Platform", "it": "Platform", "de": "Platform", "fr": "Platform", "es": "Platform" },
+            "brand": { "en": "Foodsy platform backoffice", "it": "Backoffice della piattaforma Foodsy", "de": "Foodsy Plattform-Backoffice", "fr": "Back-office de la plateforme Foodsy", "es": "Backoffice de la plataforma Foodsy" },
+            "tabs": { "en": "Backoffice sections", "it": "Sezioni del backoffice", "de": "Bereiche des Backoffice", "fr": "Sections du back-office", "es": "Secciones del backoffice" },
+            "viewSite": { "en": "View site", "it": "Vedi il sito", "de": "Website ansehen", "fr": "Voir le site", "es": "Ver el sitio" },
+            "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" },
+            "account": { "en": "Account menu", "it": "Menu account", "de": "Kontomenü", "fr": "Menu du compte", "es": "Menú de la cuenta" }
+        },
+        "tabs": {
+            "maps": { "en": "Maps", "it": "Mappe", "de": "Karten", "fr": "Cartes", "es": "Mapas" },
+            "charts": { "en": "Charts", "it": "Grafici", "de": "Diagramme", "fr": "Graphiques", "es": "Gráficos" },
+            "tables": { "en": "Tables", "it": "Tabelle", "de": "Tabellen", "fr": "Tableaux", "es": "Tablas" },
+            "users": { "en": "Users", "it": "Utenti", "de": "Benutzer", "fr": "Utilisateurs", "es": "Usuarios" }
+        },
+        "maps": {
+            "title": { "en": "Where Foodsy is busy", "it": "Dove si muove Foodsy", "de": "Wo bei Foodsy etwas los ist", "fr": "Où Foodsy est actif", "es": "Dónde se mueve Foodsy" },
+            "lead": { "en": "Restaurants and their orders on the map of the service area.", "it": "Ristoranti e ordini sulla mappa dell'area servita.", "de": "Restaurants und ihre Bestellungen auf der Karte des Liefergebiets.", "fr": "Les restaurants et leurs commandes sur la carte de la zone desservie.", "es": "Restaurantes y sus pedidos en el mapa del área de servicio." }
+        },
+        "charts": {
+            "title": { "en": "Sales and customers", "it": "Vendite e clienti", "de": "Umsatz und Kunden", "fr": "Ventes et clients", "es": "Ventas y clientes" },
+            "lead": { "en": "How orders, sales and customers change over time.", "it": "Come cambiano nel tempo ordini, vendite e clienti.", "de": "Wie sich Bestellungen, Umsatz und Kunden im Zeitverlauf entwickeln.", "fr": "L'évolution des commandes, des ventes et des clients dans le temps.", "es": "Cómo cambian con el tiempo pedidos, ventas y clientes." }
+        },
+        "tables": {
+            "title": { "en": "Data tables", "it": "Tabelle dei dati", "de": "Datentabellen", "fr": "Tableaux de données", "es": "Tablas de datos" },
+            "lead": { "en": "Compare restaurants, orders, customers, zones and periods.", "it": "Confronta ristoranti, ordini, clienti, zone e periodi.", "de": "Vergleiche Restaurants, Bestellungen, Kunden, Zonen und Zeiträume.", "fr": "Comparez restaurants, commandes, clients, zones et périodes.", "es": "Compara restaurantes, pedidos, clientes, zonas y periodos." },
+            "sections": {
+                "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
+                "orders": { "en": "Orders", "it": "Ordini", "de": "Bestellungen", "fr": "Commandes", "es": "Pedidos" },
+                "customers": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
+                "zones": { "en": "Zones", "it": "Zone", "de": "Zonen", "fr": "Zones", "es": "Zonas" },
+                "periods": { "en": "Periods", "it": "Periodi", "de": "Zeiträume", "fr": "Périodes", "es": "Periodos" }
+            }
+        },
+        "users": {
+            "title": { "en": "Accounts", "it": "Account", "de": "Konten", "fr": "Comptes", "es": "Cuentas" },
+            "lead": { "en": "Customers, restaurateurs and admins of the platform.", "it": "Clienti, ristoratori e admin della piattaforma.", "de": "Kunden, Gastronomen und Admins der Plattform.", "fr": "Clients, restaurateurs et admins de la plateforme.", "es": "Clientes, restauradores y admins de la plataforma." }
+        },
+        "filters": {
+            "label": { "en": "Filters", "it": "Filtri", "de": "Filter", "fr": "Filtres", "es": "Filtros" },
+            "from": { "en": "From", "it": "Dal", "de": "Von", "fr": "Du", "es": "Desde" },
+            "to": { "en": "To", "it": "Al", "de": "Bis", "fr": "Au", "es": "Hasta" },
+            "allCities": { "en": "All cities", "it": "Tutte le città", "de": "Alle Orte", "fr": "Toutes les villes", "es": "Todas las ciudades" },
+            "cuisine": { "en": "Cuisine", "it": "Cucina", "de": "Küche", "fr": "Cuisine", "es": "Cocina" },
+            "allCuisines": { "en": "All cuisines", "it": "Tutte le cucine", "de": "Alle Küchen", "fr": "Toutes les cuisines", "es": "Todas las cocinas" },
+            "apply": { "en": "Apply", "it": "Applica", "de": "Anwenden", "fr": "Appliquer", "es": "Aplicar" },
+            "reset": { "en": "Reset", "it": "Azzera", "de": "Zurücksetzen", "fr": "Réinitialiser", "es": "Restablecer" },
+            "presets": { "en": "Quick ranges", "it": "Intervalli rapidi", "de": "Schnellauswahl", "fr": "Périodes rapides", "es": "Rangos rápidos" },
+            "preset": {
+                "30d": { "en": "30 days", "it": "30 giorni", "de": "30 Tage", "fr": "30 jours", "es": "30 días" },
+                "90d": { "en": "90 days", "it": "90 giorni", "de": "90 Tage", "fr": "90 jours", "es": "90 días" },
+                "12m": { "en": "12 months", "it": "12 mesi", "de": "12 Monate", "fr": "12 mois", "es": "12 meses" },
+                "all": { "en": "All time", "it": "Tutto", "de": "Gesamter Zeitraum", "fr": "Depuis le début", "es": "Todo" }
+            },
+            "zoneNote": { "en": "Zones are the areas of the restaurants: orders store no customer location.", "it": "Le zone sono le aree dei ristoranti: gli ordini non salvano la posizione del cliente.", "de": "Zonen sind die Gebiete der Restaurants: Bestellungen speichern keinen Kundenstandort.", "fr": "Les zones sont celles des restaurants : les commandes n'enregistrent pas la position du client.", "es": "Las zonas son las áreas de los restaurantes: los pedidos no guardan la ubicación del cliente." },
+            "city": { "en": "City", "it": "Città", "de": "Ort", "fr": "Ville", "es": "Ciudad" }
+        },
+        "common": {
+            "comingSoon": { "en": "This section is being built.", "it": "Questa sezione è in costruzione.", "de": "Dieser Bereich wird gerade gebaut.", "fr": "Cette section est en construction.", "es": "Esta sección está en construcción." }
         }
     },
     "mail": {

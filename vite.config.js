@@ -11,6 +11,7 @@ export default defineConfig({
         laravel({
             input: [
                 "resources/css/admin.css",
+                "resources/css/platform.css",
                 "resources/js/app.js",
                 "resources/js/vue.js",
                 "resources/js/jsBack/confDelete.js",
