@@ -1,3 +1,4 @@
+import { mapState } from "vuex";
 import { Icon } from "../../components";
 import { t } from "../../utils";
 import { receiptFrom } from "./SuccessPage.utils.js";
@@ -13,6 +14,7 @@ const successPageLogic = {
         copied: false
     }),
     computed: {
+        ...mapState(["user"]),
         receipt() {
             return receiptFrom(this.$route?.query);
         }

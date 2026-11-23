@@ -1,6 +1,6 @@
 # Login clienti, Google OAuth e backoffice admin `/platform` — piano v2
 
-Stato: **v2 approvata il 2026-11-23 · fasi F0–F6 chiuse, F7 in corso (7.1 fatto) · branch `feat/auth-platform`**.
+Stato: **v2 approvata il 2026-11-23 · fasi F0–F6 chiuse, F7 in corso (7.1 e 7.2 fatti) · branch `feat/auth-platform`**.
 Fonte di verità del lavoro: dopo ogni step aggiornare il **Registro di avanzamento** in fondo (stato, modifiche, file, test, problemi aperti, prossimo step). Per riprendere a contesto azzerato: leggere questo file, poi `git log` e `git status`.
 Avatar: progetto indipendente (`AVATAR_IMPLEMENTATION_PLAN.md`); qui si consuma solo il pacchetto pubblico (`svg-avatar`, `svg-avatar/vue`, `<x-avatar>`), senza duplicare la generazione SVG né portarla nel backoffice.
 
@@ -561,3 +561,17 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - Test: `CustomerOrdersTest` (7: ospite senza account; cliente collegato; pagamento rifiutato collegato; account mai preso dal client; partner e admin come ospiti; bannato 403 e disconnesso; account eliminato → `user_id` NULL). Vitest: mappatura account → campi, solo campi vuoti, precompilamento anche con `/api/me` tardivo, partner non precompilati. `php artisan test` **227 passati** · `npm run test:js` **279** · `route:list` e `npm run build` ok.
 - Problemi aperti: nessuno. Il backoffice identifica ancora i clienti per email (`Tables::customers`): va bene finché gli ordini storici sono da ospite; si rivede al 7.3 se serve.
 - Prossimo step: **7.2** pagina SPA «I miei ordini» (`GET /api/me/orders` paginato, `auth:sanctum` + `active`, solo ordini propri).
+
+### 7.2 — Pagina SPA «I miei ordini» (2026-11-25) ✅
+- Stato: completato. Provato sull'app di sviluppo (container `app`, porta 8000): ospite → 401; login di Mario → 200 con lista vuota (il suo storico arriva al 7.3); `/my-orders` servita dalla catch-all.
+- Modifiche:
+  - `GET /api/me/orders` (`Api\MyOrdersController`, `auth:sanctum` + `active` + `throttle:60,1`): ordini dell'account **solo per `user_id`** (mai per email), dal più recente, `paginate(5)`; per ordine `id`, `placed_at`, `delivered_at`, `price`, `status`, `fulfillment_status`, `address`, `restaurant` (`name`, `slug`, `img`; `null` se eliminato), `lines` (nome, quantità, prezzo pagato; piatti eliminati inclusi). Niente dati di pagamento (`transaction_id`, `payment_error`, driver) né dati cliente.
+  - Pagina `pages/MyOrders` su `/my-orders` (nome `myOrders`): stati caricamento, ospite (401 → invito ad accedere, così funziona anche prima di `/api/me`), errore con «Riprova», vuoto con «Trova un ristorante», lista a card (foto 3:2 del ristorante, link al menu, data nella lingua del sito, **uno stato** da pagamento + consegna: In corso / Consegnato / Annullato / Pagamento non riuscito / In attesa, righe, totale, «Ordina di nuovo» verso il menu). Ricarica se l'account cambia (login da ospite o un altro account), senza doppia richiesta quando `/api/me` arriva dopo il mount.
+  - `PaginateEl`: modalità `local` (emette `go`, la pagina carica da sé) e finestra di pagine con «…» (`pageWindow` in `utils/pagination.js`, come la vista Blade `pagination/foodsy`): con 250 ordini sono 50 pagine, prima comparivano 50 bottoni. Le liste corte (≤ 7 pagine) restano identiche.
+  - Link «I miei ordini» nel menu account (solo clienti, chiude il menu) e nella pagina di successo (clienti con il login).
+  - Stringhe `site.account.orders` e `site.orders.*` in 5 lingue (solo aggiunte).
+- File: `app/Http/Controllers/Api/MyOrdersController.php` (nuovo), `routes/api.php`, `resources/js/api/{account,index}.js`, `resources/js/pages/MyOrders/*` (nuovi), `resources/js/pages/index.js`, `resources/js/routes.js`, `resources/js/components/PaginateEl/{PaginateEl.vue,PaginateEl.logic.js}`, `resources/js/utils/{pagination,index}.js`, `resources/js/components/AccountMenu/AccountMenu.vue`, `resources/js/pages/SuccessPage/{SuccessPage.vue,SuccessPage.logic.js,SuccessPage.css}`, `resources/js/utils/strings.json`, `tests/Feature/Api/CustomerOrdersTest.php`, `tests/js/{myOrders,account,app.smoke}.spec.js`, `AGENTS.md`, `dev/mappa.html`.
+- Test: `CustomerOrdersTest` +4 (ospite 401; solo ordini propri, dal più recente, righe e totale coerenti, nessun dato di pagamento o cliente; paginazione e ordini di ristoranti/piatti eliminati; bannato 403 e sessione web chiusa). Vitest: `myOrders.spec.js` (13), menu account (link solo ai clienti, chiusura), smoke di `/my-orders`. `php artisan test` **231 passati** · `npm run test:js` **293** · `route:list` e `npm run build` ok.
+- Nota: con `auth:sanctum` la guard di default della richiesta diventa `sanctum`; `EnsureActive` chiude comunque la guard `web` (nei test: `assertGuest('web')`).
+- Problemi aperti: verifica visiva nel browser da fare (nessun browser disponibile in questa sessione); diventa significativa dopo il 7.3, quando Mario avrà uno storico.
+- Prossimo step: **7.3** `CustomerProfilesSeeder` (Mario ~250 ordini 2025-01 → 2026-11 e ~300 clienti sintetici registrati con i loro ordini collegati), aggiornamento di `dev/PIANO_DATASET.md`; poi `migrate:fresh --seed` sul DB di sviluppo **solo dopo conferma**.

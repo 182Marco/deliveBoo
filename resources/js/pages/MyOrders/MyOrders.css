@@ -1,0 +1,174 @@
+.orders {
+    padding-block: var(--space-7) var(--section);
+}
+
+.orders-title {
+    margin-bottom: var(--space-7);
+}
+
+.orders-loading {
+    padding-block: var(--space-7);
+    text-align: center;
+}
+
+.orders-cta {
+    margin-top: var(--space-3);
+}
+
+.orders-error {
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.orders-error-text {
+    font-weight: var(--weight-bold);
+}
+
+.orders-list {
+    display: grid;
+    gap: var(--space-5);
+    list-style: none;
+}
+
+.orders-card {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    animation: ui-fade-in var(--duration) var(--ease);
+}
+
+/* photo, restaurant and date, state: the badge goes under the name on small screens */
+.orders-head {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-areas:
+        "photo who"
+        "photo badge";
+    align-items: center;
+    gap: var(--space-1) var(--space-4);
+}
+
+/* restaurant cards are 3:2 */
+.orders-photo {
+    grid-area: photo;
+    width: 64px;
+    height: 43px;
+    border-radius: var(--radius-sm);
+}
+
+.orders-who {
+    grid-area: who;
+    min-width: 0;
+}
+
+.orders-restaurant {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-title);
+}
+
+.orders-link {
+    color: var(--ink);
+    transition: color var(--duration-fast) var(--ease);
+}
+
+.orders-link:hover {
+    color: var(--brand-strong);
+}
+
+.orders-gone {
+    color: var(--ink-muted);
+}
+
+.orders-meta {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.orders-badge {
+    grid-area: badge;
+    justify-self: start;
+}
+
+.orders-lines {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    list-style: none;
+}
+
+.orders-line {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+}
+
+.orders-qty {
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+}
+
+.orders-dish {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.orders-line-price {
+    color: var(--ink-soft);
+}
+
+.orders-foot {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.orders-total {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+}
+
+.orders-amount {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--ink);
+}
+
+.orders-again {
+    justify-self: start;
+}
+
+@media (min-width: 600px) {
+    .orders-card {
+        padding: var(--space-6);
+    }
+
+    .orders-head {
+        grid-template-columns: 96px minmax(0, 1fr) auto;
+        grid-template-areas: "photo who badge";
+    }
+
+    .orders-photo {
+        width: 96px;
+        height: 64px;
+    }
+
+    .orders-badge {
+        justify-self: end;
+    }
+
+    .orders-foot {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        align-items: center;
+        gap: var(--space-5);
+    }
+}

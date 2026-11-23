@@ -26,6 +26,10 @@
                 <span class="account-full">{{ fullName }}</span>
                 <span class="account-email">{{ user.email }}</span>
             </p>
+            <router-link v-if="user.role === 'customer'" class="account-item" :to="{ name: 'myOrders' }" @click="close">
+                <Icon name="receipt" :size="18" />
+                {{ t("account.orders") }}
+            </router-link>
             <a class="account-item" href="/account">
                 <Icon name="user" :size="18" />
                 {{ t("account.settings") }}

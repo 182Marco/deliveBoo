@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\MeController;
+use App\Http\Controllers\Api\MyOrdersController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\RestaurantController;
@@ -37,3 +38,5 @@ Route::post('/orders', [OrderController::class, 'store'])->middleware(['active',
 
 // the logged-in account of the Vue site ({ user: null } for guests; banned accounts are logged out)
 Route::get('/me', [MeController::class, 'show'])->middleware(['active', 'throttle:60,1']);
+// "My orders": the orders of the logged-in account (401 for guests), paginated
+Route::get('/me/orders', [MyOrdersController::class, 'index'])->middleware(['auth:sanctum', 'active', 'throttle:60,1']);

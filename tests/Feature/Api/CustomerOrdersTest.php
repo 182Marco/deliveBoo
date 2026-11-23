@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Http\Controllers\Api\MyOrdersController;
 use App\Order;
 use App\Payments\FakeGateway;
 use App\Plate;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
-/** Orders of logged-in customers: orders.user_id (dev/PIANO_AUTH_CLIENTI.md, step 7.1). */
+/** Orders of logged-in customers: orders.user_id (step 7.1) and GET /api/me/orders (step 7.2), dev/PIANO_AUTH_CLIENTI.md. */
 class CustomerOrdersTest extends TestCase
 {
     use RefreshDatabase;
@@ -120,5 +121,74 @@ class CustomerOrdersTest extends TestCase
         $user->delete();
 
         $this->assertNull($order->fresh()->user_id);
+    }
+
+    public function testMyOrdersNeedsAnAccount()
+    {
+        $this->getJson('/api/me/orders')->assertUnauthorized();
+    }
+
+    public function testMyOrdersListsOnlyTheOwnOrdersNewestFirstWithTheirLines()
+    {
+        $user = User::factory()->create();
+        $payload = $this->payload();
+        $payload['plates'] = [$payload['plates'][0], $payload['plates'][0], $payload['plates'][1]];
+        $this->actingAs($user)->postJson('/api/orders', $payload)->assertOk();
+        $this->actingAs($user)->postJson('/api/orders', $this->payload(['payment_nonce' => FakeGateway::DECLINED_NONCE]))->assertOk();
+        // someone else's order with the same email is not theirs
+        $this->actingAs(User::factory()->create())->postJson('/api/orders', $this->payload())->assertOk();
+        $mine = $user->orders()->orderBy('id')->get();
+
+        $response = $this->actingAs($user)->getJson('/api/me/orders')->assertOk();
+
+        $response->assertJsonPath('total', 2)
+            ->assertJsonPath('current_page', 1)
+            ->assertJsonPath('data.0.id', $mine[1]->id)
+            ->assertJsonPath('data.0.status', Order::FAILED)
+            ->assertJsonPath('data.1.id', $mine[0]->id)
+            ->assertJsonPath('data.1.status', Order::PAID)
+            ->assertJsonPath('data.1.fulfillment_status', Order::RECEIVED)
+            ->assertJsonPath('data.1.restaurant.slug', Restaurant::find($payload['restaurant_id'])->slug);
+        $paid = $response->json('data.1');
+        $this->assertEqualsCanonicalizing(
+            ['id', 'placed_at', 'delivered_at', 'price', 'status', 'fulfillment_status', 'address', 'restaurant', 'lines'],
+            array_keys($paid),
+        );
+        $this->assertSame([2, 1], array_column($paid['lines'], 'quantity'));
+        $this->assertEqualsWithDelta($paid['price'], array_sum(array_map(fn ($l) => $l['quantity'] * $l['unit_price'], $paid['lines'])), 0.001);
+        // never the data of the payment or of other customers
+        $this->assertStringNotContainsString('payment_error', $response->getContent());
+        $this->assertStringNotContainsString('transaction_id', $response->getContent());
+        $this->assertStringNotContainsString('customer_email', $response->getContent());
+    }
+
+    public function testMyOrdersIsPaginatedAndKeepsOrdersOfDeletedRestaurantsAndPlates()
+    {
+        $user = User::factory()->create();
+        foreach (range(1, MyOrdersController::PER_PAGE + 1) as $i) {
+            $this->actingAs($user)->postJson('/api/orders', $this->payload())->assertOk();
+        }
+        $first = $user->orders()->orderBy('id')->first();
+        $first->plates->each->delete();
+        $first->restaurant->delete();
+
+        $this->actingAs($user)->getJson('/api/me/orders')->assertOk()
+            ->assertJsonPath('last_page', 2)
+            ->assertJsonCount(MyOrdersController::PER_PAGE, 'data');
+        $this->actingAs($user)->getJson('/api/me/orders?page=2')->assertOk()
+            ->assertJsonPath('data.0.id', $first->id)
+            ->assertJsonPath('data.0.restaurant', null)
+            ->assertJsonCount(2, 'data.0.lines');
+    }
+
+    public function testBannedAccountCannotReadItsOrders()
+    {
+        $user = User::factory()->create();
+        $user->banned_at = now();
+        $user->save();
+
+        $this->actingAs($user)->getJson('/api/me/orders')->assertForbidden();
+        // the session guard is logged out (auth:sanctum made "sanctum" the default guard of the request)
+        $this->assertGuest('web');
     }
 }

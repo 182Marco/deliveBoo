@@ -12,17 +12,19 @@
         >
             <Icon name="chevron-left" :size="18" />
         </button>
-        <button
-            v-for="n in paginate.last"
-            :key="`number_${n}`"
-            type="button"
-            class="ui-page"
-            :class="{ 'ui-page--current': n == paginate.current }"
-            :aria-current="n == paginate.current ? 'page' : null"
-            @click="goTo(n)"
-        >
-            {{ n }}
-        </button>
+        <template v-for="(n, i) in pages" :key="n ?? `gap_${i}`">
+            <span v-if="n === null" class="ui-page ui-page--disabled" aria-hidden="true">…</span>
+            <button
+                v-else
+                type="button"
+                class="ui-page"
+                :class="{ 'ui-page--current': n == paginate.current }"
+                :aria-current="n == paginate.current ? 'page' : null"
+                @click="goTo(n)"
+            >
+                {{ n }}
+            </button>
+        </template>
         <button
             type="button"
             class="ui-page"

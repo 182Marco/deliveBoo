@@ -37,10 +37,17 @@
             <p class="receipt-note">{{ receipt.provider.note }}</p>
         </div>
 
-        <router-link :to="{ name: 'home' }" class="ui-btn ui-btn--primary ui-btn--lg">
-            {{ t("success.home") }}
-            <Icon name="arrow-right" />
-        </router-link>
+        <div class="done-actions">
+            <router-link :to="{ name: 'home' }" class="ui-btn ui-btn--primary ui-btn--lg">
+                {{ t("success.home") }}
+                <Icon name="arrow-right" />
+            </router-link>
+            <!-- the order is linked to the account (step 7.1): it is already in the history -->
+            <router-link v-if="user?.role === 'customer'" :to="{ name: 'myOrders' }" class="ui-btn ui-btn--outline ui-btn--lg">
+                <Icon name="receipt" />
+                {{ t("account.orders") }}
+            </router-link>
+        </div>
     </section>
 </template>
 

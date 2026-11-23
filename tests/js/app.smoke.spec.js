@@ -17,6 +17,7 @@ vi.mock("braintree-web", () => ({
 
 const REST = { id: 7, name: "Mc Donald's", slug: "mc-donalds", city: "Modena", address: "via Moro 52", phone: "1", img: "https://example.com/r.jpg", average: 4.2 };
 const PLATE = { id: 11, name: "Fries", price: 2.5, restaurant_id: 7, description: "d", ingredients: "i", img: "https://example.com/p.jpg", visible: 1 };
+const ORDER = { id: 42, placed_at: "2026-11-20T19:30:00+01:00", delivered_at: "2026-11-20T20:05:00+01:00", price: 7.5, status: "paid", fulfillment_status: "delivered", address: "Langstrasse 1", restaurant: { name: "Mc Donald's", slug: "mc-donalds", img: null }, lines: [{ name: "Fries", quantity: 3, unit_price: 2.5 }] };
 const PAGE = (data) => ({ data, current_page: 1, last_page: 2, per_page: 4, total: 5 });
 
 function api(url) {
@@ -25,6 +26,7 @@ function api(url) {
     if (url.startsWith("/api/restaurantsMenu/")) return { data: { averageRate: 4.2, location: REST, types: ["Fast Food"], menu: PAGE([PLATE]) } };
     if (url.startsWith("/api/restaurants/")) return { data: PAGE([REST]) };
     if (url === "/api/me") return { data: { user: null } };
+    if (url === "/api/me/orders") return { data: PAGE([ORDER]) };
     if (url === "/api/payments/config") return { data: { driver: "fake", authorization: null } };
     throw new Error("unexpected GET " + url);
 }
@@ -65,6 +67,7 @@ describe("every SPA route renders without Vue warnings", () => {
         ["/your-cart", "cart", withCart],
         ["/payment", "payment", withCart],
         ["/well-done!Successfull-payment!Your-order-has-been-confirmed", "success"],
+        ["/my-orders", "myOrders"],
         ["/this/page/does/not/exist", undefined]
     ];
 

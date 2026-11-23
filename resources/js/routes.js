@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Cart, Home, NotFound, Payment, RestMenu, SingleTypeRest, SuccessPage } from "./pages";
+import { Cart, Home, MyOrders, NotFound, Payment, RestMenu, SingleTypeRest, SuccessPage } from "./pages";
 
 const routes = [
     { path: "/", name: "home", component: Home },
@@ -12,6 +12,8 @@ const routes = [
         name: "success",
         component: SuccessPage
     },
+    // orders of the logged-in account (the page itself asks to log in when needed)
+    { path: "/my-orders", name: "myOrders", component: MyOrders },
     // catch-all (Vue Router 4 syntax for the old "*")
     { path: "/:pathMatch(.*)*", component: NotFound }
 ];

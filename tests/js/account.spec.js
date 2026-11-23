@@ -1,7 +1,7 @@
 // Account of the Vue site (dev/PIANO_AUTH_CLIENTI.md, step 2.3): /api/me in the store, never in
 // localStorage, and the header AccountMenu (login link, avatar menu, area link, logout).
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { mount, flushPromises } from "@vue/test-utils";
+import { mount, flushPromises, RouterLinkStub } from "@vue/test-utils";
 import axios from "axios";
 import { createAppStore } from "../../resources/js/store.js";
 import { AccountMenu } from "../../resources/js/components";
@@ -31,7 +31,7 @@ afterEach(() => {
 });
 
 const mountMenu = () => {
-    wrapper = mount(AccountMenu, { global: { plugins: [store] }, attachTo: document.body });
+    wrapper = mount(AccountMenu, { global: { plugins: [store], stubs: { RouterLink: RouterLinkStub } }, attachTo: document.body });
     return wrapper;
 };
 
@@ -83,14 +83,26 @@ describe("AccountMenu", () => {
         expect(wrapper.find("summary svg").exists()).toBe(true);
         expect(wrapper.find(".account-name").text()).toBe("Mario");
         expect(wrapper.find(".account-full").text()).toBe("Mario Rossi");
-        // only "Your account": no partner hub / backoffice link
-        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href"))).toEqual(["/account"]);
+        // "My orders" (SPA route) and "Your account": no partner hub / backoffice link
+        expect(wrapper.findComponent(RouterLinkStub).props("to")).toEqual({ name: "myOrders" });
+        expect(wrapper.findAll("a.account-item").map(a => a.attributes("href")).filter(Boolean)).toEqual(["/account"]);
+    });
+
+    it("closes the menu when opening My orders", async () => {
+        store.commit("setUser", MARIO);
+        mountMenu();
+        const details = wrapper.find("details").element;
+        details.open = true;
+        await wrapper.findComponent(RouterLinkStub).trigger("click");
+        expect(details.open).toBe(false);
     });
 
     it("links partners and admins to their area", () => {
         store.commit("setUser", { ...MARIO, role: "restaurateur", home: "/admin" });
         mountMenu();
         expect(wrapper.findAll("a.account-item").map(a => a.attributes("href"))).toEqual(["/account", "/admin"]);
+        // their orders are guest orders: no "My orders"
+        expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(false);
     });
 
     it("uses the Google photo and falls back to the avatar when it does not load", async () => {

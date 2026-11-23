@@ -8,4 +8,7 @@ const logout = async () => {
     await axios.post("/logout");
 };
 
-export { fetchMe, logout };
+// "My orders" of the logged-in account: a Laravel paginator; a guest gets 401 (the page shows the login)
+const fetchMyOrders = async (page = 1) => (await axios.get("/api/me/orders", { params: { page } })).data;
+
+export { fetchMe, fetchMyOrders, logout };

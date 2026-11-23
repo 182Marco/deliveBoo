@@ -262,7 +262,36 @@
             "partnerHub": { "en": "Partner hub", "it": "Area partner", "de": "Partnerbereich", "fr": "Espace partenaire", "es": "Área de partners" },
             "platform": { "en": "Backoffice", "it": "Backoffice", "de": "Backoffice", "fr": "Back-office", "es": "Backoffice" },
             "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" },
-            "settings": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" }
+            "settings": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" },
+            "orders": { "en": "My orders", "it": "I miei ordini", "de": "Meine Bestellungen", "fr": "Mes commandes", "es": "Mis pedidos" }
+        },
+        "orders": {
+            "eyebrow": { "en": "Order history", "it": "Storico ordini", "de": "Bestellverlauf", "fr": "Historique des commandes", "es": "Historial de pedidos" },
+            "title": { "en": "My orders", "it": "I miei ordini", "de": "Meine Bestellungen", "fr": "Mes commandes", "es": "Mis pedidos" },
+            "lead": { "en": "Every order placed with your account, newest first.", "it": "Tutti gli ordini fatti con il tuo account, dal più recente.", "de": "Alle Bestellungen mit deinem Konto, die neuesten zuerst.", "fr": "Toutes les commandes passées avec votre compte, les plus récentes d'abord.", "es": "Todos los pedidos hechos con tu cuenta, del más reciente al más antiguo." },
+            "loading": { "en": "Loading your orders…", "it": "Caricamento dei tuoi ordini…", "de": "Deine Bestellungen werden geladen…", "fr": "Chargement de vos commandes…", "es": "Cargando tus pedidos…" },
+            "emptyTitle": { "en": "No orders yet", "it": "Ancora nessun ordine", "de": "Noch keine Bestellungen", "fr": "Aucune commande pour l'instant", "es": "Todavía no hay pedidos" },
+            "emptyText": { "en": "Orders you place while logged in will show up here.", "it": "Gli ordini che fai dopo aver effettuato l'accesso compariranno qui.", "de": "Bestellungen, die du angemeldet aufgibst, erscheinen hier.", "fr": "Les commandes passées en étant connecté apparaîtront ici.", "es": "Los pedidos que hagas con la sesión iniciada aparecerán aquí." },
+            "browse": { "en": "Find a restaurant", "it": "Trova un ristorante", "de": "Restaurant finden", "fr": "Trouver un restaurant", "es": "Buscar un restaurante" },
+            "guestTitle": { "en": "Log in to see your orders", "it": "Accedi per vedere i tuoi ordini", "de": "Melde dich an, um deine Bestellungen zu sehen", "fr": "Connectez-vous pour voir vos commandes", "es": "Inicia sesión para ver tus pedidos" },
+            "guestText": { "en": "Orders placed as a guest are not linked to an account: the confirmation email has all their details.", "it": "Gli ordini fatti come ospite non sono collegati a un account: l'email di conferma ne riporta tutti i dettagli.", "de": "Als Gast aufgegebene Bestellungen sind mit keinem Konto verknüpft: Die Bestätigungs-E-Mail enthält alle Details.", "fr": "Les commandes passées en tant qu'invité ne sont liées à aucun compte : l'e-mail de confirmation en contient tous les détails.", "es": "Los pedidos hechos como invitado no están vinculados a ninguna cuenta: el correo de confirmación tiene todos los detalles." },
+            "error": { "en": "We could not load your orders.", "it": "Non siamo riusciti a caricare i tuoi ordini.", "de": "Wir konnten deine Bestellungen nicht laden.", "fr": "Impossible de charger vos commandes.", "es": "No hemos podido cargar tus pedidos." },
+            "retry": { "en": "Try again", "it": "Riprova", "de": "Erneut versuchen", "fr": "Réessayer", "es": "Reintentar" },
+            "order": { "en": "Order #:id", "it": "Ordine n. :id", "de": "Bestellung Nr. :id", "fr": "Commande n° :id", "es": "Pedido n.º :id" },
+            "placed": { "en": "Placed on :date", "it": "Effettuato il :date", "de": "Aufgegeben am :date", "fr": "Passée le :date", "es": "Realizado el :date" },
+            "delivered": { "en": "Delivered on :date", "it": "Consegnato il :date", "de": "Geliefert am :date", "fr": "Livrée le :date", "es": "Entregado el :date" },
+            "items": { "en": ":count item|:count items", "it": ":count articolo|:count articoli", "de": ":count Artikel|:count Artikel", "fr": ":count article|:count articles", "es": ":count artículo|:count artículos" },
+            "total": { "en": "Total", "it": "Totale", "de": "Gesamt", "fr": "Total", "es": "Total" },
+            "address": { "en": "Address", "it": "Indirizzo", "de": "Adresse", "fr": "Adresse", "es": "Dirección" },
+            "restaurantGone": { "en": "Restaurant no longer on Foodsy", "it": "Ristorante non più su Foodsy", "de": "Restaurant nicht mehr auf Foodsy", "fr": "Restaurant plus sur Foodsy", "es": "El restaurante ya no está en Foodsy" },
+            "again": { "en": "Order again", "it": "Ordina di nuovo", "de": "Erneut bestellen", "fr": "Commander à nouveau", "es": "Volver a pedir" },
+            "state": {
+                "in_progress": { "en": "In progress", "it": "In corso", "de": "In Bearbeitung", "fr": "En cours", "es": "En curso" },
+                "delivered": { "en": "Delivered", "it": "Consegnato", "de": "Geliefert", "fr": "Livrée", "es": "Entregado" },
+                "cancelled": { "en": "Cancelled", "it": "Annullato", "de": "Storniert", "fr": "Annulée", "es": "Cancelado" },
+                "failed": { "en": "Payment failed", "it": "Pagamento non riuscito", "de": "Zahlung fehlgeschlagen", "fr": "Paiement échoué", "es": "Pago fallido" },
+                "pending": { "en": "Payment pending", "it": "Pagamento in attesa", "de": "Zahlung ausstehend", "fr": "Paiement en attente", "es": "Pago pendiente" }
+            }
         }
     },
     "partner": {
