@@ -89,6 +89,8 @@ final class Tables
                 ->orWhere('r.name', 'like', self::like($q))))
             ->select('o.id', 'o.created_at', 'o.price', 'o.status', 'o.fulfillment_status', 'o.customer_name', 'o.customer_lastName',
                 'o.customer_email', 'o.transaction_id', 'o.restaurant_id', 'r.name as restaurant_name')
+            // a number is above all an order id: that order first, then the transaction ids containing it
+            ->when(ctype_digit($q), fn (Builder $b) => $b->orderByRaw('CASE WHEN o.id = ? THEN 0 ELSE 1 END', [(int) $q]))
             ->orderBy("o.{$sort}", $dir)->orderBy('o.id', $dir)
             ->paginate(self::PER_PAGE)->withQueryString();
     }

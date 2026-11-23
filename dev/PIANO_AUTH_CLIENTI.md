@@ -1,6 +1,6 @@
 # Login clienti, Google OAuth e backoffice admin `/platform` — piano v2
 
-Stato: **v2 approvata il 2026-11-23 · fasi F0–F6 chiuse, F7 in corso (7.1 e 7.2 fatti) · branch `feat/auth-platform`**.
+Stato: **v2 approvata il 2026-11-23 · fasi F0–F7 chiuse, prossima F8 (rifinitura) · branch `feat/auth-platform`**.
 Fonte di verità del lavoro: dopo ogni step aggiornare il **Registro di avanzamento** in fondo (stato, modifiche, file, test, problemi aperti, prossimo step). Per riprendere a contesto azzerato: leggere questo file, poi `git log` e `git status`.
 Avatar: progetto indipendente (`AVATAR_IMPLEMENTATION_PLAN.md`); qui si consuma solo il pacchetto pubblico (`svg-avatar`, `svg-avatar/vue`, `<x-avatar>`), senza duplicare la generazione SVG né portarla nel backoffice.
 
@@ -575,3 +575,17 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - Nota: con `auth:sanctum` la guard di default della richiesta diventa `sanctum`; `EnsureActive` chiude comunque la guard `web` (nei test: `assertGuest('web')`).
 - Problemi aperti: verifica visiva nel browser da fare (nessun browser disponibile in questa sessione); diventa significativa dopo il 7.3, quando Mario avrà uno storico.
 - Prossimo step: **7.3** `CustomerProfilesSeeder` (Mario ~250 ordini 2025-01 → 2026-11 e ~300 clienti sintetici registrati con i loro ordini collegati), aggiornamento di `dev/PIANO_DATASET.md`; poi `migrate:fresh --seed` sul DB di sviluppo **solo dopo conferma**.
+
+### 7.3 — `CustomerProfilesSeeder`: clienti registrati e storico di Mario (2026-11-25) ✅ — **fase F7 chiusa**
+- Stato: completato. Applicato al DB MySQL di sviluppo con `php artisan db:seed --class=CustomerProfilesSeeder` nel container `app`: **non è servito `migrate:fresh`**, il seeder è idempotente e aggiunge soltanto (rilanciato: nessuna differenza).
+- Modifiche:
+  - `CustomerProfilesSeeder` (in `DatabaseSeeder` dopo `OrderHistorySeeder`): A) i clienti sintetici più frequenti diventano account `customer` (`created_at` al primo ordine) e i loro ordini ricevono `user_id`; B) storico di Mario Rossi secondo il profilo in `dev/PIANO_DATASET.md`.
+  - **Cambio rispetto al piano**: l'abitudine alimentare di Mario è **vegetariano**, non «senza lattosio». Il piano lo citava solo come esempio; i locali di pizza e giapponesi di Zurigo non dichiarano quasi mai piatti senza lattosio, quindi l'abitudine non sarebbe stata leggibile dai dati.
+  - `OrderHistorySeeder`: `FROM`/`TO`, `DRINK_COURSES` e `insert()` pubblici, condivisi con il nuovo seeder (dati prodotti identici).
+  - `config/seeding.php`: `customer_password`, `registered_customers` (full 300, test 5), `mario_scale` (full 1.0, test 0.15).
+  - Backoffice, tab Tabelle → Ordini: una ricerca di sole cifre mette **prima l'ordine con quell'ID esatto**, poi i Transaction ID che contengono le stesse cifre (prima, con gli ordini di Mario, l'ID cercato poteva finire oltre la prima pagina).
+- Numeri sul DB dev: 301 clienti (300 sintetici + Mario), 8.930 ordini su 11.805 collegati a un account; Mario 271 ordini (2025-01-16 → 2026-11-21) su 33 ristoranti, 125 pranzi, 258 consegnati, 5 annullati, 5 falliti, 3 in preparazione; 92% di piatti vegetariani (41% nei menu degli stessi locali). `/api/me/orders` di Mario: 271 ordini su 55 pagine; nel backoffice risulta «Registered».
+- File: `database/seeders/CustomerProfilesSeeder.php` (nuovo), `database/seeders/{DatabaseSeeder,OrderHistorySeeder}.php`, `config/seeding.php`, `app/Analytics/Tables.php`, `tests/Feature/CustomerProfilesSeederTest.php` (nuovo), `tests/Feature/{DatabaseSeederTest,UserRolesTest}.php`, `tests/Feature/Platform/TablesTabTest.php`, `dev/PIANO_DATASET.md`, `README.md`, `AGENTS.md`, `dev/mappa.html`.
+- Test: `CustomerProfilesSeederTest` (6: storico coerente con indirizzo per pasto, pranzi solo feriali, totali, niente stellati, account creato prima del primo ordine; locali abituali; abitudine leggibile dai tag, oltre 20 punti sopra i menu; clienti registrati senza ordini da ospite rimasti; solo clienti con ordini e stessa email; rilancio senza modifiche). `DatabaseSeederTest` include il nuovo seeder (doppio seed, ogni seeder da solo due volte). `UserRolesTest`: l'unico admin è quello demo, i clienti sono Mario più i sintetici registrati. `TablesTabTest`: l'ID esatto è il primo risultato. `php artisan test` **237 passati** (20 s) · `npm run test:js` **293**.
+- Problemi aperti: verifica visiva nel browser di «I miei ordini» con lo storico di Mario (nessun browser in questa sessione).
+- Prossimo step: **8.1** rifinitura UI/UX (stati vuoti, caricamento, responsive a 600/900/1200) e **8.2** aggiornamento finale di mappa, README e AGENTS con suite completa.

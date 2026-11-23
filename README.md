@@ -111,7 +111,7 @@ Il dataset ha tre livelli, in quest'ordine (`DatabaseSeeder`):
 
 1. **dati di riferimento**: `AllergensSeeder` (i 14 allergeni del Reg. UE 1169/2011), `DietaryTagsSeeder`, `IngredientsSeeder` (registro di circa 700 ingredienti con origine, lattosio, nichel indicativo e allergeni);
 2. **dati storici scritti a mano**: Users, Types, Restaurants, `DemoAccountsSeeder` (admin e cliente demo di `config/demo.php`; il ristoratore demo è Federico Romiti di `UsersTableSeeder`), `LegacyRestaurantDetailsSeeder` (segmento, descrizione, posizione e orari dei ristoranti storici: riempie solo i campi vuoti), Plates, `LegacyPlateDetailsSeeder` (ingredienti strutturati dei piatti storici), Orders, Rates;
-3. **catalogo generato**: `OwnersSeeder`, `CatalogRestaurantsSeeder` (con orari), `MenusSeeder`, `OrderHistorySeeder`, `RatingsSeeder`.
+3. **catalogo generato**: `OwnersSeeder`, `CatalogRestaurantsSeeder` (con orari), `MenusSeeder`, `OrderHistorySeeder`, `CustomerProfilesSeeder` (i 300 clienti sintetici più frequenti diventano account registrati, password `foodsy-demo`, con i loro ordini collegati; storico di circa 270 ordini del cliente demo Mario Rossi), `RatingsSeeder`.
 
 Il catalogo generato nasce da file di dati scritti a mano in `database/seeders/data/`: per ogni cucina concept e ricette con varianti per fascia (`base` / `mid` / `high`), bevande per livello e contesto, città, nomi, foto. La generazione è **deterministica** (`database/seeders/Support/`: stesso input, stesso catalogo, senza dipendere dagli ID) e dimensionata da `config/seeding.php`:
 

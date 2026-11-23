@@ -67,7 +67,8 @@ class TablesTabTest extends TestCase
 
         $id = DB::table('orders')->where('status', Order::PAID)->value('id');
         $byId = $this->open('/platform/tables/orders', ['q' => (string) $id])->viewData('rows');
-        $this->assertContains($id, array_map(fn ($o) => (int) $o->id, $byId->items()));
+        // the exact id comes first, before the transaction ids that contain the same digits
+        $this->assertSame($id, (int) $byId->items()[0]->id);
 
         $page2 = $this->open('/platform/tables/orders', ['page' => 2])->assertOk()->viewData('rows');
         $this->assertSame(2, $page2->currentPage());

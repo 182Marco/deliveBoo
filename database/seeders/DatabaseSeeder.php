@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
             // commerce: historic, then generated orders and rates
             OrdersTableSeeder::class,
             OrderHistorySeeder::class,
+            // registered customers and the history of the demo customer (orders.user_id)
+            CustomerProfilesSeeder::class,
             RatesTableSeeder::class,
             RatingsSeeder::class,
         ]);

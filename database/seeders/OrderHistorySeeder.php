@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\DB;
 // Idempotent: a restaurant that already has orders is skipped.
 class OrderHistorySeeder extends Seeder
 {
-    private const FROM = '2025-01-01';
-    private const TO = '2026-11-21';
+    public const FROM = '2025-01-01';
+    public const TO = '2026-11-21';
+
+    // courses that are drinks: an order has dishes and, sometimes, a drink (also CustomerProfilesSeeder)
+    public const DRINK_COURSES = ['water', 'soft_drink', 'beer', 'wine_red', 'wine_white', 'wine_rose', 'sparkling', 'champagne', 'dessert_wine', 'spirit', 'cocktail', 'hot_drink'];
 
     // average orders per restaurant by segment (full profile)
     private const VOLUME = [
@@ -48,7 +51,7 @@ class OrderHistorySeeder extends Seeder
                     if (! $menu) {
                         throw new \RuntimeException("OrderHistorySeeder: {$r['name']} has no plates, run MenusSeeder first.");
                     }
-                    $food = array_values(array_filter($menu, fn ($p) => ! in_array($p->course, ['water', 'soft_drink', 'beer', 'wine_red', 'wine_white', 'wine_rose', 'sparkling', 'champagne', 'dessert_wine', 'spirit', 'cocktail', 'hot_drink'], true))) ?: $menu;
+                    $food = array_values(array_filter($menu, fn ($p) => ! in_array($p->course, self::DRINK_COURSES, true))) ?: $menu;
                     $drinks = array_values(array_diff_key($menu, $food)) ?: $menu;
                     $rng = new Rng("orders:{$r['name']}");
                     // popularity: some places sell three times more than others
@@ -116,7 +119,7 @@ class OrderHistorySeeder extends Seeder
         ];
     }
 
-    private static function insert(array $orders): void
+    public static function insert(array $orders): void
     {
         foreach (array_chunk($orders, 500) as $chunk) {
             // seeding runs alone: the rows of one insert get consecutive ids, in order

@@ -3,7 +3,18 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
-- **Passo corrente:** ✅ FASE 2 COMPLETATA:
+- **Clienti registrati e Mario Rossi (step 7.3 di `dev/PIANO_AUTH_CLIENTI.md`, 2026-11-25):** ✅ `CustomerProfilesSeeder` (dopo `OrderHistorySeeder`), deterministico (`Rng`, mai ID) e idempotente. Applicato al DB dev **senza** `migrate:fresh` (aggiunge solo): 301 clienti, 8.930 ordini su 11.805 con `user_id`.
+  - **Clienti sintetici registrati**: i 300 più frequenti di `OrderHistorySeeder::customers()` (ordinati per numero di ordini, poi email; profilo `test`: 5). Account `customer` senza P. IVA, password `config('seeding.customer_password')` (`foodsy-demo`, un solo hash), `created_at` = 5 minuti prima del primo ordine, telefono del cliente sintetico. Gli ordini con la loro email e senza account ricevono `user_id`. I clienti più frequenti fanno la maggior parte degli ordini (la distribuzione di `OrderHistorySeeder` è molto sbilanciata): ~76% degli ordini risulta di clienti registrati.
+  - **Profilo di Mario Rossi** (`customer@foodsy.test`):
+    - casa `Dienerstrasse 21` (Zürich Kreis 4), ufficio `Thurgauerstrasse 40` (Oerlikon), telefono `079 412 58 33` (scritto solo se vuoto);
+    - pranzi nei giorni feriali (consegna in ufficio, 11:30–13:59) tra i 16 ristoranti più vicini all'ufficio; cene soprattutto da venerdì a domenica (consegna a casa, 18–21) tra i 30 più vicini a casa; niente fine dining né stellati; due settimane di ferie ad agosto senza ordini;
+    - cucine preferite giapponese e pizza (×3), cucine di stagione ×2 (estate poke/messicano/greco/libanese/vietnamita, inverno indiano/thai/cinese/coreano, primavera mediterraneo/vegetariano/peruviano, autunno italiano regionale/turco/mediorientale);
+    - **abitudine: vegetariano** (`CustomerProfilesSeeder::HABIT`): sceglie locali con piatti vegetariani dichiarati e quasi sempre quei piatti. Non «senza lattosio» (l'esempio del piano): pizzerie e giapponesi di Zurigo non dichiarano quasi mai piatti senza lattosio (3 locali su 13 con almeno 2 piatti), perché la derivazione richiede `allergen_info` completo;
+    - locali abituali: 2 per il pranzo e 3 per la cena (cucina preferita, almeno 3 piatti vegetariani, i più vicini), scelti nel 45% degli ordini; nel 60% dei casi riordina un piatto già preso in quel locale;
+    - stati: ~3% pagamento fallito (`Insufficient Funds`), ~2% annullati, l'ultimo giorno in preparazione; `created_at` dell'account due giorni prima del primo ordine.
+  - **Risultato sul DB dev**: 271 ordini da 2025-01-16 a 2026-11-21 su 33 ristoranti (125 pranzi); abituali Pizzeria Partenope (69), Pizzeria Il Vicoletto (51), 'O vesuvio (41); **92% delle righe-piatto vegetariane** contro il 41% dei menu degli stessi locali e il 34% di tutti i menu: l'abitudine si ricava dalle `dietary_tags`.
+  - Nota di misura: per la quota delle righe contare con una join, non con `whereIn` sugli ID dei piatti (i piatti riordinati verrebbero contati una volta).
+- **Passo precedente:** ✅ FASE 2 COMPLETATA:
   - menu: stellati e fine dining con 5-10 piatti più 25-45 bevande; sushi bar con 82-111 voci (`7f0d530`);
   - foto del piatto anche come link https (`3cb0707`);
   - ristoranti storici con segmento, descrizione, posizione e orari (`695cf11`);

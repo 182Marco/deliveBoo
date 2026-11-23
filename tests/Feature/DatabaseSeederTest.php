@@ -31,7 +31,7 @@ class DatabaseSeederTest extends TestCase
     private const SEEDERS = [
         'AllergensSeeder', 'DietaryTagsSeeder', 'IngredientsSeeder', 'UsersTableSeeder', 'TypesTableSeeder',
         'RestaurantsTableSeeder', 'LegacyRestaurantDetailsSeeder', 'PlatesTableSeeder', 'LegacyPlateDetailsSeeder', 'OwnersSeeder',
-        'CatalogRestaurantsSeeder', 'MenusSeeder', 'OrdersTableSeeder', 'OrderHistorySeeder', 'RatesTableSeeder', 'RatingsSeeder',
+        'CatalogRestaurantsSeeder', 'MenusSeeder', 'OrdersTableSeeder', 'OrderHistorySeeder', 'CustomerProfilesSeeder', 'RatesTableSeeder', 'RatingsSeeder',
     ];
 
     // the shared test database is seeded once (tests/TestCase.php): start these tests from empty
