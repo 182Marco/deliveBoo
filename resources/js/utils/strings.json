@@ -895,6 +895,107 @@
                 "customers": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
                 "zones": { "en": "Zones", "it": "Zone", "de": "Zonen", "fr": "Zones", "es": "Zonas" },
                 "periods": { "en": "Periods", "it": "Periodi", "de": "Zeiträume", "fr": "Périodes", "es": "Periodos" }
+            },
+            "search": { "en": "Search", "it": "Cerca", "de": "Suchen", "fr": "Rechercher", "es": "Buscar" },
+            "placeholder": {
+                "restaurants": { "en": "Restaurant name", "it": "Nome del ristorante", "de": "Name des Restaurants", "fr": "Nom du restaurant", "es": "Nombre del restaurante" },
+                "orders": { "en": "Order no., customer, email, restaurant or transaction", "it": "N. ordine, cliente, email, ristorante o transazione", "de": "Bestellnr., Kunde, E-Mail, Restaurant oder Transaktion", "fr": "N° de commande, client, e-mail, restaurant ou transaction", "es": "N.º de pedido, cliente, email, restaurante o transacción" },
+                "customers": { "en": "Name or email", "it": "Nome o email", "de": "Name oder E-Mail", "fr": "Nom ou e-mail", "es": "Nombre o email" }
+            },
+            "clear": { "en": "Clear", "it": "Pulisci", "de": "Leeren", "fr": "Effacer", "es": "Limpiar" },
+            "results": { "en": ":count result|:count results", "it": ":count risultato|:count risultati", "de": ":count Ergebnis|:count Ergebnisse", "fr": ":count résultat|:count résultats", "es": ":count resultado|:count resultados" },
+            "none": { "en": "Nothing matches these filters.", "it": "Nessun risultato con questi filtri.", "de": "Nichts entspricht diesen Filtern.", "fr": "Aucun résultat avec ces filtres.", "es": "Nada coincide con estos filtros." },
+            "sortBy": { "en": "Sort by :column", "it": "Ordina per :column", "de": "Sortieren nach :column", "fr": "Trier par :column", "es": "Ordenar por :column" },
+            "col": {
+                "restaurant": { "en": "Restaurant", "it": "Ristorante", "de": "Restaurant", "fr": "Restaurant", "es": "Restaurante" },
+                "city": { "en": "City", "it": "Città", "de": "Ort", "fr": "Ville", "es": "Ciudad" },
+                "gross": { "en": "Gross value", "it": "Valore lordo", "de": "Bruttowert", "fr": "Valeur brute", "es": "Valor bruto" },
+                "orders": { "en": "Completed", "it": "Completati", "de": "Abgeschlossen", "fr": "Terminées", "es": "Completados" },
+                "average": { "en": "Average order", "it": "Valore medio", "de": "Durchschnitt", "fr": "Panier moyen", "es": "Valor medio" },
+                "revenue": { "en": "Revenue (est.)", "it": "Ricavi (stima)", "de": "Umsatz (Schätz.)", "fr": "Revenus (est.)", "es": "Ingresos (est.)" },
+                "cancelRate": { "en": "Cancelled", "it": "Annullati", "de": "Storniert", "fr": "Annulées", "es": "Cancelados" },
+                "rating": { "en": "Rating", "it": "Voto", "de": "Bewertung", "fr": "Note", "es": "Valoración" },
+                "order": { "en": "Order", "it": "Ordine", "de": "Bestellung", "fr": "Commande", "es": "Pedido" },
+                "date": { "en": "Date", "it": "Data", "de": "Datum", "fr": "Date", "es": "Fecha" },
+                "customer": { "en": "Customer", "it": "Cliente", "de": "Kunde", "fr": "Client", "es": "Cliente" },
+                "status": { "en": "Status", "it": "Stato", "de": "Status", "fr": "Statut", "es": "Estado" },
+                "amount": { "en": "Amount", "it": "Importo", "de": "Betrag", "fr": "Montant", "es": "Importe" },
+                "account": { "en": "Account", "it": "Account", "de": "Konto", "fr": "Compte", "es": "Cuenta" },
+                "firstOrder": { "en": "First order", "it": "Primo ordine", "de": "Erste Bestellung", "fr": "Première commande", "es": "Primer pedido" },
+                "lastOrder": { "en": "Last order", "it": "Ultimo ordine", "de": "Letzte Bestellung", "fr": "Dernière commande", "es": "Último pedido" },
+                "zone": { "en": "Zone", "it": "Zona", "de": "Zone", "fr": "Zone", "es": "Zona" },
+                "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
+                "share": { "en": "Share", "it": "Quota", "de": "Anteil", "fr": "Part", "es": "Cuota" },
+                "period": { "en": "Period", "it": "Periodo", "de": "Zeitraum", "fr": "Période", "es": "Periodo" },
+                "customers": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
+                "newCustomers": { "en": "New customers", "it": "Nuovi clienti", "de": "Neue Kunden", "fr": "Nouveaux clients", "es": "Clientes nuevos" },
+                "change": { "en": "Change", "it": "Variazione", "de": "Veränderung", "fr": "Évolution", "es": "Variación" },
+                "cancelled": { "en": "Cancelled", "it": "Annullati", "de": "Storniert", "fr": "Annulées", "es": "Cancelados" },
+                "failed": { "en": "Failed", "it": "Falliti", "de": "Fehlgeschlagen", "fr": "Échoués", "es": "Fallidos" },
+                "inProgress": { "en": "In progress", "it": "In corso", "de": "Laufend", "fr": "En cours", "es": "En curso" }
+            },
+            "state": {
+                "all": { "en": "All states", "it": "Tutti gli stati", "de": "Alle Status", "fr": "Tous les statuts", "es": "Todos los estados" },
+                "completed": { "en": "Completed", "it": "Completato", "de": "Abgeschlossen", "fr": "Terminée", "es": "Completado" },
+                "in_progress": { "en": "In progress", "it": "In corso", "de": "Laufend", "fr": "En cours", "es": "En curso" },
+                "cancelled": { "en": "Cancelled", "it": "Annullato", "de": "Storniert", "fr": "Annulée", "es": "Cancelado" },
+                "failed": { "en": "Payment failed", "it": "Pagamento fallito", "de": "Zahlung fehlgeschlagen", "fr": "Paiement échoué", "es": "Pago fallido" }
+            },
+            "by": {
+                "label": { "en": "Zones", "it": "Zone", "de": "Zonen", "fr": "Zones", "es": "Zonas" },
+                "city": { "en": "By city", "it": "Per città", "de": "Nach Ort", "fr": "Par ville", "es": "Por ciudad" },
+                "postal_code": { "en": "By postal code", "it": "Per CAP", "de": "Nach PLZ", "fr": "Par code postal", "es": "Por código postal" }
+            },
+            "unit": {
+                "label": { "en": "Group by", "it": "Raggruppa per", "de": "Gruppieren nach", "fr": "Regrouper par", "es": "Agrupar por" }
+            },
+            "guest": { "en": "Guest", "it": "Ospite", "de": "Gast", "fr": "Invité", "es": "Invitado" },
+            "registered": { "en": "Registered", "it": "Registrato", "de": "Registriert", "fr": "Inscrit", "es": "Registrado" },
+            "estimateNote": { "en": "Revenue is an estimate: simulated :rate commission on completed orders.", "it": "I ricavi sono una stima: commissione simulata del :rate sugli ordini completati.", "de": "Der Umsatz ist eine Schätzung: simulierte Provision von :rate auf abgeschlossene Bestellungen.", "fr": "Les revenus sont une estimation : commission simulée de :rate sur les commandes terminées.", "es": "Los ingresos son una estimación: comisión simulada del :rate sobre los pedidos completados." },
+            "back": { "en": "Back to the table", "it": "Torna alla tabella", "de": "Zurück zur Tabelle", "fr": "Retour au tableau", "es": "Volver a la tabla" },
+            "order": {
+                "title": { "en": "Order #:id", "it": "Ordine n. :id", "de": "Bestellung Nr. :id", "fr": "Commande n° :id", "es": "Pedido n.º :id" },
+                "placed": { "en": "Placed on :date", "it": "Effettuato il :date", "de": "Aufgegeben am :date", "fr": "Passée le :date", "es": "Realizado el :date" },
+                "delivered": { "en": "Delivered on :date", "it": "Consegnato il :date", "de": "Geliefert am :date", "fr": "Livrée le :date", "es": "Entregado el :date" },
+                "payment": { "en": "Payment", "it": "Pagamento", "de": "Zahlung", "fr": "Paiement", "es": "Pago" },
+                "transaction": { "en": "Transaction ID", "it": "ID transazione", "de": "Transaktions-ID", "fr": "ID de transaction", "es": "ID de transacción" },
+                "provider": { "en": "Provider", "it": "Gestore", "de": "Anbieter", "fr": "Prestataire", "es": "Proveedor" },
+                "refused": { "en": "Refused: :message", "it": "Rifiutato: :message", "de": "Abgelehnt: :message", "fr": "Refusé : :message", "es": "Rechazado: :message" },
+                "items": { "en": "Items", "it": "Articoli", "de": "Artikel", "fr": "Articles", "es": "Artículos" },
+                "dish": { "en": "Dish", "it": "Piatto", "de": "Gericht", "fr": "Plat", "es": "Plato" },
+                "qty": { "en": "Qty", "it": "Qtà", "de": "Menge", "fr": "Qté", "es": "Cant." },
+                "unitPrice": { "en": "Unit price paid", "it": "Prezzo pagato", "de": "Bezahlter Stückpreis", "fr": "Prix unitaire payé", "es": "Precio unitario pagado" },
+                "total": { "en": "Total", "it": "Totale", "de": "Summe", "fr": "Total", "es": "Total" },
+                "customer": { "en": "Customer", "it": "Cliente", "de": "Kunde", "fr": "Client", "es": "Cliente" },
+                "phone": { "en": "Phone", "it": "Telefono", "de": "Telefon", "fr": "Téléphone", "es": "Teléfono" },
+                "address": { "en": "Address", "it": "Indirizzo", "de": "Adresse", "fr": "Adresse", "es": "Dirección" },
+                "noAccount": { "en": "Guest order: no account with this email.", "it": "Ordine da ospite: nessun account con questa email.", "de": "Gastbestellung: kein Konto mit dieser E-Mail.", "fr": "Commande invité : aucun compte avec cet e-mail.", "es": "Pedido de invitado: ninguna cuenta con este email." },
+                "allOfCustomer": { "en": "All orders of this customer", "it": "Tutti gli ordini di questo cliente", "de": "Alle Bestellungen dieses Kunden", "fr": "Toutes les commandes de ce client", "es": "Todos los pedidos de este cliente" }
+            },
+            "restaurant": {
+                "owner": { "en": "Owner", "it": "Proprietario", "de": "Inhaber", "fr": "Propriétaire", "es": "Propietario" },
+                "cuisines": { "en": "Cuisines", "it": "Cucine", "de": "Küchen", "fr": "Cuisines", "es": "Cocinas" },
+                "rating": { "en": ":avg from :count ratings", "it": ":avg su :count voti", "de": ":avg aus :count Bewertungen", "fr": ":avg sur :count notes", "es": ":avg de :count valoraciones" },
+                "noRating": { "en": "No ratings yet", "it": "Ancora nessun voto", "de": "Noch keine Bewertungen", "fr": "Pas encore de notes", "es": "Aún sin valoraciones" },
+                "openSite": { "en": "Open on the site", "it": "Apri sul sito", "de": "Auf der Website öffnen", "fr": "Ouvrir sur le site", "es": "Abrir en el sitio" },
+                "plates": { "en": "Best selling dishes", "it": "Piatti più venduti", "de": "Meistverkaufte Gerichte", "fr": "Plats les plus vendus", "es": "Platos más vendidos" },
+                "quantity": { "en": "Sold", "it": "Venduti", "de": "Verkauft", "fr": "Vendus", "es": "Vendidos" },
+                "value": { "en": "Value", "it": "Valore", "de": "Wert", "fr": "Valeur", "es": "Valor" },
+                "noPlates": { "en": "No dishes sold in this period.", "it": "Nessun piatto venduto in questo periodo.", "de": "Keine Gerichte in diesem Zeitraum verkauft.", "fr": "Aucun plat vendu sur cette période.", "es": "Ningún plato vendido en este periodo." },
+                "byUnit": { "en": "By :unit", "it": "Per :unit", "de": "Pro :unit", "fr": "Par :unit", "es": "Por :unit" },
+                "inPeriod": { "en": "In the selected period", "it": "Nel periodo selezionato", "de": "Im gewählten Zeitraum", "fr": "Sur la période choisie", "es": "En el periodo seleccionado" }
+            },
+            "customer": {
+                "title": { "en": "Customer", "it": "Cliente", "de": "Kunde", "fr": "Client", "es": "Cliente" },
+                "lifetime": { "en": "All time", "it": "Da sempre", "de": "Gesamt", "fr": "Depuis toujours", "es": "Desde siempre" },
+                "since": { "en": "Customer since :date · last order :last", "it": "Cliente dal :date · ultimo ordine :last", "de": "Kunde seit :date · letzte Bestellung :last", "fr": "Client depuis le :date · dernière commande :last", "es": "Cliente desde :date · último pedido :last" },
+                "orders": { "en": "Orders in the period", "it": "Ordini nel periodo", "de": "Bestellungen im Zeitraum", "fr": "Commandes de la période", "es": "Pedidos en el periodo" },
+                "accountOf": { "en": "Account: :role since :date", "it": "Account: :role dal :date", "de": "Konto: :role seit :date", "fr": "Compte : :role depuis le :date", "es": "Cuenta: :role desde :date" }
+            },
+            "role": {
+                "customer": { "en": "customer", "it": "cliente", "de": "Kunde", "fr": "client", "es": "cliente" },
+                "restaurateur": { "en": "restaurateur", "it": "ristoratore", "de": "Gastronom", "fr": "restaurateur", "es": "restaurador" },
+                "admin": { "en": "admin", "it": "admin", "de": "Admin", "fr": "admin", "es": "admin" }
             }
         },
         "users": {

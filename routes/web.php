@@ -66,6 +66,10 @@ Route::prefix('platform')
         // aggregated data of the tabs as JSON (same group, same authorization)
         Route::get('data/charts', [ChartController::class, 'data'])->name('data.charts');
         Route::get('data/map', [MapController::class, 'data'])->name('data.map');
+        // detail pages of the Tables tab
+        Route::get('tables/orders/{order}', [TableController::class, 'order'])->whereNumber('order')->name('tables.order');
+        Route::get('tables/restaurants/{restaurant}', [TableController::class, 'restaurant'])->whereNumber('restaurant')->name('tables.restaurant');
+        Route::get('tables/customer', [TableController::class, 'customer'])->name('tables.customer');
         Route::get('tables/{section?}', [TableController::class, 'index'])->name('tables')
             ->whereIn('section', TableController::SECTIONS);
         Route::get('users', [UserController::class, 'index'])->name('users.index');

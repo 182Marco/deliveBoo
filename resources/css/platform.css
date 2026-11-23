@@ -421,6 +421,68 @@
     width: 14px;
 }
 
+/* ---------- tables tab ---------- */
+.plat-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3);
+}
+
+.plat-toolbar-search {
+    flex: 1 1 280px;
+}
+
+.plat-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: inherit;
+    white-space: nowrap;
+}
+
+.plat-sort:hover {
+    color: var(--ink);
+}
+
+.plat-sort--active {
+    color: var(--ink);
+}
+
+.plat-sort-arrow {
+    color: var(--ink-muted);
+    font-size: var(--text-xs);
+}
+
+/* detail pages: main table + side facts */
+.plat-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+}
+
+.plat-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+}
+
+.plat-fact-label {
+    color: var(--ink-muted);
+}
+
+.plat-fact-value {
+    overflow-wrap: anywhere;
+    font-weight: var(--weight-bold);
+}
+
+.plat-mono {
+    font-family: ui-monospace, monospace;
+    font-weight: var(--weight-regular);
+}
+
 /* ---------- maps tab ---------- */
 .plat-map-layout {
     display: grid;
@@ -528,6 +590,10 @@
 }
 
 @media (min-width: 1200px) {
+    .plat-detail {
+        grid-template-columns: minmax(0, 1fr) 420px;
+    }
+
     .plat-map-layout {
         grid-template-columns: minmax(0, 1fr) 420px;
     }
