@@ -21,7 +21,7 @@ Auth::routes(); // login, register, password reset (laravel/ui)
 
 // ROTTE AREA ADMIN
 Route::prefix('admin')
-    ->middleware('auth')
+    ->middleware(['auth', 'role:restaurateur'])
     ->name('admin.')
     ->group(function () {
         // home admin

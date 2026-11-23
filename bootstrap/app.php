@@ -20,7 +20,13 @@ return Application::configure(basePath: dirname(__DIR__))
         // language of every page and API answer (cookie written by the header switch, plain text
         // because the Vue site writes it too)
         $middleware->encryptCookies(except: [App\I18n\Strings::COOKIE]);
-        $middleware->web(append: App\Http\Middleware\SetLocale::class);
+        $middleware->web(append: [App\Http\Middleware\SetLocale::class, App\Http\Middleware\EnsureActive::class]);
+        // role:<roles> opens an area only to its roles; active ends the session of a banned account
+        // (already on every web request; added by hand to the API groups that need it)
+        $middleware->alias([
+            'role' => App\Http\Middleware\EnsureRole::class,
+            'active' => App\Http\Middleware\EnsureActive::class,
+        ]);
         $middleware->api(append: App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

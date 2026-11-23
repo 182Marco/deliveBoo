@@ -337,4 +337,17 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: migration, `app/User.php`, `database/seeders/{UsersTableSeeder,OwnersSeeder}.php`, `app/Http/Controllers/Auth/RegisterController.php`, `tests/Feature/UserRolesTest.php` (nuovo), `tests/Feature/AuthTest.php`, `dev/mappa.html`.
 - Test: `UserRolesTest` (7 test: colonne, seed tutti ristoratori, default customer senza P. IVA né password, role/ban/google_id non assegnabili in massa, helper e conteggio admin attivi, `google_id` nascosto, registrazione → restaurateur con cognome giusto); `AuthTest` aggiornato al cognome corretto. `php artisan test`: **125 passati**.
 - Problemi aperti: nessuno.
-- Prossimo step: **1.3 middleware `role` e `active`, `UserPolicy`, Gate `platform`, `role:restaurateur` sul gruppo `admin`**.
+- Prossimo step: 1.3.
+
+### 1.3 — Middleware di ruolo e ban, UserPolicy, Gate `platform` (2026-11-24) ✅
+- Stato: completato.
+- Modifiche:
+  - `EnsureRole` (alias `role:`): ospite → login (401 in JSON); ruolo sbagliato → `homePath()` del proprio ruolo con messaggio (403 in JSON). Gruppo `admin` ora `['auth', 'role:restaurateur']`: clienti e admin non entrano più nell'area partner.
+  - `EnsureActive` (alias `active`, **in coda a tutto il gruppo web**): un account bannato viene disconnesso e la sessione invalidata alla richiesta successiva, anche su pagine pubbliche; in JSON 403 `{message}`.
+  - `User::homePath()`: cliente `/`, ristoratore `/admin`, admin `/platform`.
+  - `UserPolicy` (`viewAny`, `view`, `create`, `update`, `ban`, `unban`): solo admin attivi; mai su sé stessi né su altri admin (quindi gli admin attivi non possono scendere a zero dal pannello). Gate `platform` = admin non bannato. Registrati in `AppServiceProvider`.
+  - Stringhe `auth.banned` e `auth.forbidden` in 5 lingue.
+- File: `app/Http/Middleware/{EnsureRole,EnsureActive}.php`, `app/Policies/UserPolicy.php`, `app/User.php`, `app/Providers/AppServiceProvider.php`, `bootstrap/app.php`, `routes/web.php`, `resources/js/utils/strings.json`, `tests/Feature/AccessControlTest.php` (nuovo), `AGENTS.md`, `dev/mappa.html`.
+- Test: `AccessControlTest` (10 test: ristoratore ok; cliente e admin respinti dall'area partner; scrittura con ruolo sbagliato senza effetti; JSON 403; ban → logout con errore anche su `/`; JSON 403 per i bannati; `homePath`; Gate `platform`; `UserPolicy` su account normali, sé stesso, altro admin, non admin). `php artisan test`: **135 passati**.
+- Problemi aperti: la protezione degli account demo nella policy arriva con `config/demo.php` (step 2.2 / 5.3).
+- Prossimo step: **1.4 redirect per ruolo dopo login/registrazione e login rifiutato ai bannati**.

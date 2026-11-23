@@ -45,6 +45,16 @@ class User extends Authenticatable
         return $this->role === self::ADMIN;
     }
 
+    /** where this account lands after login and when it opens an area of another role */
+    public function homePath(): string
+    {
+        return match ($this->role) {
+            self::ADMIN => '/platform',
+            self::RESTAURATEUR => '/admin',
+            default => '/',
+        };
+    }
+
     public function isBanned(): bool
     {
         return $this->banned_at !== null;

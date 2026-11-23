@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Plate;
 use App\Policies\PlatePolicy;
 use App\Policies\RestaurantPolicy;
+use App\Policies\UserPolicy;
 use App\Restaurant;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 
 use App\I18n\StringsLoader;
@@ -39,5 +41,8 @@ class AppServiceProvider extends ServiceProvider
         // ownership rules of the partner hub (SEC-1..SEC-4)
         Gate::policy(Restaurant::class, RestaurantPolicy::class);
         Gate::policy(Plate::class, PlatePolicy::class);
+        // platform backoffice (/platform): one admin role, account actions through UserPolicy
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::define('platform', fn (User $user) => $user->isAdmin() && ! $user->isBanned());
     }
 }
