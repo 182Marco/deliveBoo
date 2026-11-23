@@ -10,18 +10,20 @@
     @vite(['resources/css/admin.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div class="auth">
-        <aside class="auth-aside" aria-hidden="true">
-            <a href="{{ url('/') }}" tabindex="-1"><x-logo inverse /></a>
+    {{-- "fit" (login): exactly one screen high, the photo covers the side panel and the copy sits on its fade --}}
+    @php($fit = trim($__env->yieldContent('authVariant')) === 'fit')
+    <div @class(['auth', 'auth--fit' => $fit])>
+        <aside @class(['auth-aside', 'auth-aside--cover' => $fit]) aria-hidden="true">
+            <a @class(['auth-aside-brand', 'auth-aside-brand--cover' => $fit]) href="{{ url('/') }}" tabindex="-1"><x-logo inverse /></a>
             {{-- side panel: the partner one by default, the customer one on login and customer sign-up --}}
-            <img class="auth-aside-photo" src="@yield('asidePhoto', 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=75')" alt="" width="900" height="600">
-            <div>
+            <img @class(['auth-aside-photo', 'auth-aside-photo--cover' => $fit]) src="@yield('asidePhoto', 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=75')" alt="" width="900" height="600">
+            <div class="auth-aside-copy">
                 <p class="auth-aside-title">@yield('asideTitle', __('partner.auth.asideTitle'))</p>
                 <p class="auth-aside-note">@yield('asideNote', __('partner.auth.asideNote'))</p>
             </div>
         </aside>
 
-        <main class="auth-main">
+        <main @class(['auth-main', 'auth-main--fit' => $fit])>
             <div class="auth-top">
                 <a class="adm-back auth-back" href="{{ url('/') }}">
                     <x-icon name="arrow-left" size="18" /> {{ __('partner.auth.back') }}
@@ -32,7 +34,7 @@
                 <p class="ui-eyebrow">@yield('eyebrow', __('partner.meta.forPartners'))</p>
                 <h1 class="ui-title">@yield('heading')</h1>
                 @hasSection('lead')
-                    <p class="ui-lead">@yield('lead')</p>
+                    <p @class(['ui-lead', 'auth-lead--fit' => $fit])>@yield('lead')</p>
                 @endif
             </div>
             @yield('content')

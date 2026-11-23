@@ -54,15 +54,26 @@ class DemoAccountsTest extends TestCase
         $this->assertTrue(Hash::check('changed-by-hand', $mario->fresh()->password));
     }
 
-    public function testLoginPageShowsTheDemoBoxOnlyWhenEnabled()
+    public function testLoginPageOffersTheTestUsersOnlyWhenEnabled()
     {
-        $this->get('/login')->assertOk()
+        $html = $this->get('/login')->assertOk()
+            // "Use test users" right under the login button, then the dialog with the three accounts
+            ->assertSeeInOrder(['id="logBtn"', __('partner.auth.demo.trigger'), '<dialog id="demoDialog"'], false)
             ->assertSee(__('partner.auth.demo.title'))
-            ->assertSee(config('demo.accounts.admin.email'))
-            ->assertSee(config('demo.accounts.customer.password'));
+            ->getContent();
+        foreach (config('demo.accounts') as $account) {
+            $this->assertStringContainsString('data-demo-email="'.$account['email'].'"', $html);
+            $this->assertStringContainsString('data-demo-password="'.e($account['password']).'"', $html);
+            $this->assertStringContainsString(e(__('partner.auth.demo.about.'.$account['role'])), $html);
+        }
+        // one screen: the "fit" variant of the auth layout
+        $this->assertStringContainsString('auth--fit', $html);
 
         config(['demo.enabled' => false]);
-        $this->get('/login')->assertOk()->assertDontSee(__('partner.auth.demo.title'))->assertDontSee(config('demo.accounts.admin.password'));
+        $this->get('/login')->assertOk()
+            ->assertDontSee(__('partner.auth.demo.trigger'))
+            ->assertDontSee('demoDialog', false)
+            ->assertDontSee(config('demo.accounts.admin.password'));
     }
 
     public function testDemoAccountsCannotResetTheirPassword()

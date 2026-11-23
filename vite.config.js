@@ -17,6 +17,7 @@ export default defineConfig({
                 "resources/js/jsBack/confDelete.js",
                 "resources/js/jsBack/chart.js",
                 "resources/js/jsBack/logListen.js",
+                "resources/js/jsBack/demoAccounts.js",
                 "resources/js/jsBack/avatar.js",
                 "resources/js/jsBack/avatarEditor.js",
                 "resources/js/jsBack/platform/charts.js",
