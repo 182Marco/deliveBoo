@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo('/admin');
         // trust the proxy in front of the app (Codespaces, Render) so asset() / url() use the real host and https
         $middleware->trustProxies(at: '*');
+        // language of every page and API answer (cookie written by the header switch, plain text
+        // because the Vue site writes it too)
+        $middleware->encryptCookies(except: [App\I18n\Strings::COOKIE]);
+        $middleware->web(append: App\Http\Middleware\SetLocale::class);
+        $middleware->api(append: App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

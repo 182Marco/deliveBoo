@@ -4,7 +4,7 @@
             type="button"
             class="stepper-btn"
             :class="{ 'stepper-btn--small': small }"
-            :aria-label="`Remove one ${item}`"
+            :aria-label="t('stepper.remove', { item: itemLabel })"
             @click="$emit('decrement')"
         >
             <Icon :name="count > 1 ? 'minus' : 'trash'" :size="small ? 16 : 18" />
@@ -14,7 +14,7 @@
             type="button"
             class="stepper-btn"
             :class="{ 'stepper-btn--small': small }"
-            :aria-label="`Add one ${item}`"
+            :aria-label="t('stepper.add', { item: itemLabel })"
             @click="$emit('increment')"
         >
             <Icon name="plus" :size="small ? 16 : 18" />

@@ -34,12 +34,13 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 - Qualsiasi URL che non sia `/admin` o `/login…` viene servito da `routes/web.php` (rotta *catch-all*) con la pagina `guest/home.blade.php`, che avvia la SPA Vue. Il routing delle pagine cliente è in `resources/js/routes.js`.
 - Lo stato (tipi scelti, ristoranti, **carrello**) sta in `resources/js/store.js` ed è salvato nel browser.
 - Gli ordini arrivano con `POST /api/orders`: validazione, salvataggio, collegamento ai piatti e email di conferma (`app/Mail/OrderedMessage.php`).
+- **Lingue**: inglese (default), italiano, tedesco, francese, spagnolo. Tutte le stringhe statiche di sito, area partner, email, API e validazione stanno in un unico oggetto, `resources/js/utils/strings.json`: Vue lo legge con `t()` (`resources/js/utils/i18n.js`, solo il ramo `site` finisce nel bundle), Laravel con `__()` tramite `app/I18n/StringsLoader.php`. Il menu lingua dell'header (bandiera SVG + sigla) salva la scelta nel cookie `foodsy_locale`, letto dal middleware `SetLocale`: pagine, risposte API e mail seguono la stessa lingua.
 
 ## Funzionalità
 
-**Cliente**: scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
+**Cliente**: sito in 5 lingue (EN, IT, DE, FR, ES) · scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
 
-**Ristoratore**: registrazione/login · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con foto caricata **oppure link https a un'immagine ospitata altrove** (il sito la mostra da lì, senza copiarla), ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
+**Ristoratore**: area partner nelle stesse 5 lingue · registrazione/login · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con foto caricata **oppure link https a un'immagine ospitata altrove** (il sito la mostra da lì, senza copiarla), ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
 
 ## API
 

@@ -1,7 +1,7 @@
 import { mapMutations, mapState } from "vuex";
 import { Icon } from "../Icon";
 import { QuantityStepper } from "../QuantityStepper";
-import { cartTotal, countPortions, formatPrice, uniquePlates } from "../../utils";
+import { cartTotal, countPortions, formatPrice, t, uniquePlates } from "../../utils";
 
 // live summary of the bag: editable on the menu and in the bag, read-only at checkout
 const orderSummaryLogic = {
@@ -11,7 +11,8 @@ const orderSummaryLogic = {
         readonly: Boolean,
         // route name of the main button: none, no button
         ctaRoute: { type: String, default: "" },
-        ctaLabel: { type: String, default: "Review order" }
+        // empty: "Review order"
+        ctaLabel: { type: String, default: "" }
     },
     computed: {
         ...mapState(["cart"]),
@@ -25,7 +26,8 @@ const orderSummaryLogic = {
     },
     methods: {
         ...mapMutations(["addPlate", "removePlate"]),
-        formatPrice
+        formatPrice,
+        t
     }
 };
 

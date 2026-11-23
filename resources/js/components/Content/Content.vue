@@ -3,8 +3,8 @@
         <div class="ui-container">
             <div class="ui-section-head">
                 <div class="ui-section-intro">
-                    <p class="ui-eyebrow">{{ eyebrow }}</p>
-                    <h2 id="cuisines-title" class="ui-title">{{ title }}</h2>
+                    <p class="ui-eyebrow">{{ eyebrowText }}</p>
+                    <h2 id="cuisines-title" class="ui-title">{{ titleText }}</h2>
                 </div>
             </div>
             <ul class="ui-rail cuisines-rail">

@@ -16,14 +16,6 @@ use Illuminate\Validation\Rule;
 
 class PlateController extends Controller
 {
-    private const MESSAGES = [
-        'required' => 'Required Field!',
-        'required_without' => 'Required Field!',
-        'img_url.url' => 'Use a full https:// link to an image.',
-        'unique' => 'This :attribute is already used',
-        'max' => 'you have exceeded the :max characters allowed for the :attribute',
-    ];
-
     // plates of a restaurant (by slug), only for its owner
     public function index($slug)
     {
@@ -49,7 +41,7 @@ class PlateController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate($this->rules(), self::MESSAGES);
+        $request->validate($this->rules());
 
         // all(), not validated(): restaurant_id comes from the form without a rule
         $data = $this->plateData($request->except(['diet', 'allergens', 'img_url']));
@@ -97,7 +89,7 @@ class PlateController extends Controller
         // the same dish name can exist in many restaurants, not twice in the same menu
         $request->validate($this->rules([
             'name' => ['required', Rule::unique('plates')->where('restaurant_id', $plate->restaurant_id)->whereNull('deleted_at')->ignore($id), 'max:80'],
-        ]), self::MESSAGES);
+        ]));
 
         $data = $this->plateData($request->except(['diet', 'allergens', 'restaurant_id', 'img_url']));
 

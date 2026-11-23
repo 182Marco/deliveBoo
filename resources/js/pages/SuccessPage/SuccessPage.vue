@@ -1,36 +1,35 @@
 <template>
     <section class="ui-container ui-container--narrow done" aria-labelledby="done-title">
         <span class="done-badge"><Icon name="check" :size="36" /></span>
-        <p class="ui-eyebrow">Order confirmed</p>
-        <h1 id="done-title" class="ui-display done-title">Thank you, <span class="ui-accent">enjoy!</span></h1>
+        <p class="ui-eyebrow">{{ t("success.eyebrow") }}</p>
+        <h1 id="done-title" class="ui-display done-title">{{ t("success.titleStart") }} <span class="ui-accent">{{ t("success.titleAccent") }}</span></h1>
         <p class="ui-lead">
-            The kitchen has your order and is getting it ready. A confirmation email with every detail is on
-            its way to your inbox.
+            {{ t("success.lead") }}
         </p>
 
         <!-- payment receipt: proof that the payment provider accepted the transaction -->
         <div v-if="receipt" class="receipt">
             <div class="receipt-head">
-                <span class="receipt-status"><Icon name="check" :size="14" /> Paid</span>
-                <span class="receipt-order">Order #{{ receipt.order }}</span>
+                <span class="receipt-status"><Icon name="check" :size="14" /> {{ t("success.paid") }}</span>
+                <span class="receipt-order">{{ t("success.order", { id: receipt.order }) }}</span>
             </div>
             <dl class="receipt-rows">
                 <div class="receipt-row">
-                    <dt class="receipt-label">Processed by</dt>
+                    <dt class="receipt-label">{{ t("success.processedBy") }}</dt>
                     <dd class="receipt-value">{{ receipt.provider.name }}</dd>
                 </div>
                 <div class="receipt-row">
-                    <dt class="receipt-label">Transaction ID</dt>
+                    <dt class="receipt-label">{{ t("success.transaction") }}</dt>
                     <dd class="receipt-value receipt-tx">
                         <code class="receipt-code">{{ receipt.tx }}</code>
                         <button
                             type="button"
                             class="ui-btn ui-btn--outline ui-btn--sm"
-                            aria-label="Copy the transaction ID"
+                            :aria-label="t('success.copyTransaction')"
                             @click="copyTransaction"
                         >
                             <Icon :name="copied ? 'check' : 'receipt'" :size="16" />
-                            {{ copied ? "Copied" : "Copy" }}
+                            {{ t(copied ? "checkout.copied" : "checkout.copy") }}
                         </button>
                     </dd>
                 </div>
@@ -39,7 +38,7 @@
         </div>
 
         <router-link :to="{ name: 'home' }" class="ui-btn ui-btn--primary ui-btn--lg">
-            Back to home
+            {{ t("success.home") }}
             <Icon name="arrow-right" />
         </router-link>
     </section>

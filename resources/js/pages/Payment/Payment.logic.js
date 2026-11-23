@@ -2,7 +2,7 @@ import { markRaw } from "vue";
 import { mapMutations, mapState } from "vuex";
 import { Icon, OrderSummary } from "../../components";
 import { createCardForm, postOrder } from "../../api";
-import { cartTotal, formatPrice } from "../../utils";
+import { cartTotal, formatPrice, t } from "../../utils";
 import {
     CARD_FIELDS,
     CUSTOMER_FIELDS,
@@ -62,12 +62,13 @@ const paymentLogic = {
             this.hostedFieldInstance = markRaw(fields);
         } catch (error) {
             console.error(error);
-            this.error = "The payment service is not available, please try again later.";
+            this.error = t("checkout.errors.service");
         }
     },
     methods: {
         ...mapMutations(["emptyCart"]),
         formatPrice,
+        t,
         fieldError(key) {
             return this.errors[key]?.[0] ?? "";
         },
@@ -151,7 +152,7 @@ const paymentLogic = {
             } catch (error) {
                 // network error: cart and page stay, the customer can try again
                 console.error(error);
-                this.error = "Network error, the order was not sent. Please try again.";
+                this.error = t("checkout.errors.network");
             } finally {
                 this.sending = false;
             }

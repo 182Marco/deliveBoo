@@ -37,10 +37,6 @@ class RestaurantController extends Controller
             'price_range' => ['nullable', 'integer', 'between:1,4'],
             'types' => ['nullable', 'exists:types,id'],
             'img' => ['nullable', 'mimes:jpg,png,jpeg,webp'],
-        ], [
-            'required' => 'The :attribute is required!',
-            'unique' => 'The :attribute is already used',
-            'max' => 'Max :max characters allowed for the :attribute',
         ]);
 
         $data = $request->all();
@@ -96,10 +92,6 @@ class RestaurantController extends Controller
             'price_range' => ['nullable', 'integer', 'between:1,4'],
             'types' => ['nullable', 'exists:types,id'],
             'img' => ['nullable', 'mimes:jpg,png,jpeg,webp'],
-        ], [
-            'required' => 'The :attribute is required!',
-            'unique' => 'This :attribute is already used',
-            'max' => 'you have exceeded the :max characters allowed for the :attribute',
         ]);
 
         $restaurant = Restaurant::findOrFail($id);

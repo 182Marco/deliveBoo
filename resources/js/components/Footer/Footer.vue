@@ -3,16 +3,16 @@
         <div class="ui-container footer-inner">
             <div class="footer-brand">
                 <Logo inverse />
-                <p class="footer-tagline">Good food from the kitchens you love, delivered warm to your door.</p>
+                <p class="footer-tagline">{{ t("footer.tagline") }}</p>
             </div>
 
-            <nav class="footer-cols" aria-label="Footer">
+            <nav class="footer-cols" :aria-label="t('nav.footer')">
                 <div v-for="column in columns" :key="column.title" class="footer-col">
-                    <h2 class="footer-col-title">{{ column.title }}</h2>
+                    <h2 class="footer-col-title">{{ t(column.title) }}</h2>
                     <ul class="footer-list">
                         <li v-for="link in column.links" :key="link.text">
-                            <router-link v-if="link.to" :to="link.to" class="footer-link">{{ link.text }}</router-link>
-                            <a v-else :href="link.href" class="footer-link">{{ link.text }}</a>
+                            <router-link v-if="link.to" :to="link.to" class="footer-link">{{ t(link.text) }}</router-link>
+                            <a v-else :href="link.href" class="footer-link">{{ t(link.text) }}</a>
                         </li>
                     </ul>
                 </div>
@@ -21,10 +21,10 @@
 
         <div class="ui-container">
             <div class="footer-bottom">
-                <p>&copy; {{ year }} Foodsy. All rights reserved.</p>
+                <p>&copy; {{ year }} Foodsy. {{ t("footer.rights") }}</p>
                 <p class="footer-secure">
                     <Icon name="lock" :size="16" />
-                    Card payments are processed securely.
+                    {{ t("footer.secure") }}
                 </p>
             </div>
         </div>

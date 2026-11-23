@@ -1,5 +1,6 @@
 import { mapActions } from "vuex";
 import { Icon } from "../Icon";
+import { t } from "../../utils";
 
 // one component, two paginations:
 // getMenu -> menu of the restaurant `slug`, otherwise restaurants of the selected types
@@ -21,6 +22,7 @@ const paginateElLogic = {
     },
     methods: {
         ...mapActions(["getMenuAndDetails", "getRestaurants"]),
+        t,
         goTo(page) {
             return this.getMenu
                 ? this.getMenuAndDetails({ page, slug: this.slug })

@@ -1,5 +1,6 @@
 import { mapActions, mapMutations, mapState } from "vuex";
 import { Content, FoodImage, Icon, RestByTypes } from "../../components";
+import { t } from "../../utils";
 
 // the "starred restaurants" type already says restaurants: the title must not repeat it
 const STARRED_TYPE_ID = 4;
@@ -12,8 +13,9 @@ const singleTypeRestLogic = {
         currentType() {
             return this.alltypes.find(e => e.id == this.$route.params.id);
         },
-        titleSuffix() {
-            return this.$route.params.id == STARRED_TYPE_ID ? "s" : " restaurants";
+        title() {
+            const key = this.$route.params.id == STARRED_TYPE_ID ? "cuisine.titleStarred" : "cuisine.title";
+            return t(key, { name: this.currentType.name });
         }
     },
     watch: {
@@ -33,7 +35,8 @@ const singleTypeRestLogic = {
     },
     methods: {
         ...mapMutations(["cleanSelectedTypes", "addType"]),
-        ...mapActions(["getRestaurants"])
+        ...mapActions(["getRestaurants"]),
+        t
     }
 };
 

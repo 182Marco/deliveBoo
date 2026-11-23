@@ -2,30 +2,30 @@
     <div class="ui-container bag">
         <button type="button" class="bag-back" @click="$router.go(-1)">
             <Icon name="arrow-left" :size="18" />
-            Continue shopping
+            {{ t("cart.continue") }}
         </button>
         <div class="ui-section-intro bag-title">
-            <p class="ui-eyebrow">Your order</p>
-            <h1 class="ui-title">Your bag</h1>
+            <p class="ui-eyebrow">{{ t("cart.eyebrow") }}</p>
+            <h1 class="ui-title">{{ t("cart.title") }}</h1>
         </div>
 
         <div v-if="!cart.length" class="ui-empty">
             <img class="ui-empty-mark" src="/images/foodsy-mark.svg" alt="" />
-            <p class="ui-subtitle">Your bag is empty</p>
-            <p class="ui-muted">Discover the kitchens near you and add your favourite dishes.</p>
+            <p class="ui-subtitle">{{ t("cart.emptyTitle") }}</p>
+            <p class="ui-muted">{{ t("cart.emptyText") }}</p>
             <router-link :to="{ name: 'home', hash: '#explore' }" class="ui-btn ui-btn--primary bag-empty-cta">
-                Browse restaurants
+                {{ t("cart.browse") }}
             </router-link>
         </div>
 
         <div v-else class="bag-layout">
-            <section class="bag-list" aria-label="Dishes in your bag">
+            <section class="bag-list" :aria-label="t('cart.list')">
                 <ul class="bag-lines">
                     <li v-for="(plate, i) in plates" :key="`index_in_cart${i}`" class="bag-line">
                         <FoodImage class="bag-photo" :src="plate.img" :alt="plate.name" />
                         <div class="bag-info">
                             <h2 class="bag-name">{{ plate.name }}</h2>
-                            <p class="bag-unit">€{{ formatPrice(plate.price) }} each</p>
+                            <p class="bag-unit">{{ t("summary.each", { price: formatPrice(plate.price) }) }}</p>
                         </div>
                         <QuantityStepper
                             class="bag-stepper"
@@ -40,29 +40,29 @@
                 </ul>
                 <button type="button" class="ui-btn ui-btn--danger ui-btn--sm bag-clear" @click="emptyCart">
                     <Icon name="trash" :size="16" />
-                    Empty bag
+                    {{ t("cart.clear") }}
                 </button>
             </section>
 
             <aside class="bag-total" aria-labelledby="total-title">
-                <h2 id="total-title" class="ui-subtitle">Order total</h2>
+                <h2 id="total-title" class="ui-subtitle">{{ t("cart.totalTitle") }}</h2>
                 <dl class="bag-rows">
                     <div class="bag-row">
-                        <dt>Dishes</dt>
+                        <dt>{{ t("cart.dishes") }}</dt>
                         <dd class="bag-row-value">{{ cart.length }}</dd>
                     </div>
                     <div class="bag-row bag-row--total">
-                        <dt>Total</dt>
+                        <dt>{{ t("summary.total") }}</dt>
                         <dd class="bag-row-value bag-row-amount ui-price">€{{ formatPrice(total) }}</dd>
                     </div>
                 </dl>
                 <router-link :to="{ name: 'payment' }" class="ui-btn ui-btn--primary ui-btn--lg ui-btn--block">
-                    Go to checkout
+                    {{ t("cart.checkout") }}
                     <Icon name="arrow-right" />
                 </router-link>
                 <p class="bag-secure">
                     <Icon name="lock" :size="16" />
-                    Secure card payment
+                    {{ t("cart.secure") }}
                 </p>
             </aside>
         </div>

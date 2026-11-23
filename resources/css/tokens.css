@@ -31,6 +31,8 @@
     --line: #e8e1d6;
     --line-strong: #d5cbbb;
     --scrim: rgb(20 24 20 / 0.6);
+    /* hairline around the language flags: keeps white stripes visible on paper and surface */
+    --flag-edge: rgb(28 26 23 / 0.16);
 
     /* rosemary: the dark of the brand (footer, featured bands, bag) */
     --forest: #1f2b23;
@@ -86,6 +88,7 @@
 
     /* radius: soft rectangles for photos and cards, pills for actions;
        the tray (the bar under the cloche of the logo) is the graphic motif */
+    --radius-xs: 3px;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 18px;

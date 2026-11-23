@@ -1,5 +1,6 @@
 import { FoodImage } from "../FoodImage";
 import { Icon } from "../Icon";
+import { t } from "../../utils";
 
 // hero of the home page: photos are external links (Unsplash), never hosted by Foodsy
 const unsplash = (id, width) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=75`;
@@ -11,9 +12,9 @@ const PHOTOS = {
 };
 
 const PERKS = [
-    { icon: "store", text: "Hand-picked local kitchens" },
-    { icon: "lock", text: "Secure card checkout" },
-    { icon: "mail", text: "Confirmation by email" }
+    { icon: "store", text: "hero.perkKitchens" },
+    { icon: "lock", text: "hero.perkCheckout" },
+    { icon: "mail", text: "hero.perkEmail" }
 ];
 
 const jumbotronLogic = {
@@ -22,7 +23,10 @@ const jumbotronLogic = {
     data: () => ({
         photos: PHOTOS,
         perks: PERKS
-    })
+    }),
+    methods: {
+        t
+    }
 };
 
 export { jumbotronLogic };

@@ -4,7 +4,7 @@
             ref="toggle"
             type="button"
             class="search-toggle"
-            aria-label="Search restaurants"
+            :aria-label="t('search.open')"
             aria-controls="restaurant-search"
             :aria-expanded="open ? 'true' : 'false'"
             @click="openSearch"
@@ -21,7 +21,7 @@
                 <div class="search-field">
                     <div class="ui-input search-box">
                         <Icon name="search" :size="20" class="search-lens" />
-                        <label for="restaurant-search-input" class="ui-sr-only">Search by restaurant</label>
+                        <label for="restaurant-search-input" class="ui-sr-only">{{ t("search.placeholder") }}</label>
                         <input
                             id="restaurant-search-input"
                             ref="input"
@@ -30,7 +30,7 @@
                             type="text"
                             inputmode="search"
                             enterkeyhint="go"
-                            placeholder="Search by restaurant"
+                            :placeholder="t('search.placeholder')"
                             autocomplete="off"
                             spellcheck="false"
                             maxlength="60"
@@ -45,7 +45,7 @@
                             @keydown.enter.prevent="chooseActive"
                         />
                         <span v-if="status === 'loading'" class="search-spinner" aria-hidden="true"></span>
-                        <button type="button" class="search-close" aria-label="Close search" @click="close()">
+                        <button type="button" class="search-close" :aria-label="t('search.close')" @click="close()">
                             <Icon name="close" :size="18" />
                         </button>
                     </div>
@@ -53,7 +53,7 @@
                     <Transition name="search-drop">
                         <div v-if="showDropdown" class="search-dropdown">
                             <div class="search-head">
-                                <span class="ui-eyebrow">Restaurants</span>
+                                <span class="ui-eyebrow">{{ t("search.heading") }}</span>
                                 <span class="search-count">{{ countLabel }}</span>
                             </div>
 
@@ -61,7 +61,7 @@
                                 id="restaurant-search-list"
                                 class="search-list"
                                 role="listbox"
-                                aria-label="Restaurants"
+                                :aria-label="t('search.heading')"
                             >
                                 <li
                                     v-for="(rest, i) in results"
@@ -86,7 +86,7 @@
                                     </span>
                                     <span :class="rest.average ? 'search-rating' : 'search-rating search-rating--new'">
                                         <Icon v-if="rest.average" name="star" :size="14" filled class="search-star" />
-                                        <span v-if="rest.average" class="ui-sr-only">Rated</span>
+                                        <span v-if="rest.average" class="ui-sr-only">{{ t("search.rated") }}</span>
                                         {{ rating(rest.average) }}
                                     </span>
                                     <Icon
@@ -109,19 +109,19 @@
 
                             <div v-else-if="status === 'done' && !results.length" class="search-empty">
                                 <Icon name="utensils" :size="22" class="search-empty-icon" />
-                                <p class="search-empty-title">No restaurants match “{{ answeredQuery }}”</p>
-                                <p class="search-empty-text">Check the spelling or try a shorter name.</p>
+                                <p class="search-empty-title">{{ t("search.noMatch", { query: answeredQuery }) }}</p>
+                                <p class="search-empty-text">{{ t("search.noMatchHint") }}</p>
                             </div>
 
                             <div v-else-if="status === 'error'" class="search-empty">
-                                <p class="search-empty-title">Search is unavailable right now</p>
-                                <p class="search-empty-text">Please try again in a moment.</p>
+                                <p class="search-empty-title">{{ t("search.errorTitle") }}</p>
+                                <p class="search-empty-text">{{ t("search.errorText") }}</p>
                             </div>
 
                             <p v-if="results.length" class="search-hint" aria-hidden="true">
-                                <kbd class="search-key">↑</kbd><kbd class="search-key">↓</kbd> to move
-                                <kbd class="search-key">Enter</kbd> to open
-                                <kbd class="search-key">Esc</kbd> to close
+                                <kbd class="search-key">↑</kbd><kbd class="search-key">↓</kbd> {{ t("search.hintMove") }}
+                                <kbd class="search-key">Enter</kbd> {{ t("search.hintOpen") }}
+                                <kbd class="search-key">Esc</kbd> {{ t("search.hintClose") }}
                             </p>
                         </div>
                     </Transition>

@@ -585,6 +585,18 @@
     color: var(--ink-inverse-soft);
 }
 
+/* back link and language menu on one row */
+.auth-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.auth-back {
+    margin-bottom: 0;
+}
+
 .auth-main {
     display: flex;
     flex-direction: column;

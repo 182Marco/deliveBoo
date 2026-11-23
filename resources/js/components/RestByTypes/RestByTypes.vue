@@ -2,13 +2,13 @@
     <div class="results">
         <div v-if="!selectedTypesLenght" class="ui-empty">
             <img class="ui-empty-mark" src="/images/foodsy-mark.svg" alt="" />
-            <p class="ui-subtitle">Choose a cuisine to start</p>
-            <p class="ui-muted">Restaurants matching your choice will appear here.</p>
+            <p class="ui-subtitle">{{ t("results.chooseTitle") }}</p>
+            <p class="ui-muted">{{ t("results.chooseText") }}</p>
         </div>
         <div v-else-if="!restByTypes.length" class="ui-empty">
             <img class="ui-empty-mark" src="/images/foodsy-mark.svg" alt="" />
-            <p class="ui-subtitle">No restaurants yet</p>
-            <p class="ui-muted">Try another cuisine: new kitchens join Foodsy every week.</p>
+            <p class="ui-subtitle">{{ t("results.emptyTitle") }}</p>
+            <p class="ui-muted">{{ t("results.emptyText") }}</p>
         </div>
         <template v-else>
             <ul class="results-grid">
@@ -22,7 +22,7 @@
                                 {{ rest.address }}, {{ rest.city }}
                             </p>
                             <span class="rest-cta">
-                                View menu
+                                {{ t("results.viewMenu") }}
                                 <Icon name="arrow-right" :size="16" />
                             </span>
                         </div>

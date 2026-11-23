@@ -1,17 +1,19 @@
-// how the success page names who processed the payment (query "via", see Payment.utils.js)
+import { t } from "../../utils/i18n.js";
+
+// how the success page names who processed the payment (query "via", see Payment.utils.js): keys of t()
 const PROVIDERS = {
-    "braintree-sandbox": {
-        name: "Braintree sandbox",
-        note: "A real transaction processed by Braintree in its test environment: no money moved."
-    },
-    braintree: { name: "Braintree", note: "Charged securely by Braintree, a PayPal service." },
-    demo: { name: "Demo payment", note: "Simulated offline for this demo: no money moved." }
+    "braintree-sandbox": { name: "success.providers.sandboxName", note: "success.providers.sandboxNote" },
+    braintree: { name: "success.providers.braintreeName", note: "success.providers.braintreeNote" },
+    demo: { name: "success.providers.demoName", note: "success.providers.demoNote" }
 };
 
-// the receipt from the route query, or null when the page is opened without one
+const providerOf = via => {
+    const keys = PROVIDERS[via] ?? PROVIDERS.demo;
+    return { name: t(keys.name), note: t(keys.note) };
+};
+
+// the receipt from the route query (texts in the current language), or null when the page is opened without one
 const receiptFrom = query =>
-    query?.order && query?.tx
-        ? { order: query.order, tx: query.tx, provider: PROVIDERS[query.via] ?? PROVIDERS.demo }
-        : null;
+    query?.order && query?.tx ? { order: query.order, tx: query.tx, provider: providerOf(query.via) } : null;
 
 export { receiptFrom };

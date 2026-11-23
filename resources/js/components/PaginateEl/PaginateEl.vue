@@ -1,13 +1,13 @@
 <template>
-    <nav v-if="paginate.last > 1" class="ui-pagination" aria-label="Pagination">
-        <button type="button" class="ui-page" :disabled="isFirst" aria-label="First page" @click="goTo(1)">
+    <nav v-if="paginate.last > 1" class="ui-pagination" :aria-label="t('pagination.label')">
+        <button type="button" class="ui-page" :disabled="isFirst" :aria-label="t('pagination.first')" @click="goTo(1)">
             <Icon name="chevrons-left" :size="18" />
         </button>
         <button
             type="button"
             class="ui-page"
             :disabled="isFirst"
-            aria-label="Previous page"
+            :aria-label="t('pagination.previous')"
             @click="goTo(paginate.current - 1)"
         >
             <Icon name="chevron-left" :size="18" />
@@ -27,12 +27,12 @@
             type="button"
             class="ui-page"
             :disabled="isLast"
-            aria-label="Next page"
+            :aria-label="t('pagination.next')"
             @click="goTo(paginate.current + 1)"
         >
             <Icon name="chevron-right" :size="18" />
         </button>
-        <button type="button" class="ui-page" :disabled="isLast" aria-label="Last page" @click="goTo(paginate.last)">
+        <button type="button" class="ui-page" :disabled="isLast" :aria-label="t('pagination.last')" @click="goTo(paginate.last)">
             <Icon name="chevrons-right" :size="18" />
         </button>
     </nav>

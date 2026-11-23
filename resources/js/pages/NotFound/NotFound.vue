@@ -2,14 +2,14 @@
     <div class="lost">
         <section class="ui-container ui-container--narrow lost-head" aria-labelledby="lost-title">
             <p class="lost-code">404</p>
-            <h1 id="lost-title" class="ui-title">This page went off the menu.</h1>
-            <p class="ui-lead">The address you typed does not match anything we serve. Let us take you somewhere tasty.</p>
+            <h1 id="lost-title" class="ui-title">{{ t("notFound.title") }}</h1>
+            <p class="ui-lead">{{ t("notFound.lead") }}</p>
             <router-link :to="{ name: 'home' }" class="ui-btn ui-btn--primary ui-btn--lg">
-                Back to home
+                {{ t("notFound.home") }}
                 <Icon name="arrow-right" />
             </router-link>
         </section>
-        <Content eyebrow="Or pick a craving" title="Explore a cuisine" />
+        <Content :eyebrow="t('notFound.eyebrow')" :title="t('notFound.explore')" />
     </div>
 </template>
 

@@ -2,7 +2,7 @@ import { mapMutations, mapState } from "vuex";
 import { FoodImage } from "../FoodImage";
 import { Icon } from "../Icon";
 import { QuantityStepper } from "../QuantityStepper";
-import { canAddPlate, countPortions, formatPrice } from "../../utils";
+import { canAddPlate, countPortions, formatPrice, t } from "../../utils";
 
 // one dish of the menu; the "one restaurant per order" warning lives once in RestMenu
 const plateLogic = {
@@ -24,11 +24,12 @@ const plateLogic = {
             return this.plate.orderable ?? Boolean(this.plate.visible);
         },
         unavailableLabel() {
-            return this.plate.availability === "sold_out" ? "Sold out" : "Currently unavailable";
+            return t(this.plate.availability === "sold_out" ? "dish.soldOut" : "dish.unavailable");
         }
     },
     methods: {
         ...mapMutations(["addPlate", "removePlate", "changeWarn"]),
+        t,
         // plates of another restaurant open the warning instead
         addToCart() {
             if (canAddPlate(this.cart, this.plate)) this.addPlate(this.plate);

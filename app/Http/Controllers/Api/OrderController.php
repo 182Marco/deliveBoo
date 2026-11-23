@@ -46,11 +46,11 @@ class OrderController extends Controller
             ->get(['id', 'name', 'price', 'availability', 'available_from_month', 'available_to_month'])
             ->keyBy('id');
         if ($plates->count() !== count($quantities)) {
-            return response()->json(['errors' => ['plates' => ['Some plates are not on the menu of this restaurant.']]]);
+            return response()->json(['errors' => ['plates' => [__('api.order.notOnMenu')]]]);
         }
         $notOrderable = $plates->reject(fn (Plate $p) => $p->isOrderable())->pluck('name');
         if ($notOrderable->isNotEmpty()) {
-            return response()->json(['errors' => ['plates' => ['Not available right now: ' . $notOrderable->implode(', ') . '.']]]);
+            return response()->json(['errors' => ['plates' => [__('api.order.notAvailable', ['plates' => $notOrderable->implode(', ')])]]]);
         }
         $amount = round(collect($quantities)->sum(fn ($qty, $id) => $qty * $plates[$id]->price), 2);
 
@@ -78,13 +78,13 @@ class OrderController extends Controller
             // provider unreachable: the order stays pending for a later reconciliation
             Log::error('Payment gateway error', ['order' => $order->id, 'exception' => $e]);
 
-            return response()->json(['errors' => ['payment' => ['Payment service unavailable, please try again later.']]]);
+            return response()->json(['errors' => ['payment' => [__('api.payment.unavailable')]]]);
         }
 
         if (! $result->successful) {
             $order->forceFill(['status' => Order::FAILED, 'payment_error' => $result->message])->save();
 
-            return response()->json(['errors' => ['payment' => ["Payment declined: {$result->message}"]]]);
+            return response()->json(['errors' => ['payment' => [__('api.payment.declined', ['reason' => $result->message])]]]);
         }
 
         $order->forceFill(['status' => Order::PAID, 'transaction_id' => $result->transactionId, 'fulfillment_status' => Order::RECEIVED])->save();

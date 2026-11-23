@@ -1,6 +1,6 @@
 import { mapMutations, mapState } from "vuex";
 import { FoodImage, Icon, QuantityStepper } from "../../components";
-import { countPortions, formatPrice, uniquePlates } from "../../utils";
+import { countPortions, formatPrice, t, uniquePlates } from "../../utils";
 
 const cartLogic = {
     name: "Cart",
@@ -29,7 +29,8 @@ const cartLogic = {
         portionsOf(plate) {
             return countPortions(this.cart, plate);
         },
-        formatPrice
+        formatPrice,
+        t
     }
 };
 

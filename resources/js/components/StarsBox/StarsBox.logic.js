@@ -1,4 +1,5 @@
 import { Icon } from "../Icon";
+import { t } from "../../utils";
 
 const MAX_STARS = 5;
 
@@ -12,7 +13,10 @@ const starsBoxLogic = {
     },
     data: () => ({
         max: MAX_STARS
-    })
+    }),
+    methods: {
+        t
+    }
 };
 
 export { starsBoxLogic };

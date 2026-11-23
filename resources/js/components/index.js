@@ -1,4 +1,5 @@
 export { Content } from "./Content";
+export { Flag } from "./Flag";
 export { FoodImage } from "./FoodImage";
 export { Footer } from "./Footer";
 export { Hamburger } from "./Hamburger";
@@ -6,6 +7,7 @@ export { Header } from "./Header";
 export { Icon } from "./Icon";
 export { Jumbotron } from "./Jumbotron";
 export { Logo } from "./Logo";
+export { LocaleSwitch } from "./LocaleSwitch";
 export { MenuMobile } from "./MenuMobile";
 export { OrderSummary } from "./OrderSummary";
 export { PaginateEl } from "./PaginateEl";

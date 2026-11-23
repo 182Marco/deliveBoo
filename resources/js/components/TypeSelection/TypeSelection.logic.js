@@ -1,5 +1,6 @@
 import { mapGetters, mapState } from "vuex";
 import { TypeComp } from "../TypeComp";
+import { t } from "../../utils";
 
 const typeSelectionLogic = {
     name: "TypeSelection",
@@ -7,6 +8,9 @@ const typeSelectionLogic = {
     computed: {
         ...mapState(["alltypes"]),
         ...mapGetters(["selectedTypesLenght"])
+    },
+    methods: {
+        t
     }
 };
 

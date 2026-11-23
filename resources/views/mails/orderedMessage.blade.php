@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
-    <title>Your Foodsy order is confirmed</title>
+    <title>{{ __('mail.order.subject') }}</title>
 </head>
 {{-- inline styles only, table layout: what every mail client understands. Colours from resources/css/tokens.css --}}
 <body style="margin:0; padding:0; background-color:#faf8f4;">
@@ -20,26 +20,26 @@
                     </tr>
                     <tr>
                         <td style="padding:28px 40px 8px; font-family:Arial, Helvetica, sans-serif; font-size:30px; font-weight:900; letter-spacing:-0.8px; line-height:1.15; color:#1c1a17;">
-                            Thank you, {{ $contact['customer_name'] }}!
+                            {{ __('mail.order.thanks', ['name' => $contact['customer_name']]) }}
                         </td>
                     </tr>
                     <tr>
                         <td style="padding:0 40px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; color:#4a453e;">
-                            Your order is confirmed and the kitchen is getting it ready. Your favourite food is on its way.
+                            {{ __('mail.order.body') }}
                         </td>
                     </tr>
                     <tr>
                         <td style="padding:0 40px;">
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f1ece3; border-radius:12px;">
                                 <tr>
-                                    <td style="padding:18px 20px 6px; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; color:#6e675e;">Delivering to</td>
+                                    <td style="padding:18px 20px 6px; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; color:#6e675e;">{{ __('mail.order.deliveringTo') }}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding:0 20px 16px; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#1c1a17;">{{ $contact['customer_address'] }}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding:14px 20px 18px; border-top:1px dashed #d5cbbb; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#1c1a17;">
-                                        <strong>Total paid</strong>
+                                        <strong>{{ __('mail.order.totalPaid') }}</strong>
                                         <span style="float:right; font-family:Arial, Helvetica, sans-serif; font-size:22px; font-weight:900; color:#a8501c;">€{{ number_format((float) $contact['price'], 2) }}</span>
                                     </td>
                                 </tr>
@@ -48,11 +48,11 @@
                     </tr>
                     <tr>
                         <td align="left" style="padding:28px 40px 36px;">
-                            <a href="{{ url('/') }}" style="display:inline-block; padding:14px 26px; border-radius:999px; background-color:#a8501c; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; text-decoration:none;">Order again on Foodsy</a>
+                            <a href="{{ url('/') }}" style="display:inline-block; padding:14px 26px; border-radius:999px; background-color:#a8501c; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; text-decoration:none;">{{ __('mail.order.cta') }}</a>
                         </td>
                     </tr>
                 </table>
-                <p style="margin:20px 0 0; font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#6e675e;">© {{ date('Y') }} Foodsy · Good food, beautifully delivered.</p>
+                <p style="margin:20px 0 0; font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#6e675e;">© {{ date('Y') }} Foodsy · {{ __('mail.order.footer') }}</p>
             </td>
         </tr>
     </table>

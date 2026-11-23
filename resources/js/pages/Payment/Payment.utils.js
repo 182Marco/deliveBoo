@@ -1,47 +1,50 @@
-// customer fields of the order form: keys are the names expected by POST /api/orders
+import { t } from "../../utils/i18n.js";
+
+// customer fields of the order form: keys are the names expected by POST /api/orders; labels are keys of t()
 const CUSTOMER_FIELDS = [
-    { key: "customer_name", label: "First name", type: "text", minlength: 3, maxlength: 20, autocomplete: "given-name" },
-    { key: "customer_lastName", label: "Last name", type: "text", minlength: 3, maxlength: 20, autocomplete: "family-name" },
-    { key: "customer_email", label: "Email", type: "email", autocomplete: "email" },
-    { key: "customer_phone", label: "Phone", type: "tel", minlength: 9, maxlength: 11, autocomplete: "tel" },
-    { key: "customer_address", label: "Delivery address", type: "text", minlength: 3, autocomplete: "street-address", wide: true }
+    { key: "customer_name", label: "checkout.fields.firstName", type: "text", minlength: 3, maxlength: 20, autocomplete: "given-name" },
+    { key: "customer_lastName", label: "checkout.fields.lastName", type: "text", minlength: 3, maxlength: 20, autocomplete: "family-name" },
+    { key: "customer_email", label: "checkout.fields.email", type: "email", autocomplete: "email" },
+    { key: "customer_phone", label: "checkout.fields.phone", type: "tel", minlength: 9, maxlength: 11, autocomplete: "tel" },
+    { key: "customer_address", label: "checkout.fields.address", type: "text", minlength: 3, autocomplete: "street-address", wide: true }
 ];
 
 // containers of the Braintree hosted fields (ids used by api/hostedFields.js); errors live under "card_<key>"
 const CARD_FIELDS = [
-    { key: "number", id: "creditCardNumber", label: "Card number", invalid: "Enter a valid card number." },
-    { key: "expirationDate", id: "expireDate", label: "Expiry date", invalid: "Enter a future date (MM/YY)." },
-    { key: "cvv", id: "cvv", label: "CVV", invalid: "Enter 3 or 4 digits." }
+    { key: "number", id: "creditCardNumber", label: "checkout.fields.cardNumber", invalid: "checkout.errors.cardNumber" },
+    { key: "expirationDate", id: "expireDate", label: "checkout.fields.expiry", invalid: "checkout.errors.expiry" },
+    { key: "cvv", id: "cvv", label: "checkout.fields.cvv", invalid: "checkout.errors.cvv" }
 ];
 
 // how to simulate a payment, shown only in test mode (offline driver or Braintree sandbox).
 // The offline driver declines a card number; the Braintree sandbox declines by amount
 // (2000.00-2999.99, https://developer.paypal.com/braintree/docs/reference/general/testing).
-const ANY_DATE_CVV = "Any future expiry date and any CVV.";
+// note, label and hint are keys of t()
+const ANY_DATE_CVV = "checkout.test.anyDateCvv";
 const TEST_PAYMENTS = {
     fake: {
-        note: "Demo payments: nothing is charged, the card never leaves your browser.",
+        note: "checkout.test.fakeNote",
         rows: [
-            { key: "accepted", ok: true, label: "Payment accepted", card: "4111 1111 1111 1111", hint: ANY_DATE_CVV },
-            { key: "declined", ok: false, label: "Payment declined", card: "4000 0000 0000 0002", hint: ANY_DATE_CVV }
+            { key: "accepted", ok: true, label: "checkout.test.accepted", card: "4111 1111 1111 1111", hint: ANY_DATE_CVV },
+            { key: "declined", ok: false, label: "checkout.test.declined", card: "4000 0000 0000 0002", hint: ANY_DATE_CVV }
         ]
     },
     braintree: {
-        note: "Braintree sandbox: use test cards only, nothing is charged.",
+        note: "checkout.test.braintreeNote",
         rows: [
-            { key: "accepted", ok: true, label: "Payment accepted", card: "4111 1111 1111 1111", hint: ANY_DATE_CVV },
-            {
-                key: "declined",
-                ok: false,
-                label: "Payment declined",
-                card: "4111 1111 1111 1111",
-                hint: "Same card, with a total between €2,000.00 and €2,999.99 (e.g. 12 × Dom Pérignon at Peri's)."
-            }
+            { key: "accepted", ok: true, label: "checkout.test.accepted", card: "4111 1111 1111 1111", hint: ANY_DATE_CVV },
+            { key: "declined", ok: false, label: "checkout.test.declined", card: "4111 1111 1111 1111", hint: "checkout.test.declinedHint" }
         ]
     }
 };
 
-const testPayments = driver => TEST_PAYMENTS[driver] ?? null;
+// the guide of a driver in the current language, or null
+const testPayments = driver => {
+    const guide = TEST_PAYMENTS[driver];
+    return guide
+        ? { note: t(guide.note), rows: guide.rows.map(e => ({ ...e, label: t(e.label), hint: t(e.hint) })) }
+        : null;
+};
 
 // receipt shown by the success page: the order, the transaction id and who processed it
 // ("braintree-sandbox" | "braintree" | "demo"), passed in the query so a reload keeps it
@@ -51,7 +54,7 @@ const paymentReceipt = (response, driver, testMode) => ({
     via: driver === "braintree" ? (testMode ? "braintree-sandbox" : "braintree") : "demo"
 });
 
-const REQUIRED = "This field is required.";
+const REQUIRED = "checkout.errors.required";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const emptyCustomer = () => Object.fromEntries(CUSTOMER_FIELDS.map(e => [e.key, ""]));
@@ -59,13 +62,13 @@ const emptyCustomer = () => Object.fromEntries(CUSTOMER_FIELDS.map(e => [e.key, 
 // picks the customer fields out of any object (the component data)
 const pickCustomer = source => Object.fromEntries(CUSTOMER_FIELDS.map(e => [e.key, source[e.key]]));
 
-// first problem of one field, or "" when it is fine
+// first problem of one field (in the current language), or "" when it is fine
 const fieldError = (field, raw) => {
     const value = String(raw ?? "").trim();
-    if (!value) return REQUIRED;
-    if (field.type === "email" && !EMAIL.test(value)) return "Enter a valid email address.";
-    if (field.minlength && value.length < field.minlength) return `At least ${field.minlength} characters.`;
-    if (field.maxlength && value.length > field.maxlength) return `At most ${field.maxlength} characters.`;
+    if (!value) return t(REQUIRED);
+    if (field.type === "email" && !EMAIL.test(value)) return t("checkout.errors.email");
+    if (field.minlength && value.length < field.minlength) return t("checkout.errors.min", { n: field.minlength });
+    if (field.maxlength && value.length > field.maxlength) return t("checkout.errors.max", { n: field.maxlength });
     return "";
 };
 
@@ -85,7 +88,7 @@ const cardErrors = error => {
     return Object.fromEntries(
         CARD_FIELDS.filter(e => keys.includes(e.key)).map(e => [
             `card_${e.key}`,
-            [empty.includes(e.key) ? REQUIRED : e.invalid]
+            [t(empty.includes(e.key) ? REQUIRED : e.invalid)]
         ])
     );
 };

@@ -1,0 +1,28 @@
+{
+    "en": [
+        { "d": "M0 0h30v20H0z", "fill": "#012169" },
+        { "d": "M0 0l30 20M30 0L0 20", "stroke": "#ffffff", "width": 4 },
+        { "d": "M0 0l30 20M30 0L0 20", "stroke": "#c8102e", "width": 1.6 },
+        { "d": "M15 0v20M0 10h30", "stroke": "#ffffff", "width": 6.6 },
+        { "d": "M15 0v20M0 10h30", "stroke": "#c8102e", "width": 4 }
+    ],
+    "it": [
+        { "d": "M0 0h10v20H0z", "fill": "#009246" },
+        { "d": "M10 0h10v20H10z", "fill": "#ffffff" },
+        { "d": "M20 0h10v20H20z", "fill": "#ce2b37" }
+    ],
+    "de": [
+        { "d": "M0 0h30v7H0z", "fill": "#000000" },
+        { "d": "M0 6.67h30v6.66H0z", "fill": "#dd0000" },
+        { "d": "M0 13.33h30V20H0z", "fill": "#ffce00" }
+    ],
+    "fr": [
+        { "d": "M0 0h10v20H0z", "fill": "#002395" },
+        { "d": "M10 0h10v20H10z", "fill": "#ffffff" },
+        { "d": "M20 0h10v20H20z", "fill": "#ed2939" }
+    ],
+    "es": [
+        { "d": "M0 0h30v20H0z", "fill": "#aa151b" },
+        { "d": "M0 5h30v10H0z", "fill": "#f1bf00" }
+    ]
+}

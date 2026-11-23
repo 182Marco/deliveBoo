@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', 'Edit ' . $plate->name)
+@section('title', __('partner.common.editItem', ['name' => $plate->name]))
 
 @section('content')
 <div class="ui-container">
-    <a class="adm-back" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}"><x-icon name="arrow-left" size="18" /> Menu</a>
+    <a class="adm-back" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}"><x-icon name="arrow-left" size="18" /> {{ __('partner.common.menu') }}</a>
     <div class="adm-page-head">
         <div class="adm-page-intro">
-            <p class="ui-eyebrow">Edit dish</p>
+            <p class="ui-eyebrow">{{ __('partner.plates.editEyebrow') }}</p>
             <h1 class="ui-title">{{ $plate->name }}</h1>
-            <p class="ui-muted">Fields marked with <span class="ui-required">*</span> are required.</p>
+            <p class="ui-muted">{!! __('partner.common.required', ['star' => '<span class="ui-required">*</span>']) !!}</p>
         </div>
         <form class="delete-post-form adm-inline-form" action="{{ route('admin.plate.delete', $plate->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="ui-btn ui-btn--danger" type="submit"><x-icon name="trash" size="18" /> Delete dish</button>
+            <button class="ui-btn ui-btn--danger" type="submit"><x-icon name="trash" size="18" /> {{ __('partner.plates.deleteDish') }}</button>
         </form>
     </div>
 
@@ -22,16 +22,16 @@
         @csrf
         @method('PATCH')
         <div class="adm-form-grid">
-            <x-field name="name" label="Name" :value="old('name', $plate->name)" star />
-            <x-field name="price" label="Price (€)" inputmode="decimal" :value="old('price', $plate->price)" star />
-            <x-field name="description" label="Description" as="textarea" :value="old('description', $plate->description)" star wide />
-            <x-field name="ingredients" label="Ingredients" :value="old('ingredients', $plate->ingredients)" hint="Separate them with commas, main ones first." star wide />
+            <x-field name="name" :label="__('partner.common.name')" :value="old('name', $plate->name)" star />
+            <x-field name="price" :label="__('partner.plates.priceEuro')" inputmode="decimal" :value="old('price', $plate->price)" star />
+            <x-field name="description" :label="__('partner.common.description')" as="textarea" :value="old('description', $plate->description)" star wide />
+            <x-field name="ingredients" :label="__('partner.common.ingredients')" :value="old('ingredients', $plate->ingredients)" :hint="__('partner.plates.ingredientsHint')" star wide />
         </div>
 
         @include('admin.plates.partials.details', ['plate' => $plate])
 
         <div class="ui-field">
-            <label class="ui-label" for="img">Photo</label>
+            <label class="ui-label" for="img">{{ __('partner.plates.photo') }}</label>
             @if ($plate->img)
                 <x-photo class="adm-current-photo" :src="$plate->img" :alt="$plate->name" />
             @endif
@@ -41,11 +41,11 @@
             @enderror
         </div>
 
-        <x-field name="img_url" label="…or a link to a photo hosted online" type="url" placeholder="https://images.unsplash.com/photo-…" :value="old('img_url', \Illuminate\Support\Str::startsWith($plate->img, 'https://') ? $plate->img : null)" hint="An https link to an image you are allowed to use. We show it from its address, we never copy it. An uploaded file wins over the link." />
+        <x-field name="img_url" :label="__('partner.plates.photoUrl')" type="url" placeholder="https://images.unsplash.com/photo-…" :value="old('img_url', \Illuminate\Support\Str::startsWith($plate->img, 'https://') ? $plate->img : null)" :hint="__('partner.plates.photoUrlHint')" />
 
         <div class="adm-form-foot">
-            <button class="ui-btn ui-btn--primary" type="submit">Save changes</button>
-            <a class="ui-btn ui-btn--ghost" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}">Cancel</a>
+            <button class="ui-btn ui-btn--primary" type="submit">{{ __('partner.common.save') }}</button>
+            <a class="ui-btn ui-btn--ghost" href="{{ route('admin.plates.index', $plate->restaurant->slug) }}">{{ __('partner.common.cancel') }}</a>
         </div>
     </form>
 </div>

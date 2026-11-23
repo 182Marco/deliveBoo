@@ -2,7 +2,7 @@ import { nextTick } from "vue";
 import { FoodImage } from "../FoodImage";
 import { Icon } from "../Icon";
 import { searchRestaurants } from "../../api";
-import { debounce } from "../../utils";
+import { debounce, t } from "../../utils";
 import { highlightParts, isSearchable, normalizeQuery, ratingLabel, resultMeta, resultsMessage } from "./RestaurantSearch.utils.js";
 
 // pause in typing before asking the server: short enough to feel instant, long enough
@@ -39,7 +39,7 @@ const restaurantSearchLogic = {
             return this.status === "done" ? resultsMessage(this.results.length, this.answeredQuery) : "";
         },
         countLabel() {
-            return this.status === "done" && this.results.length ? `${this.results.length} found` : "";
+            return this.status === "done" && this.results.length ? t("search.found", { count: this.results.length }) : "";
         }
     },
     watch: {
@@ -57,6 +57,7 @@ const restaurantSearchLogic = {
         this.stopPending();
     },
     methods: {
+        t,
         highlight: highlightParts,
         meta: resultMeta,
         rating: ratingLabel,

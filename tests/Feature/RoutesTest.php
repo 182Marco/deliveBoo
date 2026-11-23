@@ -41,6 +41,7 @@ class RoutesTest extends TestCase
             ['admin.orders.show', [5], '/admin/orders/show/5', 'GET'],
             ['admin.stats.index', [], '/admin/stats', 'GET'],
             ['admin.stats.show', [5], '/admin/stats/5', 'GET'],
+            ['locale', ['de'], '/locale/de', 'GET'],
         ];
     }
 

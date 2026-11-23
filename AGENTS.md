@@ -3,7 +3,7 @@
 Guida per agenti AI e nuovi sviluppatori. Panoramica completa: `README.md`; mappa interattiva dei file: `dev/mappa.html`.
 
 ## Progetto in breve
-**Foodsy** (repository `deliveBoo`) = Laravel 13 (PHP ≥ 8.3) + sito clienti Vue 3 SPA (Vite) + pannello ristoratori ("partner hub") in Blade. **Il prodotto è solo in inglese**: interfaccia, email, dati di prova, commenti del codice, test. Il nome del prodotto è ovunque *Foodsy* (mai Deliveroo/DeliveBoo; restano solo gli identificativi tecnici: cartella, database, container). Documentazione di sviluppo: italiano.
+**Foodsy** (repository `deliveBoo`) = Laravel 13 (PHP ≥ 8.3) + sito clienti Vue 3 SPA (Vite) + pannello ristoratori ("partner hub") in Blade. **Il prodotto è in inglese (lingua di default) con traduzioni in italiano, tedesco, francese e spagnolo** scelte dal menu lingua dell'header: tutte le stringhe statiche (sito, area partner, email, risposte API, validazione) stanno in un unico oggetto, `resources/js/utils/strings.json`. Dati di prova (nomi di piatti, cucine, allergeni nel db), commenti del codice e test restano in inglese. Il nome del prodotto è ovunque *Foodsy* (mai Deliveroo/DeliveBoo; restano solo gli identificativi tecnici: cartella, database, container). Documentazione di sviluppo: italiano.
 
 ## Comandi
 Avvio con Docker (Codespace o PC nuovo) passo per passo: tab "Link di avvio" di `dev/mappa.html`. L'immagine PHP 8.4 di sviluppo è `docker/dev/Dockerfile`. Storia e stato della migrazione 7 → 13: `dev/PIANO_MIGRAZIONE_L13.md`.
@@ -29,6 +29,7 @@ php artisan route:list             # verifica le rotte
 | Nuovo endpoint JSON | rotta in `routes/api.php` (sintassi a tupla `[Controller::class, 'metodo']`) + metodo in `app/Http/Controllers/Api/*` (risposte `response()->json()`) |
 | Nuova pagina cliente | cartella `resources/js/pages/Nome/` (come un componente) + export in `pages/index.js` + rotta in `resources/js/routes.js` (non serve toccare `routes/web.php`: la catch-all la serve già) |
 | Nuovo componente Vue | cartella `resources/js/components/Nome/` con `Nome.vue` (solo template), `Nome.logic.js` (oggetto Options API esportato per nome), `Nome.css` (CSS puro, `<style scoped src>`, solo se il componente ha stili propri), `index.js`; `Nome.utils.js` se ci sono funzioni pure. Export in `components/index.js` |
+| Nuovo testo visibile (Vue, Blade, mail, API, validazione) | chiave in `resources/js/utils/strings.json` con **tutte e 5** le lingue e gli stessi segnaposto `:nome` (`LocaleTest` lo verifica); in Vue `t("gruppo.chiave", { nome })` (sotto `site`, `t` importato da `utils` ed esposto nei `methods`), in Blade/PHP `__('partner.gruppo.chiave')` o `__('site....')`. Plurali `uno\|tanti` con `{ count }` / `trans_choice`. Mai testo scritto nel template |
 | Nuova chiamata al server | funzione `async` in `resources/js/api/` (mai axios nei componenti) |
 | Nuova funzione pura condivisa | `resources/js/utils/` (+ export in `utils/index.js`) |
 | Nuovo stato/azione (carrello, fetch) | `resources/js/store.js` (mutations sincrone, actions `async` che usano `resources/js/api`) |
@@ -40,6 +41,7 @@ php artisan route:list             # verifica le rotte
 | Nuovo JS per Blade | `resources/js/jsBack/` **e** aggiungilo agli `input` di `vite.config.js`; nella vista `@vite('resources/js/jsBack/nome.js')` |
 | Stili | token in `resources/css/tokens.css`, primitive condivise `ui-*` in `resources/css/ui.css` (titoli, eyebrow, bottoni, campi, chip, badge, card, notice, tabelle, modale, paginazione, rail, logo, foto); layout dell'area partner `adm-*`/`auth-*` in `resources/css/admin.css`; il resto nel `Nome.css` scoped del componente. Regole nella sezione **Design system** |
 | Icona | path SVG in `resources/icons/icons.json` (un solo set): `<Icon name="..." />` in Vue, `<x-icon name="..." />` in Blade |
+| Nuova lingua | voce in `locales` di `strings.json` + traduzione di ogni foglia + bandiera in `resources/icons/flags.json` (path su tela 30×20) |
 | Campo di form Blade | `<x-field name="..." label="..." :value="old(...)" />` (label, input o `as="textarea"`, errore di validazione) |
 
 ## Design system
@@ -60,6 +62,7 @@ php artisan route:list             # verifica le rotte
 - Paginazione lato server con `paginate(4)`; il front usa `PaginateEl.vue`, l'admin `->links()` con la vista `resources/views/pagination/foodsy.blade.php` (`Paginator::defaultView` in `AppServiceProvider`).
 
 ## Trappole
+- Lingua: cookie `foodsy_locale` (non cifrato, `encryptCookies(except:)` in `bootstrap/app.php`) letto da `App\Http\Middleware\SetLocale` su web e api; senza cookie **inglese**, la lingua del browser è ignorata. Il sito Vue lo scrive da `setLocale` (`utils/i18n.js`, la lingua è un `ref` di modulo, non nello store), l'area partner con la rotta `locale` (`/locale/{codice}`, prima della catch-all). Laravel legge le traduzioni da `strings.json` via `App\I18n\StringsLoader` (non esiste più `resources/lang`). Il bundle Vue importa solo i rami `site` e `locales` (`import { site } from "./strings.json"`): non importare l'oggetto intero. Nei test JSON i cookie partono solo con `withCredentials()`.
 - **URL sempre relativi** nel front (`/api/...`, `/login`): mai `http://127.0.0.1:8000/...` scritto fisso, che non funziona da Codespace né in produzione. Nelle email (link assoluti) usa `url('/')`.
 - Session, cache e code su `file`/`sync` (default in `config/` e `.env.example`): il progetto non ha le tabelle `sessions`, `cache`, `jobs`. Con i default di Laravel 11+ (`database`) il login darebbe errore.
 - **Niente Bootstrap, jQuery, Font Awesome né altri framework CSS**: sono stati rimossi da sito e area partner. Il menu account dell'admin è un `<details>` nativo (`resources/js/app.js` lo chiude con Esc o clic fuori).

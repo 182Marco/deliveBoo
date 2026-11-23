@@ -1,6 +1,6 @@
 import { mapActions, mapState } from "vuex";
 import { FoodImage, Icon, OrderSummary, PaginateEl, Plate, StarsBox, Warning } from "../../components";
-import { cartTotal, formatPrice } from "../../utils";
+import { cartTotal, formatPrice, t } from "../../utils";
 
 const restMenuLogic = {
     name: "RestMenu",
@@ -24,7 +24,8 @@ const restMenuLogic = {
         }
     },
     methods: {
-        ...mapActions(["getMenuAndDetails"])
+        ...mapActions(["getMenuAndDetails"]),
+        t
     }
 };
 

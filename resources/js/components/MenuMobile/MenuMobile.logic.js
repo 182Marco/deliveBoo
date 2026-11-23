@@ -1,18 +1,19 @@
 import { mapMutations, mapState } from "vuex";
 import { Icon } from "../Icon";
 import { Logo } from "../Logo";
+import { t } from "../../utils";
 
-// pages of the SPA (router) and pages served by Laravel (full reload)
+// pages of the SPA (router) and pages served by Laravel (full reload); texts are keys of t()
 const ROUTE_LINKS = [
-    { to: { name: "home", hash: "#cuisines" }, icon: "utensils", text: "Cuisines" },
-    { to: { name: "home", hash: "#top-rated" }, icon: "star", text: "Guest favourites" },
-    { to: { name: "home", hash: "#explore" }, icon: "store", text: "All restaurants" },
-    { to: { name: "cart" }, icon: "bag", text: "Your bag" }
+    { to: { name: "home", hash: "#cuisines" }, icon: "utensils", text: "nav.cuisines" },
+    { to: { name: "home", hash: "#top-rated" }, icon: "star", text: "nav.favourites" },
+    { to: { name: "home", hash: "#explore" }, icon: "store", text: "nav.restaurants" },
+    { to: { name: "cart" }, icon: "bag", text: "nav.bag" }
 ];
 
 const PAGE_LINKS = [
-    { href: "/register", icon: "plus", text: "Add your restaurant" },
-    { href: "/login", icon: "user", text: "Partner login" }
+    { href: "/register", icon: "plus", text: "nav.addRestaurant" },
+    { href: "/login", icon: "user", text: "nav.partnerLogin" }
 ];
 
 const menuMobileLogic = {
@@ -34,7 +35,8 @@ const menuMobileLogic = {
         }
     },
     methods: {
-        ...mapMutations(["toggleMenuMobile"])
+        ...mapMutations(["toggleMenuMobile"]),
+        t
     }
 };
 

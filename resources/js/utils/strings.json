@@ -1,0 +1,655 @@
+{
+    "locales": {
+        "en": { "short": "EN", "name": "English" },
+        "it": { "short": "IT", "name": "Italiano" },
+        "de": { "short": "DE", "name": "Deutsch" },
+        "fr": { "short": "FR", "name": "Français" },
+        "es": { "short": "ES", "name": "Español" }
+    },
+    "site": {
+        "meta": {
+            "title": { "en": "Foodsy · Good food, beautifully delivered", "it": "Foodsy · Buon cibo, consegnato con cura", "de": "Foodsy · Gutes Essen, liebevoll geliefert", "fr": "Foodsy · La bonne cuisine, livrée avec soin", "es": "Foodsy · Buena comida, entregada con mimo" },
+            "description": { "en": "Order from the best-loved restaurants in town and enjoy restaurant-quality dishes at home.", "it": "Ordina dai ristoranti più amati della città e goditi a casa piatti da ristorante.", "de": "Bestelle bei den beliebtesten Restaurants der Stadt und genieße Restaurantküche zu Hause.", "fr": "Commandez dans les restaurants préférés de la ville et savourez chez vous des plats de chef.", "es": "Pide en los restaurantes favoritos de la ciudad y disfruta en casa de platos de restaurante." }
+        },
+        "skip": { "en": "Skip to content", "it": "Vai al contenuto", "de": "Zum Inhalt springen", "fr": "Aller au contenu", "es": "Ir al contenido" },
+        "locale": {
+            "label": { "en": "Language", "it": "Lingua", "de": "Sprache", "fr": "Langue", "es": "Idioma" },
+            "current": { "en": "Language: :name", "it": "Lingua: :name", "de": "Sprache: :name", "fr": "Langue : :name", "es": "Idioma: :name" }
+        },
+        "nav": {
+            "home": { "en": "Foodsy, home", "it": "Foodsy, home", "de": "Foodsy, Startseite", "fr": "Foodsy, accueil", "es": "Foodsy, inicio" },
+            "main": { "en": "Main", "it": "Principale", "de": "Hauptmenü", "fr": "Principal", "es": "Principal" },
+            "mobile": { "en": "Mobile", "it": "Mobile", "de": "Mobil", "fr": "Mobile", "es": "Móvil" },
+            "footer": { "en": "Footer", "it": "Piè di pagina", "de": "Fußzeile", "fr": "Pied de page", "es": "Pie de página" },
+            "cuisines": { "en": "Cuisines", "it": "Cucine", "de": "Küchen", "fr": "Cuisines", "es": "Cocinas" },
+            "favourites": { "en": "Guest favourites", "it": "I preferiti dei clienti", "de": "Gäste-Lieblinge", "fr": "Coups de cœur", "es": "Favoritos de los clientes" },
+            "restaurants": { "en": "All restaurants", "it": "Tutti i ristoranti", "de": "Alle Restaurants", "fr": "Tous les restaurants", "es": "Todos los restaurantes" },
+            "bag": { "en": "Your bag", "it": "La tua borsa", "de": "Deine Tasche", "fr": "Votre sac", "es": "Tu bolsa" },
+            "addRestaurant": { "en": "Add your restaurant", "it": "Aggiungi il tuo ristorante", "de": "Restaurant eintragen", "fr": "Ajoutez votre restaurant", "es": "Añade tu restaurante" },
+            "partnerLogin": { "en": "Partner login", "it": "Accesso partner", "de": "Partner-Login", "fr": "Espace partenaire", "es": "Acceso partners" }
+        },
+        "header": {
+            "partner": { "en": "For restaurants", "it": "Per i ristoranti", "de": "Für Restaurants", "fr": "Restaurateurs", "es": "Para restaurantes" },
+            "bag": { "en": "Bag", "it": "Borsa", "de": "Tasche", "fr": "Sac", "es": "Bolsa" },
+            "bagFull": { "en": "Your bag: :count item, €:amount|Your bag: :count items, €:amount", "it": "La tua borsa: :count articolo, €:amount|La tua borsa: :count articoli, €:amount", "de": "Deine Tasche: :count Artikel, €:amount|Deine Tasche: :count Artikel, €:amount", "fr": "Votre sac : :count article, €:amount|Votre sac : :count articles, €:amount", "es": "Tu bolsa: :count artículo, €:amount|Tu bolsa: :count artículos, €:amount" },
+            "bagEmpty": { "en": "Your bag is empty", "it": "La tua borsa è vuota", "de": "Deine Tasche ist leer", "fr": "Votre sac est vide", "es": "Tu bolsa está vacía" }
+        },
+        "drawer": {
+            "open": { "en": "Open menu", "it": "Apri il menu", "de": "Menü öffnen", "fr": "Ouvrir le menu", "es": "Abrir el menú" },
+            "close": { "en": "Close menu", "it": "Chiudi il menu", "de": "Menü schließen", "fr": "Fermer le menu", "es": "Cerrar el menú" },
+            "label": { "en": "Menu", "it": "Menu", "de": "Menü", "fr": "Menu", "es": "Menú" },
+            "note": { "en": "Own a restaurant? Reach new guests every day.", "it": "Hai un ristorante? Raggiungi nuovi clienti ogni giorno.", "de": "Du hast ein Restaurant? Erreiche jeden Tag neue Gäste.", "fr": "Vous avez un restaurant ? Touchez de nouveaux clients chaque jour.", "es": "¿Tienes un restaurante? Llega a nuevos clientes cada día." },
+            "cta": { "en": "Partner with Foodsy", "it": "Diventa partner di Foodsy", "de": "Partner von Foodsy werden", "fr": "Devenez partenaire Foodsy", "es": "Colabora con Foodsy" }
+        },
+        "footer": {
+            "tagline": { "en": "Good food from the kitchens you love, delivered warm to your door.", "it": "Buon cibo dalle cucine che ami, consegnato caldo alla tua porta.", "de": "Gutes Essen aus deinen Lieblingsküchen, warm an deine Tür geliefert.", "fr": "La bonne cuisine de vos adresses préférées, livrée encore chaude à votre porte.", "es": "Buena comida de las cocinas que te encantan, entregada caliente en tu puerta." },
+            "discover": { "en": "Discover", "it": "Scopri", "de": "Entdecken", "fr": "Découvrir", "es": "Descubre" },
+            "partners": { "en": "Partners", "it": "Partner", "de": "Partner", "fr": "Partenaires", "es": "Partners" },
+            "rights": { "en": "All rights reserved.", "it": "Tutti i diritti riservati.", "de": "Alle Rechte vorbehalten.", "fr": "Tous droits réservés.", "es": "Todos los derechos reservados." },
+            "secure": { "en": "Card payments are processed securely.", "it": "I pagamenti con carta sono elaborati in modo sicuro.", "de": "Kartenzahlungen werden sicher abgewickelt.", "fr": "Les paiements par carte sont traités en toute sécurité.", "es": "Los pagos con tarjeta se procesan de forma segura." }
+        },
+        "hero": {
+            "eyebrow": { "en": "Local kitchens, delivered", "it": "Cucine di quartiere, a domicilio", "de": "Lokale Küchen, geliefert", "fr": "Les cuisines du quartier, livrées", "es": "Cocinas locales, a domicilio" },
+            "titleStart": { "en": "Dinner from the city's", "it": "La cena dalle", "de": "Abendessen aus den", "fr": "Le dîner des", "es": "La cena de las" },
+            "titleAccent": { "en": "best kitchens", "it": "migliori cucine", "de": "besten Küchen", "fr": "meilleures cuisines", "es": "mejores cocinas" },
+            "titleEnd": { "en": ".", "it": " della città.", "de": " der Stadt.", "fr": " de la ville.", "es": " de la ciudad." },
+            "lead": { "en": "Pizza from the wood oven, sushi rolled to order, slow-cooked ragù: choose your dishes, pay securely and let the kitchen do the rest.", "it": "Pizza dal forno a legna, sushi preparato al momento, ragù cotto a fuoco lento: scegli i tuoi piatti, paga in sicurezza e lascia fare alla cucina.", "de": "Pizza aus dem Holzofen, frisch gerolltes Sushi, langsam geschmortes Ragù: Wähle deine Gerichte, bezahle sicher und überlass der Küche den Rest.", "fr": "Pizza au feu de bois, sushis roulés à la commande, ragù mijoté : choisissez vos plats, payez en toute sécurité et laissez la cuisine faire le reste.", "es": "Pizza de horno de leña, sushi enrollado al momento, ragú a fuego lento: elige tus platos, paga de forma segura y deja que la cocina haga el resto." },
+            "browse": { "en": "Browse restaurants", "it": "Esplora i ristoranti", "de": "Restaurants entdecken", "fr": "Voir les restaurants", "es": "Ver restaurantes" },
+            "perkKitchens": { "en": "Hand-picked local kitchens", "it": "Cucine locali selezionate", "de": "Handverlesene lokale Küchen", "fr": "Des cuisines locales triées sur le volet", "es": "Cocinas locales seleccionadas" },
+            "perkCheckout": { "en": "Secure card checkout", "it": "Pagamento con carta sicuro", "de": "Sichere Kartenzahlung", "fr": "Paiement par carte sécurisé", "es": "Pago con tarjeta seguro" },
+            "perkEmail": { "en": "Confirmation by email", "it": "Conferma via email", "de": "Bestätigung per E-Mail", "fr": "Confirmation par e-mail", "es": "Confirmación por email" },
+            "ticketTitle": { "en": "Order confirmed", "it": "Ordine confermato", "de": "Bestellung bestätigt", "fr": "Commande confirmée", "es": "Pedido confirmado" },
+            "ticketText": { "en": "Receipt sent to your inbox", "it": "Ricevuta inviata alla tua email", "de": "Beleg in deinem Postfach", "fr": "Reçu envoyé dans votre boîte mail", "es": "Recibo enviado a tu correo" }
+        },
+        "cuisines": {
+            "eyebrow": { "en": "Cuisines", "it": "Cucine", "de": "Küchen", "fr": "Cuisines", "es": "Cocinas" },
+            "title": { "en": "What are you craving?", "it": "Che cosa ti va?", "de": "Worauf hast du Lust?", "fr": "Qu'est-ce qui vous fait envie ?", "es": "¿Qué te apetece?" }
+        },
+        "top": {
+            "eyebrow": { "en": "Ranked by guest reviews", "it": "Classifica dalle recensioni dei clienti", "de": "Nach Gästebewertungen sortiert", "fr": "Classés selon les avis clients", "es": "Según las reseñas de los clientes" },
+            "previous": { "en": "Previous restaurants", "it": "Ristoranti precedenti", "de": "Vorherige Restaurants", "fr": "Restaurants précédents", "es": "Restaurantes anteriores" },
+            "next": { "en": "Next restaurants", "it": "Ristoranti successivi", "de": "Nächste Restaurants", "fr": "Restaurants suivants", "es": "Restaurantes siguientes" },
+            "number": { "en": "Number :n:", "it": "Numero :n:", "de": "Platz :n:", "fr": "Numéro :n :", "es": "Número :n:" }
+        },
+        "stars": {
+            "rated": { "en": "Rated :average out of 5", "it": "Voto :average su 5", "de": "Bewertet mit :average von 5", "fr": "Noté :average sur 5", "es": "Valoración: :average de 5" }
+        },
+        "explore": {
+            "eyebrow": { "en": "All restaurants", "it": "Tutti i ristoranti", "de": "Alle Restaurants", "fr": "Tous les restaurants", "es": "Todos los restaurantes" },
+            "title": { "en": "Mix your cravings", "it": "Mescola le tue voglie", "de": "Kombiniere deine Gelüste", "fr": "Mélangez vos envies", "es": "Combina tus antojos" },
+            "lead": { "en": "Pick one or more cuisines and see every kitchen that cooks them.", "it": "Scegli una o più cucine e scopri tutti i ristoranti che le preparano.", "de": "Wähle eine oder mehrere Küchen und sieh alle Restaurants, die sie kochen.", "fr": "Choisissez une ou plusieurs cuisines et découvrez toutes les adresses qui les proposent.", "es": "Elige una o varias cocinas y descubre todos los restaurantes que las preparan." },
+            "selected": { "en": "cuisine selected|cuisines selected", "it": "cucina selezionata|cucine selezionate", "de": "Küche ausgewählt|Küchen ausgewählt", "fr": "cuisine sélectionnée|cuisines sélectionnées", "es": "cocina seleccionada|cocinas seleccionadas" }
+        },
+        "results": {
+            "chooseTitle": { "en": "Choose a cuisine to start", "it": "Scegli una cucina per iniziare", "de": "Wähle zuerst eine Küche", "fr": "Choisissez une cuisine pour commencer", "es": "Elige una cocina para empezar" },
+            "chooseText": { "en": "Restaurants matching your choice will appear here.", "it": "Qui compariranno i ristoranti che corrispondono alla tua scelta.", "de": "Hier erscheinen die passenden Restaurants.", "fr": "Les restaurants correspondant à votre choix apparaîtront ici.", "es": "Aquí aparecerán los restaurantes que coinciden con tu elección." },
+            "emptyTitle": { "en": "No restaurants yet", "it": "Ancora nessun ristorante", "de": "Noch keine Restaurants", "fr": "Pas encore de restaurant", "es": "Todavía no hay restaurantes" },
+            "emptyText": { "en": "Try another cuisine: new kitchens join Foodsy every week.", "it": "Prova un'altra cucina: ogni settimana nuovi ristoranti arrivano su Foodsy.", "de": "Probier eine andere Küche: Jede Woche kommen neue Restaurants zu Foodsy.", "fr": "Essayez une autre cuisine : de nouvelles adresses rejoignent Foodsy chaque semaine.", "es": "Prueba otra cocina: cada semana se unen nuevos restaurantes a Foodsy." },
+            "viewMenu": { "en": "View menu", "it": "Vedi il menu", "de": "Speisekarte ansehen", "fr": "Voir la carte", "es": "Ver la carta" }
+        },
+        "partner": {
+            "title": { "en": "Run a kitchen? Cook for Foodsy.", "it": "Hai una cucina? Cucina per Foodsy.", "de": "Du hast eine Küche? Koch für Foodsy.", "fr": "Vous tenez une cuisine ? Cuisinez pour Foodsy.", "es": "¿Tienes una cocina? Cocina para Foodsy." },
+            "text": { "en": "Publish your menu, receive paid orders by email and follow your sales month by month.", "it": "Pubblica il tuo menu, ricevi via email ordini già pagati e segui le vendite mese per mese.", "de": "Veröffentliche deine Speisekarte, erhalte bezahlte Bestellungen per E-Mail und verfolge deine Umsätze Monat für Monat.", "fr": "Publiez votre carte, recevez des commandes déjà payées par e-mail et suivez vos ventes mois après mois.", "es": "Publica tu carta, recibe pedidos ya pagados por email y sigue tus ventas mes a mes." },
+            "cta": { "en": "Add your restaurant", "it": "Aggiungi il tuo ristorante", "de": "Restaurant eintragen", "fr": "Ajoutez votre restaurant", "es": "Añade tu restaurante" }
+        },
+        "search": {
+            "open": { "en": "Search restaurants", "it": "Cerca ristoranti", "de": "Restaurants suchen", "fr": "Rechercher un restaurant", "es": "Buscar restaurantes" },
+            "placeholder": { "en": "Search by restaurant", "it": "Cerca per ristorante", "de": "Nach Restaurant suchen", "fr": "Rechercher par restaurant", "es": "Buscar por restaurante" },
+            "close": { "en": "Close search", "it": "Chiudi la ricerca", "de": "Suche schließen", "fr": "Fermer la recherche", "es": "Cerrar la búsqueda" },
+            "heading": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
+            "found": { "en": ":count found", "it": ":count trovato|:count trovati", "de": ":count gefunden", "fr": ":count trouvé|:count trouvés", "es": ":count encontrado|:count encontrados" },
+            "rated": { "en": "Rated", "it": "Voto", "de": "Bewertung", "fr": "Note", "es": "Valoración" },
+            "new": { "en": "New", "it": "Nuovo", "de": "Neu", "fr": "Nouveau", "es": "Nuevo" },
+            "noMatch": { "en": "No restaurants match “:query”", "it": "Nessun ristorante corrisponde a “:query”", "de": "Kein Restaurant passt zu „:query“", "fr": "Aucun restaurant ne correspond à « :query »", "es": "Ningún restaurante coincide con «:query»" },
+            "noMatchHint": { "en": "Check the spelling or try a shorter name.", "it": "Controlla come l'hai scritto o prova un nome più corto.", "de": "Prüfe die Schreibweise oder versuch einen kürzeren Namen.", "fr": "Vérifiez l'orthographe ou essayez un nom plus court.", "es": "Revisa cómo lo has escrito o prueba un nombre más corto." },
+            "errorTitle": { "en": "Search is unavailable right now", "it": "La ricerca non è disponibile al momento", "de": "Die Suche ist gerade nicht verfügbar", "fr": "La recherche est indisponible pour le moment", "es": "La búsqueda no está disponible ahora mismo" },
+            "errorText": { "en": "Please try again in a moment.", "it": "Riprova tra un momento.", "de": "Bitte versuch es gleich noch einmal.", "fr": "Veuillez réessayer dans un instant.", "es": "Vuelve a intentarlo en un momento." },
+            "hintMove": { "en": "to move", "it": "per spostarti", "de": "zum Wechseln", "fr": "pour naviguer", "es": "para moverte" },
+            "hintOpen": { "en": "to open", "it": "per aprire", "de": "zum Öffnen", "fr": "pour ouvrir", "es": "para abrir" },
+            "hintClose": { "en": "to close", "it": "per chiudere", "de": "zum Schließen", "fr": "pour fermer", "es": "para cerrar" },
+            "live": { "en": ":count restaurant found. Use the arrow keys to choose.|:count restaurants found. Use the arrow keys to choose.", "it": ":count ristorante trovato. Usa le frecce per scegliere.|:count ristoranti trovati. Usa le frecce per scegliere.", "de": ":count Restaurant gefunden. Wähle mit den Pfeiltasten.|:count Restaurants gefunden. Wähle mit den Pfeiltasten.", "fr": ":count restaurant trouvé. Utilisez les flèches pour choisir.|:count restaurants trouvés. Utilisez les flèches pour choisir.", "es": ":count restaurante encontrado. Usa las flechas para elegir.|:count restaurantes encontrados. Usa las flechas para elegir." },
+            "liveNone": { "en": "No restaurants match “:query”.", "it": "Nessun ristorante corrisponde a “:query”.", "de": "Kein Restaurant passt zu „:query“.", "fr": "Aucun restaurant ne correspond à « :query ».", "es": "Ningún restaurante coincide con «:query»." }
+        },
+        "dish": {
+            "add": { "en": "Add :name to your bag", "it": "Aggiungi :name alla borsa", "de": ":name in die Tasche legen", "fr": "Ajouter :name à votre sac", "es": "Añadir :name a tu bolsa" },
+            "ingredients": { "en": "Ingredients:", "it": "Ingredienti:", "de": "Zutaten:", "fr": "Ingrédients :", "es": "Ingredientes:" },
+            "soldOut": { "en": "Sold out", "it": "Esaurito", "de": "Ausverkauft", "fr": "Épuisé", "es": "Agotado" },
+            "unavailable": { "en": "Currently unavailable", "it": "Al momento non disponibile", "de": "Derzeit nicht verfügbar", "fr": "Indisponible pour le moment", "es": "No disponible por ahora" }
+        },
+        "stepper": {
+            "item": { "en": "item", "it": "articolo", "de": "Artikel", "fr": "article", "es": "artículo" },
+            "remove": { "en": "Remove one :item", "it": "Togli un :item", "de": "Ein :item entfernen", "fr": "Retirer un :item", "es": "Quitar un :item" },
+            "add": { "en": "Add one :item", "it": "Aggiungi un :item", "de": "Ein :item hinzufügen", "fr": "Ajouter un :item", "es": "Añadir un :item" }
+        },
+        "summary": {
+            "title": { "en": "Your order", "it": "Il tuo ordine", "de": "Deine Bestellung", "fr": "Votre commande", "es": "Tu pedido" },
+            "items": { "en": ":count item|:count items", "it": ":count articolo|:count articoli", "de": ":count Artikel|:count Artikel", "fr": ":count article|:count articles", "es": ":count artículo|:count artículos" },
+            "emptyTitle": { "en": "Your bag is empty", "it": "La tua borsa è vuota", "de": "Deine Tasche ist leer", "fr": "Votre sac est vide", "es": "Tu bolsa está vacía" },
+            "emptyText": { "en": "Add a dish from the menu to start your order.", "it": "Aggiungi un piatto dal menu per iniziare l'ordine.", "de": "Füge ein Gericht aus der Speisekarte hinzu, um zu bestellen.", "fr": "Ajoutez un plat de la carte pour commencer votre commande.", "es": "Añade un plato de la carta para empezar tu pedido." },
+            "each": { "en": "€:price each", "it": "€:price l'uno", "de": "je €:price", "fr": "€:price l'unité", "es": "€:price cada uno" },
+            "total": { "en": "Total", "it": "Totale", "de": "Gesamt", "fr": "Total", "es": "Total" },
+            "review": { "en": "Review order", "it": "Rivedi l'ordine", "de": "Bestellung prüfen", "fr": "Vérifier la commande", "es": "Revisar el pedido" }
+        },
+        "pagination": {
+            "label": { "en": "Pagination", "it": "Paginazione", "de": "Seitennavigation", "fr": "Pagination", "es": "Paginación" },
+            "first": { "en": "First page", "it": "Prima pagina", "de": "Erste Seite", "fr": "Première page", "es": "Primera página" },
+            "previous": { "en": "Previous page", "it": "Pagina precedente", "de": "Vorherige Seite", "fr": "Page précédente", "es": "Página anterior" },
+            "next": { "en": "Next page", "it": "Pagina successiva", "de": "Nächste Seite", "fr": "Page suivante", "es": "Página siguiente" },
+            "last": { "en": "Last page", "it": "Ultima pagina", "de": "Letzte Seite", "fr": "Dernière page", "es": "Última página" }
+        },
+        "warning": {
+            "title": { "en": "One restaurant per order", "it": "Un ristorante per ordine", "de": "Ein Restaurant pro Bestellung", "fr": "Un restaurant par commande", "es": "Un restaurante por pedido" },
+            "text": { "en": "Your bag already holds dishes from another restaurant. Start a new order here, or go back and finish the one you began.", "it": "La tua borsa contiene già piatti di un altro ristorante. Inizia un nuovo ordine qui, oppure torna indietro e completa quello iniziato.", "de": "In deiner Tasche liegen schon Gerichte aus einem anderen Restaurant. Starte hier eine neue Bestellung oder schließ die begonnene ab.", "fr": "Votre sac contient déjà des plats d'un autre restaurant. Commencez une nouvelle commande ici, ou revenez terminer celle en cours.", "es": "Tu bolsa ya tiene platos de otro restaurante. Empieza un pedido nuevo aquí o vuelve para terminar el que empezaste." },
+            "newOrder": { "en": "Start a new order here", "it": "Inizia un nuovo ordine qui", "de": "Hier neu bestellen", "fr": "Nouvelle commande ici", "es": "Empezar un pedido aquí" },
+            "back": { "en": "Back to my order", "it": "Torna al mio ordine", "de": "Zurück zu meiner Bestellung", "fr": "Retour à ma commande", "es": "Volver a mi pedido" }
+        },
+        "cart": {
+            "continue": { "en": "Continue shopping", "it": "Continua a ordinare", "de": "Weiter einkaufen", "fr": "Continuer mes achats", "es": "Seguir comprando" },
+            "eyebrow": { "en": "Your order", "it": "Il tuo ordine", "de": "Deine Bestellung", "fr": "Votre commande", "es": "Tu pedido" },
+            "title": { "en": "Your bag", "it": "La tua borsa", "de": "Deine Tasche", "fr": "Votre sac", "es": "Tu bolsa" },
+            "emptyTitle": { "en": "Your bag is empty", "it": "La tua borsa è vuota", "de": "Deine Tasche ist leer", "fr": "Votre sac est vide", "es": "Tu bolsa está vacía" },
+            "emptyText": { "en": "Discover the kitchens near you and add your favourite dishes.", "it": "Scopri le cucine vicino a te e aggiungi i tuoi piatti preferiti.", "de": "Entdecke die Küchen in deiner Nähe und füge deine Lieblingsgerichte hinzu.", "fr": "Découvrez les cuisines près de chez vous et ajoutez vos plats préférés.", "es": "Descubre las cocinas cerca de ti y añade tus platos favoritos." },
+            "browse": { "en": "Browse restaurants", "it": "Esplora i ristoranti", "de": "Restaurants entdecken", "fr": "Voir les restaurants", "es": "Ver restaurantes" },
+            "list": { "en": "Dishes in your bag", "it": "Piatti nella tua borsa", "de": "Gerichte in deiner Tasche", "fr": "Plats dans votre sac", "es": "Platos en tu bolsa" },
+            "clear": { "en": "Empty bag", "it": "Svuota la borsa", "de": "Tasche leeren", "fr": "Vider le sac", "es": "Vaciar la bolsa" },
+            "totalTitle": { "en": "Order total", "it": "Totale ordine", "de": "Bestellsumme", "fr": "Total de la commande", "es": "Total del pedido" },
+            "dishes": { "en": "Dishes", "it": "Piatti", "de": "Gerichte", "fr": "Plats", "es": "Platos" },
+            "checkout": { "en": "Go to checkout", "it": "Vai al pagamento", "de": "Zur Kasse", "fr": "Passer au paiement", "es": "Ir a pagar" },
+            "secure": { "en": "Secure card payment", "it": "Pagamento sicuro con carta", "de": "Sichere Kartenzahlung", "fr": "Paiement par carte sécurisé", "es": "Pago seguro con tarjeta" }
+        },
+        "notFound": {
+            "title": { "en": "This page went off the menu.", "it": "Questa pagina è uscita dal menu.", "de": "Diese Seite steht nicht mehr auf der Karte.", "fr": "Cette page n'est plus à la carte.", "es": "Esta página ya no está en la carta." },
+            "lead": { "en": "The address you typed does not match anything we serve. Let us take you somewhere tasty.", "it": "L'indirizzo che hai digitato non corrisponde a nulla di ciò che serviamo. Lascia che ti portiamo in un posto gustoso.", "de": "Die eingegebene Adresse passt zu nichts, was wir servieren. Wir bringen dich an einen leckeren Ort.", "fr": "L'adresse saisie ne correspond à rien de ce que nous servons. Laissez-nous vous emmener vers quelque chose de savoureux.", "es": "La dirección que has escrito no coincide con nada de lo que servimos. Deja que te llevemos a un sitio sabroso." },
+            "home": { "en": "Back to home", "it": "Torna alla home", "de": "Zur Startseite", "fr": "Retour à l'accueil", "es": "Volver al inicio" },
+            "eyebrow": { "en": "Or pick a craving", "it": "Oppure scegli una voglia", "de": "Oder wähle, worauf du Lust hast", "fr": "Ou choisissez une envie", "es": "O elige un antojo" },
+            "explore": { "en": "Explore a cuisine", "it": "Esplora una cucina", "de": "Entdecke eine Küche", "fr": "Explorez une cuisine", "es": "Explora una cocina" }
+        },
+        "checkout": {
+            "back": { "en": "Back to your bag", "it": "Torna alla borsa", "de": "Zurück zur Tasche", "fr": "Retour au sac", "es": "Volver a la bolsa" },
+            "eyebrow": { "en": "Secure checkout", "it": "Pagamento sicuro", "de": "Sichere Kasse", "fr": "Paiement sécurisé", "es": "Pago seguro" },
+            "title": { "en": "Almost at your table", "it": "Quasi a tavola", "de": "Fast auf deinem Tisch", "fr": "Presque à table", "es": "Casi en tu mesa" },
+            "delivery": { "en": "Delivery details", "it": "Dati di consegna", "de": "Lieferdaten", "fr": "Informations de livraison", "es": "Datos de entrega" },
+            "payment": { "en": "Payment", "it": "Pagamento", "de": "Zahlung", "fr": "Paiement", "es": "Pago" },
+            "secure": { "en": "Card details go straight to our payment provider and never reach Foodsy.", "it": "I dati della carta vanno direttamente al nostro fornitore di pagamenti e non arrivano mai a Foodsy.", "de": "Kartendaten gehen direkt an unseren Zahlungsanbieter und erreichen Foodsy nie.", "fr": "Les données de carte vont directement à notre prestataire de paiement et n'arrivent jamais chez Foodsy.", "es": "Los datos de la tarjeta van directamente a nuestro proveedor de pagos y nunca llegan a Foodsy." },
+            "verified": { "en": "Card verified, placing your order…", "it": "Carta verificata, invio dell'ordine…", "de": "Karte geprüft, Bestellung wird aufgegeben…", "fr": "Carte vérifiée, envoi de la commande…", "es": "Tarjeta verificada, enviando tu pedido…" },
+            "placing": { "en": "Placing your order…", "it": "Invio dell'ordine…", "de": "Bestellung wird aufgegeben…", "fr": "Envoi de la commande…", "es": "Enviando tu pedido…" },
+            "pay": { "en": "Pay €:amount", "it": "Paga €:amount", "de": "€:amount bezahlen", "fr": "Payer €:amount", "es": "Pagar €:amount" },
+            "close": { "en": "Close", "it": "Chiudi", "de": "Schließen", "fr": "Fermer", "es": "Cerrar" },
+            "copy": { "en": "Copy", "it": "Copia", "de": "Kopieren", "fr": "Copier", "es": "Copiar" },
+            "copied": { "en": "Copied", "it": "Copiato", "de": "Kopiert", "fr": "Copié", "es": "Copiado" },
+            "fields": {
+                "firstName": { "en": "First name", "it": "Nome", "de": "Vorname", "fr": "Prénom", "es": "Nombre" },
+                "lastName": { "en": "Last name", "it": "Cognome", "de": "Nachname", "fr": "Nom", "es": "Apellidos" },
+                "email": { "en": "Email", "it": "Email", "de": "E-Mail", "fr": "E-mail", "es": "Email" },
+                "phone": { "en": "Phone", "it": "Telefono", "de": "Telefon", "fr": "Téléphone", "es": "Teléfono" },
+                "address": { "en": "Delivery address", "it": "Indirizzo di consegna", "de": "Lieferadresse", "fr": "Adresse de livraison", "es": "Dirección de entrega" },
+                "cardNumber": { "en": "Card number", "it": "Numero della carta", "de": "Kartennummer", "fr": "Numéro de carte", "es": "Número de tarjeta" },
+                "expiry": { "en": "Expiry date", "it": "Scadenza", "de": "Ablaufdatum", "fr": "Date d'expiration", "es": "Caducidad" },
+                "cvv": { "en": "CVV", "it": "CVV", "de": "CVV", "fr": "CVV", "es": "CVV" }
+            },
+            "errors": {
+                "required": { "en": "This field is required.", "it": "Questo campo è obbligatorio.", "de": "Dieses Feld ist erforderlich.", "fr": "Ce champ est obligatoire.", "es": "Este campo es obligatorio." },
+                "email": { "en": "Enter a valid email address.", "it": "Inserisci un indirizzo email valido.", "de": "Gib eine gültige E-Mail-Adresse ein.", "fr": "Saisissez une adresse e-mail valide.", "es": "Introduce un email válido." },
+                "min": { "en": "At least :n characters.", "it": "Almeno :n caratteri.", "de": "Mindestens :n Zeichen.", "fr": "Au moins :n caractères.", "es": "Al menos :n caracteres." },
+                "max": { "en": "At most :n characters.", "it": "Al massimo :n caratteri.", "de": "Höchstens :n Zeichen.", "fr": "Au plus :n caractères.", "es": "Como máximo :n caracteres." },
+                "cardNumber": { "en": "Enter a valid card number.", "it": "Inserisci un numero di carta valido.", "de": "Gib eine gültige Kartennummer ein.", "fr": "Saisissez un numéro de carte valide.", "es": "Introduce un número de tarjeta válido." },
+                "expiry": { "en": "Enter a future date (MM/YY).", "it": "Inserisci una data futura (MM/AA).", "de": "Gib ein Datum in der Zukunft ein (MM/JJ).", "fr": "Saisissez une date future (MM/AA).", "es": "Introduce una fecha futura (MM/AA)." },
+                "cvv": { "en": "Enter 3 or 4 digits.", "it": "Inserisci 3 o 4 cifre.", "de": "Gib 3 oder 4 Ziffern ein.", "fr": "Saisissez 3 ou 4 chiffres.", "es": "Introduce 3 o 4 dígitos." },
+                "service": { "en": "The payment service is not available, please try again later.", "it": "Il servizio di pagamento non è disponibile, riprova più tardi.", "de": "Der Zahlungsdienst ist nicht verfügbar, bitte versuch es später noch einmal.", "fr": "Le service de paiement est indisponible, veuillez réessayer plus tard.", "es": "El servicio de pago no está disponible, inténtalo más tarde." },
+                "network": { "en": "Network error, the order was not sent. Please try again.", "it": "Errore di rete, l'ordine non è stato inviato. Riprova.", "de": "Netzwerkfehler, die Bestellung wurde nicht gesendet. Bitte versuch es noch einmal.", "fr": "Erreur réseau, la commande n'a pas été envoyée. Veuillez réessayer.", "es": "Error de red, el pedido no se ha enviado. Vuelve a intentarlo." }
+            },
+            "test": {
+                "badge": { "en": "Test mode", "it": "Modalità test", "de": "Testmodus", "fr": "Mode test", "es": "Modo de prueba" },
+                "text": { "en": "No real money moves here: pay with a test card.", "it": "Qui non si muove denaro vero: paga con una carta di prova.", "de": "Hier fließt kein echtes Geld: Bezahle mit einer Testkarte.", "fr": "Aucun argent réel ici : payez avec une carte de test.", "es": "Aquí no se mueve dinero real: paga con una tarjeta de prueba." },
+                "link": { "en": "Test cards", "it": "Carte di prova", "de": "Testkarten", "fr": "Cartes de test", "es": "Tarjetas de prueba" },
+                "title": { "en": "Test payments", "it": "Pagamenti di prova", "de": "Testzahlungen", "fr": "Paiements de test", "es": "Pagos de prueba" },
+                "copyCard": { "en": "Copy the card number for: :label", "it": "Copia il numero della carta per: :label", "de": "Kartennummer kopieren für: :label", "fr": "Copier le numéro de carte pour : :label", "es": "Copiar el número de tarjeta para: :label" },
+                "gotIt": { "en": "Got it", "it": "Ho capito", "de": "Verstanden", "fr": "Compris", "es": "Entendido" },
+                "anyDateCvv": { "en": "Any future expiry date and any CVV.", "it": "Qualsiasi scadenza futura e qualsiasi CVV.", "de": "Beliebiges Ablaufdatum in der Zukunft und beliebige CVV.", "fr": "N'importe quelle date d'expiration future et n'importe quel CVV.", "es": "Cualquier caducidad futura y cualquier CVV." },
+                "fakeNote": { "en": "Demo payments: nothing is charged, the card never leaves your browser.", "it": "Pagamenti dimostrativi: non viene addebitato nulla, la carta non lascia mai il tuo browser.", "de": "Demo-Zahlungen: Nichts wird belastet, die Karte verlässt nie deinen Browser.", "fr": "Paiements de démonstration : rien n'est débité, la carte ne quitte jamais votre navigateur.", "es": "Pagos de demostración: no se cobra nada, la tarjeta nunca sale de tu navegador." },
+                "braintreeNote": { "en": "Braintree sandbox: use test cards only, nothing is charged.", "it": "Sandbox Braintree: usa solo carte di prova, non viene addebitato nulla.", "de": "Braintree-Sandbox: nur Testkarten verwenden, nichts wird belastet.", "fr": "Sandbox Braintree : utilisez uniquement des cartes de test, rien n'est débité.", "es": "Sandbox de Braintree: usa solo tarjetas de prueba, no se cobra nada." },
+                "accepted": { "en": "Payment accepted", "it": "Pagamento accettato", "de": "Zahlung angenommen", "fr": "Paiement accepté", "es": "Pago aceptado" },
+                "declined": { "en": "Payment declined", "it": "Pagamento rifiutato", "de": "Zahlung abgelehnt", "fr": "Paiement refusé", "es": "Pago rechazado" },
+                "declinedHint": { "en": "Same card, with a total between €2,000.00 and €2,999.99 (e.g. 12 × Dom Pérignon at Peri's).", "it": "Stessa carta, con un totale tra €2,000.00 e €2,999.99 (es. 12 × Dom Pérignon da Peri's).", "de": "Gleiche Karte, mit einer Summe zwischen €2,000.00 und €2,999.99 (z. B. 12 × Dom Pérignon bei Peri's).", "fr": "Même carte, avec un total entre €2,000.00 et €2,999.99 (ex. 12 × Dom Pérignon chez Peri's).", "es": "La misma tarjeta, con un total entre €2,000.00 y €2,999.99 (p. ej. 12 × Dom Pérignon en Peri's)." }
+            }
+        },
+        "menu": {
+            "back": { "en": "All restaurants", "it": "Tutti i ristoranti", "de": "Alle Restaurants", "fr": "Tous les restaurants", "es": "Todos los restaurantes" },
+            "cuisines": { "en": "Cuisines", "it": "Cucine", "de": "Küchen", "fr": "Cuisines", "es": "Cocinas" },
+            "outOf": { "en": ":stars out of 5", "it": ":stars su 5", "de": ":stars von 5", "fr": ":stars sur 5", "es": ":stars de 5" },
+            "address": { "en": "Address", "it": "Indirizzo", "de": "Adresse", "fr": "Adresse", "es": "Dirección" },
+            "phone": { "en": "Phone", "it": "Telefono", "de": "Telefon", "fr": "Téléphone", "es": "Teléfono" },
+            "payment": { "en": "Payment", "it": "Pagamento", "de": "Zahlung", "fr": "Paiement", "es": "Pago" },
+            "paymentValue": { "en": "Card, charged at checkout", "it": "Carta, addebitata al pagamento", "de": "Karte, belastet beim Bezahlen", "fr": "Carte, débitée au paiement", "es": "Tarjeta, cobrada al pagar" },
+            "eyebrow": { "en": "The menu", "it": "Il menu", "de": "Die Speisekarte", "fr": "La carte", "es": "La carta" },
+            "title": { "en": "What's cooking", "it": "Cosa bolle in pentola", "de": "Was gerade kocht", "fr": "Ce qui mijote", "es": "Qué se cocina" },
+            "page": { "en": "Page :current of :last", "it": "Pagina :current di :last", "de": "Seite :current von :last", "fr": "Page :current sur :last", "es": "Página :current de :last" },
+            "viewBag": { "en": "View your bag", "it": "Vedi la tua borsa", "de": "Tasche ansehen", "fr": "Voir votre sac", "es": "Ver tu bolsa" },
+            "loading": { "en": "Loading the menu", "it": "Caricamento del menu", "de": "Speisekarte wird geladen", "fr": "Chargement de la carte", "es": "Cargando la carta" }
+        },
+        "cuisine": {
+            "back": { "en": "Combine more cuisines", "it": "Combina più cucine", "de": "Mehrere Küchen kombinieren", "fr": "Combiner plusieurs cuisines", "es": "Combinar más cocinas" },
+            "eyebrow": { "en": "Cuisine", "it": "Cucina", "de": "Küche", "fr": "Cuisine", "es": "Cocina" },
+            "title": { "en": ":name restaurants", "it": "Ristoranti :name", "de": ":name-Restaurants", "fr": "Restaurants :name", "es": "Restaurantes :name" },
+            "titleStarred": { "en": ":names", "it": ":name", "de": ":name", "fr": ":name", "es": ":name" },
+            "moreEyebrow": { "en": "Keep exploring", "it": "Continua a esplorare", "de": "Weiter entdecken", "fr": "Continuez l'exploration", "es": "Sigue explorando" },
+            "moreTitle": { "en": "Other cuisines you might love", "it": "Altre cucine che potresti amare", "de": "Weitere Küchen, die dir gefallen könnten", "fr": "D'autres cuisines qui pourraient vous plaire", "es": "Otras cocinas que te pueden encantar" }
+        },
+        "success": {
+            "eyebrow": { "en": "Order confirmed", "it": "Ordine confermato", "de": "Bestellung bestätigt", "fr": "Commande confirmée", "es": "Pedido confirmado" },
+            "titleStart": { "en": "Thank you,", "it": "Grazie,", "de": "Danke,", "fr": "Merci,", "es": "¡Gracias," },
+            "titleAccent": { "en": "enjoy!", "it": "buon appetito!", "de": "guten Appetit!", "fr": "bon appétit !", "es": "buen provecho!" },
+            "lead": { "en": "The kitchen has your order and is getting it ready. A confirmation email with every detail is on its way to your inbox.", "it": "La cucina ha ricevuto il tuo ordine e lo sta preparando. Un'email di conferma con tutti i dettagli sta arrivando nella tua casella.", "de": "Die Küche hat deine Bestellung und bereitet sie zu. Eine Bestätigungs-E-Mail mit allen Details ist unterwegs.", "fr": "La cuisine a reçu votre commande et la prépare. Un e-mail de confirmation avec tous les détails arrive dans votre boîte.", "es": "La cocina ya tiene tu pedido y lo está preparando. Un email de confirmación con todos los detalles va de camino a tu bandeja." },
+            "paid": { "en": "Paid", "it": "Pagato", "de": "Bezahlt", "fr": "Payé", "es": "Pagado" },
+            "order": { "en": "Order #:id", "it": "Ordine #:id", "de": "Bestellung #:id", "fr": "Commande #:id", "es": "Pedido #:id" },
+            "processedBy": { "en": "Processed by", "it": "Elaborato da", "de": "Abgewickelt von", "fr": "Traité par", "es": "Procesado por" },
+            "transaction": { "en": "Transaction ID", "it": "ID transazione", "de": "Transaktions-ID", "fr": "ID de transaction", "es": "ID de transacción" },
+            "copyTransaction": { "en": "Copy the transaction ID", "it": "Copia l'ID della transazione", "de": "Transaktions-ID kopieren", "fr": "Copier l'ID de transaction", "es": "Copiar el ID de transacción" },
+            "home": { "en": "Back to home", "it": "Torna alla home", "de": "Zur Startseite", "fr": "Retour à l'accueil", "es": "Volver al inicio" },
+            "providers": {
+                "sandboxName": { "en": "Braintree sandbox", "it": "Braintree sandbox", "de": "Braintree-Sandbox", "fr": "Sandbox Braintree", "es": "Sandbox de Braintree" },
+                "sandboxNote": { "en": "A real transaction processed by Braintree in its test environment: no money moved.", "it": "Una transazione vera elaborata da Braintree nel suo ambiente di test: nessun movimento di denaro.", "de": "Eine echte Transaktion, von Braintree in der Testumgebung abgewickelt: Es ist kein Geld geflossen.", "fr": "Une vraie transaction traitée par Braintree dans son environnement de test : aucun argent n'a circulé.", "es": "Una transacción real procesada por Braintree en su entorno de pruebas: no se ha movido dinero." },
+                "braintreeName": { "en": "Braintree", "it": "Braintree", "de": "Braintree", "fr": "Braintree", "es": "Braintree" },
+                "braintreeNote": { "en": "Charged securely by Braintree, a PayPal service.", "it": "Addebitato in sicurezza da Braintree, un servizio PayPal.", "de": "Sicher belastet von Braintree, einem PayPal-Dienst.", "fr": "Débité en toute sécurité par Braintree, un service PayPal.", "es": "Cobrado de forma segura por Braintree, un servicio de PayPal." },
+                "demoName": { "en": "Demo payment", "it": "Pagamento demo", "de": "Demo-Zahlung", "fr": "Paiement de démonstration", "es": "Pago de demostración" },
+                "demoNote": { "en": "Simulated offline for this demo: no money moved.", "it": "Simulato offline per questa demo: nessun movimento di denaro.", "de": "Für diese Demo offline simuliert: Es ist kein Geld geflossen.", "fr": "Simulé hors ligne pour cette démo : aucun argent n'a circulé.", "es": "Simulado sin conexión para esta demo: no se ha movido dinero." }
+            }
+        }
+    },
+    "partner": {
+        "meta": {
+            "hub": { "en": "Partner hub", "it": "Area partner", "de": "Partnerbereich", "fr": "Espace partenaire", "es": "Área de partners" },
+            "forPartners": { "en": "Foodsy for partners", "it": "Foodsy per i partner", "de": "Foodsy für Partner", "fr": "Foodsy pour les partenaires", "es": "Foodsy para partners" }
+        },
+        "header": {
+            "brand": { "en": "Foodsy partner hub", "it": "Area partner di Foodsy", "de": "Foodsy-Partnerbereich", "fr": "Espace partenaire Foodsy", "es": "Área de partners de Foodsy" },
+            "tag": { "en": "Partner", "it": "Partner", "de": "Partner", "fr": "Partenaire", "es": "Partner" },
+            "nav": { "en": "Partner", "it": "Partner", "de": "Partner", "fr": "Partenaire", "es": "Partner" },
+            "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
+            "viewSite": { "en": "View site", "it": "Vedi il sito", "de": "Zur Website", "fr": "Voir le site", "es": "Ver el sitio" },
+            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
+            "join": { "en": "Join Foodsy", "it": "Unisciti a Foodsy", "de": "Bei Foodsy mitmachen", "fr": "Rejoindre Foodsy", "es": "Únete a Foodsy" },
+            "myRestaurants": { "en": "My restaurants", "it": "I miei ristoranti", "de": "Meine Restaurants", "fr": "Mes restaurants", "es": "Mis restaurantes" },
+            "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" }
+        },
+        "common": {
+            "back": { "en": "Back", "it": "Indietro", "de": "Zurück", "fr": "Retour", "es": "Volver" },
+            "cancel": { "en": "Cancel", "it": "Annulla", "de": "Abbrechen", "fr": "Annuler", "es": "Cancelar" },
+            "save": { "en": "Save changes", "it": "Salva le modifiche", "de": "Änderungen speichern", "fr": "Enregistrer", "es": "Guardar cambios" },
+            "view": { "en": "View", "it": "Vedi", "de": "Ansehen", "fr": "Voir", "es": "Ver" },
+            "edit": { "en": "Edit", "it": "Modifica", "de": "Bearbeiten", "fr": "Modifier", "es": "Editar" },
+            "delete": { "en": "Delete", "it": "Elimina", "de": "Löschen", "fr": "Supprimer", "es": "Eliminar" },
+            "viewItem": { "en": "View :name", "it": "Vedi :name", "de": ":name ansehen", "fr": "Voir :name", "es": "Ver :name" },
+            "editItem": { "en": "Edit :name", "it": "Modifica :name", "de": ":name bearbeiten", "fr": "Modifier :name", "es": "Editar :name" },
+            "deleteItem": { "en": "Delete :name", "it": "Elimina :name", "de": ":name löschen", "fr": "Supprimer :name", "es": "Eliminar :name" },
+            "actions": { "en": "Actions", "it": "Azioni", "de": "Aktionen", "fr": "Actions", "es": "Acciones" },
+            "menu": { "en": "Menu", "it": "Menu", "de": "Speisekarte", "fr": "Carte", "es": "Carta" },
+            "orders": { "en": "Orders", "it": "Ordini", "de": "Bestellungen", "fr": "Commandes", "es": "Pedidos" },
+            "statistics": { "en": "Statistics", "it": "Statistiche", "de": "Statistiken", "fr": "Statistiques", "es": "Estadísticas" },
+            "yourRestaurants": { "en": "Your restaurants", "it": "I tuoi ristoranti", "de": "Deine Restaurants", "fr": "Vos restaurants", "es": "Tus restaurantes" },
+            "required": { "en": "Fields marked with :star are required.", "it": "I campi segnati con :star sono obbligatori.", "de": "Mit :star markierte Felder sind Pflichtfelder.", "fr": "Les champs marqués :star sont obligatoires.", "es": "Los campos marcados con :star son obligatorios." },
+            "notSet": { "en": "Not set", "it": "Non indicato", "de": "Nicht angegeben", "fr": "Non renseigné", "es": "Sin indicar" },
+            "name": { "en": "Name", "it": "Nome", "de": "Name", "fr": "Nom", "es": "Nombre" },
+            "description": { "en": "Description", "it": "Descrizione", "de": "Beschreibung", "fr": "Description", "es": "Descripción" },
+            "address": { "en": "Address", "it": "Indirizzo", "de": "Adresse", "fr": "Adresse", "es": "Dirección" },
+            "phone": { "en": "Phone", "it": "Telefono", "de": "Telefon", "fr": "Téléphone", "es": "Teléfono" },
+            "city": { "en": "City", "it": "Città", "de": "Stadt", "fr": "Ville", "es": "Ciudad" },
+            "email": { "en": "Email", "it": "Email", "de": "E-Mail", "fr": "E-mail", "es": "Email" },
+            "price": { "en": "Price", "it": "Prezzo", "de": "Preis", "fr": "Prix", "es": "Precio" },
+            "status": { "en": "Status", "it": "Stato", "de": "Status", "fr": "Statut", "es": "Estado" },
+            "ingredients": { "en": "Ingredients", "it": "Ingredienti", "de": "Zutaten", "fr": "Ingrédients", "es": "Ingredientes" },
+            "cuisines": { "en": "Cuisines", "it": "Cucine", "de": "Küchen", "fr": "Cuisines", "es": "Cocinas" },
+            "available": { "en": "Available", "it": "Disponibile", "de": "Verfügbar", "fr": "Disponible", "es": "Disponible" },
+            "unavailable": { "en": "Unavailable", "it": "Non disponibile", "de": "Nicht verfügbar", "fr": "Indisponible", "es": "No disponible" },
+            "soldOut": { "en": "Sold out", "it": "Esaurito", "de": "Ausverkauft", "fr": "Épuisé", "es": "Agotado" },
+            "paid": { "en": "Paid", "it": "Pagato", "de": "Bezahlt", "fr": "Payé", "es": "Pagado" }
+        },
+        "home": {
+            "loggedIn": { "en": "You are logged in", "it": "Hai effettuato l'accesso", "de": "Du bist angemeldet", "fr": "Vous êtes connecté", "es": "Has iniciado sesión" }
+        },
+        "notYours": {
+            "title": { "en": "Not available", "it": "Non disponibile", "de": "Nicht verfügbar", "fr": "Indisponible", "es": "No disponible" },
+            "orders": { "en": "These orders belong to another partner", "it": "Questi ordini appartengono a un altro partner", "de": "Diese Bestellungen gehören einem anderen Partner", "fr": "Ces commandes appartiennent à un autre partenaire", "es": "Estos pedidos pertenecen a otro partner" },
+            "plate": { "en": "This belongs to another partner", "it": "Questo appartiene a un altro partner", "de": "Das gehört einem anderen Partner", "fr": "Ceci appartient à un autre partenaire", "es": "Esto pertenece a otro partner" },
+            "restaurant": { "en": "This restaurant belongs to another partner", "it": "Questo ristorante appartiene a un altro partner", "de": "Dieses Restaurant gehört einem anderen Partner", "fr": "Ce restaurant appartient à un autre partenaire", "es": "Este restaurante pertenece a otro partner" },
+            "text": { "en": "You can only manage your own restaurants. It was probably just a wrong link.", "it": "Puoi gestire solo i tuoi ristoranti. Probabilmente era solo un link sbagliato.", "de": "Du kannst nur deine eigenen Restaurants verwalten. Vermutlich war es nur ein falscher Link.", "fr": "Vous ne pouvez gérer que vos propres restaurants. C'était sans doute un mauvais lien.", "es": "Solo puedes gestionar tus propios restaurantes. Seguramente era un enlace equivocado." },
+            "cta": { "en": "Go to your restaurants", "it": "Vai ai tuoi ristoranti", "de": "Zu deinen Restaurants", "fr": "Aller à vos restaurants", "es": "Ir a tus restaurantes" }
+        },
+        "orders": {
+            "heading": { "en": "Paid orders", "it": "Ordini pagati", "de": "Bezahlte Bestellungen", "fr": "Commandes payées", "es": "Pedidos pagados" },
+            "lead": { "en": "Newest first.", "it": "Prima i più recenti.", "de": "Neueste zuerst.", "fr": "Les plus récentes d'abord.", "es": "Primero los más recientes." },
+            "emptyTitle": { "en": "No orders yet", "it": "Ancora nessun ordine", "de": "Noch keine Bestellungen", "fr": "Pas encore de commande", "es": "Todavía no hay pedidos" },
+            "emptyText": { "en": "Paid orders will show up here as soon as guests check out.", "it": "Gli ordini pagati compariranno qui non appena i clienti completano il pagamento.", "de": "Bezahlte Bestellungen erscheinen hier, sobald Gäste bezahlen.", "fr": "Les commandes payées apparaîtront ici dès que les clients auront réglé.", "es": "Los pedidos pagados aparecerán aquí en cuanto los clientes paguen." },
+            "details": { "en": "Details", "it": "Dettagli", "de": "Details", "fr": "Détails", "es": "Detalles" },
+            "all": { "en": "All orders", "it": "Tutti gli ordini", "de": "Alle Bestellungen", "fr": "Toutes les commandes", "es": "Todos los pedidos" },
+            "order": { "en": "Order", "it": "Ordine", "de": "Bestellung", "fr": "Commande", "es": "Pedido" },
+            "tabTitle": { "en": "Order #:id", "it": "Ordine #:id", "de": "Bestellung #:id", "fr": "Commande #:id", "es": "Pedido #:id" },
+            "placed": { "en": "Placed on :date", "it": "Effettuato il :date", "de": "Aufgegeben am :date", "fr": "Passée le :date", "es": "Realizado el :date" },
+            "delivery": { "en": "Delivery", "it": "Consegna", "de": "Lieferung", "fr": "Livraison", "es": "Entrega" },
+            "payment": { "en": "Payment", "it": "Pagamento", "de": "Zahlung", "fr": "Paiement", "es": "Pago" },
+            "processedBy": { "en": "Processed by", "it": "Elaborato da", "de": "Abgewickelt von", "fr": "Traité par", "es": "Procesado por" },
+            "transaction": { "en": "Transaction ID", "it": "ID transazione", "de": "Transaktions-ID", "fr": "ID de transaction", "es": "ID de transacción" },
+            "dishes": { "en": "Dishes", "it": "Piatti", "de": "Gerichte", "fr": "Plats", "es": "Platos" },
+            "totalPaid": { "en": "Total paid", "it": "Totale pagato", "de": "Bezahlt gesamt", "fr": "Total payé", "es": "Total pagado" },
+            "provider": {
+                "braintree": { "en": "Braintree", "it": "Braintree", "de": "Braintree", "fr": "Braintree", "es": "Braintree" },
+                "sandbox": { "en": "Braintree sandbox", "it": "Braintree sandbox", "de": "Braintree-Sandbox", "fr": "Sandbox Braintree", "es": "Sandbox de Braintree" },
+                "fake": { "en": "Demo payment (offline)", "it": "Pagamento demo (offline)", "de": "Demo-Zahlung (offline)", "fr": "Paiement de démonstration (hors ligne)", "es": "Pago de demostración (sin conexión)" },
+                "demo": { "en": "Demo data", "it": "Dati demo", "de": "Demodaten", "fr": "Données de démonstration", "es": "Datos de demostración" }
+            }
+        },
+        "plates": {
+            "heading": { "en": "Your dishes", "it": "I tuoi piatti", "de": "Deine Gerichte", "fr": "Vos plats", "es": "Tus platos" },
+            "lead": { "en": "What guests see and order on Foodsy.", "it": "Ciò che i clienti vedono e ordinano su Foodsy.", "de": "Was Gäste auf Foodsy sehen und bestellen.", "fr": "Ce que les clients voient et commandent sur Foodsy.", "es": "Lo que los clientes ven y piden en Foodsy." },
+            "new": { "en": "New dish", "it": "Nuovo piatto", "de": "Neues Gericht", "fr": "Nouveau plat", "es": "Nuevo plato" },
+            "removed": { "en": ":name has been removed from the menu.", "it": ":name è stato tolto dal menu.", "de": ":name wurde von der Speisekarte genommen.", "fr": ":name a été retiré de la carte.", "es": ":name se ha retirado de la carta." },
+            "emptyTitle": { "en": "The menu is empty", "it": "Il menu è vuoto", "de": "Die Speisekarte ist leer", "fr": "La carte est vide", "es": "La carta está vacía" },
+            "emptyText": { "en": "Add your first dish so guests can order it.", "it": "Aggiungi il tuo primo piatto perché i clienti possano ordinarlo.", "de": "Füge dein erstes Gericht hinzu, damit Gäste es bestellen können.", "fr": "Ajoutez votre premier plat pour que les clients puissent le commander.", "es": "Añade tu primer plato para que los clientes puedan pedirlo." },
+            "dish": { "en": "Dish", "it": "Piatto", "de": "Gericht", "fr": "Plat", "es": "Plato" },
+            "submitNew": { "en": "Add to menu", "it": "Aggiungi al menu", "de": "Zur Speisekarte hinzufügen", "fr": "Ajouter à la carte", "es": "Añadir a la carta" },
+            "editEyebrow": { "en": "Edit dish", "it": "Modifica piatto", "de": "Gericht bearbeiten", "fr": "Modifier le plat", "es": "Editar plato" },
+            "deleteDish": { "en": "Delete dish", "it": "Elimina piatto", "de": "Gericht löschen", "fr": "Supprimer le plat", "es": "Eliminar plato" },
+            "priceEuro": { "en": "Price (€)", "it": "Prezzo (€)", "de": "Preis (€)", "fr": "Prix (€)", "es": "Precio (€)" },
+            "ingredientsHint": { "en": "Separate them with commas, main ones first.", "it": "Separali con virgole, prima i principali.", "de": "Mit Kommas trennen, die wichtigsten zuerst.", "fr": "Séparez-les par des virgules, les principaux d'abord.", "es": "Sepáralos con comas, primero los principales." },
+            "photo": { "en": "Photo", "it": "Foto", "de": "Foto", "fr": "Photo", "es": "Foto" },
+            "photoUrl": { "en": "…or a link to a photo hosted online", "it": "…oppure il link a una foto online", "de": "…oder ein Link zu einem Foto im Netz", "fr": "…ou le lien d'une photo hébergée en ligne", "es": "…o el enlace a una foto alojada en internet" },
+            "photoUrlHint": { "en": "An https link to an image you are allowed to use. We show it from its address, we never copy it. An uploaded file wins over the link.", "it": "Un link https a un'immagine che hai il diritto di usare. La mostriamo dal suo indirizzo, non la copiamo mai. Un file caricato ha la precedenza sul link.", "de": "Ein https-Link zu einem Bild, das du verwenden darfst. Wir zeigen es von seiner Adresse, wir kopieren es nie. Eine hochgeladene Datei hat Vorrang vor dem Link.", "fr": "Un lien https vers une image que vous avez le droit d'utiliser. Nous l'affichons depuis son adresse, sans jamais la copier. Un fichier importé l'emporte sur le lien.", "es": "Un enlace https a una imagen que puedas usar. La mostramos desde su dirección, nunca la copiamos. Un archivo subido tiene prioridad sobre el enlace." },
+            "eyebrow": { "en": "Dish", "it": "Piatto", "de": "Gericht", "fr": "Plat", "es": "Plato" },
+            "seasonal": { "en": "Seasonal: :from–:to", "it": "Stagionale: :from–:to", "de": "Saisonal: :from–:to", "fr": "De saison : :from–:to", "es": "De temporada: :from–:to" },
+            "allergens": { "en": "Allergens", "it": "Allergeni", "de": "Allergene", "fr": "Allergènes", "es": "Alérgenos" },
+            "dietary": { "en": "Dietary", "it": "Regimi alimentari", "de": "Ernährung", "fr": "Régimes", "es": "Dietas" },
+            "notDeclared": { "en": "Not declared", "it": "Non dichiarato", "de": "Nicht angegeben", "fr": "Non déclaré", "es": "No declarado" },
+            "declaration": {
+                "complete": { "en": "Complete declaration", "it": "Dichiarazione completa", "de": "Vollständige Angabe", "fr": "Déclaration complète", "es": "Declaración completa" },
+                "partial": { "en": "Partial declaration", "it": "Dichiarazione parziale", "de": "Teilweise Angabe", "fr": "Déclaration partielle", "es": "Declaración parcial" }
+            },
+            "nonePresent": { "en": "none present", "it": "nessuno presente", "de": "keine enthalten", "fr": "aucun présent", "es": "ninguno presente" },
+            "mayContain": { "en": "may contain", "it": "può contenere", "de": "kann enthalten", "fr": "peut contenir", "es": "puede contener" },
+            "fromIngredients": { "en": "from ingredients", "it": "dagli ingredienti", "de": "aus den Zutaten", "fr": "d'après les ingrédients", "es": "según los ingredientes" },
+            "dietValue": {
+                "yes": { "en": "yes", "it": "sì", "de": "ja", "fr": "oui", "es": "sí" },
+                "no": { "en": "no", "it": "no", "de": "nein", "fr": "non", "es": "no" },
+                "unknown": { "en": "not verified", "it": "non verificato", "de": "nicht geprüft", "fr": "non vérifié", "es": "sin verificar" }
+            },
+            "availability": { "en": "Availability", "it": "Disponibilità", "de": "Verfügbarkeit", "fr": "Disponibilité", "es": "Disponibilidad" },
+            "availabilityOptions": {
+                "available": { "en": "Available, guests can order it", "it": "Disponibile, i clienti possono ordinarlo", "de": "Verfügbar, Gäste können es bestellen", "fr": "Disponible, les clients peuvent le commander", "es": "Disponible, los clientes pueden pedirlo" },
+                "sold_out": { "en": "Sold out for now", "it": "Esaurito per ora", "de": "Vorerst ausverkauft", "fr": "Épuisé pour le moment", "es": "Agotado por ahora" },
+                "unavailable": { "en": "Not on the menu right now", "it": "Al momento non è nel menu", "de": "Gerade nicht auf der Karte", "fr": "Pas à la carte en ce moment", "es": "Ahora no está en la carta" }
+            },
+            "course": { "en": "Course", "it": "Portata", "de": "Gang", "fr": "Catégorie", "es": "Categoría" },
+            "courses": {
+                "starter": { "en": "Starter", "it": "Antipasto", "de": "Vorspeise", "fr": "Entrée", "es": "Entrante" },
+                "salad": { "en": "Salad", "it": "Insalata", "de": "Salat", "fr": "Salade", "es": "Ensalada" },
+                "soup": { "en": "Soup", "it": "Zuppa", "de": "Suppe", "fr": "Soupe", "es": "Sopa" },
+                "pasta": { "en": "Pasta", "it": "Pasta", "de": "Pasta", "fr": "Pâtes", "es": "Pasta" },
+                "risotto": { "en": "Risotto", "it": "Risotto", "de": "Risotto", "fr": "Risotto", "es": "Risotto" },
+                "pizza": { "en": "Pizza", "it": "Pizza", "de": "Pizza", "fr": "Pizza", "es": "Pizza" },
+                "burger": { "en": "Burger", "it": "Burger", "de": "Burger", "fr": "Burger", "es": "Hamburguesa" },
+                "sandwich": { "en": "Sandwich", "it": "Panino", "de": "Sandwich", "fr": "Sandwich", "es": "Bocadillo" },
+                "main": { "en": "Main", "it": "Secondo", "de": "Hauptgericht", "fr": "Plat principal", "es": "Principal" },
+                "side": { "en": "Side", "it": "Contorno", "de": "Beilage", "fr": "Accompagnement", "es": "Guarnición" },
+                "sushi": { "en": "Sushi", "it": "Sushi", "de": "Sushi", "fr": "Sushi", "es": "Sushi" },
+                "ramen": { "en": "Ramen", "it": "Ramen", "de": "Ramen", "fr": "Ramen", "es": "Ramen" },
+                "poke": { "en": "Poke", "it": "Poke", "de": "Poke", "fr": "Poké", "es": "Poke" },
+                "dessert": { "en": "Dessert", "it": "Dolce", "de": "Dessert", "fr": "Dessert", "es": "Postre" },
+                "bakery": { "en": "Bakery", "it": "Forno", "de": "Backwaren", "fr": "Boulangerie", "es": "Panadería" },
+                "gelato": { "en": "Gelato", "it": "Gelato", "de": "Gelato", "fr": "Glace", "es": "Helado" },
+                "tasting_menu": { "en": "Tasting menu", "it": "Menu degustazione", "de": "Degustationsmenü", "fr": "Menu dégustation", "es": "Menú degustación" },
+                "water": { "en": "Water", "it": "Acqua", "de": "Wasser", "fr": "Eau", "es": "Agua" },
+                "soft_drink": { "en": "Soft drink", "it": "Bibita", "de": "Softdrink", "fr": "Boisson sans alcool", "es": "Refresco" },
+                "beer": { "en": "Beer", "it": "Birra", "de": "Bier", "fr": "Bière", "es": "Cerveza" },
+                "wine_white": { "en": "White wine", "it": "Vino bianco", "de": "Weißwein", "fr": "Vin blanc", "es": "Vino blanco" },
+                "wine_red": { "en": "Red wine", "it": "Vino rosso", "de": "Rotwein", "fr": "Vin rouge", "es": "Vino tinto" },
+                "wine_rose": { "en": "Rosé wine", "it": "Vino rosato", "de": "Roséwein", "fr": "Vin rosé", "es": "Vino rosado" },
+                "sparkling": { "en": "Sparkling wine", "it": "Spumante", "de": "Schaumwein", "fr": "Vin pétillant", "es": "Espumoso" },
+                "champagne": { "en": "Champagne", "it": "Champagne", "de": "Champagner", "fr": "Champagne", "es": "Champán" },
+                "dessert_wine": { "en": "Dessert wine", "it": "Vino da dessert", "de": "Dessertwein", "fr": "Vin de dessert", "es": "Vino dulce" },
+                "spirit": { "en": "Spirit", "it": "Distillato", "de": "Spirituose", "fr": "Spiritueux", "es": "Destilado" },
+                "cocktail": { "en": "Cocktail", "it": "Cocktail", "de": "Cocktail", "fr": "Cocktail", "es": "Cóctel" },
+                "hot_drink": { "en": "Hot drink", "it": "Bevanda calda", "de": "Heißgetränk", "fr": "Boisson chaude", "es": "Bebida caliente" }
+            },
+            "serves": { "en": "Serves (people)", "it": "Porzioni (persone)", "de": "Portionen (Personen)", "fr": "Pour (personnes)", "es": "Raciones (personas)" },
+            "calories": { "en": "Calories (kcal per portion)", "it": "Calorie (kcal a porzione)", "de": "Kalorien (kcal pro Portion)", "fr": "Calories (kcal par portion)", "es": "Calorías (kcal por ración)" },
+            "caloriesHint": { "en": "Leave empty if you do not know.", "it": "Lascia vuoto se non lo sai.", "de": "Leer lassen, wenn du es nicht weißt.", "fr": "Laissez vide si vous ne savez pas.", "es": "Déjalo vacío si no lo sabes." },
+            "seasonalFrom": { "en": "Seasonal from", "it": "Stagionale da", "de": "Saisonal ab", "fr": "De saison à partir de", "es": "De temporada desde" },
+            "seasonalUntil": { "en": "Seasonal until", "it": "Stagionale fino a", "de": "Saisonal bis", "fr": "De saison jusqu'à", "es": "De temporada hasta" },
+            "allYear": { "en": "All year", "it": "Tutto l'anno", "de": "Ganzjährig", "fr": "Toute l'année", "es": "Todo el año" },
+            "dietTitle": { "en": "Dietary information (optional)", "it": "Informazioni alimentari (facoltative)", "de": "Ernährungsangaben (optional)", "fr": "Informations alimentaires (facultatif)", "es": "Información alimentaria (opcional)" },
+            "dietHint": { "en": "Only state what you have checked. \"Not declared\" leaves the information unknown to guests.", "it": "Indica solo ciò che hai verificato. \"Non dichiarato\" lascia l'informazione sconosciuta ai clienti.", "de": "Gib nur an, was du geprüft hast. \"Nicht angegeben\" lässt die Information für Gäste offen.", "fr": "N'indiquez que ce que vous avez vérifié. « Non déclaré » laisse l'information inconnue pour les clients.", "es": "Indica solo lo que hayas comprobado. \"No declarado\" deja la información desconocida para los clientes." },
+            "dietStatus": {
+                "notDeclared": { "en": "Not declared", "it": "Non dichiarato", "de": "Nicht angegeben", "fr": "Non déclaré", "es": "No declarado" },
+                "yes": { "en": "Yes", "it": "Sì", "de": "Ja", "fr": "Oui", "es": "Sí" },
+                "no": { "en": "No", "it": "No", "de": "Nein", "fr": "Non", "es": "No" },
+                "unknown": { "en": "Not verified", "it": "Non verificato", "de": "Nicht geprüft", "fr": "Non vérifié", "es": "Sin verificar" }
+            },
+            "allergensTitle": { "en": "Allergens (optional)", "it": "Allergeni (facoltativi)", "de": "Allergene (optional)", "fr": "Allergènes (facultatif)", "es": "Alérgenos (opcional)" },
+            "allergensHint": { "en": "\"Complete\" means you checked all 14 allergens: the ones left \"Not declared\" are absent. Use \"May contain\" for cross-contact in your kitchen.", "it": "\"Completa\" significa che hai verificato tutti i 14 allergeni: quelli lasciati \"Non dichiarato\" sono assenti. Usa \"Può contenere\" per le contaminazioni nella tua cucina.", "de": "\"Vollständig\" heißt, du hast alle 14 Allergene geprüft: Die auf \"Nicht angegeben\" gelassenen sind nicht enthalten. Nutze \"Kann enthalten\" für Kreuzkontakt in deiner Küche.", "fr": "« Complète » signifie que vous avez vérifié les 14 allergènes : ceux laissés sur « Non déclaré » sont absents. Utilisez « Peut contenir » pour les contaminations croisées en cuisine.", "es": "\"Completa\" significa que has comprobado los 14 alérgenos: los que quedan en \"No declarado\" no están presentes. Usa \"Puede contener\" para la contaminación cruzada en tu cocina." },
+            "allergenDeclaration": { "en": "Allergen declaration", "it": "Dichiarazione allergeni", "de": "Allergenangabe", "fr": "Déclaration des allergènes", "es": "Declaración de alérgenos" },
+            "declarationOptions": {
+                "notDeclared": { "en": "Not declared", "it": "Non dichiarato", "de": "Nicht angegeben", "fr": "Non déclaré", "es": "No declarado" },
+                "complete": { "en": "Complete", "it": "Completa", "de": "Vollständig", "fr": "Complète", "es": "Completa" },
+                "partial": { "en": "Partial", "it": "Parziale", "de": "Teilweise", "fr": "Partielle", "es": "Parcial" }
+            },
+            "allergenStatus": {
+                "notDeclared": { "en": "Not declared", "it": "Non dichiarato", "de": "Nicht angegeben", "fr": "Non déclaré", "es": "No declarado" },
+                "contains": { "en": "Contains", "it": "Contiene", "de": "Enthält", "fr": "Contient", "es": "Contiene" },
+                "may_contain": { "en": "May contain", "it": "Può contenere", "de": "Kann enthalten", "fr": "Peut contenir", "es": "Puede contener" }
+            }
+        },
+        "restaurants": {
+            "eyebrow": { "en": "Partner hub", "it": "Area partner", "de": "Partnerbereich", "fr": "Espace partenaire", "es": "Área de partners" },
+            "lead": { "en": "Manage menus, follow orders and see how each kitchen is doing.", "it": "Gestisci i menu, segui gli ordini e guarda come va ogni cucina.", "de": "Verwalte Speisekarten, verfolge Bestellungen und sieh, wie es jeder Küche geht.", "fr": "Gérez vos cartes, suivez les commandes et voyez comment se porte chaque cuisine.", "es": "Gestiona las cartas, sigue los pedidos y mira cómo va cada cocina." },
+            "new": { "en": "New restaurant", "it": "Nuovo ristorante", "de": "Neues Restaurant", "fr": "Nouveau restaurant", "es": "Nuevo restaurante" },
+            "deleted": { "en": ":name has been deleted.", "it": ":name è stato eliminato.", "de": ":name wurde gelöscht.", "fr": ":name a été supprimé.", "es": ":name se ha eliminado." },
+            "emptyTitle": { "en": "No restaurants yet", "it": "Ancora nessun ristorante", "de": "Noch keine Restaurants", "fr": "Pas encore de restaurant", "es": "Todavía no hay restaurantes" },
+            "emptyText": { "en": "Add your first restaurant to start receiving orders.", "it": "Aggiungi il tuo primo ristorante per iniziare a ricevere ordini.", "de": "Füge dein erstes Restaurant hinzu, um Bestellungen zu erhalten.", "fr": "Ajoutez votre premier restaurant pour commencer à recevoir des commandes.", "es": "Añade tu primer restaurante para empezar a recibir pedidos." },
+            "submitNew": { "en": "Create restaurant", "it": "Crea il ristorante", "de": "Restaurant anlegen", "fr": "Créer le restaurant", "es": "Crear restaurante" },
+            "editEyebrow": { "en": "Edit restaurant", "it": "Modifica ristorante", "de": "Restaurant bearbeiten", "fr": "Modifier le restaurant", "es": "Editar restaurante" },
+            "eyebrowShow": { "en": "Restaurant", "it": "Ristorante", "de": "Restaurant", "fr": "Restaurant", "es": "Restaurante" },
+            "descriptionHint": { "en": "What guests should know about your kitchen (optional).", "it": "Ciò che i clienti dovrebbero sapere sulla tua cucina (facoltativo).", "de": "Was Gäste über deine Küche wissen sollten (optional).", "fr": "Ce que les clients doivent savoir sur votre cuisine (facultatif).", "es": "Lo que los clientes deberían saber de tu cocina (opcional)." },
+            "priceRange": { "en": "Price range", "it": "Fascia di prezzo", "de": "Preisklasse", "fr": "Gamme de prix", "es": "Rango de precios" },
+            "priceRanges": {
+                "1": { "en": "€ · budget", "it": "€ · economico", "de": "€ · günstig", "fr": "€ · petit budget", "es": "€ · económico" },
+                "2": { "en": "€€ · mid-range", "it": "€€ · medio", "de": "€€ · mittel", "fr": "€€ · intermédiaire", "es": "€€ · medio" },
+                "3": { "en": "€€€ · premium", "it": "€€€ · premium", "de": "€€€ · gehoben", "fr": "€€€ · haut de gamme", "es": "€€€ · premium" },
+                "4": { "en": "€€€€ · fine dining", "it": "€€€€ · alta cucina", "de": "€€€€ · Spitzenküche", "fr": "€€€€ · gastronomique", "es": "€€€€ · alta cocina" }
+            },
+            "coverPhoto": { "en": "Cover photo", "it": "Foto di copertina", "de": "Titelfoto", "fr": "Photo de couverture", "es": "Foto de portada" }
+        },
+        "stats": {
+            "heading": { "en": "How your kitchen is doing", "it": "Come va la tua cucina", "de": "So läuft deine Küche", "fr": "Comment se porte votre cuisine", "es": "Cómo va tu cocina" },
+            "lead": { "en": "Computed from paid orders only.", "it": "Calcolate solo sugli ordini pagati.", "de": "Nur aus bezahlten Bestellungen berechnet.", "fr": "Calculées uniquement sur les commandes payées.", "es": "Calculadas solo con los pedidos pagados." },
+            "average": { "en": "Average order", "it": "Ordine medio", "de": "Durchschnittliche Bestellung", "fr": "Commande moyenne", "es": "Pedido medio" },
+            "thisMonth": { "en": "This month", "it": "Questo mese", "de": "Dieser Monat", "fr": "Ce mois-ci", "es": "Este mes" },
+            "thisYear": { "en": "This year", "it": "Quest'anno", "de": "Dieses Jahr", "fr": "Cette année", "es": "Este año" },
+            "share": { "en": "Month share of year", "it": "Peso del mese sull'anno", "de": "Monatsanteil am Jahr", "fr": "Part du mois dans l'année", "es": "Peso del mes en el año" },
+            "fan": { "en": "Your most loyal guest is :name: :times orders, :spent spent in total.", "it": "Il tuo cliente più fedele è :name: :times ordini, :spent spesi in totale.", "de": "Dein treuester Gast ist :name: :times Bestellungen, insgesamt :spent ausgegeben.", "fr": "Votre client le plus fidèle est :name : :times commandes, :spent dépensés au total.", "es": "Tu cliente más fiel es :name: :times pedidos, :spent gastados en total." },
+            "chart": {
+                "average": { "en": "Average", "it": "Media", "de": "Durchschnitt", "fr": "Moyenne", "es": "Media" },
+                "spent": { "en": "Spent (€)", "it": "Speso (€)", "de": "Ausgegeben (€)", "fr": "Dépensé (€)", "es": "Gastado (€)" },
+                "income": { "en": "Income (€)", "it": "Incasso (€)", "de": "Umsatz (€)", "fr": "Recettes (€)", "es": "Ingresos (€)" },
+                "eachOrder": { "en": "Value of each order (€)", "it": "Valore di ogni ordine (€)", "de": "Wert jeder Bestellung (€)", "fr": "Valeur de chaque commande (€)", "es": "Importe de cada pedido (€)" },
+                "repeatGuests": { "en": "Repeat guests by total spent (€)", "it": "Clienti abituali per spesa totale (€)", "de": "Stammgäste nach Gesamtausgaben (€)", "fr": "Clients fidèles par total dépensé (€)", "es": "Clientes habituales por gasto total (€)" },
+                "byMonth": { "en": "Income by month (€)", "it": "Incasso per mese (€)", "de": "Umsatz pro Monat (€)", "fr": "Recettes par mois (€)", "es": "Ingresos por mes (€)" },
+                "thisMonth": { "en": "This month", "it": "Questo mese", "de": "Dieser Monat", "fr": "Ce mois-ci", "es": "Este mes" },
+                "thisYear": { "en": "This year", "it": "Quest'anno", "de": "Dieses Jahr", "fr": "Cette année", "es": "Este año" },
+                "monthVsYear": { "en": "This month against the whole year", "it": "Questo mese rispetto all'intero anno", "de": "Dieser Monat im Vergleich zum ganzen Jahr", "fr": "Ce mois-ci par rapport à toute l'année", "es": "Este mes frente a todo el año" }
+            }
+        },
+        "auth": {
+            "asideTitle": { "en": "Your kitchen, on every table in town.", "it": "La tua cucina, su ogni tavola della città.", "de": "Deine Küche, auf jedem Tisch der Stadt.", "fr": "Votre cuisine, sur toutes les tables de la ville.", "es": "Tu cocina, en todas las mesas de la ciudad." },
+            "asideNote": { "en": "Publish your menu, receive paid orders and follow your growth from one place.", "it": "Pubblica il tuo menu, ricevi ordini già pagati e segui la tua crescita da un unico posto.", "de": "Veröffentliche deine Speisekarte, erhalte bezahlte Bestellungen und verfolge dein Wachstum an einem Ort.", "fr": "Publiez votre carte, recevez des commandes payées et suivez votre croissance depuis un seul endroit.", "es": "Publica tu carta, recibe pedidos pagados y sigue tu crecimiento desde un solo lugar." },
+            "back": { "en": "Back to Foodsy", "it": "Torna a Foodsy", "de": "Zurück zu Foodsy", "fr": "Retour à Foodsy", "es": "Volver a Foodsy" },
+            "email": { "en": "Email", "it": "Email", "de": "E-Mail", "fr": "E-mail", "es": "Email" },
+            "password": { "en": "Password", "it": "Password", "de": "Passwort", "fr": "Mot de passe", "es": "Contraseña" },
+            "forgot": { "en": "Forgot your password?", "it": "Hai dimenticato la password?", "de": "Passwort vergessen?", "fr": "Mot de passe oublié ?", "es": "¿Has olvidado tu contraseña?" },
+            "login": {
+                "title": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Connexion", "es": "Iniciar sesión" },
+                "heading": { "en": "Welcome back", "it": "Bentornato", "de": "Willkommen zurück", "fr": "Bon retour parmi nous", "es": "Hola de nuevo" },
+                "lead": { "en": "Log in to manage your restaurants, menus and orders.", "it": "Accedi per gestire ristoranti, menu e ordini.", "de": "Melde dich an, um Restaurants, Speisekarten und Bestellungen zu verwalten.", "fr": "Connectez-vous pour gérer vos restaurants, cartes et commandes.", "es": "Inicia sesión para gestionar tus restaurantes, cartas y pedidos." },
+                "remember": { "en": "Keep me logged in", "it": "Resta connesso", "de": "Angemeldet bleiben", "fr": "Rester connecté", "es": "Mantener la sesión iniciada" },
+                "submit": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
+                "newHere": { "en": "New to Foodsy?", "it": "Nuovo su Foodsy?", "de": "Neu bei Foodsy?", "fr": "Nouveau sur Foodsy ?", "es": "¿Nuevo en Foodsy?" },
+                "register": { "en": "Add your restaurant", "it": "Aggiungi il tuo ristorante", "de": "Restaurant eintragen", "fr": "Ajoutez votre restaurant", "es": "Añade tu restaurante" }
+            },
+            "confirm": {
+                "title": { "en": "Confirm password", "it": "Conferma la password", "de": "Passwort bestätigen", "fr": "Confirmer le mot de passe", "es": "Confirmar contraseña" },
+                "heading": { "en": "Confirm your password", "it": "Conferma la tua password", "de": "Bestätige dein Passwort", "fr": "Confirmez votre mot de passe", "es": "Confirma tu contraseña" },
+                "lead": { "en": "This is a protected area: please confirm your password before continuing.", "it": "Questa è un'area protetta: conferma la password prima di continuare.", "de": "Dies ist ein geschützter Bereich: Bitte bestätige dein Passwort, bevor du fortfährst.", "fr": "Cet espace est protégé : veuillez confirmer votre mot de passe pour continuer.", "es": "Esta es un área protegida: confirma tu contraseña antes de continuar." },
+                "submit": { "en": "Confirm password", "it": "Conferma la password", "de": "Passwort bestätigen", "fr": "Confirmer le mot de passe", "es": "Confirmar contraseña" }
+            },
+            "request": {
+                "title": { "en": "Reset password", "it": "Reimposta la password", "de": "Passwort zurücksetzen", "fr": "Réinitialiser le mot de passe", "es": "Restablecer contraseña" },
+                "heading": { "en": "Reset your password", "it": "Reimposta la tua password", "de": "Setze dein Passwort zurück", "fr": "Réinitialisez votre mot de passe", "es": "Restablece tu contraseña" },
+                "lead": { "en": "Enter the email of your partner account: we will send you a link to choose a new password.", "it": "Inserisci l'email del tuo account partner: ti invieremo un link per scegliere una nuova password.", "de": "Gib die E-Mail deines Partnerkontos ein: Wir senden dir einen Link, um ein neues Passwort zu wählen.", "fr": "Saisissez l'e-mail de votre compte partenaire : nous vous enverrons un lien pour choisir un nouveau mot de passe.", "es": "Introduce el email de tu cuenta de partner: te enviaremos un enlace para elegir una contraseña nueva." },
+                "submit": { "en": "Send reset link", "it": "Invia il link", "de": "Link senden", "fr": "Envoyer le lien", "es": "Enviar enlace" },
+                "backToLogin": { "en": "Back to log in", "it": "Torna all'accesso", "de": "Zurück zur Anmeldung", "fr": "Retour à la connexion", "es": "Volver a iniciar sesión" }
+            },
+            "reset": {
+                "title": { "en": "Choose a new password", "it": "Scegli una nuova password", "de": "Neues Passwort wählen", "fr": "Choisissez un nouveau mot de passe", "es": "Elige una contraseña nueva" },
+                "password": { "en": "New password", "it": "Nuova password", "de": "Neues Passwort", "fr": "Nouveau mot de passe", "es": "Contraseña nueva" },
+                "confirm": { "en": "Confirm new password", "it": "Conferma la nuova password", "de": "Neues Passwort bestätigen", "fr": "Confirmez le nouveau mot de passe", "es": "Confirma la contraseña nueva" },
+                "submit": { "en": "Save new password", "it": "Salva la nuova password", "de": "Neues Passwort speichern", "fr": "Enregistrer le mot de passe", "es": "Guardar contraseña nueva" }
+            },
+            "register": {
+                "title": { "en": "Join Foodsy", "it": "Unisciti a Foodsy", "de": "Bei Foodsy mitmachen", "fr": "Rejoindre Foodsy", "es": "Únete a Foodsy" },
+                "heading": { "en": "Bring your kitchen to Foodsy", "it": "Porta la tua cucina su Foodsy", "de": "Bring deine Küche zu Foodsy", "fr": "Faites entrer votre cuisine sur Foodsy", "es": "Trae tu cocina a Foodsy" },
+                "lead": { "en": "Create your partner account: you can publish your first restaurant in minutes.", "it": "Crea il tuo account partner: potrai pubblicare il tuo primo ristorante in pochi minuti.", "de": "Erstelle dein Partnerkonto: In wenigen Minuten ist dein erstes Restaurant online.", "fr": "Créez votre compte partenaire : votre premier restaurant sera en ligne en quelques minutes.", "es": "Crea tu cuenta de partner: podrás publicar tu primer restaurante en minutos." },
+                "firstName": { "en": "First name", "it": "Nome", "de": "Vorname", "fr": "Prénom", "es": "Nombre" },
+                "lastName": { "en": "Last name", "it": "Cognome", "de": "Nachname", "fr": "Nom", "es": "Apellidos" },
+                "vat": { "en": "VAT number", "it": "Partita IVA", "de": "USt-IdNr.", "fr": "Numéro de TVA", "es": "NIF/IVA" },
+                "confirmPassword": { "en": "Confirm password", "it": "Conferma la password", "de": "Passwort bestätigen", "fr": "Confirmez le mot de passe", "es": "Confirma la contraseña" },
+                "submit": { "en": "Create partner account", "it": "Crea l'account partner", "de": "Partnerkonto erstellen", "fr": "Créer le compte partenaire", "es": "Crear cuenta de partner" },
+                "already": { "en": "Already a partner?", "it": "Sei già partner?", "de": "Schon Partner?", "fr": "Déjà partenaire ?", "es": "¿Ya eres partner?" },
+                "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Inicia sesión" }
+            },
+            "verify": {
+                "title": { "en": "Verify your email", "it": "Verifica la tua email", "de": "E-Mail bestätigen", "fr": "Vérifiez votre e-mail", "es": "Verifica tu email" },
+                "heading": { "en": "Check your inbox", "it": "Controlla la tua casella", "de": "Schau in dein Postfach", "fr": "Consultez votre boîte mail", "es": "Revisa tu bandeja de entrada" },
+                "lead": { "en": "Before going on, open the verification link we sent to your email address.", "it": "Prima di proseguire, apri il link di verifica che abbiamo inviato al tuo indirizzo email.", "de": "Bevor es weitergeht, öffne den Bestätigungslink, den wir an deine E-Mail-Adresse geschickt haben.", "fr": "Avant de continuer, ouvrez le lien de vérification envoyé à votre adresse e-mail.", "es": "Antes de seguir, abre el enlace de verificación que hemos enviado a tu email." },
+                "resent": { "en": "A fresh verification link has been sent to your email address.", "it": "Un nuovo link di verifica è stato inviato al tuo indirizzo email.", "de": "Ein neuer Bestätigungslink wurde an deine E-Mail-Adresse gesendet.", "fr": "Un nouveau lien de vérification a été envoyé à votre adresse e-mail.", "es": "Te hemos enviado un nuevo enlace de verificación." },
+                "notReceived": { "en": "Did not receive the email?", "it": "Non hai ricevuto l'email?", "de": "Keine E-Mail erhalten?", "fr": "Vous n'avez pas reçu l'e-mail ?", "es": "¿No has recibido el email?" },
+                "submit": { "en": "Send another link", "it": "Invia un altro link", "de": "Neuen Link senden", "fr": "Envoyer un autre lien", "es": "Enviar otro enlace" }
+            }
+        },
+        "dialog": {
+            "title": { "en": "Delete this item?", "it": "Eliminare questo elemento?", "de": "Diesen Eintrag löschen?", "fr": "Supprimer cet élément ?", "es": "¿Eliminar este elemento?" },
+            "text": { "en": "It will be removed for good: this cannot be undone.", "it": "Verrà rimosso definitivamente: l'operazione non si può annullare.", "de": "Er wird endgültig entfernt: Das lässt sich nicht rückgängig machen.", "fr": "Il sera supprimé définitivement : cette action est irréversible.", "es": "Se eliminará para siempre: no se puede deshacer." },
+            "confirm": { "en": "Yes, delete it", "it": "Sì, elimina", "de": "Ja, löschen", "fr": "Oui, supprimer", "es": "Sí, eliminar" },
+            "keep": { "en": "Keep it", "it": "Tienilo", "de": "Behalten", "fr": "Le garder", "es": "Conservar" }
+        },
+        "toast": {
+            "loggedIn": { "en": "Welcome back, you are logged in.", "it": "Bentornato, hai effettuato l'accesso.", "de": "Willkommen zurück, du bist angemeldet.", "fr": "Bon retour, vous êtes connecté.", "es": "Hola de nuevo, has iniciado sesión." }
+        }
+    },
+    "mail": {
+        "order": {
+            "subject": { "en": "Your Foodsy order is confirmed", "it": "Il tuo ordine Foodsy è confermato", "de": "Deine Foodsy-Bestellung ist bestätigt", "fr": "Votre commande Foodsy est confirmée", "es": "Tu pedido de Foodsy está confirmado" },
+            "thanks": { "en": "Thank you, :name!", "it": "Grazie, :name!", "de": "Danke, :name!", "fr": "Merci, :name !", "es": "¡Gracias, :name!" },
+            "body": { "en": "Your order is confirmed and the kitchen is getting it ready. Your favourite food is on its way.", "it": "Il tuo ordine è confermato e la cucina lo sta preparando. Il tuo cibo preferito è in arrivo.", "de": "Deine Bestellung ist bestätigt und die Küche bereitet sie zu. Dein Lieblingsessen ist unterwegs.", "fr": "Votre commande est confirmée et la cuisine la prépare. Vos plats préférés sont en route.", "es": "Tu pedido está confirmado y la cocina lo está preparando. Tu comida favorita va de camino." },
+            "deliveringTo": { "en": "Delivering to", "it": "Consegna a", "de": "Lieferung an", "fr": "Livraison à", "es": "Entrega en" },
+            "totalPaid": { "en": "Total paid", "it": "Totale pagato", "de": "Bezahlt gesamt", "fr": "Total payé", "es": "Total pagado" },
+            "cta": { "en": "Order again on Foodsy", "it": "Ordina di nuovo su Foodsy", "de": "Wieder bei Foodsy bestellen", "fr": "Commander à nouveau sur Foodsy", "es": "Vuelve a pedir en Foodsy" },
+            "footer": { "en": "Good food, beautifully delivered.", "it": "Buon cibo, consegnato con cura.", "de": "Gutes Essen, liebevoll geliefert.", "fr": "La bonne cuisine, livrée avec soin.", "es": "Buena comida, entregada con mimo." }
+        }
+    },
+    "api": {
+        "order": {
+            "notOnMenu": { "en": "Some plates are not on the menu of this restaurant.", "it": "Alcuni piatti non sono nel menu di questo ristorante.", "de": "Einige Gerichte stehen nicht auf der Speisekarte dieses Restaurants.", "fr": "Certains plats ne sont pas à la carte de ce restaurant.", "es": "Algunos platos no están en la carta de este restaurante." },
+            "notAvailable": { "en": "Not available right now: :plates.", "it": "Non disponibili al momento: :plates.", "de": "Gerade nicht verfügbar: :plates.", "fr": "Indisponible pour le moment : :plates.", "es": "No disponible ahora mismo: :plates." }
+        },
+        "payment": {
+            "unavailable": { "en": "Payment service unavailable, please try again later.", "it": "Servizio di pagamento non disponibile, riprova più tardi.", "de": "Zahlungsdienst nicht verfügbar, bitte versuch es später noch einmal.", "fr": "Service de paiement indisponible, veuillez réessayer plus tard.", "es": "Servicio de pago no disponible, inténtalo más tarde." },
+            "declined": { "en": "Payment declined: :reason", "it": "Pagamento rifiutato: :reason", "de": "Zahlung abgelehnt: :reason", "fr": "Paiement refusé : :reason", "es": "Pago rechazado: :reason" }
+        }
+    },
+    "auth": {
+        "failed": { "en": "These credentials do not match our records.", "it": "Queste credenziali non corrispondono ai nostri dati.", "de": "Diese Zugangsdaten stimmen nicht mit unseren Daten überein.", "fr": "Ces identifiants ne correspondent pas à nos enregistrements.", "es": "Estas credenciales no coinciden con nuestros registros." },
+        "password": { "en": "The provided password is incorrect.", "it": "La password inserita non è corretta.", "de": "Das eingegebene Passwort ist falsch.", "fr": "Le mot de passe saisi est incorrect.", "es": "La contraseña introducida no es correcta." },
+        "throttle": { "en": "Too many login attempts. Please try again in :seconds seconds.", "it": "Troppi tentativi di accesso. Riprova tra :seconds secondi.", "de": "Zu viele Anmeldeversuche. Bitte versuch es in :seconds Sekunden erneut.", "fr": "Trop de tentatives de connexion. Veuillez réessayer dans :seconds secondes.", "es": "Demasiados intentos de acceso. Vuelve a intentarlo en :seconds segundos." }
+    },
+    "passwords": {
+        "reset": { "en": "Your password has been reset!", "it": "La tua password è stata reimpostata!", "de": "Dein Passwort wurde zurückgesetzt!", "fr": "Votre mot de passe a été réinitialisé !", "es": "¡Tu contraseña se ha restablecido!" },
+        "sent": { "en": "We have emailed your password reset link!", "it": "Ti abbiamo inviato via email il link per reimpostare la password!", "de": "Wir haben dir den Link zum Zurücksetzen per E-Mail geschickt!", "fr": "Nous vous avons envoyé par e-mail le lien de réinitialisation !", "es": "¡Te hemos enviado por email el enlace para restablecer la contraseña!" },
+        "throttled": { "en": "Please wait before retrying.", "it": "Attendi prima di riprovare.", "de": "Bitte warte, bevor du es erneut versuchst.", "fr": "Veuillez patienter avant de réessayer.", "es": "Espera antes de volver a intentarlo." },
+        "token": { "en": "This password reset token is invalid.", "it": "Questo link per reimpostare la password non è valido.", "de": "Dieser Link zum Zurücksetzen ist ungültig.", "fr": "Ce lien de réinitialisation n'est pas valide.", "es": "Este enlace para restablecer la contraseña no es válido." },
+        "user": { "en": "We can't find a user with that email address.", "it": "Non troviamo nessun utente con questo indirizzo email.", "de": "Wir finden keinen Nutzer mit dieser E-Mail-Adresse.", "fr": "Aucun utilisateur ne correspond à cette adresse e-mail.", "es": "No encontramos ningún usuario con ese email." }
+    },
+    "pagination": {
+        "label": { "en": "Pagination", "it": "Paginazione", "de": "Seitennavigation", "fr": "Pagination", "es": "Paginación" },
+        "previous": { "en": "Previous page", "it": "Pagina precedente", "de": "Vorherige Seite", "fr": "Page précédente", "es": "Página anterior" },
+        "next": { "en": "Next page", "it": "Pagina successiva", "de": "Nächste Seite", "fr": "Page suivante", "es": "Página siguiente" }
+    },
+    "validation": {
+        "array": { "en": "The :attribute must be a list.", "it": "Il campo :attribute deve essere un elenco.", "de": "Das Feld :attribute muss eine Liste sein.", "fr": "Le champ :attribute doit être une liste.", "es": "El campo :attribute debe ser una lista." },
+        "between": {
+            "numeric": { "en": "The :attribute must be between :min and :max.", "it": "Il campo :attribute deve essere tra :min e :max.", "de": "Das Feld :attribute muss zwischen :min und :max liegen.", "fr": "Le champ :attribute doit être compris entre :min et :max.", "es": "El campo :attribute debe estar entre :min y :max." }
+        },
+        "boolean": { "en": "The :attribute must be yes or no.", "it": "Il campo :attribute deve essere sì o no.", "de": "Das Feld :attribute muss ja oder nein sein.", "fr": "Le champ :attribute doit valoir oui ou non.", "es": "El campo :attribute debe ser sí o no." },
+        "confirmed": { "en": "The :attribute confirmation does not match.", "it": "La conferma del campo :attribute non corrisponde.", "de": "Die Bestätigung von :attribute stimmt nicht überein.", "fr": "La confirmation du champ :attribute ne correspond pas.", "es": "La confirmación del campo :attribute no coincide." },
+        "digits_between": { "en": "The :attribute must be between :min and :max digits.", "it": "Il campo :attribute deve avere tra :min e :max cifre.", "de": "Das Feld :attribute muss zwischen :min und :max Ziffern haben.", "fr": "Le champ :attribute doit contenir entre :min et :max chiffres.", "es": "El campo :attribute debe tener entre :min y :max dígitos." },
+        "email": { "en": "The :attribute must be a valid email address.", "it": "Il campo :attribute deve essere un indirizzo email valido.", "de": "Das Feld :attribute muss eine gültige E-Mail-Adresse sein.", "fr": "Le champ :attribute doit être une adresse e-mail valide.", "es": "El campo :attribute debe ser un email válido." },
+        "exists": { "en": "The selected :attribute is invalid.", "it": "Il valore scelto per :attribute non è valido.", "de": "Die Auswahl für :attribute ist ungültig.", "fr": "La valeur choisie pour :attribute n'est pas valide.", "es": "El valor elegido para :attribute no es válido." },
+        "image": { "en": "The :attribute must be an image.", "it": "Il campo :attribute deve essere un'immagine.", "de": "Das Feld :attribute muss ein Bild sein.", "fr": "Le champ :attribute doit être une image.", "es": "El campo :attribute debe ser una imagen." },
+        "in": { "en": "The selected :attribute is invalid.", "it": "Il valore scelto per :attribute non è valido.", "de": "Die Auswahl für :attribute ist ungültig.", "fr": "La valeur choisie pour :attribute n'est pas valide.", "es": "El valor elegido para :attribute no es válido." },
+        "integer": { "en": "The :attribute must be a whole number.", "it": "Il campo :attribute deve essere un numero intero.", "de": "Das Feld :attribute muss eine ganze Zahl sein.", "fr": "Le champ :attribute doit être un nombre entier.", "es": "El campo :attribute debe ser un número entero." },
+        "max": {
+            "array": { "en": "The :attribute may not have more than :max items.", "it": "Il campo :attribute non può avere più di :max elementi.", "de": "Das Feld :attribute darf höchstens :max Einträge haben.", "fr": "Le champ :attribute ne peut pas contenir plus de :max éléments.", "es": "El campo :attribute no puede tener más de :max elementos." },
+            "file": { "en": "The :attribute may not be larger than :max kilobytes.", "it": "Il campo :attribute non può superare :max kilobyte.", "de": "Das Feld :attribute darf höchstens :max Kilobyte groß sein.", "fr": "Le champ :attribute ne peut pas dépasser :max kilo-octets.", "es": "El campo :attribute no puede superar los :max kilobytes." },
+            "numeric": { "en": "The :attribute may not be greater than :max.", "it": "Il campo :attribute non può essere maggiore di :max.", "de": "Das Feld :attribute darf nicht größer als :max sein.", "fr": "Le champ :attribute ne peut pas être supérieur à :max.", "es": "El campo :attribute no puede ser mayor que :max." },
+            "string": { "en": "The :attribute may not be longer than :max characters.", "it": "Il campo :attribute non può superare :max caratteri.", "de": "Das Feld :attribute darf höchstens :max Zeichen lang sein.", "fr": "Le champ :attribute ne peut pas dépasser :max caractères.", "es": "El campo :attribute no puede superar los :max caracteres." }
+        },
+        "mimes": { "en": "The :attribute must be a file of type: :values.", "it": "Il campo :attribute deve essere un file di tipo: :values.", "de": "Das Feld :attribute muss eine Datei vom Typ :values sein.", "fr": "Le champ :attribute doit être un fichier de type : :values.", "es": "El campo :attribute debe ser un archivo de tipo: :values." },
+        "min": {
+            "array": { "en": "The :attribute must have at least :min items.", "it": "Il campo :attribute deve avere almeno :min elementi.", "de": "Das Feld :attribute muss mindestens :min Einträge haben.", "fr": "Le champ :attribute doit contenir au moins :min éléments.", "es": "El campo :attribute debe tener al menos :min elementos." },
+            "numeric": { "en": "The :attribute must be at least :min.", "it": "Il campo :attribute deve essere almeno :min.", "de": "Das Feld :attribute muss mindestens :min sein.", "fr": "Le champ :attribute doit être au moins :min.", "es": "El campo :attribute debe ser al menos :min." },
+            "string": { "en": "The :attribute must be at least :min characters.", "it": "Il campo :attribute deve avere almeno :min caratteri.", "de": "Das Feld :attribute muss mindestens :min Zeichen lang sein.", "fr": "Le champ :attribute doit contenir au moins :min caractères.", "es": "El campo :attribute debe tener al menos :min caracteres." }
+        },
+        "numeric": { "en": "The :attribute must be a number.", "it": "Il campo :attribute deve essere un numero.", "de": "Das Feld :attribute muss eine Zahl sein.", "fr": "Le champ :attribute doit être un nombre.", "es": "El campo :attribute debe ser un número." },
+        "required": { "en": "The :attribute field is required.", "it": "Il campo :attribute è obbligatorio.", "de": "Das Feld :attribute ist erforderlich.", "fr": "Le champ :attribute est obligatoire.", "es": "El campo :attribute es obligatorio." },
+        "required_with": { "en": "The :attribute field is required when :values is set.", "it": "Il campo :attribute è obbligatorio quando è indicato :values.", "de": "Das Feld :attribute ist erforderlich, wenn :values angegeben ist.", "fr": "Le champ :attribute est obligatoire quand :values est renseigné.", "es": "El campo :attribute es obligatorio cuando se indica :values." },
+        "required_without": { "en": "The :attribute field is required.", "it": "Il campo :attribute è obbligatorio.", "de": "Das Feld :attribute ist erforderlich.", "fr": "Le champ :attribute est obligatoire.", "es": "El campo :attribute es obligatorio." },
+        "string": { "en": "The :attribute must be text.", "it": "Il campo :attribute deve essere un testo.", "de": "Das Feld :attribute muss Text sein.", "fr": "Le champ :attribute doit être du texte.", "es": "El campo :attribute debe ser texto." },
+        "unique": { "en": "This :attribute is already used.", "it": "Questo valore di :attribute è già in uso.", "de": "Dieser Wert für :attribute ist bereits vergeben.", "fr": "Cette valeur de :attribute est déjà utilisée.", "es": "Este valor de :attribute ya está en uso." },
+        "url": { "en": "The :attribute must be a valid link.", "it": "Il campo :attribute deve essere un link valido.", "de": "Das Feld :attribute muss ein gültiger Link sein.", "fr": "Le champ :attribute doit être un lien valide.", "es": "El campo :attribute debe ser un enlace válido." },
+        "custom": {
+            "img_url": {
+                "url": { "en": "Use a full https:// link to an image.", "it": "Usa un link completo https:// a un'immagine.", "de": "Verwende einen vollständigen https://-Link zu einem Bild.", "fr": "Utilisez un lien complet https:// vers une image.", "es": "Usa un enlace completo https:// a una imagen." }
+            }
+        },
+        "attributes": {
+            "name": { "en": "name", "it": "nome", "de": "Name", "fr": "nom", "es": "nombre" },
+            "last_name": { "en": "last name", "it": "cognome", "de": "Nachname", "fr": "nom de famille", "es": "apellidos" },
+            "email": { "en": "email", "it": "email", "de": "E-Mail", "fr": "e-mail", "es": "email" },
+            "password": { "en": "password", "it": "password", "de": "Passwort", "fr": "mot de passe", "es": "contraseña" },
+            "vat_number": { "en": "VAT number", "it": "partita IVA", "de": "USt-IdNr.", "fr": "numéro de TVA", "es": "NIF/IVA" },
+            "phone": { "en": "phone", "it": "telefono", "de": "Telefon", "fr": "téléphone", "es": "teléfono" },
+            "city": { "en": "city", "it": "città", "de": "Stadt", "fr": "ville", "es": "ciudad" },
+            "address": { "en": "address", "it": "indirizzo", "de": "Adresse", "fr": "adresse", "es": "dirección" },
+            "description": { "en": "description", "it": "descrizione", "de": "Beschreibung", "fr": "description", "es": "descripción" },
+            "price_range": { "en": "price range", "it": "fascia di prezzo", "de": "Preisklasse", "fr": "gamme de prix", "es": "rango de precios" },
+            "types": { "en": "cuisines", "it": "cucine", "de": "Küchen", "fr": "cuisines", "es": "cocinas" },
+            "img": { "en": "photo", "it": "foto", "de": "Foto", "fr": "photo", "es": "foto" },
+            "img_url": { "en": "photo link", "it": "link della foto", "de": "Foto-Link", "fr": "lien de la photo", "es": "enlace de la foto" },
+            "price": { "en": "price", "it": "prezzo", "de": "Preis", "fr": "prix", "es": "precio" },
+            "ingredients": { "en": "ingredients", "it": "ingredienti", "de": "Zutaten", "fr": "ingrédients", "es": "ingredientes" },
+            "availability": { "en": "availability", "it": "disponibilità", "de": "Verfügbarkeit", "fr": "disponibilité", "es": "disponibilidad" },
+            "visible": { "en": "visibility", "it": "visibilità", "de": "Sichtbarkeit", "fr": "visibilité", "es": "visibilidad" },
+            "course": { "en": "course", "it": "portata", "de": "Gang", "fr": "catégorie", "es": "categoría" },
+            "serves": { "en": "servings", "it": "porzioni", "de": "Portionen", "fr": "nombre de personnes", "es": "raciones" },
+            "calories": { "en": "calories", "it": "calorie", "de": "Kalorien", "fr": "calories", "es": "calorías" },
+            "available_from_month": { "en": "first month", "it": "mese di inizio", "de": "Startmonat", "fr": "mois de début", "es": "mes de inicio" },
+            "available_to_month": { "en": "last month", "it": "mese di fine", "de": "Endmonat", "fr": "mois de fin", "es": "mes de fin" },
+            "allergen_info": { "en": "allergen declaration", "it": "dichiarazione allergeni", "de": "Allergenangabe", "fr": "déclaration des allergènes", "es": "declaración de alérgenos" },
+            "customer_name": { "en": "first name", "it": "nome", "de": "Vorname", "fr": "prénom", "es": "nombre" },
+            "customer_lastName": { "en": "last name", "it": "cognome", "de": "Nachname", "fr": "nom", "es": "apellidos" },
+            "customer_email": { "en": "email", "it": "email", "de": "E-Mail", "fr": "e-mail", "es": "email" },
+            "customer_phone": { "en": "phone", "it": "telefono", "de": "Telefon", "fr": "téléphone", "es": "teléfono" },
+            "customer_address": { "en": "delivery address", "it": "indirizzo di consegna", "de": "Lieferadresse", "fr": "adresse de livraison", "es": "dirección de entrega" },
+            "restaurant_id": { "en": "restaurant", "it": "ristorante", "de": "Restaurant", "fr": "restaurant", "es": "restaurante" },
+            "plates": { "en": "dishes", "it": "piatti", "de": "Gerichte", "fr": "plats", "es": "platos" },
+            "payment_nonce": { "en": "card", "it": "carta", "de": "Karte", "fr": "carte", "es": "tarjeta" }
+        }
+    }
+}

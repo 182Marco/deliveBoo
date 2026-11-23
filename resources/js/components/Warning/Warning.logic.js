@@ -1,6 +1,6 @@
 import { mapActions, mapMutations, mapState } from "vuex";
 import { Icon } from "../Icon";
-import { scrollToTop } from "../../utils";
+import { scrollToTop, t } from "../../utils";
 
 // modal opened when a plate of another restaurant is added to the cart
 const warningLogic = {
@@ -20,6 +20,7 @@ const warningLogic = {
     methods: {
         ...mapMutations(["changeWarn", "emptyCart"]),
         ...mapActions(["getMenuAndDetails"]),
+        t,
         emptyCartAndStay() {
             this.changeWarn();
             this.emptyCart();

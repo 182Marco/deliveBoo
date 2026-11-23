@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\I18n\StringsLoader;
 use App\Payments\BraintreeGateway;
 use App\Payments\FakeGateway;
 use App\Payments\PaymentGateway;
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
             'fake' => new FakeGateway(),
             default => throw new \InvalidArgumentException('Unknown PAYMENT_DRIVER: ' . config('services.payments.driver')),
         });
+
+        // every translation (__(), validation, mail) comes from resources/js/utils/strings.json
+        $this->app->extend('translation.loader', fn ($files) => new StringsLoader($files));
     }
 
     public function boot(): void

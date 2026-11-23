@@ -1,4 +1,5 @@
-// pure helpers of the header search: what to ask, how to show a suggestion
+// helpers of the header search: what to ask, how to show a suggestion (texts in the current language)
+import { t } from "../../utils/i18n.js";
 
 // same threshold of RestaurantController@search: shorter queries are not sent
 const MIN_QUERY_LENGTH = 2;
@@ -27,11 +28,9 @@ const priceLevel = range => (range ? "€".repeat(range) : "");
 const resultMeta = rest =>
     [(rest.types ?? []).join(", "), rest.city, priceLevel(rest.price_range)].filter(Boolean).join(" · ");
 
-const ratingLabel = average => (average ? average.toFixed(1) : "New");
+const ratingLabel = average => (average ? average.toFixed(1) : t("search.new"));
 
 const resultsMessage = (count, query) =>
-    count
-        ? `${count} ${count === 1 ? "restaurant" : "restaurants"} found. Use the arrow keys to choose.`
-        : `No restaurants match “${query}”.`;
+    count ? t("search.live", { count }) : t("search.liveNone", { query });
 
 export { highlightParts, isSearchable, normalizeQuery, ratingLabel, resultMeta, resultsMessage };

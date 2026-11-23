@@ -1,5 +1,5 @@
 <template>
-    <span class="stars" role="img" :aria-label="`Rated ${average} out of 5`">
+    <span class="stars" role="img" :aria-label="t('stars.rated', { average })">
         <Icon
             v-for="n in max"
             :key="`star${n}`"

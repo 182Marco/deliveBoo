@@ -5,7 +5,7 @@
             class="hamburger-btn"
             aria-controls="mobile-menu"
             :aria-expanded="menuMobile ? 'true' : 'false'"
-            aria-label="Open menu"
+            :aria-label="t('drawer.open')"
             @click="toggleMenuMobile"
         >
             <Icon name="menu" :size="22" />

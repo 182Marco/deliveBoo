@@ -1,9 +1,12 @@
 // Pure statistics on the orders of a restaurant (admin/stats/show.blade.php).
 // Quirks of the first version are kept on purpose and marked "as before".
-const MONTH_NAMES = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
+const MONTHS = 12;
+
+// "January".."December" in the language of the page (Intl, no strings to translate)
+const monthName = (index, locale) => {
+    const name = new Intl.DateTimeFormat(locale, { month: "long" }).format(new Date(2000, index, 1));
+    return name.charAt(0).toUpperCase() + name.slice(1);
+};
 
 const sum = list => list.reduce((acc, cur) => acc + cur, 0);
 const unique = list => list.filter((e, i, a) => a.indexOf(e) === i);
@@ -40,10 +43,10 @@ const biggestSpendthrift = spendthrifts =>
 // as before invalid dates (NaN) count as January; months of different years are summed together
 const monthOf = order => new Date(order.created_at).getMonth() || 0;
 
-const incomeByMonth = orders => MONTH_NAMES.map((_, i) => sumPrices(orders.filter(e => monthOf(e) === i)));
+const incomeByMonth = orders => Array.from({ length: MONTHS }, (_, i) => sumPrices(orders.filter(e => monthOf(e) === i)));
 
-const monthsWithIncome = incomes =>
-    incomes.map((e, i) => ({ month: MONTH_NAMES[i], income: e })).filter(e => e.income > 0);
+const monthsWithIncome = (incomes, locale = "en") =>
+    incomes.map((e, i) => ({ month: monthName(i, locale), income: e })).filter(e => e.income > 0);
 
 // as before (a switch without `break` from July on): from July to December it is December's income
 const currentMonthIncome = (incomes, monthIndex) => incomes[monthIndex < 6 ? monthIndex : 11];

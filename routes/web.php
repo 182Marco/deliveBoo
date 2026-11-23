@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PlateController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\StatsController;
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,9 @@ Route::prefix('admin')
         // stats
         Route::resource('stats', StatsController::class)->only(['index', 'show']);
     });
+
+// language switch of the partner hub: sets the foodsy_locale cookie and goes back
+Route::get('locale/{locale}', LocaleController::class)->name('locale');
 
 // front office: the Vue SPA handles every other path. MUST stay last.
 Route::get('{any?}', function () {

@@ -43,9 +43,9 @@ class Order extends Model
     public function paymentProvider(): string
     {
         return match ($this->payment_driver) {
-            'braintree' => config('services.braintree.environment') === 'production' ? 'Braintree' : 'Braintree sandbox',
-            'fake' => 'Demo payment (offline)',
-            default => 'Demo data',
+            'braintree' => __(config('services.braintree.environment') === 'production' ? 'partner.orders.provider.braintree' : 'partner.orders.provider.sandbox'),
+            'fake' => __('partner.orders.provider.fake'),
+            default => __('partner.orders.provider.demo'),
         };
     }
 

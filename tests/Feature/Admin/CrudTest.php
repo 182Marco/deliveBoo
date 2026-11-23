@@ -66,10 +66,11 @@ class CrudTest extends TestCase
     {
         $this->post(route('admin.restaurants.store'), ['name' => str_repeat('a', 81)])
             ->assertSessionHasErrors([
-                'name' => 'Max 80 characters allowed for the name',
-                'phone' => 'The phone is required!',
-                'city' => 'The city is required!',
-                'address' => 'The address is required!',
+                // messages from resources/js/utils/strings.json (validation group), English by default
+                'name' => 'The name may not be longer than 80 characters.',
+                'phone' => 'The phone field is required.',
+                'city' => 'The city field is required.',
+                'address' => 'The address field is required.',
             ]);
 
         $this->post(route('admin.restaurants.store'), ['name' => 'x', 'phone' => '1', 'city' => 'c', 'address' => 'a',
@@ -102,7 +103,7 @@ class CrudTest extends TestCase
     {
         $this->patch(route('admin.restaurants.update', $this->ownedRestaurant()->id), [
             'name' => 'Burger King', 'phone' => '1', 'city' => 'c', 'address' => 'a',
-        ])->assertSessionHasErrors(['name' => 'This name is already used']);
+        ])->assertSessionHasErrors(['name' => 'This name is already used.']);
     }
 
     public function testDestroyRestaurantDetachesTypesAndFlashesName()
@@ -143,11 +144,11 @@ class CrudTest extends TestCase
     {
         $this->post(route('admin.plates.store'), ['name' => str_repeat('a', 81)])
             ->assertSessionHasErrors([
-                'name' => 'you have exceeded the 80 characters allowed for the name',
-                'ingredients' => 'Required Field!',
-                'description' => 'Required Field!',
-                'availability' => 'Required Field!',
-                'price' => 'Required Field!',
+                'name' => 'The name may not be longer than 80 characters.',
+                'ingredients' => 'The ingredients field is required.',
+                'description' => 'The description field is required.',
+                'availability' => 'The availability field is required.',
+                'price' => 'The price field is required.',
             ]);
 
         $this->post(route('admin.plates.store'), $this->plateData(['img' => UploadedFile::fake()->create('a.pdf', 5, 'application/pdf')]))
@@ -169,7 +170,7 @@ class CrudTest extends TestCase
         $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => $otherMenu->name]))
             ->assertSessionHasNoErrors();
         $this->patch(route('admin.plates.update', $plate->id), $this->plateData(['name' => $sameMenu->name]))
-            ->assertSessionHasErrors(['name' => 'This name is already used']);
+            ->assertSessionHasErrors(['name' => 'This name is already used.']);
     }
 
     public function testStorePlateWithANameUsedElsewhereGetsAUniqueSlug()

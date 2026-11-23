@@ -7,10 +7,10 @@
             <div class="ui-container rest-hero-inner">
                 <router-link :to="{ name: 'home', hash: '#explore' }" class="ui-btn ui-btn--light ui-btn--sm rest-back">
                     <Icon name="arrow-left" :size="18" />
-                    All restaurants
+                    {{ t("menu.back") }}
                 </router-link>
                 <div class="rest-id">
-                    <ul class="rest-tags" aria-label="Cuisines">
+                    <ul class="rest-tags" :aria-label="t('menu.cuisines')">
                         <li v-for="type in restaurant.types" :key="`tId${type}`" class="ui-badge ui-badge--light">
                             {{ type }}
                         </li>
@@ -18,7 +18,7 @@
                     <h1 id="rest-name" class="ui-display rest-name">{{ restaurant.location.name }}</h1>
                     <p class="rest-rating">
                         <StarsBox :average="stars" :size="18" />
-                        <span>{{ stars }} out of 5</span>
+                        <span>{{ t("menu.outOf", { stars }) }}</span>
                     </p>
                 </div>
             </div>
@@ -29,14 +29,14 @@
                 <li class="rest-fact">
                     <span class="rest-fact-icon"><Icon name="pin" :size="18" /></span>
                     <span>
-                        <span class="rest-fact-label">Address</span>
+                        <span class="rest-fact-label">{{ t("menu.address") }}</span>
                         {{ restaurant.location.address }}, {{ restaurant.location.city }}
                     </span>
                 </li>
                 <li class="rest-fact">
                     <span class="rest-fact-icon"><Icon name="phone" :size="18" /></span>
                     <span>
-                        <span class="rest-fact-label">Phone</span>
+                        <span class="rest-fact-label">{{ t("menu.phone") }}</span>
                         <a class="rest-phone" :href="`tel:${restaurant.location.phone}`">
                             {{ restaurant.location.phone }}
                         </a>
@@ -45,8 +45,8 @@
                 <li class="rest-fact">
                     <span class="rest-fact-icon"><Icon name="lock" :size="18" /></span>
                     <span>
-                        <span class="rest-fact-label">Payment</span>
-                        Card, charged at checkout
+                        <span class="rest-fact-label">{{ t("menu.payment") }}</span>
+                        {{ t("menu.paymentValue") }}
                     </span>
                 </li>
             </ul>
@@ -56,11 +56,11 @@
             <section class="rest-menu" aria-labelledby="menu-title">
                 <div class="rest-menu-head">
                     <div class="ui-section-intro">
-                        <p class="ui-eyebrow">The menu</p>
-                        <h2 id="menu-title" class="ui-title">What's cooking</h2>
+                        <p class="ui-eyebrow">{{ t("menu.eyebrow") }}</p>
+                        <h2 id="menu-title" class="ui-title">{{ t("menu.title") }}</h2>
                     </div>
                     <span v-if="menuPagination.last > 1" class="rest-page ui-muted">
-                        Page {{ menuPagination.current }} of {{ menuPagination.last }}
+                        {{ t("menu.page", { current: menuPagination.current, last: menuPagination.last }) }}
                     </span>
                 </div>
                 <ul class="rest-dishes">
@@ -72,20 +72,20 @@
             </section>
 
             <div class="rest-aside">
-                <OrderSummary cta-route="cart" cta-label="Review order" />
+                <OrderSummary cta-route="cart" />
             </div>
         </div>
 
         <router-link v-if="cart.length" :to="{ name: 'cart' }" class="rest-bagbar">
             <span class="rest-bagbar-count">{{ cart.length }}</span>
-            View your bag
+            {{ t("menu.viewBag") }}
             <span class="rest-bagbar-amount ui-price">€{{ amount }}</span>
         </router-link>
 
         <Warning v-if="warn" />
     </div>
 
-    <div v-else class="rest-loading" aria-busy="true" aria-label="Loading the menu">
+    <div v-else class="rest-loading" aria-busy="true" :aria-label="t('menu.loading')">
         <div class="rest-skeleton rest-skeleton--cover"></div>
         <div class="ui-container rest-loading-lines">
             <div class="rest-skeleton rest-skeleton--line"></div>

@@ -15,7 +15,7 @@
                     v-else-if="orderable"
                     type="button"
                     class="dish-add"
-                    :aria-label="`Add ${plate.name} to your bag`"
+                    :aria-label="t('dish.add', { name: plate.name })"
                     @click="addToCart"
                 >
                     <Icon name="plus" :size="22" />
@@ -29,7 +29,7 @@
             </div>
             <p class="dish-description">{{ plate.description }}</p>
             <p class="dish-ingredients">
-                <span class="ui-sr-only">Ingredients:</span>
+                <span class="ui-sr-only">{{ t("dish.ingredients") }}</span>
                 {{ plate.ingredients }}
             </p>
         </div>

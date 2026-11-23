@@ -3,3 +3,4 @@ export { debounce } from "./debounce.js";
 export { formatPrice } from "./format.js";
 export { toPagination } from "./pagination.js";
 export { scrollToTop } from "./scroll.js";
+export { currentLocale, isLocale, LOCALES, setLocale, t } from "./i18n.js";

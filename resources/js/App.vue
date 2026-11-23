@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <a class="app-skip" href="#main">Skip to content</a>
+        <a class="app-skip" href="#main">{{ t("skip") }}</a>
         <Header />
         <!-- nothing inside <router-view>: in Vue Router 4 any content becomes its slot -->
         <main id="main" class="app-main" tabindex="-1">

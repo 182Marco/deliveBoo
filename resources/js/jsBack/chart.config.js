@@ -1,4 +1,5 @@
-// Chart.js configurations of admin/stats/show.blade.php
+// Chart.js configurations of admin/stats/show.blade.php; `text` holds the labels in the page language
+// (partner.stats.chart of resources/js/utils/strings.json, printed by the view)
 import { monthsWithIncome } from "./chart.utils.js";
 
 // Foodsy palette (resources/css/tokens.css): brand, saffron, olive, rosemary, tomato, saffron ink, paprika
@@ -29,13 +30,13 @@ const chartOptions = (indexAxis, title, plugins = {}) => ({
 });
 
 // every order plus a last bar with the average
-const expensesChart = (orders, average) => ({
+const expensesChart = (orders, average, text) => ({
     type: "bar",
     data: {
-        labels: orders.map(e => e.customer_lastName).concat("Average"),
+        labels: orders.map(e => e.customer_lastName).concat(text.average),
         datasets: [
             {
-                label: "Spent (€)",
+                label: text.spent,
                 data: orders.map(e => e.price).concat(average),
                 backgroundColor: fills(EXPENSES_COLORS),
                 borderColor: borders(EXPENSES_COLORS),
@@ -43,16 +44,16 @@ const expensesChart = (orders, average) => ({
             }
         ]
     },
-    options: chartOptions("y", "Value of each order (€)")
+    options: chartOptions("y", text.eachOrder)
 });
 
-const fansChart = spendthrifts => ({
+const fansChart = (spendthrifts, text) => ({
     type: "bar",
     data: {
         labels: spendthrifts.map(e => e.lastName),
         datasets: [
             {
-                label: "Spent (€)",
+                label: text.spent,
                 data: spendthrifts.map(e => e.totalExpenses),
                 backgroundColor: fills(FANS_COLORS),
                 borderColor: borders(FANS_COLORS),
@@ -60,29 +61,29 @@ const fansChart = spendthrifts => ({
             }
         ]
     },
-    options: chartOptions("x", "Repeat guests by total spent (€)")
+    options: chartOptions("x", text.repeatGuests)
 });
 
 // only the months with some income
-const monthlyChart = incomes => {
-    const months = monthsWithIncome(incomes);
+const monthlyChart = (incomes, text, locale) => {
+    const months = monthsWithIncome(incomes, locale);
     return {
         type: "line",
         data: {
             labels: months.map(e => e.month),
             datasets: [{ data: months.map(e => e.income), borderColor: BRAND, backgroundColor: BRAND, tension: 0.35 }]
         },
-        options: chartOptions("x", "Income by month (€)", { legend: { display: false } })
+        options: chartOptions("x", text.byMonth, { legend: { display: false } })
     };
 };
 
-const monthVsYearChart = (monthIncome, yearIncome) => ({
+const monthVsYearChart = (monthIncome, yearIncome, text) => ({
     type: "doughnut",
     data: {
-        labels: ["This month", "This year"],
+        labels: [text.thisMonth, text.thisYear],
         datasets: [
             {
-                label: "Income (€)",
+                label: text.income,
                 data: [monthIncome, yearIncome],
                 backgroundColor: [BRAND, SAFFRON],
                 borderColor: ["#fff"],
@@ -90,7 +91,7 @@ const monthVsYearChart = (monthIncome, yearIncome) => ({
             }
         ]
     },
-    options: chartOptions("x", "This month against the whole year")
+    options: chartOptions("x", text.monthVsYear)
 });
 
 export { expensesChart, fansChart, monthlyChart, monthVsYearChart };

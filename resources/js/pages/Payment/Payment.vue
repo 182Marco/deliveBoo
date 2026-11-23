@@ -2,11 +2,11 @@
     <div class="ui-container checkout">
         <router-link :to="{ name: 'cart' }" class="checkout-back">
             <Icon name="arrow-left" :size="18" />
-            Back to your bag
+            {{ t("checkout.back") }}
         </router-link>
         <div class="ui-section-intro checkout-title">
-            <p class="ui-eyebrow">Secure checkout</p>
-            <h1 class="ui-title">Almost at your table</h1>
+            <p class="ui-eyebrow">{{ t("checkout.eyebrow") }}</p>
+            <h1 class="ui-title">{{ t("checkout.title") }}</h1>
         </div>
 
         <div class="checkout-layout">
@@ -14,7 +14,7 @@
                 <section class="checkout-step" aria-labelledby="step-delivery">
                     <div class="checkout-step-head">
                         <span class="checkout-step-num">1</span>
-                        <h2 id="step-delivery" class="ui-subtitle">Delivery details</h2>
+                        <h2 id="step-delivery" class="ui-subtitle">{{ t("checkout.delivery") }}</h2>
                     </div>
                     <!-- test environments only: one discreet line, the details open in a dialog -->
                     <button
@@ -25,10 +25,10 @@
                         aria-haspopup="dialog"
                         @click="openTestCards"
                     >
-                        <span class="testbar-badge">Test mode</span>
-                        <span class="testbar-text">No real money moves here: pay with a test card.</span>
+                        <span class="testbar-badge">{{ t("checkout.test.badge") }}</span>
+                        <span class="testbar-text">{{ t("checkout.test.text") }}</span>
                         <span class="testbar-link">
-                            Test cards
+                            {{ t("checkout.test.link") }}
                             <Icon name="arrow-right" :size="16" />
                         </span>
                     </button>
@@ -40,7 +40,7 @@
                             :class="{ 'checkout-wide': field.wide }"
                         >
                             <label class="ui-label" :for="field.key">
-                                {{ field.label }} <span class="ui-required" aria-hidden="true">*</span>
+                                {{ t(field.label) }} <span class="ui-required" aria-hidden="true">*</span>
                             </label>
                             <!-- the message is absolute: an error never moves the fields below -->
                             <div class="field" :class="{ 'is-error': fieldError(field.key) }">
@@ -65,7 +65,7 @@
                 <section class="checkout-step" aria-labelledby="step-payment">
                     <div class="checkout-step-head">
                         <span class="checkout-step-num">2</span>
-                        <h2 id="step-payment" class="ui-subtitle">Payment</h2>
+                        <h2 id="step-payment" class="ui-subtitle">{{ t("checkout.payment") }}</h2>
                     </div>
                     <!-- containers filled by the Braintree hosted fields (or by their offline stand-in):
                          Vue never touches them, the error class goes on the wrapper -->
@@ -77,7 +77,7 @@
                             :class="{ 'checkout-wide': card.key === 'number' }"
                         >
                             <span class="ui-label">
-                                {{ card.label }} <span class="ui-required" aria-hidden="true">*</span>
+                                {{ t(card.label) }} <span class="ui-required" aria-hidden="true">*</span>
                             </span>
                             <div class="field" :class="{ 'is-error': fieldError(`card_${card.key}`) }">
                                 <div
@@ -93,13 +93,13 @@
                     </div>
                     <p class="checkout-secure">
                         <Icon name="lock" :size="16" />
-                        Card details go straight to our payment provider and never reach Foodsy.
+                        {{ t("checkout.secure") }}
                     </p>
                 </section>
 
                 <div v-if="nonce" class="ui-notice ui-notice--success" role="status">
                     <Icon name="check" />
-                    <p>Card verified, placing your order…</p>
+                    <p>{{ t("checkout.verified") }}</p>
                 </div>
                 <div v-if="error" class="ui-notice ui-notice--error" role="alert">
                     <p>{{ error }}</p>
@@ -119,7 +119,7 @@
                     :disabled="sending || !hostedFieldInstance"
                 >
                     <Icon name="lock" :size="18" />
-                    {{ sending ? "Placing your order…" : `Pay €${amount}` }}
+                    {{ sending ? t("checkout.placing") : t("checkout.pay", { amount }) }}
                 </button>
             </form>
 
@@ -130,18 +130,18 @@
         <div v-if="testOpen && testGuide" class="ui-modal-backdrop" @click.self="closeTestCards" @keydown.esc="closeTestCards">
             <section class="ui-modal testmodal" role="dialog" aria-modal="true" aria-labelledby="testmodal-title">
                 <div class="testmodal-head">
-                    <span class="testbar-badge">Test mode</span>
+                    <span class="testbar-badge">{{ t("checkout.test.badge") }}</span>
                     <button
                         ref="testClose"
                         type="button"
                         class="ui-btn ui-btn--ghost ui-btn--icon ui-btn--icon-sm"
-                        aria-label="Close"
+                        :aria-label="t('checkout.close')"
                         @click="closeTestCards"
                     >
                         <Icon name="close" :size="18" />
                     </button>
                 </div>
-                <h2 id="testmodal-title" class="ui-subtitle">Test payments</h2>
+                <h2 id="testmodal-title" class="ui-subtitle">{{ t("checkout.test.title") }}</h2>
                 <p class="testmodal-note">{{ testGuide.note }}</p>
                 <ul class="testpay-list">
                     <li v-for="row in testGuide.rows" :key="row.key" class="testpay-row">
@@ -156,17 +156,17 @@
                         <button
                             type="button"
                             class="ui-btn ui-btn--outline ui-btn--sm testpay-copy"
-                            :aria-label="`Copy the card number for: ${row.label}`"
+                            :aria-label="t('checkout.test.copyCard', { label: row.label })"
                             @click="copyCard(row)"
                         >
                             <Icon :name="copied === row.key ? 'check' : 'receipt'" :size="16" />
-                            {{ copied === row.key ? "Copied" : "Copy" }}
+                            {{ t(copied === row.key ? "checkout.copied" : "checkout.copy") }}
                         </button>
                     </li>
                 </ul>
                 <div class="ui-modal-actions">
                     <button type="button" class="ui-btn ui-btn--primary ui-btn--block" @click="closeTestCards">
-                        Got it
+                        {{ t("checkout.test.gotIt") }}
                     </button>
                 </div>
             </section>

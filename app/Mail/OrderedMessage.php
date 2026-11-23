@@ -8,7 +8,8 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-// order confirmation sent to the customer: a plain HTML view with inline styles (mail clients ignore stylesheets)
+// order confirmation sent to the customer: a plain HTML view with inline styles (mail clients ignore stylesheets),
+// in the language of the order request (app/Http/Middleware/SetLocale.php)
 class OrderedMessage extends Mailable
 {
     use Queueable, SerializesModels;
@@ -20,7 +21,7 @@ class OrderedMessage extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: 'Your Foodsy order is confirmed');
+        return new Envelope(subject: __('mail.order.subject'));
     }
 
     public function content(): Content

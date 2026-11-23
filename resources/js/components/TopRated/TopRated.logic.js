@@ -2,6 +2,7 @@ import { FoodImage } from "../FoodImage";
 import { Icon } from "../Icon";
 import { StarsBox } from "../StarsBox";
 import { fetchTopRated } from "../../api";
+import { t } from "../../utils";
 import { rankLabel, withStarsAverage } from "./TopRated.utils.js";
 
 // share of the visible rail moved by the arrows
@@ -23,6 +24,7 @@ const topRatedLogic = {
     methods: {
         menuRoute: rest => ({ name: "restMenu", params: { slug: rest.slug } }),
         rank: rankLabel,
+        t,
         // the rail stays swipeable; the arrows help mouse users
         scrollRail(direction) {
             const rail = this.$refs.rail;

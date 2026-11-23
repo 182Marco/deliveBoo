@@ -3,14 +3,14 @@
         <div class="ui-container">
             <div class="ui-section-head">
                 <div class="ui-section-intro">
-                    <p class="ui-eyebrow ui-eyebrow--inverse">Ranked by guest reviews</p>
-                    <h2 id="top-title" class="ui-title ui-inverse">Guest favourites</h2>
+                    <p class="ui-eyebrow ui-eyebrow--inverse">{{ t("top.eyebrow") }}</p>
+                    <h2 id="top-title" class="ui-title ui-inverse">{{ t("nav.favourites") }}</h2>
                 </div>
                 <div class="favs-controls">
                     <button
                         type="button"
                         class="ui-btn ui-btn--icon favs-arrow"
-                        aria-label="Previous restaurants"
+                        :aria-label="t('top.previous')"
                         @click="scrollRail(-1)"
                     >
                         <Icon name="arrow-left" />
@@ -18,7 +18,7 @@
                     <button
                         type="button"
                         class="ui-btn ui-btn--icon favs-arrow"
-                        aria-label="Next restaurants"
+                        :aria-label="t('top.next')"
                         @click="scrollRail(1)"
                     >
                         <Icon name="arrow-right" />
@@ -33,7 +33,7 @@
                             <span class="fav-rank" aria-hidden="true">{{ rank(i) }}</span>
                         </div>
                         <h3 class="fav-name">
-                            <span class="ui-sr-only">Number {{ i + 1 }}:</span>
+                            <span class="ui-sr-only">{{ t("top.number", { n: i + 1 }) }}</span>
                             {{ rest.name }}
                         </h3>
                         <p class="fav-meta">

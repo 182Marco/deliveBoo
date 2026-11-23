@@ -1,6 +1,7 @@
 import { mapMutations, mapState } from "vuex";
 import { Icon } from "../Icon";
 import { MenuMobile } from "../MenuMobile";
+import { t } from "../../utils";
 
 // menu button of small screens: MenuMobile is the drawer it opens
 const hamburgerLogic = {
@@ -10,7 +11,8 @@ const hamburgerLogic = {
         ...mapState(["menuMobile"])
     },
     methods: {
-        ...mapMutations(["toggleMenuMobile"])
+        ...mapMutations(["toggleMenuMobile"]),
+        t
     }
 };
 

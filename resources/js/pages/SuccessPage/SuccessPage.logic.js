@@ -1,4 +1,5 @@
 import { Icon } from "../../components";
+import { t } from "../../utils";
 import { receiptFrom } from "./SuccessPage.utils.js";
 
 // how long the "Copied" confirmation stays on the button
@@ -17,6 +18,7 @@ const successPageLogic = {
         }
     },
     methods: {
+        t,
         async copyTransaction() {
             try {
                 await navigator.clipboard.writeText(this.receipt.tx);
