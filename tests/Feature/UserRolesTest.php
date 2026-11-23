@@ -74,7 +74,7 @@ class UserRolesTest extends TestCase
     public function testRegisteredPartnerIsARestaurateur()
     {
         $this->post('/register', [
-            'name' => 'Pia', 'last_name' => 'Verdi', 'email' => 'pia@example.com', 'password' => 'secret123', 'password_confirmation' => 'secret123', 'vat_number' => '98765432109',
+            'name' => 'Pia', 'last_name' => 'Verdi', 'email' => 'pia@example.com', 'password' => 'secret123', 'password_confirmation' => 'secret123', 'vat_number' => '98765432109', 'role' => 'restaurateur',
         ]);
 
         $pia = User::where('email', 'pia@example.com')->first();

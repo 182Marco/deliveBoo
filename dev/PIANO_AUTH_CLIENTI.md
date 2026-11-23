@@ -361,4 +361,18 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - File: `app/Http/Controllers/Auth/{LoginController,RegisterController}.php`, `bootstrap/app.php`, `tests/Feature/AuthTest.php`.
 - Test: `AuthTest` + 3 (redirect di login e di `/login` per i 3 ruoli, bannato con password giusta, bannato con password sbagliata); l'utente di prova di `AuthTest` è ora esplicitamente `restaurateur`. Verifica di fine fase: `php artisan test` **138 passati** · `npm run test:js` **249 passati** · `npm run build` ok · `php artisan route:list` ok.
 - Problemi aperti: `/platform` per ora finisce nella catch-all della SPA (arriva allo step 3.1).
-- Prossimo step: **2.1 registrazione a schede (cliente di default, `?role=restaurateur`) e CTA della home**.
+- Prossimo step: 2.1.
+
+### 2.1 — Registrazione a schede e CTA (2026-11-24) ✅
+- Stato: completato.
+- Modifiche:
+  - `RegisterController`: `showRegistrationForm` sceglie la scheda da `old('role')` o `?role=` (whitelist `SIGNUP_ROLES`, altrimenti `customer`); validazione `role` `in:customer,restaurateur` (un `role=admin` inviato a mano → errore, nessun account); `vat_number` obbligatoria, 11 cifre e **unica** solo per i ristoratori (prima un duplicato dava errore 500 sull'indice UNIQUE), ignorata e NULL per i clienti.
+  - `auth/register`: schede «Ordino cibo» / «Ho un ristorante» come **link** (niente JS, `aria-current`), campo P. IVA solo per i partner, testi, foto e pannello laterale per ruolo. Login generico (eyebrow «Il tuo account Foodsy», pannello clienti, link «Crea un account»).
+  - `layouts/auth`: sezioni opzionali `metaSuffix`, `eyebrow`, `asidePhoto`, `asideTitle`, `asideNote` (default partner, invariati per reset/verify).
+  - CSS `auth-tabs`/`auth-tab`/`auth-tab--active` (controllo segmentato: pozzetto `--oat`, scheda attiva `--surface` con `--shadow-sm`), una classe per selettore.
+  - SPA: le CTA partner (sezione partner della home, drawer mobile, footer) puntano a `/register?role=restaurateur`; nell'header il link «Per i ristoranti» diventa «Accedi» generico (icona utente); nel drawer «Accesso partner» → «Accedi»; il footer tiene «Accesso partner». Homepage invariata nella struttura.
+  - Stringhe nuove o aggiornate in 5 lingue: `partner.auth.account`, `customerAsideTitle/Note`, `login.lead`, `login.register`, `request.lead`, `register.already`, `register.tabs.*`, `register.customer.*`, `site.nav.login`, `site.header.login`; rimossa `site.header.partner` (non più usata).
+- File: `app/Http/Controllers/Auth/RegisterController.php`, `resources/views/auth/{register,login}.blade.php`, `resources/views/layouts/auth.blade.php`, `resources/css/admin.css`, `resources/js/utils/strings.json`, `resources/js/pages/Home/Home.vue`, `resources/js/components/{Header/Header.vue,MenuMobile/MenuMobile.logic.js,MenuMobile/MenuMobile.vue,Footer/Footer.logic.js}`, `tests/Feature/{AuthTest,UserRolesTest}.php`, `dev/mappa.html`.
+- Test: `AuthTest` + 5 (cliente di default senza P. IVA → `/`; P. IVA ignorata per i clienti; `role=admin` rifiutato; P. IVA mancante o duplicata per i partner; `?role=` preseleziona la scheda, `admin` ricade su cliente). `php artisan test` **143 passati** · `npm run test:js` **249** · `npm run build` ok · smoke sul server di sviluppo: `/register`, `/register?role=restaurateur`, `/register?role=admin`, `/login` → 200.
+- Problemi aperti: verifica visiva nel browser delle schede (fatta solo con i test e l'HTML).
+- Prossimo step: **2.2a migrazione email di Federico Romiti**, poi **2.2 account demo e box nel login**.

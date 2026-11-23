@@ -1,6 +1,11 @@
 @extends('layouts.auth')
 
 @section('title', __('partner.auth.login.title'))
+@section('metaSuffix', 'Foodsy')
+@section('eyebrow', __('partner.auth.account'))
+@section('asidePhoto', 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=75')
+@section('asideTitle', __('partner.auth.customerAsideTitle'))
+@section('asideNote', __('partner.auth.customerAsideNote'))
 @section('heading', __('partner.auth.login.heading'))
 @section('lead', __('partner.auth.login.lead'))
 

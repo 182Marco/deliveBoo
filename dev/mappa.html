@@ -371,7 +371,7 @@ F("app/Http/Controllers/Auth/", {"one": "Login, registrazione e recupero passwor
 F("app/Http/Controllers/Auth/ConfirmPasswordController.php", {"one": "Chiede di nuovo la password prima di azioni delicate."}),
 F("app/Http/Controllers/Auth/ForgotPasswordController.php", {"one": "Manda l'email per reimpostare la password."}),
 F("app/Http/Controllers/Auth/LoginController.php", {"one": "Fa entrare l'utente con email e password.", "ex": "|||Dopo il login vai in /admin."}),
-F("app/Http/Controllers/Auth/RegisterController.php", {"one": "Crea un nuovo account ristoratore.", "ex": "|||Nome, email, password → nuova riga in users."}),
+F("app/Http/Controllers/Auth/RegisterController.php", {"one": "Registrazione a schede: cliente (default) o ristoratore (`?role=restaurateur` dalle CTA partner); mai admin.", "pts": ["Il ruolo non è fillable: lo imposta il controller dalla whitelist `User::SIGNUP_ROLES`.", "La P. IVA (11 cifre, unica) serve solo ai ristoratori; per i clienti resta NULL.", "Dopo la registrazione si va su `homePath()` del ruolo."], "ex": "/register?role=restaurateur → scheda «Ho un ristorante» con il campo P. IVA|||"}),
 F("app/Http/Controllers/Auth/ResetPasswordController.php", {"one": "Salva la nuova password dopo il link ricevuto per email."}),
 F("app/Http/Controllers/Auth/VerificationController.php", {"one": "Verifica l'email dell'utente (funzione standard Laravel)."}),
 F("app/Http/Controllers/Controller.php", {"one": "Controller base: tutti gli altri lo estendono."}),

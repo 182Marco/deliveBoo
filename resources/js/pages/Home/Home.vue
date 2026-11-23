@@ -17,7 +17,7 @@
                         {{ t("partner.text") }}
                     </p>
                 </div>
-                <a class="ui-btn ui-btn--dark ui-btn--lg partner-cta" href="/register">
+                <a class="ui-btn ui-btn--dark ui-btn--lg partner-cta" href="/register?role=restaurateur">
                     {{ t("partner.cta") }}
                     <Icon name="arrow-right" />
                 </a>

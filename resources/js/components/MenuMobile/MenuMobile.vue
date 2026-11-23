@@ -46,7 +46,7 @@
 
             <div class="drawer-foot">
                 <p class="drawer-note">{{ t("drawer.note") }}</p>
-                <a class="ui-btn ui-btn--primary ui-btn--block" href="/register">{{ t("drawer.cta") }}</a>
+                <a class="ui-btn ui-btn--primary ui-btn--block" href="/register?role=restaurateur">{{ t("drawer.cta") }}</a>
             </div>
         </section>
     </Transition>

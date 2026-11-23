@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -28,6 +30,15 @@ class RegisterController extends Controller
      *
      * @var string
      */
+    // ?role=restaurateur (partner CTAs) preselects the partner tab; a failed submit keeps its tab
+    public function showRegistrationForm(Request $request)
+    {
+        $asked = $request->old('role', $request->query('role'));
+        $role = in_array($asked, User::SIGNUP_ROLES, true) ? $asked : User::CUSTOMER;
+
+        return view('auth.register', compact('role'));
+    }
+
     protected function redirectTo(): string
     {
         return $this->guard()->user()?->homePath() ?? '/';
@@ -56,7 +67,10 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'vat_number' => 'required|numeric|digits_between:11,11',
+            // never admin: the role of a public sign-up is customer or restaurateur
+            'role' => ['nullable', Rule::in(User::SIGNUP_ROLES)],
+            // only partners have a VAT number (11 digits, one account each)
+            'vat_number' => ['exclude_unless:role,'.User::RESTAURATEUR, 'required', 'numeric', 'digits_between:11,11', 'unique:users,vat_number'],
         ]);
     }
 
@@ -73,10 +87,10 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'vat_number' => $data['vat_number'],
         ]);
-        // until the tabbed sign-up (step 2.1) this form is the partner hub one; role is never fillable
-        $user->role = User::RESTAURATEUR;
+        // role is never fillable: set here, from the validated whitelist (customer when missing)
+        $user->role = ($data['role'] ?? null) === User::RESTAURATEUR ? User::RESTAURATEUR : User::CUSTOMER;
+        $user->vat_number = $user->role === User::RESTAURATEUR ? $data['vat_number'] : null;
         $user->save();
 
         return $user;

@@ -16,7 +16,7 @@ const COLUMNS = [
     {
         title: "footer.partners",
         links: [
-            { href: "/register", text: "nav.addRestaurant" },
+            { href: "/register?role=restaurateur", text: "nav.addRestaurant" },
             { href: "/login", text: "nav.partnerLogin" }
         ]
     }

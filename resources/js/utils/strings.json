@@ -29,7 +29,6 @@
             "partnerLogin": { "en": "Partner login", "it": "Accesso partner", "de": "Partner-Login", "fr": "Espace partenaire", "es": "Acceso partners" }
         },
         "header": {
-            "partner": { "en": "For restaurants", "it": "Per i ristoranti", "de": "Für Restaurants", "fr": "Restaurateurs", "es": "Para restaurantes" },
             "bag": { "en": "Bag", "it": "Borsa", "de": "Tasche", "fr": "Sac", "es": "Bolsa" },
             "bagFull": { "en": "Your bag: :count item, €:amount|Your bag: :count items, €:amount", "it": "La tua borsa: :count articolo, €:amount|La tua borsa: :count articoli, €:amount", "de": "Deine Tasche: :count Artikel, €:amount|Deine Tasche: :count Artikel, €:amount", "fr": "Votre sac : :count article, €:amount|Votre sac : :count articles, €:amount", "es": "Tu bolsa: :count artículo, €:amount|Tu bolsa: :count artículos, €:amount" },
             "bagEmpty": { "en": "Your bag is empty", "it": "La tua borsa è vuota", "de": "Deine Tasche ist leer", "fr": "Votre sac est vide", "es": "Tu bolsa está vacía" }
@@ -267,7 +266,7 @@
             "nav": { "en": "Partner", "it": "Partner", "de": "Partner", "fr": "Partenaire", "es": "Partner" },
             "restaurants": { "en": "Restaurants", "it": "Ristoranti", "de": "Restaurants", "fr": "Restaurants", "es": "Restaurantes" },
             "viewSite": { "en": "View site", "it": "Vedi il sito", "de": "Zur Website", "fr": "Voir le site", "es": "Ver el sitio" },
-            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
+            "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Connexion", "es": "Acceder" },
             "join": { "en": "Join Foodsy", "it": "Unisciti a Foodsy", "de": "Bei Foodsy mitmachen", "fr": "Rejoindre Foodsy", "es": "Únete a Foodsy" },
             "myRestaurants": { "en": "My restaurants", "it": "I miei ristoranti", "de": "Meine Restaurants", "fr": "Mes restaurants", "es": "Mis restaurantes" },
             "customizeAvatar": { "en": "Customise avatar", "it": "Personalizza avatar", "de": "Avatar anpassen", "fr": "Personnaliser l'avatar", "es": "Personalizar avatar" },
@@ -647,11 +646,11 @@
             "login": {
                 "title": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Connexion", "es": "Iniciar sesión" },
                 "heading": { "en": "Welcome back", "it": "Bentornato", "de": "Willkommen zurück", "fr": "Bon retour parmi nous", "es": "Hola de nuevo" },
-                "lead": { "en": "Log in to manage your restaurants, menus and orders.", "it": "Accedi per gestire ristoranti, menu e ordini.", "de": "Melde dich an, um Restaurants, Speisekarten und Bestellungen zu verwalten.", "fr": "Connectez-vous pour gérer vos restaurants, cartes et commandes.", "es": "Inicia sesión para gestionar tus restaurantes, cartas y pedidos." },
+                "lead": { "en": "Order faster, follow your orders or manage your restaurants: one login for everything.", "it": "Ordina più in fretta, segui i tuoi ordini o gestisci i tuoi ristoranti: un solo accesso per tutto.", "de": "Schneller bestellen, Bestellungen verfolgen oder Restaurants verwalten: ein Login für alles.", "fr": "Commandez plus vite, suivez vos commandes ou gérez vos restaurants : une seule connexion pour tout.", "es": "Pide más rápido, sigue tus pedidos o gestiona tus restaurantes: un solo acceso para todo." },
                 "remember": { "en": "Keep me logged in", "it": "Resta connesso", "de": "Angemeldet bleiben", "fr": "Rester connecté", "es": "Mantener la sesión iniciada" },
                 "submit": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
                 "newHere": { "en": "New to Foodsy?", "it": "Nuovo su Foodsy?", "de": "Neu bei Foodsy?", "fr": "Nouveau sur Foodsy ?", "es": "¿Nuevo en Foodsy?" },
-                "register": { "en": "Add your restaurant", "it": "Aggiungi il tuo ristorante", "de": "Restaurant eintragen", "fr": "Ajoutez votre restaurant", "es": "Añade tu restaurante" }
+                "register": { "en": "Create an account", "it": "Crea un account", "de": "Konto erstellen", "fr": "Créer un compte", "es": "Crear una cuenta" }
             },
             "confirm": {
                 "title": { "en": "Confirm password", "it": "Conferma la password", "de": "Passwort bestätigen", "fr": "Confirmer le mot de passe", "es": "Confirmar contraseña" },
@@ -662,7 +661,7 @@
             "request": {
                 "title": { "en": "Reset password", "it": "Reimposta la password", "de": "Passwort zurücksetzen", "fr": "Réinitialiser le mot de passe", "es": "Restablecer contraseña" },
                 "heading": { "en": "Reset your password", "it": "Reimposta la tua password", "de": "Setze dein Passwort zurück", "fr": "Réinitialisez votre mot de passe", "es": "Restablece tu contraseña" },
-                "lead": { "en": "Enter the email of your partner account: we will send you a link to choose a new password.", "it": "Inserisci l'email del tuo account partner: ti invieremo un link per scegliere una nuova password.", "de": "Gib die E-Mail deines Partnerkontos ein: Wir senden dir einen Link, um ein neues Passwort zu wählen.", "fr": "Saisissez l'e-mail de votre compte partenaire : nous vous enverrons un lien pour choisir un nouveau mot de passe.", "es": "Introduce el email de tu cuenta de partner: te enviaremos un enlace para elegir una contraseña nueva." },
+                "lead": { "en": "Enter the email of your Foodsy account: we will send you a link to choose a new password.", "it": "Inserisci l'email del tuo account Foodsy: ti invieremo un link per scegliere una nuova password.", "de": "Gib die E-Mail deines Foodsy-Kontos ein: Wir senden dir einen Link, um ein neues Passwort zu wählen.", "fr": "Saisissez l'e-mail de votre compte Foodsy : nous vous enverrons un lien pour choisir un nouveau mot de passe.", "es": "Introduce el email de tu cuenta Foodsy: te enviaremos un enlace para elegir una nueva contraseña." },
                 "submit": { "en": "Send reset link", "it": "Invia il link", "de": "Link senden", "fr": "Envoyer le lien", "es": "Enviar enlace" },
                 "backToLogin": { "en": "Back to log in", "it": "Torna all'accesso", "de": "Zurück zur Anmeldung", "fr": "Retour à la connexion", "es": "Volver a iniciar sesión" }
             },
@@ -681,8 +680,19 @@
                 "vat": { "en": "VAT number", "it": "Partita IVA", "de": "USt-IdNr.", "fr": "Numéro de TVA", "es": "NIF/IVA" },
                 "confirmPassword": { "en": "Confirm password", "it": "Conferma la password", "de": "Passwort bestätigen", "fr": "Confirmez le mot de passe", "es": "Confirma la contraseña" },
                 "submit": { "en": "Create partner account", "it": "Crea l'account partner", "de": "Partnerkonto erstellen", "fr": "Créer le compte partenaire", "es": "Crear cuenta de partner" },
-                "already": { "en": "Already a partner?", "it": "Sei già partner?", "de": "Schon Partner?", "fr": "Déjà partenaire ?", "es": "¿Ya eres partner?" },
-                "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Inicia sesión" }
+                "already": { "en": "Already have an account?", "it": "Hai già un account?", "de": "Du hast schon ein Konto?", "fr": "Vous avez déjà un compte ?", "es": "¿Ya tienes una cuenta?" },
+                "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Inicia sesión" },
+                "tabs": {
+                    "label": { "en": "Account type", "it": "Tipo di account", "de": "Kontotyp", "fr": "Type de compte", "es": "Tipo de cuenta" },
+                    "customer": { "en": "I order food", "it": "Ordino cibo", "de": "Ich bestelle Essen", "fr": "Je commande", "es": "Pido comida" },
+                    "restaurateur": { "en": "I own a restaurant", "it": "Ho un ristorante", "de": "Ich habe ein Restaurant", "fr": "J'ai un restaurant", "es": "Tengo un restaurante" }
+                },
+                "customer": {
+                    "title": { "en": "Create your account", "it": "Crea il tuo account", "de": "Konto erstellen", "fr": "Créez votre compte", "es": "Crea tu cuenta" },
+                    "heading": { "en": "Your table is ready", "it": "La tua tavola è pronta", "de": "Dein Tisch ist bereit", "fr": "Votre table est prête", "es": "Tu mesa está lista" },
+                    "lead": { "en": "Create your Foodsy account: checkout with saved details and every order in one place. You can still order as a guest.", "it": "Crea il tuo account Foodsy: checkout con i dati salvati e tutti i tuoi ordini in un unico posto. Puoi sempre ordinare anche come ospite.", "de": "Erstelle dein Foodsy-Konto: Checkout mit gespeicherten Daten und alle Bestellungen an einem Ort. Als Gast bestellen geht weiterhin.", "fr": "Créez votre compte Foodsy : paiement avec vos coordonnées enregistrées et toutes vos commandes au même endroit. Vous pouvez toujours commander en invité.", "es": "Crea tu cuenta Foodsy: pago con tus datos guardados y todos tus pedidos en un solo lugar. Puedes seguir pidiendo como invitado." },
+                    "submit": { "en": "Create account", "it": "Crea account", "de": "Konto erstellen", "fr": "Créer le compte", "es": "Crear cuenta" }
+                }
             },
             "verify": {
                 "title": { "en": "Verify your email", "it": "Verifica la tua email", "de": "E-Mail bestätigen", "fr": "Vérifiez votre e-mail", "es": "Verifica tu email" },
@@ -691,7 +701,10 @@
                 "resent": { "en": "A fresh verification link has been sent to your email address.", "it": "Un nuovo link di verifica è stato inviato al tuo indirizzo email.", "de": "Ein neuer Bestätigungslink wurde an deine E-Mail-Adresse gesendet.", "fr": "Un nouveau lien de vérification a été envoyé à votre adresse e-mail.", "es": "Te hemos enviado un nuevo enlace de verificación." },
                 "notReceived": { "en": "Did not receive the email?", "it": "Non hai ricevuto l'email?", "de": "Keine E-Mail erhalten?", "fr": "Vous n'avez pas reçu l'e-mail ?", "es": "¿No has recibido el email?" },
                 "submit": { "en": "Send another link", "it": "Invia un altro link", "de": "Neuen Link senden", "fr": "Envoyer un autre lien", "es": "Enviar otro enlace" }
-            }
+            },
+            "account": { "en": "Your Foodsy account", "it": "Il tuo account Foodsy", "de": "Dein Foodsy-Konto", "fr": "Votre compte Foodsy", "es": "Tu cuenta Foodsy" },
+            "customerAsideTitle": { "en": "Good food, beautifully delivered.", "it": "Buon cibo, consegnato con cura.", "de": "Gutes Essen, schön geliefert.", "fr": "De bons plats, livrés avec soin.", "es": "Buena comida, entregada con cariño." },
+            "customerAsideNote": { "en": "Save your details, find your favourite places again and follow every order.", "it": "Salva i tuoi dati, ritrova i tuoi locali preferiti e segui ogni ordine.", "de": "Speichere deine Daten, finde deine Lieblingslokale wieder und verfolge jede Bestellung.", "fr": "Enregistrez vos coordonnées, retrouvez vos adresses préférées et suivez chaque commande.", "es": "Guarda tus datos, vuelve a tus sitios favoritos y sigue cada pedido." }
         },
         "dialog": {
             "title": { "en": "Delete this item?", "it": "Eliminare questo elemento?", "de": "Diesen Eintrag löschen?", "fr": "Supprimer cet élément ?", "es": "¿Eliminar este elemento?" },

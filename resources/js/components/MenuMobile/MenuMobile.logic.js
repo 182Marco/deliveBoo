@@ -12,8 +12,9 @@ const ROUTE_LINKS = [
 ];
 
 const PAGE_LINKS = [
-    { href: "/register", icon: "plus", text: "nav.addRestaurant" },
-    { href: "/login", icon: "user", text: "nav.partnerLogin" }
+    // partner CTAs preselect the restaurateur sign-up; one login page for every account
+    { href: "/register?role=restaurateur", icon: "plus", text: "nav.addRestaurant" },
+    { href: "/login", icon: "user", text: "nav.login" }
 ];
 
 const menuMobileLogic = {

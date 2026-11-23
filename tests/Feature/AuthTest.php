@@ -52,7 +52,7 @@ class AuthTest extends TestCase
     {
         $this->post('/register', [
             'name' => 'Luca', 'last_name' => 'Verdi', 'email' => 'luca@example.com',
-            'password' => 'password1', 'password_confirmation' => 'password1', 'vat_number' => '10987654321',
+            'password' => 'password1', 'password_confirmation' => 'password1', 'vat_number' => '10987654321', 'role' => 'restaurateur',
         ])->assertRedirect('/admin');
 
         $user = User::where('email', 'luca@example.com')->firstOrFail();
@@ -66,7 +66,7 @@ class AuthTest extends TestCase
     {
         $this->post('/register', [
             'name' => 'Luca', 'last_name' => 'Verdi', 'email' => 'luca@example.com',
-            'password' => 'password1', 'password_confirmation' => 'password1', 'vat_number' => '123',
+            'password' => 'password1', 'password_confirmation' => 'password1', 'vat_number' => '123', 'role' => 'restaurateur',
         ])->assertSessionHasErrors('vat_number');
         $this->assertGuest();
     }
@@ -128,5 +128,57 @@ class AuthTest extends TestCase
         $this->from('/login')->post('/login', ['email' => 'banned@example.com', 'password' => 'wrong-one'])
             ->assertSessionHasErrors(['email' => __('auth.failed')]);
         $this->assertGuest();
+    }
+
+    // ---------------------------------------------------------------- tabbed sign-up (step 2.1)
+
+    private function signUp(array $extra = [])
+    {
+        return $this->post('/register', [
+            'name' => 'Marta', 'last_name' => 'Gialli', 'email' => 'marta@example.com',
+            'password' => 'password1', 'password_confirmation' => 'password1', ...$extra,
+        ]);
+    }
+
+    public function testSignUpIsACustomerByDefault()
+    {
+        $this->signUp()->assertRedirect('/');
+
+        $user = User::where('email', 'marta@example.com')->firstOrFail();
+        $this->assertSame(User::CUSTOMER, $user->role);
+        $this->assertNull($user->vat_number);
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function testCustomerSignUpIgnoresAVatNumber()
+    {
+        $this->signUp(['role' => 'customer', 'vat_number' => '12345678901'])->assertRedirect('/');
+
+        $this->assertNull(User::where('email', 'marta@example.com')->value('vat_number'));
+    }
+
+    public function testSignUpCannotChooseAdmin()
+    {
+        $this->signUp(['role' => 'admin'])->assertSessionHasErrors('role');
+
+        $this->assertGuest();
+        $this->assertSame(0, User::where('email', 'marta@example.com')->count());
+    }
+
+    public function testPartnerSignUpNeedsAFreeVatNumber()
+    {
+        $this->signUp(['role' => 'restaurateur'])->assertSessionHasErrors('vat_number');
+        $this->signUp(['role' => 'restaurateur', 'vat_number' => (string) User::whereNotNull('vat_number')->value('vat_number')])
+            ->assertSessionHasErrors('vat_number');
+        $this->assertGuest();
+    }
+
+    public function testRoleQueryPreselectsTheTab()
+    {
+        $this->get('/register')->assertOk()->assertViewHas('role', User::CUSTOMER)->assertDontSee('name="vat_number"', false);
+        $this->get('/register?role=restaurateur')->assertOk()->assertViewHas('role', User::RESTAURATEUR)
+            ->assertSee('name="vat_number"', false)->assertSee('aria-current="page"', false);
+        // unknown or forbidden roles fall back to customer
+        $this->get('/register?role=admin')->assertOk()->assertViewHas('role', User::CUSTOMER)->assertDontSee('value="admin"', false);
     }
 }
