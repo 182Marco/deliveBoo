@@ -1,7 +1,7 @@
 <template>
     <button
         type="button"
-        class="ui-chip"
+        class="ui-chip filters-chip"
         :class="{ 'ui-chip--active': isSelected }"
         :aria-pressed="isSelected ? 'true' : 'false'"
         @click="toggle"
@@ -16,3 +16,5 @@ import { typeCompLogic } from "./TypeComp.logic.js";
 
 export default typeCompLogic;
 </script>
+
+<style scoped src="./TypeComp.css"></style>

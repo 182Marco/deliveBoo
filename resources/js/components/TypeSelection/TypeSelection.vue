@@ -11,11 +11,17 @@
                 {{ t("explore.selected", { count: selectedTypesLenght }) }}
             </p>
         </div>
-        <ul class="filters-list" aria-labelledby="explore-title">
-            <li v-for="type in alltypes" :key="`type_id${type.id}`">
-                <TypeComp :type="type" />
-            </li>
-        </ul>
+        <!-- phones: the chips run in rows inside one sideways scroller (faded edge = there is more);
+             from 900px the rows dissolve and the chips wrap as a single list -->
+        <div class="filters-scroll">
+            <div class="filters-list" role="group" aria-labelledby="explore-title">
+                <ul v-for="(row, i) in rows" :key="`row${i}`" class="filters-row">
+                    <li v-for="type in row" :key="`type_id${type.id}`">
+                        <TypeComp :type="type" />
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 

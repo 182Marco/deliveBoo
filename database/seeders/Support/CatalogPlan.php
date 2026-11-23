@@ -143,7 +143,7 @@ final class CatalogPlan
             'name' => $first,
             'last_name' => $last,
             'company_name' => str_replace('{last}', $last, $rng->pick($people['company'])),
-            'phone' => '3' . $rng->int(20, 49) . ' ' . $rng->int(100, 999) . ' ' . $rng->int(1000, 9999),
+            'phone' => '07' . $rng->pick([6, 7, 8, 9]) . ' ' . $rng->int(100, 999) . ' ' . $rng->int(10, 99) . ' ' . $rng->int(10, 99),
             'vat_number' => self::vatNumber($i),
             'existing' => false,
         ];
@@ -216,12 +216,11 @@ final class CatalogPlan
     private static function place(array $concept, string $name, string $city, string $hood): array
     {
         $data = Catalog::data('cities');
-        [$province, $cap, $prefix, $lat, $lng] = $data['cities'][$city];
+        [$canton, $postal, $prefix, $lat, $lng] = $data['cities'][$city];
         $rng = new Rng("place:{$name}");
         $segment = $concept['segment'];
         $tier = Catalog::tier($segment);
         $slug = Catalog::slug($name);
-        $capBase = (int) $cap;
         $imageCategory = Catalog::data('types')[$concept['types'][0]] ?? 'restaurant';
 
         return [
@@ -233,13 +232,13 @@ final class CatalogPlan
             'description' => $concept['description'],
             'types' => $concept['types'],
             'price_range' => Catalog::PRICE_RANGE[$segment],
-            'phone' => $prefix . ' ' . $rng->int(100, 999) . ' ' . $rng->int(1000, 9999),
+            'phone' => $prefix . ' ' . $rng->int(100, 999) . ' ' . $rng->int(10, 99) . ' ' . $rng->int(10, 99),
             'email' => str_replace('-', '', $slug) . '@example.com',
             'city' => $city,
             'neighbourhood' => $hood,
             'address' => $rng->pick($data['streets']) . ' ' . $rng->int(1, 180),
-            'postal_code' => str_pad((string) ($capBase + ($capBase % 100 > 0 && in_array($province, ['MI', 'RM', 'TO', 'NA'], true) ? $rng->int(0, 40) : 0)), 5, '0', STR_PAD_LEFT),
-            'province' => $province,
+            'postal_code' => is_array($postal) ? $rng->pick($postal) : $postal,
+            'province' => $canton,
             'latitude' => round($lat + $rng->between(-0.03, 0.03), 6),
             'longitude' => round($lng + $rng->between(-0.04, 0.04), 6),
             'delivery_fee' => match ($tier) { 'base' => $rng->pick([1.49, 1.99, 2.49, 2.99]), 'mid' => $rng->pick([1.99, 2.49, 2.99, 3.49]), 'high' => $rng->pick([0.0, 4.9, 6.9]) },

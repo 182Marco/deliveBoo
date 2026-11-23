@@ -40,7 +40,7 @@ describe("mutations and getters", () => {
 
         store.commit("removePlate", a);
         store.commit("changeTotal");
-        expect(store.state.cart).toEqual([b, a]);
+        expect(store.state.cart).toEqual([a, b]);
         expect(store.state.total).toBe(7.5);
 
         // a plate that is not in the cart is ignored

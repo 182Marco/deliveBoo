@@ -9,7 +9,7 @@ return [
     'French' => 'french', 'Greek' => 'mezze', 'Chinese' => 'dumplings', 'Korean' => 'korean', 'Thai' => 'thai',
     'Vietnamese' => 'vietnamese', 'Indian' => 'indian', 'Brazilian' => 'roast', 'Argentinian' => 'steak',
     'Steakhouse' => 'steak', 'American' => 'chicken', 'Hamburger' => 'burger', 'Lebanese' => 'hummus',
-    'Middle Eastern' => 'mideast', 'Turkish' => 'skewers', 'Moroccan' => 'stew', 'Ethiopian' => 'african',
+    'Middle Eastern' => 'mideast', 'Turkish' => 'skewers', 'Moroccan' => 'stew', 'Ethiopian' => 'ethiopian',
     'African' => 'african', 'Peruvian' => 'ceviche', 'Fusion' => 'sashimi', 'Street Food' => 'streetfood',
     'Sushi' => 'sushi', 'Ramen' => 'ramen', 'Poke' => 'poke', 'Vegetarian' => 'salad', 'Pastry Shop' => 'pastry',
     'Gelato' => 'gelato', 'Bakery' => 'bread', 'Café & Brunch' => 'brunch', 'Fine Dining' => 'finedining',

@@ -152,7 +152,7 @@ class OrderHistorySeeder extends Seeder
                 'name' => $first,
                 'last_name' => $last,
                 'email' => Catalog::slug($first) . '.' . str_replace('-', '', Catalog::slug($last)) . ($i >= 60 ? $i : '') . '@' . $people['domains'][($i + 1) % 3],
-                'phone' => '3' . $rng->int(20, 49) . $rng->int(1000000, 9999999),
+                'phone' => '07' . $rng->pick([6, 7, 8, 9]) . ' ' . $rng->int(100, 999) . ' ' . $rng->int(10, 99) . ' ' . $rng->int(10, 99),
                 'address' => $rng->pick($cities['streets']) . ' ' . $rng->int(1, 200),
             ];
         }

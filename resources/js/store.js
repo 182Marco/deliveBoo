@@ -48,9 +48,10 @@ const mutations = {
     addPlate: (state, plate) => {
         state.cart.push(plate);
     },
-    // removes that very portion (same reference): a plate not in the cart is ignored
+    // removes the LAST portion of that plate (by id): the first one stays, so rows
+    // (listed by first portion) keep their position. Not in the cart: ignored
     removePlate: (state, plate) => {
-        const index = state.cart.indexOf(plate);
+        const index = state.cart.findLastIndex(e => e.id == plate.id);
         if (index >= 0) state.cart.splice(index, 1);
     },
     emptyCart: state => {

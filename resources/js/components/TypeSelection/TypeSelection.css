@@ -17,9 +17,49 @@
     color: var(--ink-inverse);
 }
 
+/* phones: one sideways scroller with the chips in rows; the faded right edge shows there is more */
+.filters-scroll {
+    margin-inline: calc(-1 * var(--gutter));
+    margin-bottom: var(--space-6);
+    padding: var(--space-1) var(--space-7) var(--space-3) var(--gutter);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, #000 calc(100% - var(--space-7)), transparent);
+}
+
+.filters-scroll::-webkit-scrollbar {
+    display: none;
+}
+
 .filters-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--space-2);
-    margin-bottom: var(--space-7);
+    width: max-content;
+}
+
+.filters-row {
+    display: flex;
+    gap: var(--space-2);
+}
+
+@media (min-width: 900px) {
+    .filters-scroll {
+        margin-inline: 0;
+        margin-bottom: var(--space-7);
+        padding: 0;
+        overflow: visible;
+        mask-image: none;
+    }
+
+    .filters-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: auto;
+    }
+
+    .filters-row {
+        display: contents;
+    }
 }

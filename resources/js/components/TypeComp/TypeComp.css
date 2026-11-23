@@ -1,0 +1,8 @@
+/* desktop: slightly smaller chips than the shared ui-chip (phones keep the 44px touch target) */
+@media (min-width: 900px) {
+    .filters-chip {
+        min-height: 38px;
+        padding: 0 var(--space-4);
+        font-size: var(--text-xs);
+    }
+}

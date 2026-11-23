@@ -122,6 +122,10 @@ return [
         '1599084993091-1cb5c0721cc6', '1580959375944-abd7e991f971', '1601314002592-b8734bca6604',
         '1603073163308-9654c3fb70b5',
     ],
+    // a spiced red stew (the pool has no injera photo): keeps Ethiopian apart from the West African 'african'
+    'ethiopian' => [
+        '1574653853027-5382a3d23a15',
+    ],
     'french' => [
         '1608855238293-a8853e7f7c98',
     ],
