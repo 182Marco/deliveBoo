@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>svg-avatar · griglia di verifica</title>
+<!--
+    Dev only: checks every variant and the critical combinations of packages/svg-avatar/assets/parts.json.
+    Open it from a server that serves the repo root (e.g. `npx vite` on 5173, then /dev/avatar-grid.html)
+    or headless Chromium with --allow-file-access-from-files.
+    It keeps a minimal local renderer on purpose: it opens without Vite (the package imports JSON modules)
+    and shows every combination, also the ones rules/rules.json forbids. Real output: renderAvatarSvg.
+-->
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #faf8f4; color: #1c1a17; }
+    .page { padding: 24px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    h2 { font-size: 15px; margin: 28px 0 8px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+    .cell { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; color: #6e675e; width: 84px; text-align: center; }
+    .matrix { display: grid; gap: 6px; align-items: center; font-size: 10px; color: #6e675e; }
+    .av { display: inline-block; border-radius: 50%; overflow: hidden; line-height: 0; }
+    .av svg { width: 100%; height: 100%; display: block; }
+    .dark { background: #1f2b23; padding: 10px; border-radius: 10px; }
+</style>
+</head>
+<body>
+<main class="page" id="page"><h1>svg-avatar · griglia di verifica</h1></main>
+<script type="module">
+    const P = await (await fetch("../packages/svg-avatar/palettes/default.json")).json();
+    const A = await (await fetch("../packages/svg-avatar/assets/parts.json")).json();
+    const C = A.categories;
+
+    const BASE = {
+        face: "oval", hair: "crop", eyes: "open", brows: "soft", mouth: "smile", clothes: "tee", accessory: "none", nose: "soft",
+        bgColor: "butter", skinColor: "light", hairColor: "chestnut", clothColor: "forest", accentColor: "tomato", irisColor: "brown"
+    };
+
+    const colors = t => {
+        const [skin, skinShade] = P.skin[t.skinColor];
+        const [hair, hairShade] = P.hair[t.hairColor];
+        const [cloth, clothShade] = P.cloth[t.clothColor];
+        const [accent, accentShade] = P.accent[t.accentColor];
+        return { bg: P.bg[t.bgColor], skin, skinShade, hair, hairShade, cloth, clothShade, accent, accentShade, iris: P.iris[t.irisColor], ...P.fixed };
+    };
+
+    const paint = (s, c) => {
+        const attrs = `fill="${s.f ? c[s.f] : "none"}"` +
+            (s.s ? ` stroke="${c[s.s]}" stroke-width="${s.w}" stroke-linecap="round" stroke-linejoin="round"` : "") +
+            (s.o ? ` opacity="${s.o}"` : "");
+        if (s.c) return `<circle cx="${s.c[0]}" cy="${s.c[1]}" r="${s.c[2]}" ${attrs}/>`;
+        if (s.e) return `<ellipse cx="${s.e[0]}" cy="${s.e[1]}" rx="${s.e[2]}" ry="${s.e[3]}" ${attrs}/>`;
+        return `<path d="${s.d}" ${attrs}/>`;
+    };
+
+    const svg = traits => {
+        const t = { ...BASE, ...traits };
+        const picked = Object.keys(C).map(k => C[k][t[k]]);
+        const tags = picked.flatMap(v => v.tags ?? []);
+        const hidden = new Set([...(tags.includes("coversEars") ? ["ears"] : []), ...(tags.includes("hat") ? ["hairFront"] : [])]);
+        const c = colors(t);
+        const body = A.layers
+            .filter(layer => !hidden.has(layer))
+            .flatMap(layer => [...(A.base[layer] ?? []), ...picked.flatMap(v => v[layer] ?? [])])
+            .map(s => paint(s, c)).join("");
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${body}</svg>`;
+    };
+
+    const av = (t, size) => `<span class="av" style="width:${size}px;height:${size}px">${svg(t)}</span>`;
+    const page = document.getElementById("page");
+    // ?s=2,3 shows only those sections (handy for screenshots)
+    const only = new URLSearchParams(location.search).get("s")?.split(",").map(Number);
+    const Z = Number(new URLSearchParams(location.search).get("z")) || 84; // catalogue size, e.g. ?z=180
+    let count = 0;
+    const section = (title, html) => {
+        count += 1;
+        if (!only || only.includes(count)) page.insertAdjacentHTML("beforeend", `<h2>${count}. ${title}</h2>${html}`);
+    };
+    const keys = cat => Object.keys(C[cat]);
+
+    // presets so every hair/eye variant is shown on a fitting face
+    const LOOK = { bun: { mouth: "laugh" }, long: { eyes: "lashes", clothes: "vneck" }, wavy: { eyes: "lashes" }, bob: { clothes: "blazer" } };
+
+    for (const cat of Object.keys(C)) {
+        section(`${cat} (${keys(cat).length})`, `<div class="row">${keys(cat).map(k =>
+            `<div class="cell" style="width:${Z}px">${av({ ...(cat === "hair" ? LOOK[k] : {}), [cat]: k }, Z)}${k}</div>`).join("")}</div>`);
+    }
+
+    const matrix = (title, rowsCat, rows, colsCat, cols, size, extra = {}) => {
+        const head = `<span></span>${cols.map(c => `<span>${c}</span>`).join("")}`;
+        const body = rows.map(r => `<span>${r}</span>${cols.map(c => av({ ...extra, [rowsCat]: r, [colsCat]: c }, size)).join("")}`).join("");
+        section(title, `<div class="matrix" style="grid-template-columns: 70px repeat(${cols.length}, ${size}px)">${head}${body}</div>`);
+    };
+
+    matrix("capelli × viso", "hair", keys("hair"), "face", keys("face"), 72);
+    matrix("capelli × accessori", "hair", keys("hair"), "accessory", keys("accessory"), 72, { hairColor: "honey" });
+    matrix("vestiti × pelle", "clothes", keys("clothes"), "skinColor", Object.keys(P.skin), 64, { clothColor: "denim" });
+    matrix("vestiti × colore vestito", "clothes", keys("clothes"), "clothColor", Object.keys(P.cloth), 64);
+
+    const mix = i => ({
+        face: keys("face")[i % 4], hair: keys("hair")[(i * 5) % 12], eyes: keys("eyes")[(i * 3) % 5], brows: keys("brows")[i % 4],
+        mouth: keys("mouth")[(i * 2) % 5], nose: keys("nose")[i % 3], clothes: keys("clothes")[(i * 3) % 8], accessory: keys("accessory")[(i * 7) % 6],
+        skinColor: Object.keys(P.skin)[i % 6], hairColor: Object.keys(P.hair)[(i * 5) % 6], clothColor: Object.keys(P.cloth)[(i * 7) % 6],
+        bgColor: Object.keys(P.bg)[(i * 5) % 6], irisColor: Object.keys(P.iris)[i % 4], accentColor: Object.keys(P.accent)[i % 4]
+    });
+    const mixes = Array.from({ length: 24 }, (_, i) => mix(i));
+    for (const size of [48, 32, 24]) {
+        section(`miscela a ${size} px`, `<div class="row">${mixes.map(t => av(t, size)).join("")}</div>
+            <div class="row dark" style="margin-top:8px">${mixes.map(t => av(t, size)).join("")}</div>`);
+    }
+    document.body.dataset.ready = "1";
+</script>
+</body>
+</html>

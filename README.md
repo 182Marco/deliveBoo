@@ -40,7 +40,7 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 **Cliente**: sito in 5 lingue (EN, IT, DE, FR, ES) · scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
 
-**Ristoratore**: area partner nelle stesse 5 lingue · registrazione/login · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con foto caricata **oppure link https a un'immagine ospitata altrove** (il sito la mostra da lì, senza copiarla), ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
+**Ristoratore**: area partner nelle stesse 5 lingue · registrazione/login · avatar illustrato nel menu account, personalizzabile con un editor · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con foto caricata **oppure link https a un'immagine ospitata altrove** (il sito la mostra da lì, senza copiarla), ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
 
 ## API
 
@@ -165,9 +165,11 @@ Direzione grafica «Mercato», un mercato gastronomico contemporaneo: superfici 
 
 Le foto di piatti, ristoranti e cucine sono **solo link esterni** (Unsplash): il progetto non ospita foto, `public/images/` contiene solo il logo.
 
+**Avatar**: chi non entra con Google ha un avatar cartoon a mezzo busto generato dal pacchetto locale `packages/svg-avatar` (SVG originali, nessuna dipendenza). Il seed (`users.avatar`, oppure `user-{id}`) dà sempre lo stesso avatar; «Personalizza avatar» nel menu account partner apre un editor (viso, pelle, capelli, occhi, sopracciglia, naso, bocca, vestito, accessorio, sfondo, suggerimenti per look, «Sorprendimi») che salva `{ seed, overrides }`, validati lato server sui dati del pacchetto. Il pacchetto è indipendente dall'app (non conosce Laravel né utenti), si importa solo come `svg-avatar`, `svg-avatar/vue` o `svg-avatar/editor` (alias in `vite.config.js`) e ha README e test propri. Stato e decisioni: `AVATAR_IMPLEMENTATION_PLAN.md`.
+
 ## Deploy
 
-`Dockerfile` multi-stage (stage `node:22` con `npm ci && npm run build`, poi Apache + PHP 8.4 con DocumentRoot `public/` e `composer install --no-dev`) usato da `render.yaml` (servizio *deliveboo-laravel*, SQLite). `build.sh` è uno script equivalente per build manuali. Variabili da impostare su Render: `APP_KEY`, le `MAIL_*` per le email e, per pagamenti Braintree veri, `PAYMENT_DRIVER=braintree` con le `BRAINTREE_*`.
+`Dockerfile` multi-stage (stage `node:22` con `npm ci && npm run build`, che copia anche `packages/`, poi Apache + PHP 8.4 con DocumentRoot `public/` e `composer install --no-dev`) usato da `render.yaml` (servizio *deliveboo-laravel*, SQLite). `build.sh` è uno script equivalente per build manuali. Variabili da impostare su Render: `APP_KEY`, le `MAIL_*` per le email e, per pagamenti Braintree veri, `PAYMENT_DRIVER=braintree` con le `BRAINTREE_*`.
 
 ## Struttura cartelle
 
@@ -181,6 +183,7 @@ resources/js    sito Vue (pages/ e components/ a cartelle: .vue + .logic.js + .c
 resources/css   sistema grafico: tokens, font, base, primitive ui-*, entry site.css e admin.css
 resources/views pagine Blade (admin, auth, guest, layouts, mails)
 routes/         web.php, api.php, console.php
+packages/       pacchetti locali indipendenti dall'app (svg-avatar: avatar SVG deterministici, componente Vue, editor JS)
 tests/          Feature (PHPUnit) e js (Vitest)
 vite.config.js  entry point della build e configurazione di Vitest
 ```
