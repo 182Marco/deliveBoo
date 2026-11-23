@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,20 +24,56 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers {
+        register as registerNewUser;
+    }
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    // ?role=restaurateur (partner CTAs) preselects the partner tab; a failed submit keeps its tab
+    // ?role=restaurateur (partner CTAs) preselects the partner tab; a failed submit keeps its tab.
+    // A signed-in customer may open only the partner form: the partner account is a separate one
+    // (one role per account), and the customer stays signed in until the form is sent.
     public function showRegistrationForm(Request $request)
     {
         $asked = $request->old('role', $request->query('role'));
         $role = in_array($asked, User::SIGNUP_ROLES, true) ? $asked : User::CUSTOMER;
 
-        return view('auth.register', compact('role'));
+        if ($away = $this->awayFromSignUp($request, $role)) {
+            return $away;
+        }
+
+        return view('auth.register', ['role' => $role, 'current' => $request->user()]);
+    }
+
+    // a signed-in customer is signed out only once the partner form is valid: a failed submit keeps the session
+    public function register(Request $request)
+    {
+        if ($away = $this->awayFromSignUp($request, $request->input('role'))) {
+            return $away;
+        }
+
+        if ($request->user()) {
+            $this->validator($request->all())->validate();
+            $this->guard()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
+
+        return $this->registerNewUser($request);
+    }
+
+    // guests may sign up for any public role; a customer only for a partner account; anyone else goes home
+    private function awayFromSignUp(Request $request, ?string $role): ?RedirectResponse
+    {
+        $user = $request->user();
+        if (! $user || ($user->role === User::CUSTOMER && $role === User::RESTAURATEUR)) {
+            return null;
+        }
+
+        return redirect($user->homePath());
     }
 
     protected function redirectTo(): string
@@ -51,7 +88,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // signed-in users are handled by awayFromSignUp (customers may open the partner sign-up)
+        $this->middleware('guest')->except(['showRegistrationForm', 'register']);
     }
 
     /**
@@ -71,7 +109,16 @@ class RegisterController extends Controller
             'role' => ['nullable', Rule::in(User::SIGNUP_ROLES)],
             // only partners have a VAT number (11 digits, one account each)
             'vat_number' => ['exclude_unless:role,'.User::RESTAURATEUR, 'required', 'numeric', 'digits_between:11,11', 'unique:users,vat_number'],
-        ]);
+        ], $this->signedInCustomerMessages($data));
+    }
+
+    // a customer who types the email of their own account gets told why it is taken
+    private function signedInCustomerMessages(array $data): array
+    {
+        $current = $this->guard()->user();
+        $same = $current && strcasecmp((string) ($data['email'] ?? ''), (string) $current->email) === 0;
+
+        return $same ? ['email.unique' => __('partner.auth.register.upgrade.sameEmail')] : [];
     }
 
     /**

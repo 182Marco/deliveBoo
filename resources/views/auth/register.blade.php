@@ -1,7 +1,9 @@
 @extends('layouts.auth')
 
 {{-- one sign-up page, two account types: $role comes from RegisterController@showRegistrationForm
-     (?role=restaurateur from the partner CTAs, customer by default). Admin is never offered here. --}}
+     (?role=restaurateur from the partner CTAs, customer by default). Admin is never offered here.
+     $current = a signed-in customer opening the partner sign-up: a new, separate account (no tabs,
+     no Google, name prefilled), and the customer stays signed in until the form is sent. --}}
 @php($partner = $role === \App\User::RESTAURATEUR)
 
 @section('title', $partner ? __('partner.auth.register.title') : __('partner.auth.register.customer.title'))
@@ -16,6 +18,11 @@
 @endunless
 
 @section('content')
+    @if ($current)
+        <div class="ui-notice ui-notice--info" role="status">
+            {{ __('partner.auth.register.upgrade.notice', ['email' => $current->email]) }}
+        </div>
+    @else
     {{-- the tabs are links: no script, and the page always matches the role sent by the form --}}
     <nav class="auth-tabs" aria-label="{{ __('partner.auth.register.tabs.label') }}">
         @foreach (\App\User::SIGNUP_ROLES as $tab)
@@ -29,13 +36,14 @@
             </a>
         @endforeach
     </nav>
+    @endif
 
     <form class="adm-form" method="POST" action="{{ route('register') }}">
         @csrf
         <input type="hidden" name="role" value="{{ $role }}">
         <div class="adm-form-grid">
-            <x-field name="name" :label="__('partner.auth.register.firstName')" :value="old('name')" required autocomplete="given-name" autofocus />
-            <x-field name="last_name" :label="__('partner.auth.register.lastName')" :value="old('last_name')" required autocomplete="family-name" />
+            <x-field name="name" :label="__('partner.auth.register.firstName')" :value="old('name', $current?->name)" required autocomplete="given-name" autofocus />
+            <x-field name="last_name" :label="__('partner.auth.register.lastName')" :value="old('last_name', $current?->last_name)" required autocomplete="family-name" />
             <x-field name="email" :label="__('partner.auth.email')" type="email" :value="old('email')" required autocomplete="email" wide />
             @if ($partner)
                 <x-field name="vat_number" :label="__('partner.auth.register.vat')" :value="old('vat_number')" required inputmode="numeric" wide />
@@ -48,10 +56,12 @@
             {{ $partner ? __('partner.auth.register.submit') : __('partner.auth.register.customer.submit') }}
         </button>
 
-        <x-google-button :role="$role" />
+        @unless ($current)
+            <x-google-button :role="$role" />
 
-        <p class="auth-switch">
-            {{ __('partner.auth.register.already') }} <a class="ui-link" href="{{ route('login') }}">{{ __('partner.auth.register.login') }}</a>
-        </p>
+            <p class="auth-switch">
+                {{ __('partner.auth.register.already') }} <a class="ui-link" href="{{ route('login') }}">{{ __('partner.auth.register.login') }}</a>
+            </p>
+        @endunless
     </form>
 @endsection

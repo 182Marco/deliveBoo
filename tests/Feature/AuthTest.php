@@ -181,4 +181,53 @@ class AuthTest extends TestCase
         // unknown or forbidden roles fall back to customer
         $this->get('/register?role=admin')->assertOk()->assertViewHas('role', User::CUSTOMER)->assertDontSee('value="admin"', false);
     }
+
+    // ---------------------------------------------------------------- signed-in customer becomes a partner
+
+    public function testSignedInCustomerOpensThePartnerSignUp()
+    {
+        $customer = $this->makeAccount('carla@example.com', User::CUSTOMER);
+        $this->actingAs($customer);
+
+        $this->get('/register?role=restaurateur')->assertOk()->assertViewHas('role', User::RESTAURATEUR)
+            ->assertSee('carla@example.com')->assertSee('value="Role"', false)
+            ->assertDontSee('aria-current="page"', false);
+        // the customer form has nothing to offer someone who already has a customer account
+        $this->get('/register')->assertRedirect('/');
+        $this->assertAuthenticatedAs($customer);
+    }
+
+    public function testSignedInCustomerStaysSignedInUntilThePartnerFormIsValid()
+    {
+        $customer = $this->makeAccount('carla@example.com', User::CUSTOMER);
+        $this->actingAs($customer);
+
+        // the email of the customer account is taken, with a message saying why
+        $this->from('/register?role=restaurateur')
+            ->signUp(['role' => 'restaurateur', 'vat_number' => '55566677788', 'email' => 'carla@example.com'])
+            ->assertRedirect('/register?role=restaurateur')
+            ->assertSessionHasErrors(['email' => __('partner.auth.register.upgrade.sameEmail')]);
+        $this->assertAuthenticatedAs($customer);
+
+        $this->signUp(['role' => 'restaurateur', 'vat_number' => '55566677788'])->assertRedirect('/admin');
+        $partner = User::where('email', 'marta@example.com')->firstOrFail();
+        $this->assertSame(User::RESTAURATEUR, $partner->role);
+        $this->assertAuthenticatedAs($partner);
+        // the customer account is untouched
+        $this->assertSame(User::CUSTOMER, $customer->fresh()->role);
+    }
+
+    public function testOnlyCustomersMayUseTheSignUpWhileSignedIn()
+    {
+        $this->actingAs($this->makeUser());
+        $this->get('/register?role=restaurateur')->assertRedirect('/admin');
+        $this->signUp(['role' => 'restaurateur', 'vat_number' => '55566677788'])->assertRedirect('/admin');
+        $this->assertDatabaseMissing('users', ['email' => 'marta@example.com']);
+
+        $customer = $this->makeAccount('carla@example.com', User::CUSTOMER);
+        $this->actingAs($customer);
+        $this->signUp(['role' => 'customer'])->assertRedirect('/');
+        $this->assertDatabaseMissing('users', ['email' => 'marta@example.com']);
+        $this->assertAuthenticatedAs($customer);
+    }
 }
