@@ -1,6 +1,6 @@
 # Login clienti, Google OAuth e backoffice admin `/platform` — piano v2
 
-Stato: **v2 approvata il 2026-11-23 · fasi F0–F7 chiuse, prossima F8 (rifinitura) · branch `feat/auth-platform`**.
+Stato: **v2 approvata il 2026-11-23 · **piano completato** (F0–F8 chiuse il 2026-11-25); restano solo le prove manuali elencate in fondo · branch `feat/auth-platform`**.
 Fonte di verità del lavoro: dopo ogni step aggiornare il **Registro di avanzamento** in fondo (stato, modifiche, file, test, problemi aperti, prossimo step). Per riprendere a contesto azzerato: leggere questo file, poi `git log` e `git status`.
 Avatar: progetto indipendente (`AVATAR_IMPLEMENTATION_PLAN.md`); qui si consuma solo il pacchetto pubblico (`svg-avatar`, `svg-avatar/vue`, `<x-avatar>`), senza duplicare la generazione SVG né portarla nel backoffice.
 
@@ -589,3 +589,28 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - Test: `CustomerProfilesSeederTest` (6: storico coerente con indirizzo per pasto, pranzi solo feriali, totali, niente stellati, account creato prima del primo ordine; locali abituali; abitudine leggibile dai tag, oltre 20 punti sopra i menu; clienti registrati senza ordini da ospite rimasti; solo clienti con ordini e stessa email; rilancio senza modifiche). `DatabaseSeederTest` include il nuovo seeder (doppio seed, ogni seeder da solo due volte). `UserRolesTest`: l'unico admin è quello demo, i clienti sono Mario più i sintetici registrati. `TablesTabTest`: l'ID esatto è il primo risultato. `php artisan test` **237 passati** (20 s) · `npm run test:js` **293**.
 - Problemi aperti: verifica visiva nel browser di «I miei ordini» con lo storico di Mario (nessun browser in questa sessione).
 - Prossimo step: **8.1** rifinitura UI/UX (stati vuoti, caricamento, responsive a 600/900/1200) e **8.2** aggiornamento finale di mappa, README e AGENTS con suite completa.
+
+### 8.1 — Rifinitura UI/UX e verifica responsive (2026-11-25) ✅
+- Stato: completato. Verifica **visiva** con Chromium headless (Playwright nello scratchpad, fuori dal progetto) sul server di sviluppo: screenshot a 375/600/900/1200 e controllo automatico dello scroll orizzontale (`scrollWidth`) su sito (home, menu, carrello, I miei ordini), login, registrazione, `/account`, area partner e backoffice (grafici, mappe, tabelle, utenti), da ospite, cliente, ristoratore e admin. Risultato finale: nessun overflow, nessun errore o warning in console.
+- Problemi trovati e corretti:
+  - **header del sito a 375 px con account loggato**: l'avatar faceva uscire il menu dallo schermo (4 px di scroll orizzontale, logo schiacciato in «Foods»). Sotto i 600 px l'avatar esce dall'header e l'account va nel menu laterale (`MenuMobile`: nome, «I miei ordini» per i clienti, «Il tuo account», area del ruolo, «Esci»; il drawer ora scorre se è più alto dello schermo);
+  - **header a 900 px con account loggato**: il nome accanto all'avatar mandava a capo «Guest favourites» e «All restaurants». Il nome compare da 1200 px (come «Accedi» per gli ospiti) e i link dell'header non vanno più a capo;
+  - **header dell'area partner a 375 px**: il badge «PARTNER» copriva «Foodsy» e il menu account usciva a destra. Sotto i 600 px solo la cloche (`<x-logo wide />`, come il backoffice);
+  - **paginazione a 375 px su due righe**: gap più stretto sotto i 600 px e bottoni «prima/ultima» nascosti (`ui-page--edge`: la finestra mostra già la pagina 1 e l'ultima);
+  - **«I miei ordini», caricamento**: la riga di testo è diventata 3 card scheletro della stessa forma (pulsano solo in `opacity`, testo per i lettori di schermo) e la pagina ha un'altezza minima, così il footer non salta;
+  - **checkout**: ora propone anche l'**indirizzo dell'ultimo ordine** (`last_address` in `/api/me`, solo per i clienti e solo dai propri ordini), sempre solo nei campi vuoti;
+  - **dati di Mario**: tre ordini «in corso» sparsi su due giorni non erano credibili: resta in preparazione solo la cena dell'ultimo giorno (storico rigenerato sul DB dev, stessi numeri: 271 ordini, 92% vegetariano).
+- Verificati e già a posto: stati ospite, errore e vuoto di «I miei ordini», menu account desktop, `/account` su telefono, checkout precompilato.
+- File: `resources/js/components/MenuMobile/{MenuMobile.vue,MenuMobile.logic.js,MenuMobile.css}`, `resources/js/components/AccountMenu/AccountMenu.css`, `resources/js/components/Header/Header.css`, `resources/js/components/PaginateEl/PaginateEl.vue`, `resources/css/ui.css`, `resources/js/pages/MyOrders/{MyOrders.vue,MyOrders.css}`, `resources/js/pages/Payment/Payment.utils.js`, `resources/views/layouts/app.blade.php`, `app/Http/Controllers/Api/MeController.php`, `database/seeders/CustomerProfilesSeeder.php`, `tests/Feature/Api/MeTest.php`, `tests/js/{account,payment}.spec.js`.
+- Test: `MeTest` +1 (indirizzo dell'ultimo ordine al cliente, `null` al ristoratore); Vitest +4 (blocco account del menu mobile: ospite, cliente, ristoratore, «Esci») e indirizzo nel precompilamento.
+
+### 8.2 — Documentazione e regressione finale (2026-11-25) ✅ — **fase F8 chiusa, piano completato**
+- `README.md`: funzioni dell'account cliente (ordini collegati, checkout precompilato, «I miei ordini», Google), paragrafo sul backoffice `/platform` (4 tab, commissione simulata del 25% indicata come stima), API `/api/me` e `/api/me/orders`, relazione `users` 1─N `orders`.
+- `AGENTS.md`: ordini dei clienti, «I miei ordini», `PaginateEl` `local`/`pageWindow`, account nel menu mobile sotto i 600 px, `last_address`, `CustomerProfilesSeeder`.
+- `dev/mappa.html`: file nuovi (pagina, controller, seeder, test), relazione `users → orders` in `DB_LINKS`/`DB_RELS`, `MenuMobile`/`AccountMenu`, `STYLE_PAGE` (barre affollate sui telefoni, paginazione, stati di una lista, checklist a 375/600/900/1200 con account loggato). Aperta in Chromium: nessun errore, tutti i 657 `go`/`rel` puntano a file presenti in `FILES`.
+- Regressione: `php artisan test` **238 passati** · `npm run test:js` **297** · `php artisan route:list` ok · `npm run build` ok.
+- **Prove manuali che restano** (non automatizzabili qui):
+  1. Google OAuth con un client vero (vedi 6.1: credenziali «Web application», URI di callback di localhost, Codespace e produzione, `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`);
+  2. un pagamento in sandbox Braintree da cliente loggato, per vedere l'ordine comparire in «I miei ordini» (con il driver `fake` è verificato dai test);
+  3. decisioni ancora aperte del piano: 7 (2FA admin, rinviata) e 8 (commissione reale, futura).
+- Prossimo passo: revisione del branch `feat/auth-platform` e merge su `main` (non fatto: serve la tua conferma).

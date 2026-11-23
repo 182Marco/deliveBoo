@@ -38,9 +38,11 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 ## Funzionalità
 
-**Cliente**: sito in 5 lingue (EN, IT, DE, FR, ES) · scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
+**Cliente**: sito in 5 lingue (EN, IT, DE, FR, ES) · scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma · **account cliente facoltativo** (il checkout da ospite resta): ordini collegati all'account, checkout precompilato (nome, email, telefono e indirizzo dell'ultimo ordine), pagina «I miei ordini» (`/my-orders`) con stato, piatti, totale e «Ordina di nuovo», menu account nell'header (sui telefoni nel menu laterale), accesso e collegamento con Google quando è configurato.
 
 **Account e ruoli**: una sola tabella `users` con ruolo `customer` (default), `restaurateur` o `admin`; un solo login (si arriva su sito, `/admin` o `/platform` secondo il ruolo); registrazione a schede «Ordino cibo» / «Ho un ristorante» (le CTA partner aprono `/register?role=restaurateur`); l'admin non si registra mai da un form pubblico. Ogni area è protetta lato server (middleware `role:` e `active`, Policy); un account bannato perde la sessione alla richiesta successiva. Piano completo (login clienti, Google, backoffice `/platform`): `dev/PIANO_AUTH_CLIENTI.md`.
+
+**Backoffice di piattaforma** (`/platform`, solo admin): filtri condivisi per periodo, città e cucina; tab **Grafici** (KPI, andamento ordini e incassi, iscrizioni, heatmap, ricavo della piattaforma come **commissione simulata del 25%**, sempre indicata come stima), **Mappe** (Leaflet e tile OpenStreetMap caricati solo quando la mappa è visibile), **Tabelle** (ristoranti, ordini, clienti, zone, periodi, con ricerca e ordinamento) e **Utenti** (elenco, creazione, modifica, ban e riattivazione, tutte registrate nell'audit log).
 
 **Account demo** (progetto portfolio, box nella pagina di login, `config/demo.php`): admin `admin@foodsy.test` / `foodsy-admin`, ristoratore Federico Romiti `restaurant_owner@foodsy.test` / `12345678`, cliente Mario Rossi `customer@foodsy.test` / `foodsy-demo`. Sono valori di sviluppo (`DEMO_*` nel `.env`); finché la demo è attiva questi account non si possono modificare, bannare né reimpostare.
 
@@ -56,11 +58,13 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 | GET | `/api/restaurants/{ids}` | Ristoranti per tipi (`ids` = `1,3,5`), 4 per pagina |
 | GET | `/api/restaurantsMenu/{slug}` | Dettagli, tipi, media voti e menu paginato per portata (ogni piatto ha anche `orderable`, `availability`, `course`, `ingredient_list`) |
 | GET | `/api/payments/config` | Driver di pagamento, `testMode` e client token Braintree per il checkout |
-| POST | `/api/orders` | Crea un ordine (una riga per piatto con quantità e prezzo pagato; rifiuta i piatti esauriti o fuori stagione) e invia l'email |
+| POST | `/api/orders` | Crea un ordine (una riga per piatto con quantità e prezzo pagato; rifiuta i piatti esauriti o fuori stagione) e invia l'email; con un cliente loggato l'ordine è collegato all'account |
+| GET | `/api/me` | L'account loggato per il sito (`{ user: null }` per gli ospiti), con l'indirizzo dell'ultimo ordine per il checkout |
+| GET | `/api/me/orders` | «I miei ordini»: gli ordini dell'account, dal più recente, 5 per pagina (401 per gli ospiti) |
 
 ## Database
 
-`users` 1─N `restaurants` · `restaurants` 1─N `plates` / `rates` / `orders` / `opening_hours` · `restaurants` N─N `types` (pivot `restaurant_type`) · `orders` N─N `plates` (pivot `order_plate` con `quantity` e `unit_price`) · `plates` N─N `ingredients` (pivot `plate_ingredient`) · `ingredients` N─N `allergens` (pivot `allergen_ingredient`, dato di riferimento) · `plates` N─N `allergens` (pivot `allergen_plate`: **dichiarazione del ristorante**, `contains` / `may_contain`) · `plates` N─N `dietary_tags` (pivot `dietary_tag_plate`, `status` yes / no / unknown e `source`). Schema: `db structure.webp` (storico); versione aggiornata e interattiva nella tab “Relazioni tabelle” di `dev/mappa.html`.
+`users` 1─N `restaurants` · `users` 1─N `orders` (`orders.user_id` facoltativo: ordini dei clienti registrati) · `restaurants` 1─N `plates` / `rates` / `orders` / `opening_hours` · `restaurants` N─N `types` (pivot `restaurant_type`) · `orders` N─N `plates` (pivot `order_plate` con `quantity` e `unit_price`) · `plates` N─N `ingredients` (pivot `plate_ingredient`) · `ingredients` N─N `allergens` (pivot `allergen_ingredient`, dato di riferimento) · `plates` N─N `allergens` (pivot `allergen_plate`: **dichiarazione del ristorante**, `contains` / `may_contain`) · `plates` N─N `dietary_tags` (pivot `dietary_tag_plate`, `status` yes / no / unknown e `source`). Schema: `db structure.webp` (storico); versione aggiornata e interattiva nella tab “Relazioni tabelle” di `dev/mappa.html`.
 
 **Informazioni alimentari (pensate per un futuro assistente che interroga il DB)**:
 
