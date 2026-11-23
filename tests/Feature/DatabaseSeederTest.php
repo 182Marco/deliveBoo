@@ -140,13 +140,16 @@ class DatabaseSeederTest extends TestCase
         $this->assertSame(DB::table('plates')->count(), DB::table('plates')->distinct()->count('slug'));
         $this->assertSame(DB::table('restaurants')->count(), DB::table('restaurants')->distinct()->count('slug'));
         $this->assertSame(DB::table('users')->count(), DB::table('users')->distinct()->count('email'));
-        $this->assertSame(DB::table('users')->count(), DB::table('users')->distinct()->count('vat_number'));
+        // only restaurateurs have a VAT number (customers and admins: NULL), one per account
+        $this->assertSame(DB::table('users')->where('role', User::RESTAURATEUR)->count(), DB::table('users')->distinct()->count('vat_number'));
+        $this->assertSame(0, DB::table('users')->where('role', User::RESTAURATEUR)->whereNull('vat_number')->count());
         $this->assertSame(DB::table('types')->count(), DB::table('types')->distinct()->count('name'));
         $this->assertSame(0, DB::table('plates')->select('restaurant_id', 'name')->groupBy('restaurant_id', 'name')->havingRaw('count(*) > 1')->get()->count());
 
         // every plate has at least one ingredient, every owner at least one restaurant
         $this->assertSame(0, DB::table('plates')->whereNotExists(fn ($q) => $q->from('plate_ingredient')->whereColumn('plate_ingredient.plate_id', 'plates.id'))->count());
-        $this->assertSame(0, User::doesntHave('restaurants')->count());
+        $this->assertSame(0, User::where('role', User::RESTAURATEUR)->doesntHave('restaurants')->count());
+        $this->assertSame(0, User::where('role', '!=', User::RESTAURATEUR)->has('restaurants')->count());
 
         // every restaurant has at least one plate, one type and one rate
         foreach (DB::table('restaurants')->get() as $restaurant) {

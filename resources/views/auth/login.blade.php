@@ -31,5 +31,7 @@
             {{ __('partner.auth.login.newHere') }} <a class="ui-link" href="{{ route('register') }}">{{ __('partner.auth.login.register') }}</a>
         </p>
     </form>
+
+    <x-demo-accounts />
     @vite('resources/js/jsBack/logListen.js')
 @endsection

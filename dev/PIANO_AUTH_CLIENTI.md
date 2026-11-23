@@ -383,4 +383,25 @@ Stima indicativa: circa 14–18 giorni (v1: 5–6,5).
 - DB di sviluppo: migration applicata, l'utente id 9 ha la nuova email ed è `restaurateur`.
 - Verifica: `grep -r "federico_romiti@gmail.com"` fuori da `vendor/`, `node_modules/`, `public/` → solo la migration (valore da sostituire) e questo piano (storia).
 - Test: `php artisan test` **143 passati**.
-- Prossimo step: **2.2 `config/demo.php`, `DemoAccountsSeeder`, comando `foodsy:make-admin`, box demo nel login**.
+- Prossimo step: 2.2.
+
+### 2.2 — Account demo, comando admin e box nel login (2026-11-24) ✅
+- Stato: completato.
+- Credenziali demo (valori di sviluppo, `DEMO_*` in `.env.example`):
+
+  | Ruolo | Account | Email | Password | Dopo il login |
+  |---|---|---|---|---|
+  | admin | Foodsy Admin | `admin@foodsy.test` | `foodsy-admin` | `/platform` (dallo step 3.1) |
+  | restaurateur | Federico Romiti | `federico.romiti@foodsy.test` | `12345678` (storica del seed) | `/admin` |
+  | customer | Mario Rossi | `mario.rossi@foodsy.test` | `foodsy-demo` | sito |
+- Modifiche:
+  - `config/demo.php`: `enabled` (`DEMO_ACCOUNTS`, di default attivo fuori da `production`: un deploy pubblico lo accende esplicitamente) e i 3 account; `.env.example` con le variabili.
+  - `DemoAccountsSeeder` (in `DatabaseSeeder` dopo i dati storici): crea admin e Mario se mancano (email verificata, ruolo impostato a mano), verifica che il ristoratore venga da `UsersTableSeeder`; mai sovrascritture.
+  - `php artisan foodsy:make-admin {email}`: promuove (con conferma) o crea un admin (nome, cognome, password ≥ 8); rifiuta gli account bannati.
+  - `User::isDemoAccount()` / `demoEmails()`; `UserPolicy` vieta modifica e ban degli account demo (D6); `ForgotPasswordController` e `ResetPasswordController` rifiutano il reset per gli account demo (`passwords.demo`); dopo un reset si va su `homePath()`.
+  - `<x-demo-accounts>` sotto il form di login: eyebrow «Progetto portfolio», titolo, spiegazione, una riga per account (ruolo, nome, a cosa serve, email e password visibili, bottone «Entra come …» = form POST `/login`, senza JS). Stile `auth-demo*` con i token (pozzetto `--oat`, righe `--surface`). Testi in 5 lingue (`partner.auth.demo.*`).
+- DB di sviluppo: `db:seed --class=DemoAccountsSeeder` → admin (id 61) e Mario Rossi (id 62) creati; Federico (id 9) invariato. `/login` mostra le 3 righe.
+- File: `config/demo.php`, `.env.example`, `database/seeders/{DemoAccountsSeeder,DatabaseSeeder}.php`, `app/Console/Commands/MakeAdmin.php`, `app/User.php`, `app/Policies/UserPolicy.php`, `app/Http/Controllers/Auth/{ForgotPasswordController,ResetPasswordController}.php`, `resources/views/components/demo-accounts.blade.php`, `resources/views/auth/login.blade.php`, `resources/css/admin.css`, `resources/js/utils/strings.json`, test, `AGENTS.md`, `README.md`, `dev/mappa.html` (file, comandi, credenziali di avvio).
+- Test: `DemoAccountsTest` (8: ruoli e password che funzionano, login di ogni account verso la sua home, seeder idempotente che non sovrascrive, box visibile solo se attivo, reset password bloccato per i demo e non per gli altri, policy con demo attivo/disattivo, `make-admin` con conferma sì/no, creazione e rifiuto dei bannati). Aggiornati `DatabaseSeederTest` (P. IVA e ristoranti solo per i ristoratori), `UserRolesTest`, `AccessControlTest` (ora il seed contiene un admin e un cliente). `php artisan test` **151 passati** · `npm run build` ok.
+- Problemi aperti: Mario Rossi per ora non ha ordini (storico ricco allo step 7.3, che richiede `orders.user_id` dello step 7.1). Verifica visiva del box nel browser da fare.
+- Prossimo step: **2.3 Sanctum, `GET /api/me`, header SPA con avatar e menu account**.

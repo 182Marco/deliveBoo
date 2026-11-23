@@ -55,6 +55,17 @@ class User extends Authenticatable
         };
     }
 
+    /** a demo account of config/demo.php while the demo is on: no edits, bans nor password resets */
+    public function isDemoAccount(): bool
+    {
+        return config('demo.enabled') && in_array(strtolower((string) $this->email), self::demoEmails(), true);
+    }
+
+    public static function demoEmails(): array
+    {
+        return array_map(fn ($a) => strtolower($a['email']), array_values(config('demo.accounts', [])));
+    }
+
     public function isBanned(): bool
     {
         return $this->banned_at !== null;

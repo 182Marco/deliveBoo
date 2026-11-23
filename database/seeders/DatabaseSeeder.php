@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             LegacyRestaurantDetailsSeeder::class,
             PlatesTableSeeder::class,
             LegacyPlateDetailsSeeder::class,
+            // demo accounts of the portfolio (config/demo.php): platform admin and customer
+            DemoAccountsSeeder::class,
             // generated catalog (size: config/seeding.php, SEED_PROFILE)
             OwnersSeeder::class,
             CatalogRestaurantsSeeder::class,

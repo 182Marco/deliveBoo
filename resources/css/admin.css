@@ -642,6 +642,80 @@
     color: var(--ink-soft);
 }
 
+/* demo accounts of the portfolio on the login page: one oat panel, a row per account */
+.auth-demo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: 1.5px solid var(--oat-deep);
+    border-radius: var(--radius-lg);
+    background-color: var(--oat);
+}
+
+.auth-demo-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-black);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-title);
+}
+
+.auth-demo-text {
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--ink-soft);
+}
+
+.auth-demo-list {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+}
+
+.auth-demo-account {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.auth-demo-who {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+}
+
+.auth-demo-name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+}
+
+.auth-demo-about {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+}
+
+.auth-demo-creds {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+}
+
+.auth-demo-label {
+    color: var(--ink-muted);
+}
+
+.auth-demo-value {
+    overflow-wrap: anywhere;
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+}
+
 /* sign-up account type: two links shown as a segmented control (the active one is a raised pill) */
 .auth-tabs {
     display: grid;

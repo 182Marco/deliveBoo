@@ -40,6 +40,10 @@ Browser ─► guest/home.blade.php (#root)         Browser ─► /login ─►
 
 **Cliente**: sito in 5 lingue (EN, IT, DE, FR, ES) · scelta di uno o più tipi di cucina · ristoranti migliori (media voti) · ristoranti per tipo (paginati) · menu del ristorante · carrello (un solo ristorante per ordine) · pagamento · email di conferma.
 
+**Account e ruoli**: una sola tabella `users` con ruolo `customer` (default), `restaurateur` o `admin`; un solo login (si arriva su sito, `/admin` o `/platform` secondo il ruolo); registrazione a schede «Ordino cibo» / «Ho un ristorante» (le CTA partner aprono `/register?role=restaurateur`); l'admin non si registra mai da un form pubblico. Ogni area è protetta lato server (middleware `role:` e `active`, Policy); un account bannato perde la sessione alla richiesta successiva. Piano completo (login clienti, Google, backoffice `/platform`): `dev/PIANO_AUTH_CLIENTI.md`.
+
+**Account demo** (progetto portfolio, box nella pagina di login, `config/demo.php`): admin `admin@foodsy.test` / `foodsy-admin`, ristoratore Federico Romiti `federico.romiti@foodsy.test` / `12345678`, cliente Mario Rossi `mario.rossi@foodsy.test` / `foodsy-demo`. Sono valori di sviluppo (`DEMO_*` nel `.env`); finché la demo è attiva questi account non si possono modificare, bannare né reimpostare.
+
 **Ristoratore**: area partner nelle stesse 5 lingue · registrazione/login · avatar illustrato nel menu account, personalizzabile con un editor · CRUD ristoranti (con immagine, tipi, descrizione e fascia di prezzo) · CRUD piatti con foto caricata **oppure link https a un'immagine ospitata altrove** (il sito la mostra da lì, senza copiarla), ingredienti strutturati, disponibilità (disponibile / esaurito / non in menu), stagionalità, porzioni, calorie e informazioni alimentari **facoltative** (diete e allergeni, con "Not declared" che non scrive nulla) · lista e dettaglio ordini (quantità × prezzo pagato) · statistiche con grafici (spesa per ordine, cliente top, incassi mensili). Ognuno vede solo i propri dati.
 
 ## API
@@ -106,7 +110,7 @@ SEED_PROFILE=test php artisan db:seed                # catalogo ridotto (quello 
 Il dataset ha tre livelli, in quest'ordine (`DatabaseSeeder`):
 
 1. **dati di riferimento**: `AllergensSeeder` (i 14 allergeni del Reg. UE 1169/2011), `DietaryTagsSeeder`, `IngredientsSeeder` (registro di circa 700 ingredienti con origine, lattosio, nichel indicativo e allergeni);
-2. **dati storici scritti a mano**: Users, Types, Restaurants, `LegacyRestaurantDetailsSeeder` (segmento, descrizione, posizione e orari dei ristoranti storici: riempie solo i campi vuoti), Plates, `LegacyPlateDetailsSeeder` (ingredienti strutturati dei piatti storici), Orders, Rates;
+2. **dati storici scritti a mano**: Users, Types, Restaurants, `DemoAccountsSeeder` (admin e cliente demo di `config/demo.php`; il ristoratore demo è Federico Romiti di `UsersTableSeeder`), `LegacyRestaurantDetailsSeeder` (segmento, descrizione, posizione e orari dei ristoranti storici: riempie solo i campi vuoti), Plates, `LegacyPlateDetailsSeeder` (ingredienti strutturati dei piatti storici), Orders, Rates;
 3. **catalogo generato**: `OwnersSeeder`, `CatalogRestaurantsSeeder` (con orari), `MenusSeeder`, `OrderHistorySeeder`, `RatingsSeeder`.
 
 Il catalogo generato nasce da file di dati scritti a mano in `database/seeders/data/`: per ogni cucina concept e ricette con varianti per fascia (`base` / `mid` / `high`), bevande per livello e contesto, città, nomi, foto. La generazione è **deterministica** (`database/seeders/Support/`: stesso input, stesso catalogo, senza dipendere dagli ID) e dimensionata da `config/seeding.php`:

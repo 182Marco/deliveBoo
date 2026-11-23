@@ -18,9 +18,13 @@ class UserRolesTest extends TestCase
         $this->assertTrue(Schema::hasColumns('users', ['role', 'google_id', 'avatar_url', 'banned_at', 'ban_reason', 'banned_by']));
     }
 
-    public function testSeededAccountsAreRestaurateurs()
+    public function testSeededAccountsAreRestaurateursBesidesTheDemoOnes()
     {
-        $this->assertSame(0, User::where('role', '!=', User::RESTAURATEUR)->count());
+        // the only non-partner accounts of the seed are the demo admin and customer (config/demo.php)
+        $this->assertEqualsCanonicalizing(
+            [config('demo.accounts.admin.email'), config('demo.accounts.customer.email')],
+            User::where('role', '!=', User::RESTAURATEUR)->pluck('email')->all(),
+        );
         $this->assertSame(User::RESTAURATEUR, User::where('email', 'federico.romiti@foodsy.test')->value('role'));
     }
 
@@ -55,12 +59,13 @@ class UserRolesTest extends TestCase
         $this->assertTrue($admin->isAdmin());
         $this->assertTrue($admin->hasRole(User::RESTAURATEUR, User::ADMIN));
         $this->assertFalse($admin->isBanned());
-        $this->assertSame(1, User::activeAdminCount());
+        $before = User::where('role', User::ADMIN)->whereNull('banned_at')->count();
+        $this->assertSame($before, User::activeAdminCount());
 
         $admin->banned_at = now();
         $admin->save();
         $this->assertTrue($admin->fresh()->isBanned());
-        $this->assertSame(0, User::activeAdminCount());
+        $this->assertSame($before - 1, User::activeAdminCount());
     }
 
     public function testGoogleIdIsHiddenFromSerialization()

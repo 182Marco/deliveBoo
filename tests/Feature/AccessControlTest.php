@@ -110,6 +110,8 @@ class AccessControlTest extends TestCase
         $this->assertFalse($customer->can('viewAny', User::class));
         $this->assertFalse($this->owner()->can('ban', $customer));
         $this->assertTrue($admin->can('create', User::class));
-        $this->assertSame(2, User::activeAdminCount());
+        // the seeded demo admin + the two created here
+        $this->assertSame(User::where('role', User::ADMIN)->whereNull('banned_at')->count(), User::activeAdminCount());
+        $this->assertGreaterThanOrEqual(2, User::activeAdminCount());
     }
 }
