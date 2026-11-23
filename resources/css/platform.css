@@ -19,6 +19,7 @@
 
 .plat-brand {
     display: inline-flex;
+    flex-shrink: 0;
     align-items: center;
     gap: var(--space-3);
 }
@@ -227,6 +228,199 @@
     text-align: center;
 }
 
+/* ---------- KPI tiles ---------- */
+.plat-kpis {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+}
+
+.plat-kpi {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background-color: var(--surface);
+}
+
+.plat-kpi-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--ink-soft);
+}
+
+.plat-kpi-value {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-black);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-title);
+}
+
+.plat-kpi-hint {
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+}
+
+.plat-delta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+}
+
+.plat-delta--good {
+    color: var(--olive);
+}
+
+.plat-delta--bad {
+    color: var(--tomato);
+}
+
+.plat-delta-vs {
+    font-weight: var(--weight-regular);
+    color: var(--ink-muted);
+}
+
+/* ---------- chart cards ---------- */
+.plat-charts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+}
+
+.plat-chart {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-width: 0;
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background-color: var(--surface);
+}
+
+.plat-chart-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.plat-chart-sub {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+}
+
+.plat-chart-canvas {
+    position: relative;
+    height: 260px;
+}
+
+.plat-chart-canvas--tall {
+    height: 340px;
+}
+
+.plat-data {
+    font-size: var(--text-sm);
+}
+
+.plat-data-summary {
+    width: fit-content;
+    color: var(--ink-soft);
+    font-weight: var(--weight-bold);
+    cursor: pointer;
+}
+
+.plat-data-table {
+    max-height: 320px;
+    margin-top: var(--space-3);
+    overflow: auto;
+}
+
+/* ---------- heatmap (one hue, light to dark: --brand ramp) ---------- */
+.plat-heat-scroll {
+    position: relative;
+    overflow-x: auto;
+}
+
+.plat-heat-grid {
+    display: grid;
+    grid-template-columns: 3.5rem repeat(24, minmax(16px, 1fr));
+    gap: 2px;
+    min-width: 560px;
+}
+
+.plat-heat-corner {
+    display: block;
+}
+
+.plat-heat-hour {
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.plat-heat-day {
+    align-self: center;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--ink-soft);
+    text-transform: capitalize;
+}
+
+.plat-heat {
+    display: block;
+    height: 22px;
+    border-radius: var(--radius-xs);
+}
+
+.plat-heat--0 {
+    background-color: var(--oat);
+}
+
+.plat-heat--1 {
+    background-color: var(--brand-wash);
+}
+
+.plat-heat--2 {
+    background-color: var(--brand-soft);
+}
+
+.plat-heat--3 {
+    background-color: var(--brand);
+}
+
+.plat-heat--4 {
+    background-color: var(--brand-strong);
+}
+
+.plat-heat--5 {
+    background-color: var(--brand-deep);
+}
+
+.plat-heat-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+}
+
+.plat-heat-key {
+    width: 14px;
+}
+
 @media (min-width: 600px) {
     .plat-filters-fields {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -236,6 +430,18 @@
 @media (min-width: 900px) {
     .plat-header-link {
         display: inline-flex;
+    }
+
+    .plat-kpis {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .plat-charts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .plat-chart--wide {
+        grid-column: 1 / -1;
     }
 }
 

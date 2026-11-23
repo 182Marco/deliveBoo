@@ -18,7 +18,8 @@
     <header class="plat-header">
         <div class="ui-container plat-header-inner">
             <a class="plat-brand" href="{{ route('platform.home') }}" aria-label="{{ __('platform.header.brand') }}">
-                <x-logo />
+                {{-- the wordmark from 600px: on phones mark + Platform badge + language + account fit one row --}}
+                <x-logo wide />
                 <span class="plat-brand-tag">{{ __('platform.header.tag') }}</span>
             </a>
 

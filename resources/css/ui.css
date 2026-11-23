@@ -671,6 +671,11 @@
     color: var(--ink-inverse);
 }
 
+/* crowded bars (platform backoffice): only the mark on small screens */
+.ui-logo-word--wide {
+    display: none;
+}
+
 .ui-icon {
     flex-shrink: 0;
 }
@@ -841,6 +846,10 @@
 
 /* small screens: flag + code only, the header row is full */
 @media (min-width: 600px) {
+    .ui-logo-word--wide {
+        display: inline;
+    }
+
     .ui-lang-trigger {
         padding: 0 var(--space-3);
     }

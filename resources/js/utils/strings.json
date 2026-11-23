@@ -765,7 +765,106 @@
         },
         "charts": {
             "title": { "en": "Sales and customers", "it": "Vendite e clienti", "de": "Umsatz und Kunden", "fr": "Ventes et clients", "es": "Ventas y clientes" },
-            "lead": { "en": "How orders, sales and customers change over time.", "it": "Come cambiano nel tempo ordini, vendite e clienti.", "de": "Wie sich Bestellungen, Umsatz und Kunden im Zeitverlauf entwickeln.", "fr": "L'évolution des commandes, des ventes et des clients dans le temps.", "es": "Cómo cambian con el tiempo pedidos, ventas y clientes." }
+            "lead": { "en": "How orders, sales and customers change over time.", "it": "Come cambiano nel tempo ordini, vendite e clienti.", "de": "Wie sich Bestellungen, Umsatz und Kunden im Zeitverlauf entwickeln.", "fr": "L'évolution des commandes, des ventes et des clients dans le temps.", "es": "Cómo cambian con el tiempo pedidos, ventas y clientes." },
+            "kpi": {
+                "gross": { "en": "Gross order value", "it": "Valore lordo degli ordini", "de": "Bruttobestellwert", "fr": "Valeur brute des commandes", "es": "Valor bruto de los pedidos" },
+                "grossHint": { "en": "Paid orders not cancelled: completed and in progress", "it": "Ordini pagati non annullati: completati e in corso", "de": "Bezahlte, nicht stornierte Bestellungen: abgeschlossen und laufend", "fr": "Commandes payées non annulées : terminées et en cours", "es": "Pedidos pagados no cancelados: completados y en curso" },
+                "revenue": { "en": "Platform revenue (estimate)", "it": "Ricavi della piattaforma (stima)", "de": "Plattformumsatz (Schätzung)", "fr": "Revenus de la plateforme (estimation)", "es": "Ingresos de la plataforma (estimación)" },
+                "revenueHint": { "en": "Simulated :rate commission on completed orders", "it": "Commissione simulata del :rate sugli ordini completati", "de": "Simulierte Provision von :rate auf abgeschlossene Bestellungen", "fr": "Commission simulée de :rate sur les commandes terminées", "es": "Comisión simulada del :rate sobre los pedidos completados" },
+                "completed": { "en": "Completed orders", "it": "Ordini completati", "de": "Abgeschlossene Bestellungen", "fr": "Commandes terminées", "es": "Pedidos completados" },
+                "completedHint": { "en": "Paid and delivered", "it": "Pagati e consegnati", "de": "Bezahlt und geliefert", "fr": "Payées et livrées", "es": "Pagados y entregados" },
+                "average": { "en": "Average order value", "it": "Valore medio dell'ordine", "de": "Durchschnittlicher Bestellwert", "fr": "Panier moyen", "es": "Valor medio del pedido" },
+                "averageHint": { "en": "Completed value ÷ completed orders", "it": "Valore completato ÷ ordini completati", "de": "Abgeschlossener Wert ÷ abgeschlossene Bestellungen", "fr": "Valeur terminée ÷ commandes terminées", "es": "Valor completado ÷ pedidos completados" },
+                "cancelled": { "en": "Cancelled orders", "it": "Ordini annullati", "de": "Stornierte Bestellungen", "fr": "Commandes annulées", "es": "Pedidos cancelados" },
+                "cancelledHint": { "en": ":value cancelled after payment", "it": "Annullati dopo il pagamento: :value", "de": "Nach der Zahlung storniert: :value", "fr": "Annulées après paiement : :value", "es": "Cancelados tras el pago: :value" },
+                "failed": { "en": "Failed payments", "it": "Pagamenti falliti", "de": "Fehlgeschlagene Zahlungen", "fr": "Paiements échoués", "es": "Pagos fallidos" },
+                "failedHint": { "en": ":value refused, never counted as sales", "it": "Rifiutati per :value, mai contati come vendite", "de": "Abgelehnt: :value, nie als Umsatz gezählt", "fr": "Refusés pour :value, jamais comptés comme ventes", "es": "Rechazados por :value, nunca contados como ventas" },
+                "customers": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
+                "customersHint": { "en": "Distinct emails with a paid order", "it": "Email distinte con un ordine pagato", "de": "Verschiedene E-Mails mit bezahlter Bestellung", "fr": "E-mails distincts avec une commande payée", "es": "Emails distintos con un pedido pagado" },
+                "delivery": { "en": "Delivery time", "it": "Tempo di consegna", "de": "Lieferzeit", "fr": "Délai de livraison", "es": "Tiempo de entrega" },
+                "deliveryValue": { "en": ":minutes min", "it": ":minutes min", "de": ":minutes Min.", "fr": ":minutes min", "es": ":minutes min" },
+                "deliveryHint": { "en": "Median · 9 in 10 within :p90 min", "it": "Mediana · 9 su 10 entro :p90 min", "de": "Median · 9 von 10 innerhalb von :p90 Min.", "fr": "Médiane · 9 sur 10 en moins de :p90 min", "es": "Mediana · 9 de cada 10 en :p90 min" }
+            },
+            "vsPrevious": { "en": "vs :from – :to", "it": "rispetto a :from – :to", "de": "ggü. :from – :to", "fr": "vs :from – :to", "es": "frente a :from – :to" },
+            "noComparison": { "en": "no data before", "it": "nessun dato prima", "de": "keine Daten davor", "fr": "aucune donnée avant", "es": "sin datos antes" },
+            "estimate": { "en": "Estimate", "it": "Stima", "de": "Schätzung", "fr": "Estimation", "es": "Estimación" },
+            "empty": { "en": "No orders in this period.", "it": "Nessun ordine in questo periodo.", "de": "Keine Bestellungen in diesem Zeitraum.", "fr": "Aucune commande sur cette période.", "es": "No hay pedidos en este periodo." },
+            "table": { "en": "Show the data as a table", "it": "Mostra i dati in tabella", "de": "Daten als Tabelle anzeigen", "fr": "Afficher les données en tableau", "es": "Ver los datos en una tabla" },
+            "unit": {
+                "day": { "en": "day", "it": "giorno", "de": "Tag", "fr": "jour", "es": "día" },
+                "week": { "en": "week", "it": "settimana", "de": "Woche", "fr": "semaine", "es": "semana" },
+                "month": { "en": "month", "it": "mese", "de": "Monat", "fr": "mois", "es": "mes" }
+            },
+            "col": {
+                "period": { "en": "Period", "it": "Periodo", "de": "Zeitraum", "fr": "Période", "es": "Periodo" },
+                "gross": { "en": "Gross value", "it": "Valore lordo", "de": "Bruttowert", "fr": "Valeur brute", "es": "Valor bruto" },
+                "orders": { "en": "Completed orders", "it": "Ordini completati", "de": "Abgeschlossene Bestellungen", "fr": "Commandes terminées", "es": "Pedidos completados" },
+                "average": { "en": "Average order", "it": "Valore medio", "de": "Durchschnitt", "fr": "Panier moyen", "es": "Valor medio" },
+                "revenue": { "en": "Revenue (estimate)", "it": "Ricavi (stima)", "de": "Umsatz (Schätzung)", "fr": "Revenus (estimation)", "es": "Ingresos (estimación)" },
+                "restaurant": { "en": "Restaurant", "it": "Ristorante", "de": "Restaurant", "fr": "Restaurant", "es": "Restaurante" },
+                "city": { "en": "City", "it": "Città", "de": "Ort", "fr": "Ville", "es": "Ciudad" },
+                "cuisine": { "en": "Cuisine", "it": "Cucina", "de": "Küche", "fr": "Cuisine", "es": "Cocina" },
+                "rating": { "en": "Rating", "it": "Voto", "de": "Bewertung", "fr": "Note", "es": "Valoración" },
+                "customers": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
+                "orderCount": { "en": "Orders per customer", "it": "Ordini per cliente", "de": "Bestellungen pro Kunde", "fr": "Commandes par client", "es": "Pedidos por cliente" }
+            },
+            "sales": {
+                "title": { "en": "Gross order value over time", "it": "Valore lordo degli ordini nel tempo", "de": "Bruttobestellwert im Zeitverlauf", "fr": "Valeur brute des commandes dans le temps", "es": "Valor bruto de los pedidos en el tiempo" },
+                "sub": { "en": "Paid orders not cancelled, by :unit", "it": "Ordini pagati non annullati, per :unit", "de": "Bezahlte, nicht stornierte Bestellungen, pro :unit", "fr": "Commandes payées non annulées, par :unit", "es": "Pedidos pagados no cancelados, por :unit" }
+            },
+            "orders": {
+                "title": { "en": "Completed orders", "it": "Ordini completati", "de": "Abgeschlossene Bestellungen", "fr": "Commandes terminées", "es": "Pedidos completados" },
+                "sub": { "en": "Paid and delivered, by :unit", "it": "Pagati e consegnati, per :unit", "de": "Bezahlt und geliefert, pro :unit", "fr": "Payées et livrées, par :unit", "es": "Pagados y entregados, por :unit" }
+            },
+            "average": {
+                "title": { "en": "Average order value", "it": "Valore medio dell'ordine", "de": "Durchschnittlicher Bestellwert", "fr": "Panier moyen", "es": "Valor medio del pedido" },
+                "sub": { "en": "Completed orders, by :unit", "it": "Ordini completati, per :unit", "de": "Abgeschlossene Bestellungen, pro :unit", "fr": "Commandes terminées, par :unit", "es": "Pedidos completados, por :unit" }
+            },
+            "compare": {
+                "title": { "en": "This period and the previous one", "it": "Questo periodo e il precedente", "de": "Dieser und der vorherige Zeitraum", "fr": "Cette période et la précédente", "es": "Este periodo y el anterior" },
+                "sub": { "en": "Gross order value; the previous period (:from – :to) is aligned :unit by :unit", "it": "Valore lordo; il periodo precedente (:from – :to) è allineato :unit per :unit", "de": "Bruttowert; der vorherige Zeitraum (:from – :to) ist :unit für :unit ausgerichtet", "fr": "Valeur brute ; la période précédente (:from – :to) est alignée :unit par :unit", "es": "Valor bruto; el periodo anterior (:from – :to) está alineado :unit a :unit" },
+                "current": { "en": "This period", "it": "Questo periodo", "de": "Dieser Zeitraum", "fr": "Cette période", "es": "Este periodo" },
+                "previous": { "en": "Previous period", "it": "Periodo precedente", "de": "Vorheriger Zeitraum", "fr": "Période précédente", "es": "Periodo anterior" }
+            },
+            "heatmap": {
+                "title": { "en": "When people order", "it": "Quando si ordina", "de": "Wann bestellt wird", "fr": "Quand on commande", "es": "Cuándo se pide" },
+                "sub": { "en": "Completed orders by weekday and hour", "it": "Ordini completati per giorno della settimana e ora", "de": "Abgeschlossene Bestellungen nach Wochentag und Uhrzeit", "fr": "Commandes terminées par jour et par heure", "es": "Pedidos completados por día de la semana y hora" },
+                "cell": { "en": ":day :hour:00 · :count orders", "it": ":day ore :hour · :count ordini", "de": ":day :hour Uhr · :count Bestellungen", "fr": ":day :hour h · :count commandes", "es": ":day :hour:00 · :count pedidos" },
+                "less": { "en": "fewer", "it": "meno", "de": "weniger", "fr": "moins", "es": "menos" },
+                "more": { "en": "more", "it": "più", "de": "mehr", "fr": "plus", "es": "más" }
+            },
+            "top": {
+                "title": { "en": "Top restaurants", "it": "Ristoranti migliori", "de": "Top-Restaurants", "fr": "Meilleurs restaurants", "es": "Mejores restaurantes" },
+                "sub": { "en": "By gross order value; the rating is the average of all ratings", "it": "Per valore lordo; il voto è la media di tutti i voti", "de": "Nach Bruttowert; die Bewertung ist der Schnitt aller Bewertungen", "fr": "Par valeur brute ; la note est la moyenne de toutes les notes", "es": "Por valor bruto; la valoración es la media de todas" }
+            },
+            "cities": {
+                "title": { "en": "Gross value by city", "it": "Valore lordo per città", "de": "Bruttowert nach Ort", "fr": "Valeur brute par ville", "es": "Valor bruto por ciudad" },
+                "sub": { "en": "City of the restaurant", "it": "Città del ristorante", "de": "Ort des Restaurants", "fr": "Ville du restaurant", "es": "Ciudad del restaurante" }
+            },
+            "cuisines": {
+                "title": { "en": "Gross value by cuisine", "it": "Valore lordo per cucina", "de": "Bruttowert nach Küche", "fr": "Valeur brute par cuisine", "es": "Valor bruto por cocina" },
+                "sub": { "en": "Top 10 · a restaurant with several cuisines counts in each", "it": "Prime 10 · un ristorante con più cucine conta in ognuna", "de": "Top 10 · ein Restaurant mit mehreren Küchen zählt in jeder", "fr": "Top 10 · un restaurant à plusieurs cuisines compte dans chacune", "es": "Top 10 · un restaurante con varias cocinas cuenta en cada una" }
+            },
+            "customers": {
+                "title": { "en": "New and returning customers", "it": "Clienti nuovi e di ritorno", "de": "Neue und wiederkehrende Kunden", "fr": "Clients nouveaux et fidèles", "es": "Clientes nuevos y recurrentes" },
+                "sub": { "en": "New: first paid order ever in that :unit · by email, guests included", "it": "Nuovi: primo ordine pagato di sempre in quel :unit · per email, ospiti inclusi", "de": "Neu: erste bezahlte Bestellung überhaupt in diesem :unit · nach E-Mail, Gäste inklusive", "fr": "Nouveaux : première commande payée de tous les temps dans ce :unit · par e-mail, invités compris", "es": "Nuevos: primer pedido pagado de siempre en ese :unit · por email, invitados incluidos" },
+                "new": { "en": "New", "it": "Nuovi", "de": "Neu", "fr": "Nouveaux", "es": "Nuevos" },
+                "returning": { "en": "Returning", "it": "Di ritorno", "de": "Wiederkehrend", "fr": "Fidèles", "es": "Recurrentes" }
+            },
+            "distribution": {
+                "title": { "en": "Orders per customer", "it": "Ordini per cliente", "de": "Bestellungen pro Kunde", "fr": "Commandes par client", "es": "Pedidos por cliente" },
+                "sub": { "en": "Customers of the period by number of orders · :rate ordered more than once", "it": "Clienti del periodo per numero di ordini · il :rate ha ordinato più di una volta", "de": "Kunden des Zeitraums nach Anzahl der Bestellungen · :rate haben mehrmals bestellt", "fr": "Clients de la période par nombre de commandes · :rate ont commandé plusieurs fois", "es": "Clientes del periodo por número de pedidos · el :rate pidió más de una vez" }
+            },
+            "registrations": {
+                "title": { "en": "New accounts", "it": "Nuovi account", "de": "Neue Konten", "fr": "Nouveaux comptes", "es": "Cuentas nuevas" },
+                "sub": { "en": "Customers and restaurateurs who signed up, by :unit", "it": "Clienti e ristoratori registrati, per :unit", "de": "Registrierte Kunden und Gastronomen, pro :unit", "fr": "Clients et restaurateurs inscrits, par :unit", "es": "Clientes y restauradores registrados, por :unit" },
+                "customer": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
+                "restaurateur": { "en": "Restaurateurs", "it": "Ristoratori", "de": "Gastronomen", "fr": "Restaurateurs", "es": "Restauradores" },
+                "none": { "en": "No accounts created in this period.", "it": "Nessun account creato in questo periodo.", "de": "Keine Konten in diesem Zeitraum erstellt.", "fr": "Aucun compte créé sur cette période.", "es": "No se crearon cuentas en este periodo." }
+            },
+            "partial": { "en": ":label (partial)", "it": ":label (parziale)", "de": ":label (unvollständig)", "fr": ":label (partiel)", "es": ":label (parcial)" },
+            "partialNote": { "en": "The first and last :unit are only partly inside the period.", "it": "Il primo e l'ultimo :unit sono compresi solo in parte nel periodo.", "de": "Der erste und der letzte :unit liegen nur teilweise im Zeitraum.", "fr": "Le premier et le dernier :unit ne sont que partiellement dans la période.", "es": "El primer y el último :unit solo están en parte dentro del periodo." },
+            "changesVs": { "en": "Changes compared with the previous period, :from – :to.", "it": "Variazioni rispetto al periodo precedente, :from – :to.", "de": "Veränderungen gegenüber dem vorherigen Zeitraum, :from – :to.", "fr": "Évolution par rapport à la période précédente, :from – :to.", "es": "Cambios respecto al periodo anterior, :from – :to." }
         },
         "tables": {
             "title": { "en": "Data tables", "it": "Tabelle dei dati", "de": "Datentabellen", "fr": "Tableaux de données", "es": "Tablas de datos" },
