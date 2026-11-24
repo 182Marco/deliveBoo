@@ -41,6 +41,11 @@ class RoutesTest extends TestCase
             ['admin.orders.show', [5], '/admin/orders/show/5', 'GET'],
             ['admin.stats.index', [], '/admin/stats', 'GET'],
             ['admin.stats.show', [5], '/admin/stats/5', 'GET'],
+            ['admin.reviews.index', ['abc'], '/admin/reviews/abc', 'GET'],
+            ['admin.reviews.reply', [9], '/admin/reviews/reply/9', 'PUT'],
+            ['admin.reviews.reply.delete', [9], '/admin/reviews/reply/9', 'DELETE'],
+            ['platform.reviews.hide', [9], '/platform/reviews/9/hide', 'POST'],
+            ['platform.reviews.unhide', [9], '/platform/reviews/9/unhide', 'POST'],
             ['locale', ['de'], '/locale/de', 'GET'],
         ];
     }
@@ -67,6 +72,8 @@ class RoutesTest extends TestCase
             'GET api/restaurants/{ids}',
             'GET api/restaurantsMenu/{slug}',
             'POST api/orders',
+            'GET api/restaurants/{slug}/reviews',
+            'PUT api/me/orders/{order}/review',
         ] as $expected) {
             $this->assertContains($expected, $paths);
         }

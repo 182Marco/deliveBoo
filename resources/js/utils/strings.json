@@ -293,6 +293,55 @@
                 "failed": { "en": "Payment failed", "it": "Pagamento non riuscito", "de": "Zahlung fehlgeschlagen", "fr": "Paiement échoué", "es": "Pago fallido" },
                 "pending": { "en": "Payment pending", "it": "Pagamento in attesa", "de": "Zahlung ausstehend", "fr": "Paiement en attente", "es": "Pago pendiente" }
             }
+        },
+        "reviews": {
+            "review": { "en": "Review", "it": "Recensisci", "de": "Bewerten", "fr": "Évaluer", "es": "Valorar" },
+            "edit": { "en": "Edit review", "it": "Modifica recensione", "de": "Bewertung bearbeiten", "fr": "Modifier l'avis", "es": "Editar reseña" },
+            "yours": { "en": "Your review", "it": "La tua recensione", "de": "Deine Bewertung", "fr": "Votre avis", "es": "Tu reseña" },
+            "hiddenNote": { "en": "Removed by moderation: it is no longer public and cannot be edited.", "it": "Rimossa dalla moderazione: non è più pubblica e non si può modificare.", "de": "Von der Moderation entfernt: nicht mehr öffentlich und nicht mehr bearbeitbar.", "fr": "Retiré par la modération : il n'est plus public et ne peut plus être modifié.", "es": "Retirada por moderación: ya no es pública y no se puede editar." },
+            "replyFrom": { "en": "Reply from :restaurant", "it": "Risposta di :restaurant", "de": "Antwort von :restaurant", "fr": "Réponse de :restaurant", "es": "Respuesta de :restaurant" },
+            "modalEyebrow": { "en": "Order #:id", "it": "Ordine n. :id", "de": "Bestellung Nr. :id", "fr": "Commande n° :id", "es": "Pedido n.º :id" },
+            "modalTitle": { "en": "How was :restaurant?", "it": "Com'era :restaurant?", "de": "Wie war :restaurant?", "fr": "Comment était :restaurant ?", "es": "¿Qué tal :restaurant?" },
+            "modalLead": { "en": "Your stars and words help other guests choose. Only people who ordered can review.", "it": "Le tue stelle e le tue parole aiutano gli altri clienti a scegliere. Può recensire solo chi ha ordinato.", "de": "Deine Sterne und Worte helfen anderen Gästen bei der Wahl. Bewerten kann nur, wer bestellt hat.", "fr": "Vos étoiles et vos mots aident les autres clients à choisir. Seuls ceux qui ont commandé peuvent donner un avis.", "es": "Tus estrellas y tus palabras ayudan a otros clientes a elegir. Solo puede valorar quien ha pedido." },
+            "rating": { "en": "Rating", "it": "Voto", "de": "Bewertung", "fr": "Note", "es": "Valoración" },
+            "ratingHint": { "en": "Tap a star: the stars fill up to the one you choose.", "it": "Tocca una stella: si riempiono fino a quella che scegli.", "de": "Tippe auf einen Stern: Die Sterne füllen sich bis zu deiner Wahl.", "fr": "Touchez une étoile : elles se remplissent jusqu'à celle choisie.", "es": "Toca una estrella: se rellenan hasta la que elijas." },
+            "star": { "en": ":count star|:count stars", "it": ":count stella|:count stelle", "de": ":count Stern|:count Sterne", "fr": ":count étoile|:count étoiles", "es": ":count estrella|:count estrellas" },
+            "level": {
+                "1": { "en": "Poor", "it": "Scarso", "de": "Schlecht", "fr": "Décevant", "es": "Malo" },
+                "2": { "en": "Fair", "it": "Mediocre", "de": "Mäßig", "fr": "Moyen", "es": "Regular" },
+                "3": { "en": "Good", "it": "Buono", "de": "Gut", "fr": "Bien", "es": "Bueno" },
+                "4": { "en": "Very good", "it": "Molto buono", "de": "Sehr gut", "fr": "Très bien", "es": "Muy bueno" },
+                "5": { "en": "Excellent", "it": "Eccellente", "de": "Ausgezeichnet", "fr": "Excellent", "es": "Excelente" }
+            },
+            "comment": { "en": "Your review", "it": "La tua recensione", "de": "Deine Bewertung", "fr": "Votre avis", "es": "Tu reseña" },
+            "optional": { "en": "optional", "it": "facoltativa", "de": "optional", "fr": "facultatif", "es": "opcional" },
+            "placeholder": { "en": "The dishes, the portions, the delivery…", "it": "I piatti, le porzioni, la consegna…", "de": "Die Gerichte, die Portionen, die Lieferung…", "fr": "Les plats, les portions, la livraison…", "es": "Los platos, las raciones, la entrega…" },
+            "counter": { "en": ":count/:max characters", "it": ":count/:max caratteri", "de": ":count/:max Zeichen", "fr": ":count/:max caractères", "es": ":count/:max caracteres" },
+            "publish": { "en": "Publish review", "it": "Pubblica la recensione", "de": "Bewertung veröffentlichen", "fr": "Publier l'avis", "es": "Publicar reseña" },
+            "save": { "en": "Save changes", "it": "Salva le modifiche", "de": "Änderungen speichern", "fr": "Enregistrer", "es": "Guardar cambios" },
+            "saving": { "en": "Saving…", "it": "Salvataggio…", "de": "Wird gespeichert…", "fr": "Enregistrement…", "es": "Guardando…" },
+            "cancel": { "en": "Cancel", "it": "Annulla", "de": "Abbrechen", "fr": "Annuler", "es": "Cancelar" },
+            "close": { "en": "Close", "it": "Chiudi", "de": "Schließen", "fr": "Fermer", "es": "Cerrar" },
+            "saved": { "en": "Thank you! Your review is published.", "it": "Grazie! La tua recensione è pubblicata.", "de": "Danke! Deine Bewertung ist veröffentlicht.", "fr": "Merci ! Votre avis est publié.", "es": "¡Gracias! Tu reseña está publicada." },
+            "chooseStars": { "en": "Choose from 1 to 5 stars.", "it": "Scegli da 1 a 5 stelle.", "de": "Wähle 1 bis 5 Sterne.", "fr": "Choisissez de 1 à 5 étoiles.", "es": "Elige de 1 a 5 estrellas." },
+            "forbidden": { "en": "This order can no longer be reviewed.", "it": "Questo ordine non si può più recensire.", "de": "Diese Bestellung kann nicht mehr bewertet werden.", "fr": "Cette commande ne peut plus être évaluée.", "es": "Este pedido ya no se puede valorar." },
+            "error": { "en": "We could not save your review. Please try again.", "it": "Non siamo riusciti a salvare la recensione. Riprova.", "de": "Wir konnten deine Bewertung nicht speichern. Bitte versuche es erneut.", "fr": "Impossible d'enregistrer votre avis. Veuillez réessayer.", "es": "No hemos podido guardar tu reseña. Inténtalo de nuevo." },
+            "window": { "en": "You can review a delivered order for :days days.", "it": "Puoi recensire un ordine consegnato per :days giorni.", "de": "Du kannst eine gelieferte Bestellung :days Tage lang bewerten.", "fr": "Vous pouvez évaluer une commande livrée pendant :days jours.", "es": "Puedes valorar un pedido entregado durante :days días." },
+            "eyebrow": { "en": "Guest reviews", "it": "Recensioni dei clienti", "de": "Gästebewertungen", "fr": "Avis des clients", "es": "Reseñas de clientes" },
+            "title": { "en": "What guests say", "it": "Cosa dicono i clienti", "de": "Was Gäste sagen", "fr": "Ce qu'en disent les clients", "es": "Lo que dicen los clientes" },
+            "basedOn": { "en": "Based on :count review|Based on :count reviews", "it": "Su :count recensione|Su :count recensioni", "de": "Aus :count Bewertung|Aus :count Bewertungen", "fr": "Sur :count avis|Sur :count avis", "es": "De :count reseña|De :count reseñas" },
+            "count": { "en": ":count review|:count reviews", "it": ":count recensione|:count recensioni", "de": ":count Bewertung|:count Bewertungen", "fr": ":count avis|:count avis", "es": ":count reseña|:count reseñas" },
+            "distribution": { "en": ":stars stars: :count", "it": ":stars stelle: :count", "de": ":stars Sterne: :count", "fr": ":stars étoiles : :count", "es": ":stars estrellas: :count" },
+            "verified": { "en": "Verified order", "it": "Ordine verificato", "de": "Verifizierte Bestellung", "fr": "Commande vérifiée", "es": "Pedido verificado" },
+            "anonymous": { "en": "Foodsy guest", "it": "Cliente Foodsy", "de": "Foodsy-Gast", "fr": "Client Foodsy", "es": "Cliente de Foodsy" },
+            "listNote": { "en": "Every review comes from a delivered order. The average counts the latest review of each guest.", "it": "Ogni recensione viene da un ordine consegnato. La media conta l'ultima recensione di ciascun cliente.", "de": "Jede Bewertung stammt aus einer gelieferten Bestellung. Der Schnitt zählt die neueste Bewertung jedes Gastes.", "fr": "Chaque avis provient d'une commande livrée. La moyenne compte le dernier avis de chaque client.", "es": "Cada reseña viene de un pedido entregado. La media cuenta la última reseña de cada cliente." },
+            "emptyTitle": { "en": "No reviews yet", "it": "Ancora nessuna recensione", "de": "Noch keine Bewertungen", "fr": "Pas encore d'avis", "es": "Todavía no hay reseñas" },
+            "emptyText": { "en": "Reviews come from guests who ordered here: yours could be the first.", "it": "Le recensioni arrivano da chi ha ordinato qui: la tua potrebbe essere la prima.", "de": "Bewertungen stammen von Gästen, die hier bestellt haben: Deine könnte die erste sein.", "fr": "Les avis viennent des clients qui ont commandé ici : le vôtre pourrait être le premier.", "es": "Las reseñas vienen de quienes han pedido aquí: la tuya podría ser la primera." },
+            "starsOnlyNote": { "en": "Some guests left only stars: they count in the average but are not listed.", "it": "Alcuni clienti hanno lasciato solo le stelle: contano nella media ma non sono elencate.", "de": "Einige Gäste haben nur Sterne vergeben: Sie zählen im Schnitt, werden aber nicht aufgelistet.", "fr": "Certains clients n'ont laissé que des étoiles : elles comptent dans la moyenne mais ne sont pas listées.", "es": "Algunos clientes solo dejaron estrellas: cuentan en la media pero no se muestran." },
+            "loading": { "en": "Loading the reviews", "it": "Caricamento delle recensioni", "de": "Bewertungen werden geladen", "fr": "Chargement des avis", "es": "Cargando las reseñas" },
+            "loadError": { "en": "We could not load the reviews.", "it": "Non siamo riusciti a caricare le recensioni.", "de": "Wir konnten die Bewertungen nicht laden.", "fr": "Impossible de charger les avis.", "es": "No hemos podido cargar las reseñas." },
+            "retry": { "en": "Try again", "it": "Riprova", "de": "Erneut versuchen", "fr": "Réessayer", "es": "Reintentar" },
+            "noRating": { "en": "New on Foodsy", "it": "Novità su Foodsy", "de": "Neu bei Foodsy", "fr": "Nouveau sur Foodsy", "es": "Nuevo en Foodsy" }
         }
     },
     "partner": {
@@ -309,6 +358,7 @@
             "login": { "en": "Log in", "it": "Accedi", "de": "Anmelden", "fr": "Se connecter", "es": "Iniciar sesión" },
             "join": { "en": "Join Foodsy", "it": "Unisciti a Foodsy", "de": "Bei Foodsy mitmachen", "fr": "Rejoindre Foodsy", "es": "Únete a Foodsy" },
             "myRestaurants": { "en": "My restaurants", "it": "I miei ristoranti", "de": "Meine Restaurants", "fr": "Mes restaurants", "es": "Mis restaurantes" },
+            "statistics": { "en": "Statistics", "it": "Statistiche", "de": "Statistiken", "fr": "Statistiques", "es": "Estadísticas" },
             "customizeAvatar": { "en": "Customise avatar", "it": "Personalizza avatar", "de": "Avatar anpassen", "fr": "Personnaliser l'avatar", "es": "Personalizar avatar" },
             "logout": { "en": "Log out", "it": "Esci", "de": "Abmelden", "fr": "Se déconnecter", "es": "Cerrar sesión" }
         },
@@ -663,22 +713,58 @@
         },
         "stats": {
             "heading": { "en": "How your kitchen is doing", "it": "Come va la tua cucina", "de": "So läuft deine Küche", "fr": "Comment se porte votre cuisine", "es": "Cómo va tu cocina" },
-            "lead": { "en": "Computed from paid orders only.", "it": "Calcolate solo sugli ordini pagati.", "de": "Nur aus bezahlten Bestellungen berechnet.", "fr": "Calculées uniquement sur les commandes payées.", "es": "Calculadas solo con los pedidos pagados." },
-            "average": { "en": "Average order", "it": "Ordine medio", "de": "Durchschnittliche Bestellung", "fr": "Commande moyenne", "es": "Pedido medio" },
-            "thisMonth": { "en": "This month", "it": "Questo mese", "de": "Dieser Monat", "fr": "Ce mois-ci", "es": "Este mes" },
-            "thisYear": { "en": "This year", "it": "Quest'anno", "de": "Dieses Jahr", "fr": "Cette année", "es": "Este año" },
-            "share": { "en": "Month share of year", "it": "Peso del mese sull'anno", "de": "Monatsanteil am Jahr", "fr": "Part du mois dans l'année", "es": "Peso del mes en el año" },
-            "fan": { "en": "Your most loyal guest is :name: :times orders, :spent spent in total.", "it": "Il tuo cliente più fedele è :name: :times ordini, :spent spesi in totale.", "de": "Dein treuester Gast ist :name: :times Bestellungen, insgesamt :spent ausgegeben.", "fr": "Votre client le plus fidèle est :name : :times commandes, :spent dépensés au total.", "es": "Tu cliente más fiel es :name: :times pedidos, :spent gastados en total." },
-            "chart": {
-                "average": { "en": "Average", "it": "Media", "de": "Durchschnitt", "fr": "Moyenne", "es": "Media" },
-                "spent": { "en": "Spent (€)", "it": "Speso (€)", "de": "Ausgegeben (€)", "fr": "Dépensé (€)", "es": "Gastado (€)" },
-                "income": { "en": "Income (€)", "it": "Incasso (€)", "de": "Umsatz (€)", "fr": "Recettes (€)", "es": "Ingresos (€)" },
-                "eachOrder": { "en": "Value of each order (€)", "it": "Valore di ogni ordine (€)", "de": "Wert jeder Bestellung (€)", "fr": "Valeur de chaque commande (€)", "es": "Importe de cada pedido (€)" },
-                "repeatGuests": { "en": "Repeat guests by total spent (€)", "it": "Clienti abituali per spesa totale (€)", "de": "Stammgäste nach Gesamtausgaben (€)", "fr": "Clients fidèles par total dépensé (€)", "es": "Clientes habituales por gasto total (€)" },
-                "byMonth": { "en": "Income by month (€)", "it": "Incasso per mese (€)", "de": "Umsatz pro Monat (€)", "fr": "Recettes par mois (€)", "es": "Ingresos por mes (€)" },
-                "thisMonth": { "en": "This month", "it": "Questo mese", "de": "Dieser Monat", "fr": "Ce mois-ci", "es": "Este mes" },
-                "thisYear": { "en": "This year", "it": "Quest'anno", "de": "Dieses Jahr", "fr": "Cette année", "es": "Este año" },
-                "monthVsYear": { "en": "This month against the whole year", "it": "Questo mese rispetto all'intero anno", "de": "Dieser Monat im Vergleich zum ganzen Jahr", "fr": "Ce mois-ci par rapport à toute l'année", "es": "Este mes frente a todo el año" }
+            "lead": { "en": "Sales, reviews and deliveries over time. Paid orders only; nothing here identifies your customers.", "it": "Vendite, recensioni e consegne nel tempo. Solo ordini pagati; nulla qui identifica i tuoi clienti.", "de": "Umsatz, Bewertungen und Lieferungen im Zeitverlauf. Nur bezahlte Bestellungen; nichts hier identifiziert deine Gäste.", "fr": "Ventes, avis et livraisons dans le temps. Commandes payées uniquement ; rien ici n'identifie vos clients.", "es": "Ventas, reseñas y entregas a lo largo del tiempo. Solo pedidos pagados; nada aquí identifica a tus clientes." },
+            "scope": {
+                "label": { "en": "Show", "it": "Mostra", "de": "Anzeigen", "fr": "Afficher", "es": "Mostrar" },
+                "all": { "en": "All my restaurants", "it": "Tutti i miei ristoranti", "de": "Alle meine Restaurants", "fr": "Tous mes restaurants", "es": "Todos mis restaurantes" },
+                "count": { "en": ":count restaurant|:count restaurants", "it": ":count ristorante|:count ristoranti", "de": ":count Restaurant|:count Restaurants", "fr": ":count restaurant|:count restaurants", "es": ":count restaurante|:count restaurantes" }
+            },
+            "noRestaurants": { "en": "You have no restaurants yet: statistics appear with the first orders.", "it": "Non hai ancora ristoranti: le statistiche compaiono con i primi ordini.", "de": "Du hast noch keine Restaurants: Die Statistiken erscheinen mit den ersten Bestellungen.", "fr": "Vous n'avez pas encore de restaurant : les statistiques apparaissent avec les premières commandes.", "es": "Todavía no tienes restaurantes: las estadísticas aparecen con los primeros pedidos." },
+            "kpi": {
+                "gross": { "en": "Sales", "it": "Vendite", "de": "Umsatz", "fr": "Ventes", "es": "Ventas" },
+                "customersHint": { "en": "Different customers with a paid order", "it": "Clienti diversi con un ordine pagato", "de": "Verschiedene Gäste mit einer bezahlten Bestellung", "fr": "Clients différents ayant une commande payée", "es": "Clientes distintos con un pedido pagado" },
+                "rating": { "en": "Average rating", "it": "Voto medio", "de": "Durchschnittliche Bewertung", "fr": "Note moyenne", "es": "Valoración media" },
+                "ratingValue": { "en": ":value / 5", "it": ":value / 5", "de": ":value / 5", "fr": ":value / 5", "es": ":value / 5" },
+                "ratingHint": { "en": ":count reviews of the orders of the period", "it": ":count recensioni degli ordini del periodo", "de": ":count Bewertungen der Bestellungen im Zeitraum", "fr": ":count avis sur les commandes de la période", "es": ":count reseñas de los pedidos del periodo" }
+            },
+            "ratings": {
+                "title": { "en": "Rating over time", "it": "Voto nel tempo", "de": "Bewertung im Zeitverlauf", "fr": "Note dans le temps", "es": "Valoración a lo largo del tiempo" },
+                "sub": { "en": "Average stars of the reviews, by :unit of the order", "it": "Media delle stelle delle recensioni, per :unit dell'ordine", "de": "Durchschnittliche Sterne der Bewertungen, pro :unit der Bestellung", "fr": "Moyenne des étoiles des avis, par :unit de la commande", "es": "Media de estrellas de las reseñas, por :unit del pedido" },
+                "average": { "en": "Average stars", "it": "Media stelle", "de": "Durchschnitt Sterne", "fr": "Moyenne des étoiles", "es": "Media de estrellas" },
+                "count": { "en": "Reviews", "it": "Recensioni", "de": "Bewertungen", "fr": "Avis", "es": "Reseñas" }
+            },
+            "delivery": {
+                "title": { "en": "Delivery time", "it": "Tempo di consegna", "de": "Lieferzeit", "fr": "Délai de livraison", "es": "Tiempo de entrega" },
+                "sub": { "en": "Average minutes from order to delivery, by :unit", "it": "Minuti medi dall'ordine alla consegna, per :unit", "de": "Durchschnittliche Minuten von der Bestellung bis zur Lieferung, pro :unit", "fr": "Minutes moyennes entre la commande et la livraison, par :unit", "es": "Minutos medios del pedido a la entrega, por :unit" },
+                "minutes": { "en": "Minutes", "it": "Minuti", "de": "Minuten", "fr": "Minutes", "es": "Minutos" }
+            },
+            "customers": {
+                "sub": { "en": "New: first paid order here ever · by :unit", "it": "Nuovi: primo ordine pagato qui in assoluto · per :unit", "de": "Neu: erste bezahlte Bestellung hier überhaupt · pro :unit", "fr": "Nouveaux : première commande payée ici · par :unit", "es": "Nuevos: primer pedido pagado aquí · por :unit" }
+            },
+            "dishes": {
+                "title": { "en": "Best selling dishes", "it": "Piatti più venduti", "de": "Meistverkaufte Gerichte", "fr": "Plats les plus vendus", "es": "Platos más vendidos" },
+                "sub": { "en": "Portions of the completed orders, drinks excluded", "it": "Porzioni degli ordini completati, bevande escluse", "de": "Portionen der abgeschlossenen Bestellungen, ohne Getränke", "fr": "Portions des commandes terminées, boissons exclues", "es": "Raciones de los pedidos completados, sin bebidas" },
+                "dish": { "en": "Dish", "it": "Piatto", "de": "Gericht", "fr": "Plat", "es": "Plato" },
+                "portions": { "en": "Portions", "it": "Porzioni", "de": "Portionen", "fr": "Portions", "es": "Raciones" },
+                "value": { "en": "Value", "it": "Valore", "de": "Wert", "fr": "Valeur", "es": "Valor" }
+            },
+            "fans": {
+                "title": { "en": "Best customers", "it": "Clienti migliori", "de": "Beste Gäste", "fr": "Meilleurs clients", "es": "Mejores clientes" },
+                "sub": { "en": "By amount spent in the period", "it": "Per spesa nel periodo", "de": "Nach Ausgaben im Zeitraum", "fr": "Selon le montant dépensé sur la période", "es": "Por gasto en el periodo" },
+                "customer": { "en": "Customer", "it": "Cliente", "de": "Gast", "fr": "Client", "es": "Cliente" },
+                "orders": { "en": "Orders", "it": "Ordini", "de": "Bestellungen", "fr": "Commandes", "es": "Pedidos" },
+                "spent": { "en": "Spent", "it": "Spesa", "de": "Ausgaben", "fr": "Dépensé", "es": "Gasto" }
+            },
+            "restaurants": {
+                "title": { "en": "Your restaurants compared", "it": "I tuoi ristoranti a confronto", "de": "Deine Restaurants im Vergleich", "fr": "Vos restaurants comparés", "es": "Tus restaurantes comparados" },
+                "sub": { "en": "In the period · open one for its own statistics", "it": "Nel periodo · aprine uno per le sue statistiche", "de": "Im Zeitraum · öffne eines für seine eigenen Statistiken", "fr": "Sur la période · ouvrez-en un pour ses statistiques", "es": "En el periodo · abre uno para ver sus estadísticas" },
+                "chart": { "en": "Sales by restaurant (top 10)", "it": "Vendite per ristorante (primi 10)", "de": "Umsatz pro Restaurant (Top 10)", "fr": "Ventes par restaurant (top 10)", "es": "Ventas por restaurante (top 10)" },
+                "delivery": { "en": "Delivery", "it": "Consegna", "de": "Lieferung", "fr": "Livraison", "es": "Entrega" },
+                "reviews": { "en": "Reviews", "it": "Recensioni", "de": "Bewertungen", "fr": "Avis", "es": "Reseñas" }
+            },
+            "links": {
+                "reviews": { "en": "Reviews", "it": "Recensioni", "de": "Bewertungen", "fr": "Avis", "es": "Reseñas" },
+                "orders": { "en": "Orders", "it": "Ordini", "de": "Bestellungen", "fr": "Commandes", "es": "Pedidos" }
             }
         },
         "auth": {
@@ -813,6 +899,38 @@
             "saved": { "en": "Profile saved.", "it": "Profilo salvato.", "de": "Profil gespeichert.", "fr": "Profil enregistré.", "es": "Perfil guardado." },
             "open": { "en": "Open", "it": "Apri", "de": "Öffnen", "fr": "Ouvrir", "es": "Abrir" },
             "menu": { "en": "Your account", "it": "Il tuo account", "de": "Dein Konto", "fr": "Votre compte", "es": "Tu cuenta" }
+        },
+        "reviews": {
+            "title": { "en": "Reviews", "it": "Recensioni", "de": "Bewertungen", "fr": "Avis", "es": "Reseñas" },
+            "lead": { "en": "What your customers wrote after a delivered order. Your reply is public, under the review.", "it": "Cosa hanno scritto i tuoi clienti dopo un ordine consegnato. La tua risposta è pubblica, sotto la recensione.", "de": "Was deine Kunden nach einer gelieferten Bestellung geschrieben haben. Deine Antwort ist öffentlich, unter der Bewertung.", "fr": "Ce que vos clients ont écrit après une commande livrée. Votre réponse est publique, sous l'avis.", "es": "Lo que tus clientes escribieron tras un pedido entregado. Tu respuesta es pública, bajo la reseña." },
+            "rating": { "en": "Rating", "it": "Valutazione", "de": "Bewertung", "fr": "Note", "es": "Valoración" },
+            "summary": { "en": ":avg · :count review|:avg · :count reviews", "it": ":avg · :count recensione|:avg · :count recensioni", "de": ":avg · :count Bewertung|:avg · :count Bewertungen", "fr": ":avg · :count avis|:avg · :count avis", "es": ":avg · :count reseña|:avg · :count reseñas" },
+            "count": { "en": ":count review|:count reviews", "it": ":count recensione|:count recensioni", "de": ":count Bewertung|:count Bewertungen", "fr": ":count avis|:count avis", "es": ":count reseña|:count reseñas" },
+            "none": { "en": "No reviews yet", "it": "Ancora nessuna recensione", "de": "Noch keine Bewertungen", "fr": "Pas encore d'avis", "es": "Todavía no hay reseñas" },
+            "unanswered": { "en": ":count comment waiting for your reply|:count comments waiting for your reply", "it": ":count commento in attesa di risposta|:count commenti in attesa di risposta", "de": ":count Kommentar wartet auf deine Antwort|:count Kommentare warten auf deine Antwort", "fr": ":count commentaire attend votre réponse|:count commentaires attendent votre réponse", "es": ":count comentario espera tu respuesta|:count comentarios esperan tu respuesta" },
+            "howCounted": { "en": "The average counts the latest review of each customer; reviews hidden by the moderation are excluded.", "it": "La media conta l'ultima recensione di ciascun cliente; quelle nascoste dalla moderazione sono escluse.", "de": "Der Schnitt zählt die neueste Bewertung jedes Kunden; von der Moderation ausgeblendete sind ausgeschlossen.", "fr": "La moyenne compte le dernier avis de chaque client ; ceux masqués par la modération sont exclus.", "es": "La media cuenta la última reseña de cada cliente; las ocultadas por moderación quedan fuera." },
+            "filterStars": { "en": "Stars", "it": "Stelle", "de": "Sterne", "fr": "Étoiles", "es": "Estrellas" },
+            "allStars": { "en": "All", "it": "Tutte", "de": "Alle", "fr": "Toutes", "es": "Todas" },
+            "starsCount": { "en": ":count star|:count stars", "it": ":count stella|:count stelle", "de": ":count Stern|:count Sterne", "fr": ":count étoile|:count étoiles", "es": ":count estrella|:count estrellas" },
+            "onlyUnanswered": { "en": "Only comments without a reply", "it": "Solo commenti senza risposta", "de": "Nur Kommentare ohne Antwort", "fr": "Seulement les commentaires sans réponse", "es": "Solo comentarios sin respuesta" },
+            "filter": { "en": "Filter", "it": "Filtra", "de": "Filtern", "fr": "Filtrer", "es": "Filtrar" },
+            "clear": { "en": "Clear", "it": "Azzera", "de": "Zurücksetzen", "fr": "Effacer", "es": "Borrar" },
+            "emptyTitle": { "en": "No reviews here", "it": "Nessuna recensione qui", "de": "Hier gibt es keine Bewertungen", "fr": "Aucun avis ici", "es": "No hay reseñas aquí" },
+            "emptyText": { "en": "Customers can review an order once it is delivered.", "it": "I clienti possono recensire un ordine dopo la consegna.", "de": "Kunden können eine Bestellung nach der Lieferung bewerten.", "fr": "Les clients peuvent évaluer une commande une fois livrée.", "es": "Los clientes pueden valorar un pedido una vez entregado." },
+            "anonymous": { "en": "Foodsy guest", "it": "Cliente Foodsy", "de": "Foodsy-Gast", "fr": "Client Foodsy", "es": "Cliente de Foodsy" },
+            "order": { "en": "Order #:id", "it": "Ordine n. :id", "de": "Bestellung Nr. :id", "fr": "Commande n° :id", "es": "Pedido n.º :id" },
+            "hiddenBadge": { "en": "Hidden by moderation", "it": "Nascosta dalla moderazione", "de": "Von der Moderation ausgeblendet", "fr": "Masqué par la modération", "es": "Ocultada por moderación" },
+            "notCounted": { "en": "Not in the average: the same customer reviewed a newer order", "it": "Non nella media: lo stesso cliente ha recensito un ordine più recente", "de": "Nicht im Schnitt: Derselbe Kunde hat eine neuere Bestellung bewertet", "fr": "Hors moyenne : le même client a évalué une commande plus récente", "es": "Fuera de la media: el mismo cliente valoró un pedido más reciente" },
+            "starsOnly": { "en": "Stars only, no comment", "it": "Solo stelle, nessun commento", "de": "Nur Sterne, kein Kommentar", "fr": "Étoiles seulement, sans commentaire", "es": "Solo estrellas, sin comentario" },
+            "yourReply": { "en": "Your reply", "it": "La tua risposta", "de": "Deine Antwort", "fr": "Votre réponse", "es": "Tu respuesta" },
+            "reply": { "en": "Reply", "it": "Rispondi", "de": "Antworten", "fr": "Répondre", "es": "Responder" },
+            "editReply": { "en": "Edit reply", "it": "Modifica risposta", "de": "Antwort bearbeiten", "fr": "Modifier la réponse", "es": "Editar respuesta" },
+            "replyLabel": { "en": "Public reply", "it": "Risposta pubblica", "de": "Öffentliche Antwort", "fr": "Réponse publique", "es": "Respuesta pública" },
+            "replyHint": { "en": "Shown on your restaurant page under the review. Keep it kind and specific.", "it": "Compare sulla pagina del ristorante sotto la recensione. Mantienila gentile e concreta.", "de": "Erscheint auf deiner Restaurantseite unter der Bewertung. Bleib freundlich und konkret.", "fr": "Affichée sur la page du restaurant sous l'avis. Restez aimable et précis.", "es": "Aparece en la página del restaurante bajo la reseña. Que sea amable y concreta." },
+            "publishReply": { "en": "Publish reply", "it": "Pubblica risposta", "de": "Antwort veröffentlichen", "fr": "Publier la réponse", "es": "Publicar respuesta" },
+            "deleteReply": { "en": "Delete reply", "it": "Elimina risposta", "de": "Antwort löschen", "fr": "Supprimer la réponse", "es": "Eliminar respuesta" },
+            "replied": { "en": "Reply published.", "it": "Risposta pubblicata.", "de": "Antwort veröffentlicht.", "fr": "Réponse publiée.", "es": "Respuesta publicada." },
+            "replyDeleted": { "en": "Reply deleted.", "it": "Risposta eliminata.", "de": "Antwort gelöscht.", "fr": "Réponse supprimée.", "es": "Respuesta eliminada." }
         }
     },
     "platform": {
@@ -969,13 +1087,15 @@
                 "orders": { "en": "Orders", "it": "Ordini", "de": "Bestellungen", "fr": "Commandes", "es": "Pedidos" },
                 "customers": { "en": "Customers", "it": "Clienti", "de": "Kunden", "fr": "Clients", "es": "Clientes" },
                 "zones": { "en": "Zones", "it": "Zone", "de": "Zonen", "fr": "Zones", "es": "Zonas" },
-                "periods": { "en": "Periods", "it": "Periodi", "de": "Zeiträume", "fr": "Périodes", "es": "Periodos" }
+                "periods": { "en": "Periods", "it": "Periodi", "de": "Zeiträume", "fr": "Périodes", "es": "Periodos" },
+                "reviews": { "en": "Reviews", "it": "Recensioni", "de": "Bewertungen", "fr": "Avis", "es": "Reseñas" }
             },
             "search": { "en": "Search", "it": "Cerca", "de": "Suchen", "fr": "Rechercher", "es": "Buscar" },
             "placeholder": {
                 "restaurants": { "en": "Restaurant name", "it": "Nome del ristorante", "de": "Name des Restaurants", "fr": "Nom du restaurant", "es": "Nombre del restaurante" },
                 "orders": { "en": "Order no., customer, email, restaurant or transaction", "it": "N. ordine, cliente, email, ristorante o transazione", "de": "Bestellnr., Kunde, E-Mail, Restaurant oder Transaktion", "fr": "N° de commande, client, e-mail, restaurant ou transaction", "es": "N.º de pedido, cliente, email, restaurante o transacción" },
-                "customers": { "en": "Name or email", "it": "Nome o email", "de": "Name oder E-Mail", "fr": "Nom ou e-mail", "es": "Nombre o email" }
+                "customers": { "en": "Name or email", "it": "Nome o email", "de": "Name oder E-Mail", "fr": "Nom ou e-mail", "es": "Nombre o email" },
+                "reviews": { "en": "Restaurant, customer or words in the review", "it": "Ristorante, cliente o parole della recensione", "de": "Restaurant, Kunde oder Wörter der Bewertung", "fr": "Restaurant, client ou mots de l'avis", "es": "Restaurante, cliente o palabras de la reseña" }
             },
             "clear": { "en": "Clear", "it": "Pulisci", "de": "Leeren", "fr": "Effacer", "es": "Limpiar" },
             "results": { "en": ":count result|:count results", "it": ":count risultato|:count risultati", "de": ":count Ergebnis|:count Ergebnisse", "fr": ":count résultat|:count résultats", "es": ":count resultado|:count resultados" },
@@ -1150,6 +1270,10 @@
                     },
                     "admin": {
                         "login": { "en": "Admin login", "it": "Accesso admin", "de": "Admin-Anmeldung", "fr": "Connexion admin", "es": "Acceso admin" }
+                    },
+                    "review": {
+                        "hidden": { "en": "Review hidden", "it": "Recensione nascosta", "de": "Bewertung ausgeblendet", "fr": "Avis masqué", "es": "Reseña ocultada" },
+                        "unhidden": { "en": "Review shown again", "it": "Recensione di nuovo visibile", "de": "Bewertung wieder sichtbar", "fr": "Avis réaffiché", "es": "Reseña visible de nuevo" }
                     }
                 }
             },
@@ -1190,6 +1314,30 @@
             },
             "zoneNote": { "en": "Zones are the areas of the restaurants: orders store no customer location.", "it": "Le zone sono le aree dei ristoranti: gli ordini non salvano la posizione del cliente.", "de": "Zonen sind die Gebiete der Restaurants: Bestellungen speichern keinen Kundenstandort.", "fr": "Les zones sont celles des restaurants : les commandes n'enregistrent pas la position du client.", "es": "Las zonas son las áreas de los restaurantes: los pedidos no guardan la ubicación del cliente." },
             "city": { "en": "City", "it": "Città", "de": "Ort", "fr": "Ville", "es": "Ciudad" }
+        },
+        "reviews": {
+            "stars": { "en": "Stars", "it": "Stelle", "de": "Sterne", "fr": "Étoiles", "es": "Estrellas" },
+            "allStars": { "en": "All", "it": "Tutte", "de": "Alle", "fr": "Toutes", "es": "Todas" },
+            "starsCount": { "en": ":count star|:count stars", "it": ":count stella|:count stelle", "de": ":count Stern|:count Sterne", "fr": ":count étoile|:count étoiles", "es": ":count estrella|:count estrellas" },
+            "visibility": { "en": "Visibility", "it": "Visibilità", "de": "Sichtbarkeit", "fr": "Visibilité", "es": "Visibilidad" },
+            "allVisibility": { "en": "All", "it": "Tutte", "de": "Alle", "fr": "Tous", "es": "Todas" },
+            "visible": { "en": "Visible", "it": "Visibile", "de": "Sichtbar", "fr": "Visible", "es": "Visible" },
+            "hidden": { "en": "Hidden", "it": "Nascosta", "de": "Ausgeblendet", "fr": "Masqué", "es": "Oculta" },
+            "withText": { "en": "With text only", "it": "Solo con testo", "de": "Nur mit Text", "fr": "Avec texte seulement", "es": "Solo con texto" },
+            "note": { "en": "Hiding a review removes it from the restaurant page and from its average.", "it": "Nascondere una recensione la toglie dalla pagina del ristorante e dalla sua media.", "de": "Eine ausgeblendete Bewertung verschwindet von der Restaurantseite und aus dem Schnitt.", "fr": "Masquer un avis le retire de la page du restaurant et de sa moyenne.", "es": "Ocultar una reseña la quita de la página del restaurante y de su media." },
+            "author": { "en": "Author", "it": "Autore", "de": "Verfasser", "fr": "Auteur", "es": "Autor" },
+            "text": { "en": "Review", "it": "Recensione", "de": "Bewertung", "fr": "Avis", "es": "Reseña" },
+            "noText": { "en": "Stars only", "it": "Solo stelle", "de": "Nur Sterne", "fr": "Étoiles seulement", "es": "Solo estrellas" },
+            "replied": { "en": "The restaurant replied", "it": "Il ristorante ha risposto", "de": "Das Restaurant hat geantwortet", "fr": "Le restaurant a répondu", "es": "El restaurante respondió" },
+            "hiddenBy": { "en": "by :admin, :date", "it": "da :admin, :date", "de": "von :admin, :date", "fr": "par :admin, :date", "es": "por :admin, :date" },
+            "hide": { "en": "Hide", "it": "Nascondi", "de": "Ausblenden", "fr": "Masquer", "es": "Ocultar" },
+            "unhide": { "en": "Show again", "it": "Mostra di nuovo", "de": "Wieder anzeigen", "fr": "Réafficher", "es": "Mostrar de nuevo" },
+            "actions": { "en": "Actions", "it": "Azioni", "de": "Aktionen", "fr": "Actions", "es": "Acciones" },
+            "anonymous": { "en": "Anonymous", "it": "Anonimo", "de": "Anonym", "fr": "Anonyme", "es": "Anónimo" },
+            "flash": {
+                "hidden": { "en": "Review hidden: the restaurant's average is updated.", "it": "Recensione nascosta: la media del ristorante è aggiornata.", "de": "Bewertung ausgeblendet: Der Schnitt des Restaurants ist aktualisiert.", "fr": "Avis masqué : la moyenne du restaurant est mise à jour.", "es": "Reseña ocultada: la media del restaurante está actualizada." },
+                "unhidden": { "en": "Review visible again: the restaurant's average is updated.", "it": "Recensione di nuovo visibile: la media del ristorante è aggiornata.", "de": "Bewertung wieder sichtbar: Der Schnitt des Restaurants ist aktualisiert.", "fr": "Avis de nouveau visible : la moyenne du restaurant est mise à jour.", "es": "Reseña visible de nuevo: la media del restaurante está actualizada." }
+            }
         }
     },
     "mail": {
