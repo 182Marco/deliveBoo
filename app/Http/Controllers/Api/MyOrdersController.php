@@ -17,12 +17,18 @@ class MyOrdersController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $orders = $request->user()->orders()
-            ->with(['restaurant:id,name,slug,img', 'plates:id,name'])
+        $user = $request->user();
+        $orders = $user->orders()
+            ->with(['restaurant:id,name,slug,img', 'plates:id,name', 'review'])
             ->latest()
             ->latest('id')
             ->paginate(self::PER_PAGE)
-            ->through(fn (Order $order) => self::payload($order));
+            ->through(fn (Order $order) => [
+                ...self::payload($order),
+                // the customer's review and whether the "Review" button writes or edits it (OrderPolicy)
+                'review' => $order->review?->forAuthor(),
+                'can_review' => $user->can('review', $order),
+            ]);
 
         return response()->json($orders);
     }

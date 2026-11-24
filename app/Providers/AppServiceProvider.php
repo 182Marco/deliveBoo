@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Order;
 use App\Plate;
+use App\Policies\OrderPolicy;
 use App\Policies\PlatePolicy;
 use App\Policies\RestaurantPolicy;
 use App\Policies\UserPolicy;
@@ -41,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
         // ownership rules of the partner hub (SEC-1..SEC-4)
         Gate::policy(Restaurant::class, RestaurantPolicy::class);
         Gate::policy(Plate::class, PlatePolicy::class);
+        // reviews: only the customer of a delivered order, within the review window
+        Gate::policy(Order::class, OrderPolicy::class);
         // platform backoffice (/platform): one admin role, account actions through UserPolicy
         Gate::policy(User::class, UserPolicy::class);
         Gate::define('platform', fn (User $user) => $user->isAdmin() && ! $user->isBanned());

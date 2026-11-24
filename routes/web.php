@@ -6,10 +6,12 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PlateController;
 use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Platform\ChartController;
 use App\Http\Controllers\Platform\MapController;
+use App\Http\Controllers\Platform\ReviewController as PlatformReviewController;
 use App\Http\Controllers\Platform\TableController;
 use App\Http\Controllers\Platform\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +70,13 @@ Route::prefix('admin')
         });
         // stats
         Route::resource('stats', StatsController::class)->only(['index', 'show']);
+
+        // reviews of a restaurant and the public reply of its owner
+        Route::controller(AdminReviewController::class)->group(function () {
+            Route::get('reviews/{slug}', 'index')->name('reviews.index');
+            Route::put('reviews/reply/{id}', 'reply')->whereNumber('id')->middleware('throttle:30,1')->name('reviews.reply');
+            Route::delete('reviews/reply/{id}', 'deleteReply')->whereNumber('id')->middleware('throttle:30,1')->name('reviews.reply.delete');
+        });
         // the avatar editor moved to /account/avatar (every role): old links keep working
         Route::permanentRedirect('avatar', '/account/avatar');
     });
@@ -100,6 +109,9 @@ Route::prefix('platform')
             Route::put('users/{user}', [UserController::class, 'update'])->whereNumber('user')->name('users.update');
             Route::post('users/{user}/ban', [UserController::class, 'ban'])->whereNumber('user')->name('users.ban');
             Route::post('users/{user}/unban', [UserController::class, 'unban'])->whereNumber('user')->name('users.unban');
+            // moderation of the reviews (Tables > Reviews): audit log and new average of the restaurant
+            Route::post('reviews/{review}/hide', [PlatformReviewController::class, 'hide'])->whereNumber('review')->name('reviews.hide');
+            Route::post('reviews/{review}/unhide', [PlatformReviewController::class, 'unhide'])->whereNumber('review')->name('reviews.unhide');
         });
         // any other /platform path is a 404 here, not the Vue site of the catch-all
         Route::any('{any}', fn () => abort(404))->where('any', '.*')->name('missing');

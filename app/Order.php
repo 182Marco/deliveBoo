@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable(['price', 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'restaurant_id'])]
 // status, payment_driver, transaction_id, payment_error and user_id are not fillable on purpose:
@@ -58,6 +59,12 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // the customer's review of this order (one at most)
+    public function review(): HasOne
+    {
+        return $this->hasOne(Review::class);
     }
 
     public function plates(): BelongsToMany

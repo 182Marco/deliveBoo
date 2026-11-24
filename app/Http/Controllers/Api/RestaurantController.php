@@ -14,14 +14,14 @@ class RestaurantController extends Controller
 
     private const SEARCH_LIMIT = 8;
 
-    // the 12 restaurants with the best average rate (a restaurant without rates has average 0)
+    // "Guest favourites": the 12 restaurants with the best Bayesian score (stored on the restaurant
+    // by App\Reviews\RestaurantRating). average = arithmetic mean shown to people, count = reviews
     public function restTopRated(): JsonResponse
     {
-        $top = Restaurant::withAvg('rates as average', 'rate')
-            ->orderByDesc('average')
+        $top = Restaurant::topRated()
             ->take(12)
             ->get()
-            ->each(fn (Restaurant $rest) => $rest->average = (float) $rest->average);
+            ->each(fn (Restaurant $rest) => $rest->setAttribute('average', $rest->rating_avg)->setAttribute('count', $rest->rating_count));
 
         return response()->json($top);
     }
@@ -40,9 +40,8 @@ class RestaurantController extends Controller
         $like = str_replace(['!', '%', '_'], ['!!', '!%', '!_'], mb_strtolower($q));
 
         $rests = Restaurant::query()
-            ->select(['id', 'name', 'slug', 'city', 'img', 'price_range'])
+            ->select(['id', 'name', 'slug', 'city', 'img', 'price_range', 'rating_avg'])
             ->with('types:id,name')
-            ->withRating()
             ->whereRaw("lower(name) like ? escape '!'", ["%{$like}%"])
             ->orderByRaw("case when lower(name) like ? escape '!' then 0 else 1 end", ["{$like}%"])
             ->orderBy('name')
@@ -50,7 +49,7 @@ class RestaurantController extends Controller
             ->get()
             ->map(fn (Restaurant $rest) => [
                 ...$rest->only(['id', 'name', 'slug', 'city', 'img', 'price_range']),
-                'average' => round((float) $rest->average, 1),
+                'average' => round((float) $rest->rating_avg, 1),
                 'types' => $rest->types->pluck('name')->take(2)->values(),
             ]);
 
@@ -66,7 +65,7 @@ class RestaurantController extends Controller
         return response()->json($rests);
     }
 
-    // restaurant details, average rate, type names and menu (4 plates per page, by course).
+    // restaurant details, rating (average and number of reviews), type names and menu (4 plates per page, by course).
     // Every plate also says whether it can be ordered now and lists its structured ingredients.
     public function restMunu(string $slug): JsonResponse
     {
@@ -84,7 +83,7 @@ class RestaurantController extends Controller
                 ->makeHidden('ingredientList'));
 
         return response()->json([
-            'averageRate' => (float) $rest->rates()->avg('rate'),
+            'rating' => ['average' => $rest->rating_avg, 'count' => $rest->rating_count],
             'location' => $rest,
             'types' => $rest->types()->pluck('name'),
             'menu' => $menu,

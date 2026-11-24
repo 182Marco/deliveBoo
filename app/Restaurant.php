@@ -34,13 +34,18 @@ class Restaurant extends Model
             'delivery_fee' => 'float',
             'min_order' => 'float',
             'accepting_orders' => 'boolean',
+            // aggregates of the reviews, written only by App\Reviews\RestaurantRating
+            'rating_avg' => 'float',
+            'rating_count' => 'integer',
+            'rating_score' => 'float',
         ];
     }
 
-    // average rate and number of rates, from the rates table (never a cached copy)
-    public function scopeWithRating(Builder $query): Builder
+    // "Guest favourites": Bayesian score first (a few 5-star reviews do not beat hundreds of good ones)
+    public function scopeTopRated(Builder $query): Builder
     {
-        return $query->withAvg('rates as average', 'rate')->withCount('rates');
+        return $query->whereNotNull('rating_score')
+            ->orderByDesc('rating_score')->orderByDesc('rating_count')->orderBy('id');
     }
 
     public function openingHours(): HasMany
@@ -53,9 +58,9 @@ class Restaurant extends Model
         return $this->hasMany(Plate::class);
     }
 
-    public function rates(): HasMany
+    public function reviews(): HasMany
     {
-        return $this->hasMany(Rate::class);
+        return $this->hasMany(Review::class);
     }
 
     public function orders(): HasMany
