@@ -110,12 +110,12 @@ const cardErrors = error => {
     );
 };
 
-// the cart holds plates of one restaurant only: the first one gives the restaurant.
+// the cart lines ({ plate, quantity }) hold plates of one restaurant only: the first one gives the restaurant.
 // No price: the server computes the amount from the plates (one id per portion).
-const buildOrder = (cart, customer, nonce) => ({
-    restaurant_id: cart[0].restaurant_id,
+const buildOrder = (lines, customer, nonce) => ({
+    restaurant_id: lines[0].plate.restaurant_id,
     ...customer,
-    plates: cart.map(e => e.id),
+    plates: lines.flatMap(({ plate, quantity }) => Array(quantity).fill(plate.id)),
     payment_nonce: nonce
 });
 

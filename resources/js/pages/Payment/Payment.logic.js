@@ -1,8 +1,8 @@
 import { markRaw } from "vue";
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import { Icon, OrderSummary } from "../../components";
 import { createCardForm, postOrder } from "../../api";
-import { cartTotal, formatPrice, t } from "../../utils";
+import { formatPrice, t } from "../../utils";
 import {
     CARD_FIELDS,
     CUSTOMER_FIELDS,
@@ -42,10 +42,11 @@ const paymentLogic = {
         sending: false
     }),
     computed: {
-        ...mapState(["total", "cart", "user"]),
+        ...mapState(["user"]),
+        ...mapGetters(["cartLines", "cartCount", "cartAmount"]),
         // shown on the pay button; the server charges its own total from the db prices
         amount() {
-            return formatPrice(cartTotal(this.cart));
+            return formatPrice(this.cartAmount);
         },
         testGuide() {
             return this.testMode ? testPayments(this.driver) : null;
@@ -76,7 +77,7 @@ const paymentLogic = {
         }
     },
     methods: {
-        ...mapMutations(["emptyCart"]),
+        ...mapActions(["clearCart"]),
         formatPrice,
         t,
         fieldError(key) {
@@ -121,7 +122,7 @@ const paymentLogic = {
         // customer fields and card are checked together, so every error shows up at once;
         // nothing is sent while the card form is not ready or the previous attempt is running
         async payWithCreditCard() {
-            if (!this.hostedFieldInstance || this.sending || !this.cart.length) return;
+            if (!this.hostedFieldInstance || this.sending || !this.cartCount) return;
             this.error = "";
             this.nonce = "";
             const customer = validateCustomer(this.$data);
@@ -148,7 +149,7 @@ const paymentLogic = {
         },
         async postForm() {
             this.sending = true;
-            const order = buildOrder(this.cart, pickCustomer(this.$data), this.nonce);
+            const order = buildOrder(this.cartLines, pickCustomer(this.$data), this.nonce);
             try {
                 const response = await postOrder(order);
                 if (response.errors) {
@@ -157,7 +158,7 @@ const paymentLogic = {
                 }
                 this.errors = {};
                 Object.assign(this.$data, emptyCustomer());
-                this.emptyCart();
+                this.clearCart();
                 this.$router.push({ name: "success", query: paymentReceipt(response, this.driver, this.testMode) });
             } catch (error) {
                 // network error: cart and page stay, the customer can try again

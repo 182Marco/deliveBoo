@@ -50,7 +50,6 @@ beforeEach(() => {
     localStorage.clear();
     store = createStore();
     CART.forEach(p => store.commit("addPlate", { ...p }));
-    store.commit("changeTotal");
     router = { push: vi.fn() };
 
     clientInstance = { id: "client" };

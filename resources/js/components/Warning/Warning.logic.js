@@ -1,4 +1,4 @@
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { Icon } from "../Icon";
 import { scrollToTop, t } from "../../utils";
 
@@ -7,10 +7,10 @@ const warningLogic = {
     name: "Warning",
     components: { Icon },
     computed: {
-        ...mapState(["cart"]),
-        // restaurant of the plates already in the cart
+        ...mapGetters(["cartRestaurant"]),
+        // restaurant of the plates already in the cart ("" once emptied, while the dialog closes)
         cartSlug() {
-            return this.cart[0].restaurant_slug;
+            return this.cartRestaurant?.slug ?? "";
         }
     },
     // keyboard focus moves into the dialog, so Esc and Tab work at once
@@ -18,12 +18,12 @@ const warningLogic = {
         this.$refs.primary?.focus();
     },
     methods: {
-        ...mapMutations(["changeWarn", "emptyCart"]),
-        ...mapActions(["getMenuAndDetails"]),
+        ...mapMutations(["changeWarn"]),
+        ...mapActions(["getMenuAndDetails", "clearCart"]),
         t,
         emptyCartAndStay() {
             this.changeWarn();
-            this.emptyCart();
+            this.clearCart();
             scrollToTop();
         },
         // same route component, new slug: RestMenu does not reload by itself

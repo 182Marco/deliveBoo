@@ -30,6 +30,8 @@ function api(url) {
     if (url === "/api/me") return { data: { user: null } };
     if (url === "/api/me/orders") return { data: PAGE([ORDER]) };
     if (url === "/api/payments/config") return { data: { driver: "fake", authorization: null } };
+    // server cart switched off (CART_SERVER=false): the site keeps the local cart
+    if (url === "/api/cart") throw Object.assign(new Error("Not Found"), { response: { status: 404, data: {} } });
     throw new Error("unexpected GET " + url);
 }
 
@@ -58,7 +60,6 @@ async function render(path, prepare = () => {}) {
 
 const withCart = store => {
     store.commit("addPlate", { ...PLATE });
-    store.commit("changeTotal");
 };
 
 describe("every SPA route renders without Vue warnings", () => {

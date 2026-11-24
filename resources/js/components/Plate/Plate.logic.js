@@ -1,8 +1,8 @@
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { FoodImage } from "../FoodImage";
 import { Icon } from "../Icon";
 import { QuantityStepper } from "../QuantityStepper";
-import { canAddPlate, countPortions, formatPrice, t } from "../../utils";
+import { formatPrice, t } from "../../utils";
 
 // one dish of the menu; the "one restaurant per order" warning lives once in RestMenu
 const plateLogic = {
@@ -12,9 +12,9 @@ const plateLogic = {
         plate: Object
     },
     computed: {
-        ...mapState(["cart"]),
+        ...mapGetters(["portionsOf"]),
         portionsInCart() {
-            return countPortions(this.cart, this.plate);
+            return this.portionsOf(this.plate.id);
         },
         price() {
             return formatPrice(this.plate.price);
@@ -28,17 +28,14 @@ const plateLogic = {
         }
     },
     methods: {
-        ...mapMutations(["addPlate", "removePlate", "changeWarn"]),
+        ...mapActions({ addOneToCart: "addOne", removeOneFromCart: "removeOne" }),
         t,
-        // plates of another restaurant open the warning instead
+        // plates of another restaurant open the warning instead (decided by the store)
         addToCart() {
-            if (canAddPlate(this.cart, this.plate)) this.addPlate(this.plate);
-            else this.changeWarn();
+            this.addOneToCart(this.plate);
         },
-        // removePlate wants the very object in the bag: after a reload the menu holds new copies
         removeOne() {
-            const portion = this.cart.find(e => e.id == this.plate.id);
-            if (portion) this.removePlate(portion);
+            this.removeOneFromCart(this.plate);
         }
     }
 };

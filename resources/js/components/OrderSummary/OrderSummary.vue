@@ -2,8 +2,8 @@
     <aside class="summary" aria-labelledby="summary-title">
         <div class="summary-head">
             <h2 id="summary-title" class="summary-title">{{ t("summary.title") }}</h2>
-            <span v-if="cart.length" class="ui-badge">
-                {{ t("summary.items", { count: cart.length }) }}
+            <span v-if="count" class="ui-badge">
+                {{ t("summary.items", { count }) }}
             </span>
         </div>
 
@@ -16,17 +16,17 @@
         <ul v-else class="summary-lines">
             <li v-for="line in lines" :key="line.plate.id" class="summary-line">
                 <p class="summary-name">{{ line.plate.name }}</p>
-                <span class="summary-line-total ui-price">€{{ formatPrice(line.count * line.plate.price) }}</span>
+                <span class="summary-line-total ui-price">€{{ formatPrice(line.quantity * line.plate.price) }}</span>
                 <span class="summary-unit">{{ t("summary.each", { price: formatPrice(line.plate.price) }) }}</span>
-                <span v-if="readonly" class="summary-qty">× {{ line.count }}</span>
+                <span v-if="readonly" class="summary-qty">× {{ line.quantity }}</span>
                 <QuantityStepper
                     v-else
                     class="summary-stepper"
                     small
-                    :count="line.count"
+                    :count="line.quantity"
                     :item="line.plate.name"
-                    @increment="addPlate(line.plate)"
-                    @decrement="removePlate(line.plate)"
+                    @increment="addOne(line.plate)"
+                    @decrement="removeOne(line.plate)"
                 />
             </li>
         </ul>

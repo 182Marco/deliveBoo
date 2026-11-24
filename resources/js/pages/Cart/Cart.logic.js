@@ -1,34 +1,20 @@
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { FoodImage, Icon, QuantityStepper } from "../../components";
-import { countPortions, formatPrice, t, uniquePlates } from "../../utils";
+import { formatPrice, t } from "../../utils";
 
 const cartLogic = {
     name: "Cart",
     components: { FoodImage, Icon, QuantityStepper },
     computed: {
-        ...mapState(["cart", "total"]),
         // one row per plate, with its number of portions
-        plates() {
-            return uniquePlates(this.cart);
+        ...mapGetters({ lines: "cartLines", count: "cartCount", total: "cartAmount", cartReady: "cartReady" }),
+        // a dish no longer orderable (sold out, deleted) blocks the checkout until it is removed
+        hasUnavailable() {
+            return this.lines.some(line => line.plate.orderable === false);
         }
-    },
-    watch: {
-        // deep: in Vue 3 push/splice on the same array do not trigger a plain watcher
-        cart: {
-            handler() {
-                this.changeTotal();
-            },
-            deep: true
-        }
-    },
-    created() {
-        this.changeTotal();
     },
     methods: {
-        ...mapMutations(["addPlate", "removePlate", "changeTotal", "emptyCart"]),
-        portionsOf(plate) {
-            return countPortions(this.cart, plate);
-        },
+        ...mapActions(["addOne", "removeOne", "clearCart"]),
         formatPrice,
         t
     }

@@ -80,8 +80,8 @@
 
         <RestReviews :slug="restaurant.location.slug" :restaurant="restaurant.location.name" />
 
-        <router-link v-if="cart.length" :to="{ name: 'cart' }" class="rest-bagbar">
-            <span class="rest-bagbar-count">{{ cart.length }}</span>
+        <router-link v-if="cartCount" :to="{ name: 'cart' }" class="rest-bagbar">
+            <span class="rest-bagbar-count">{{ cartCount }}</span>
             {{ t("menu.viewBag") }}
             <span class="rest-bagbar-amount ui-price">€{{ amount }}</span>
         </router-link>

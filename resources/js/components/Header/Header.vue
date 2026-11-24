@@ -23,8 +23,8 @@
                 <router-link :to="{ name: 'cart' }" class="header-bag" :aria-label="bagLabel">
                     <Icon name="bag" />
                     <span class="header-bag-text">{{ t("header.bag") }}</span>
-                    <span v-if="cartLenght" class="header-bag-count">{{ cartLenght }}</span>
-                    <span v-if="cartLenght" class="header-bag-amount ui-price">€{{ cartAmount }}</span>
+                    <span v-if="cartCount" class="header-bag-count">{{ cartCount }}</span>
+                    <span v-if="cartCount" class="header-bag-amount ui-price">€{{ bagAmount }}</span>
                 </router-link>
                 <Hamburger />
             </div>

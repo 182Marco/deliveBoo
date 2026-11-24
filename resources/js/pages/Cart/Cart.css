@@ -171,3 +171,16 @@
         top: calc(var(--header-height) + var(--space-5));
     }
 }
+
+.bag-loading {
+    padding-block: var(--space-8);
+    text-align: center;
+}
+
+.bag-unavailable {
+    margin-top: var(--space-2);
+}
+
+.bag-blocked {
+    margin-top: var(--space-3);
+}

@@ -1,7 +1,7 @@
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Icon } from "../Icon";
 import { QuantityStepper } from "../QuantityStepper";
-import { cartTotal, countPortions, formatPrice, t, uniquePlates } from "../../utils";
+import { formatPrice, t } from "../../utils";
 
 // live summary of the bag: editable on the menu and in the bag, read-only at checkout
 const orderSummaryLogic = {
@@ -15,17 +15,14 @@ const orderSummaryLogic = {
         ctaLabel: { type: String, default: "" }
     },
     computed: {
-        ...mapState(["cart"]),
         // one line per plate, with its number of portions
-        lines() {
-            return uniquePlates(this.cart).map(plate => ({ plate, count: countPortions(this.cart, plate) }));
-        },
+        ...mapGetters({ lines: "cartLines", count: "cartCount", total: "cartAmount" }),
         amount() {
-            return formatPrice(cartTotal(this.cart));
+            return formatPrice(this.total);
         }
     },
     methods: {
-        ...mapMutations(["addPlate", "removePlate"]),
+        ...mapActions(["addOne", "removeOne"]),
         formatPrice,
         t
     }

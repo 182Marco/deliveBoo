@@ -144,7 +144,18 @@
             "newOrder": { "en": "Start a new order here", "it": "Inizia un nuovo ordine qui", "de": "Hier neu bestellen", "fr": "Nouvelle commande ici", "es": "Empezar un pedido aquí" },
             "back": { "en": "Back to my order", "it": "Torna al mio ordine", "de": "Zurück zu meiner Bestellung", "fr": "Retour à ma commande", "es": "Volver a mi pedido" }
         },
+        "cartNotice": {
+            "merged": { "en": "We added the dishes you had saved in your account to your bag.", "it": "Abbiamo aggiunto alla tua borsa i piatti salvati nel tuo account.", "de": "Wir haben die in deinem Konto gespeicherten Gerichte zu deiner Tasche hinzugefügt.", "fr": "Nous avons ajouté à votre sac les plats enregistrés dans votre compte.", "es": "Hemos añadido a tu bolsa los platos guardados en tu cuenta." },
+            "replaced": { "en": "Your saved bag from :restaurant was replaced by the one you just filled.", "it": "La borsa salvata di :restaurant è stata sostituita da quella che hai appena riempito.", "de": "Deine gespeicherte Tasche von :restaurant wurde durch die gerade gefüllte ersetzt.", "fr": "Votre sac enregistré chez :restaurant a été remplacé par celui que vous venez de remplir.", "es": "Tu bolsa guardada de :restaurant se ha sustituido por la que acabas de llenar." },
+            "removed": { "en": "No longer available, removed from your bag: :plates.", "it": "Non più disponibili, tolti dalla tua borsa: :plates.", "de": "Nicht mehr verfügbar, aus deiner Tasche entfernt: :plates.", "fr": "Plus disponibles, retirés de votre sac : :plates.", "es": "Ya no disponibles, quitados de tu bolsa: :plates." },
+            "sessionExpired": { "en": "Your session has expired: log in again to find your saved bag.", "it": "La sessione è scaduta: accedi di nuovo per ritrovare la borsa salvata.", "de": "Deine Sitzung ist abgelaufen: Melde dich erneut an, um deine gespeicherte Tasche zu sehen.", "fr": "Votre session a expiré : reconnectez-vous pour retrouver votre sac enregistré.", "es": "Tu sesión ha caducado: vuelve a acceder para recuperar tu bolsa guardada." },
+            "offline": { "en": "You are offline: your bag can be changed again once the connection is back.", "it": "Sei offline: potrai modificare la borsa quando torna la connessione.", "de": "Du bist offline: Deine Tasche lässt sich wieder ändern, sobald die Verbindung zurück ist.", "fr": "Vous êtes hors ligne : vous pourrez modifier votre sac dès le retour de la connexion.", "es": "Estás sin conexión: podrás cambiar tu bolsa cuando vuelva la conexión." },
+            "error": { "en": "We could not update your bag. Please try again.", "it": "Non siamo riusciti ad aggiornare la borsa. Riprova.", "de": "Deine Tasche konnte nicht aktualisiert werden. Bitte versuch es noch einmal.", "fr": "Impossible de mettre à jour votre sac. Veuillez réessayer.", "es": "No hemos podido actualizar tu bolsa. Inténtalo de nuevo." },
+            "close": { "en": "Dismiss", "it": "Chiudi", "de": "Schließen", "fr": "Fermer", "es": "Cerrar" }
+        },
         "cart": {
+            "loading": { "en": "Loading your bag…", "it": "Caricamento della borsa…", "de": "Deine Tasche wird geladen…", "fr": "Chargement de votre sac…", "es": "Cargando tu bolsa…" },
+            "unavailableLines": { "en": "Remove the dishes that are no longer available to continue.", "it": "Togli i piatti non più disponibili per continuare.", "de": "Entferne die nicht mehr verfügbaren Gerichte, um fortzufahren.", "fr": "Retirez les plats qui ne sont plus disponibles pour continuer.", "es": "Quita los platos que ya no están disponibles para continuar." },
             "continue": { "en": "Continue shopping", "it": "Continua a ordinare", "de": "Weiter einkaufen", "fr": "Continuer mes achats", "es": "Seguir comprando" },
             "eyebrow": { "en": "Your order", "it": "Il tuo ordine", "de": "Deine Bestellung", "fr": "Votre commande", "es": "Tu pedido" },
             "title": { "en": "Your bag", "it": "La tua borsa", "de": "Deine Tasche", "fr": "Votre sac", "es": "Tu bolsa" },
@@ -1352,6 +1363,11 @@
         }
     },
     "api": {
+        "cart": {
+            "otherRestaurant": { "en": "Your bag already holds dishes from another restaurant.", "it": "La tua borsa contiene già piatti di un altro ristorante.", "de": "Deine Tasche enthält schon Gerichte eines anderen Restaurants.", "fr": "Votre sac contient déjà des plats d'un autre restaurant.", "es": "Tu bolsa ya contiene platos de otro restaurante." },
+            "unavailable": { "en": ":plate cannot be ordered right now.", "it": ":plate non è ordinabile al momento.", "de": ":plate kann gerade nicht bestellt werden.", "fr": ":plate ne peut pas être commandé pour le moment.", "es": ":plate no se puede pedir en este momento." },
+            "tooMany": { "en": "A bag can hold at most :max dishes.", "it": "Una borsa può contenere al massimo :max piatti.", "de": "Eine Tasche fasst höchstens :max Gerichte.", "fr": "Un sac peut contenir au maximum :max plats.", "es": "Una bolsa puede contener como máximo :max platos." }
+        },
         "order": {
             "notOnMenu": { "en": "Some plates are not on the menu of this restaurant.", "it": "Alcuni piatti non sono nel menu di questo ristorante.", "de": "Einige Gerichte stehen nicht auf der Speisekarte dieses Restaurants.", "fr": "Certains plats ne sont pas à la carte de ce restaurant.", "es": "Algunos platos no están en la carta de este restaurante." },
             "notAvailable": { "en": "Not available right now: :plates.", "it": "Non disponibili al momento: :plates.", "de": "Gerade nicht verfügbar: :plates.", "fr": "Indisponible pour le moment : :plates.", "es": "No disponible ahora mismo: :plates." },

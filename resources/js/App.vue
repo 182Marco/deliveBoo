@@ -7,6 +7,7 @@
             <router-view />
         </main>
         <Footer />
+        <CartNotice />
     </div>
 </template>
 

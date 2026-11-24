@@ -1,4 +1,5 @@
 export { AccountMenu } from "./AccountMenu";
+export { CartNotice } from "./CartNotice";
 export { Content } from "./Content";
 export { Flag } from "./Flag";
 export { FoodImage } from "./FoodImage";

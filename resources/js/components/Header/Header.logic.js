@@ -1,11 +1,11 @@
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { AccountMenu } from "../AccountMenu";
 import { Hamburger } from "../Hamburger";
 import { Icon } from "../Icon";
 import { LocaleSwitch } from "../LocaleSwitch";
 import { Logo } from "../Logo";
 import { RestaurantSearch } from "../RestaurantSearch";
-import { cartTotal, formatPrice, t } from "../../utils";
+import { formatPrice, t } from "../../utils";
 
 // sections of the home page reachable from every page (texts are keys of t())
 const LINKS = [
@@ -21,14 +21,13 @@ const headerLogic = {
         links: LINKS
     }),
     computed: {
-        ...mapState(["cart"]),
-        ...mapGetters(["cartLenght"]),
-        cartAmount() {
-            return formatPrice(cartTotal(this.cart));
+        ...mapGetters(["cartCount", "cartAmount"]),
+        bagAmount() {
+            return formatPrice(this.cartAmount);
         },
         bagLabel() {
-            return this.cartLenght
-                ? t("header.bagFull", { count: this.cartLenght, amount: this.cartAmount })
+            return this.cartCount
+                ? t("header.bagFull", { count: this.cartCount, amount: this.bagAmount })
                 : t("header.bagEmpty");
         }
     },
