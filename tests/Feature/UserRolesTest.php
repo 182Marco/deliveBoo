@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use Database\Seeders\DemoOwnerHistorySeeder;
 use Database\Seeders\OrderHistorySeeder;
 use Database\Seeders\Support\CatalogPlan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,9 +24,9 @@ class UserRolesTest extends TestCase
     public function testSeededAccountsAreRestaurateursBesidesTheDemoOnes()
     {
         // the only admin of the seed is the demo one (config/demo.php); customers are the demo customer
-        // and the frequent synthetic customers registered by CustomerProfilesSeeder
+        // and the frequent synthetic customers registered by CustomerProfilesSeeder and DemoOwnerHistorySeeder
         $this->assertSame([config('demo.accounts.admin.email')], User::where('role', User::ADMIN)->pluck('email')->all());
-        $synthetic = array_column(OrderHistorySeeder::customers(CatalogPlan::profile()['customers']), 'email');
+        $synthetic = [...array_column(OrderHistorySeeder::customers(CatalogPlan::profile()['customers']), 'email'), ...DemoOwnerHistorySeeder::customerEmails()];
         $customers = User::where('role', User::CUSTOMER)->pluck('email');
         $this->assertContains(config('demo.accounts.customer.email'), $customers);
         $this->assertSame([], $customers->reject(fn ($e) => $e === config('demo.accounts.customer.email') || in_array($e, $synthetic, true))->values()->all());

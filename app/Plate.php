@@ -36,6 +36,11 @@ class Plate extends Model
         'water', 'soft_drink', 'beer', 'wine_white', 'wine_red', 'wine_rose', 'sparkling', 'champagne',
         'dessert_wine', 'spirit', 'cocktail', 'hot_drink',
     ];
+    // the courses that are drinks (statistics of the dishes, generated orders)
+    public const DRINK_COURSES = [
+        'water', 'soft_drink', 'beer', 'wine_red', 'wine_white', 'wine_rose', 'sparkling', 'champagne',
+        'dessert_wine', 'spirit', 'cocktail', 'hot_drink',
+    ];
 
     protected function casts(): array
     {

@@ -3,6 +3,20 @@
 > File solo di sviluppo (come `PIANO_MIGRAZIONE_L13.md`). Per riprendere il lavoro con un contesto vuoto basta leggere **Stato** e poi la sezione del passo corrente.
 
 ## Stato
+- **Storico del ristoratore demo (2026-11-24):** ✅ `DemoOwnerHistorySeeder` (dopo `CustomerProfilesSeeder`, prima di `ReviewsSeeder`), deterministico e idempotente (salta un ristorante che ha già ordini con transazione `hub-…`). DB dev rigenerato con `migrate:fresh --seed` (~85 s).
+  - **Scopo**: l'account Federico Romiti (`restaurant_owner@foodsy.test`) serve a mostrare statistiche, recensioni e andamenti nel tempo, e in futuro l'assistente AI sui suoi dati.
+  - **Volumi** (profilo `full`, `config/seeding.php` → `owner_history`): 33 ristoranti, da 2024-01-01 a 2026-11-23, minimo 100 ordini al mese per ristorante (massimo ~250 d'estate per il poke): ~173k ordini, ~141k recensioni (~90% degli ordini consegnati di clienti registrati), ~30k utenti in tutto.
+  - **Clienti**: un pool per città dei ristoranti del gruppo (1.100 per ristorante), 94% registrati (account creato prima del primo ordine), 20% fedeli (restano, ordinano spesso), gli altri abbandonano; nuovi clienti ogni mese, quota di clienti di ritorno che sale fino al 75%; piatto preferito riordinato.
+  - **Tempo**: crescita (×1,25–1,6 sul periodo), stagioni per marca (poke d'estate, Da Gennarino e Trattoria da Nives d'inverno, Atelier a dicembre), venerdì/sabato più forti, 24/31 dicembre e San Valentino per il fine dining, ordini solo negli orari di apertura (picchi pranzo e cena), consegne più lente nelle sere di punta; prezzi pagati −7% nel 2024 e −3,5% nel 2025 rispetto al menu attuale.
+  - **Storie (`STORIES`)**, da ritrovare con l'AI:
+    - *the garage*: media ~3,7 fino a febbraio 2025, ~4,45 da marzo 2025, volumi ×1,75;
+    - *Burger Station Seefeld*: il migliore del gruppo (media ~4,5, crescita ×1,9);
+    - *Burger Station Opfikon Glattbrugg*: crisi consegne dicembre 2025–febbraio 2026 (consegna ~73 min invece di ~37, annullati ×3, media ~2,5, clienti persi, −18% di ordini), testi su ritardi e cibo freddo; poi rientra;
+    - *Da Gennarino Oberwinterthur*: da gennaio 2026 media da ~4,2 a ~3,5 e ordini in calo fino a −38%, testi su porzioni e cibo;
+    - *Trattoria da Nives Enge*: rincaro del 14% da marzo 2026 (scontrino medio da ~€28 a ~€35), ordini −15%, testi sul rapporto qualità/prezzo;
+    - *Sakura Sushi Express Gfenn*: un piatto molto venduto (il terzo per popolarità) delude: stelle basse e testi su quel piatto.
+  - **Recensioni**: stelle dalla qualità del locale in quel periodo, dal ritardo della consegna e dai piatti (best seller +, piatto debole −); il testo parte dalla causa vera (`ReviewWriter::comment(..., $prefer)`); risposte del ristoratore al 95/85/60% (basse/medie/alte), meno negli ultimi 10 giorni; una recensione inappropriata recente in un ristorante ogni cinque (demo moderazione).
+  - **Nota prestazioni** (chiusa in `dev/PIANO_STATISTICHE.md`): `/platform/charts` a cache vuota da ~11,5 s a ~4 s; statistiche partner rifatte (solo aggregati, ~100 KB invece di ~3 MB, periodo a scelta su più anni): locale singolo < 0,5 s, gruppo di 33 locali ~6 s al primo caricamento e poi in cache.
 - **Clienti registrati e Mario Rossi (step 7.3 di `dev/PIANO_AUTH_CLIENTI.md`, 2026-11-25):** ✅ `CustomerProfilesSeeder` (dopo `OrderHistorySeeder`), deterministico (`Rng`, mai ID) e idempotente. Applicato al DB dev **senza** `migrate:fresh` (aggiunge solo): 301 clienti, 8.930 ordini su 11.805 con `user_id`.
   - **Clienti sintetici registrati**: i 300 più frequenti di `OrderHistorySeeder::customers()` (ordinati per numero di ordini, poi email; profilo `test`: 5). Account `customer` senza P. IVA, password `config('seeding.customer_password')` (`foodsy-demo`, un solo hash), `created_at` = 5 minuti prima del primo ordine, telefono del cliente sintetico. Gli ordini con la loro email e senza account ricevono `user_id`. I clienti più frequenti fanno la maggior parte degli ordini (la distribuzione di `OrderHistorySeeder` è molto sbilanciata): ~76% degli ordini risulta di clienti registrati.
   - **Profilo di Mario Rossi** (`customer@foodsy.test`):
@@ -266,3 +280,7 @@ Mantengo i nomi di classe attuali (`UsersTableSeeder`…), quindi `db:seed --cla
    - home con molte cucine, filtro per tipi e paginazione, menu e immagini/fallback, checkout con 2 porzioni;
    - login come Romiti: lista ristoranti paginata, crea/modifica un piatto con ingredienti nuovi e senza info alimentari, ordine con le quantità.
 5. Report finale con i 12 punti richiesti, i problemi rimasti (SEC-1..4, `restaurants.address` a 50 caratteri contro `max:80` della validazione, P.IVA come bigint) e i limiti (descrizioni da template con varianti, nichel indicativo e non medico, immagini per categoria e non per singolo piatto, marchi reali storici lasciati per scelta).
+
+## Recensioni (2026-11-24)
+I voti anonimi (`rates`, ~19.300 righe tutte con la stessa data) sono diventati la tabella `reviews` legata agli ordini: `ReviewsSeeder` al posto di `RatesTableSeeder` e `RatingsSeeder`. Dataset full: 3.734 recensioni (1★ 100, 2★ 312, 3★ 1.120, 4★ 1.468, 5★ 734), 1.496 con testo, ~250 risposte, 248 ristoranti con voto (i 10 storici senza ordini di clienti registrati restano «New on Foodsy»), 28 recensioni inappropriate (7 per categoria, 28 ristoranti diversi, 4 sui locali del ristoratore demo), tutte visibili. Il cliente demo ha l'ordine consegnato più recente senza recensione e il secondo con recensione e risposta. Dettagli e stato: `dev/PIANO_RECENSIONI.md`.
+

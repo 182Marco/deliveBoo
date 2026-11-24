@@ -23,7 +23,7 @@ class DatabaseSeederTest extends TestCase
     use RefreshDatabase;
 
     private $tables = [
-        'users', 'types', 'restaurants', 'plates', 'orders', 'order_plate', 'restaurant_type', 'rates',
+        'users', 'types', 'restaurants', 'plates', 'orders', 'order_plate', 'restaurant_type', 'reviews',
         'ingredients', 'plate_ingredient', 'allergens', 'allergen_ingredient', 'allergen_plate',
         'dietary_tags', 'dietary_tag_plate', 'opening_hours',
     ];
@@ -31,7 +31,7 @@ class DatabaseSeederTest extends TestCase
     private const SEEDERS = [
         'AllergensSeeder', 'DietaryTagsSeeder', 'IngredientsSeeder', 'UsersTableSeeder', 'TypesTableSeeder',
         'RestaurantsTableSeeder', 'LegacyRestaurantDetailsSeeder', 'PlatesTableSeeder', 'LegacyPlateDetailsSeeder', 'OwnersSeeder',
-        'CatalogRestaurantsSeeder', 'MenusSeeder', 'OrdersTableSeeder', 'OrderHistorySeeder', 'CustomerProfilesSeeder', 'RatesTableSeeder', 'RatingsSeeder',
+        'CatalogRestaurantsSeeder', 'MenusSeeder', 'OrdersTableSeeder', 'OrderHistorySeeder', 'CustomerProfilesSeeder', 'DemoOwnerHistorySeeder', 'ReviewsSeeder',
     ];
 
     // the shared test database is seeded once (tests/TestCase.php): start these tests from empty
@@ -40,7 +40,7 @@ class DatabaseSeederTest extends TestCase
     {
         parent::setUp();
         foreach (['order_plate', 'dietary_tag_plate', 'allergen_plate', 'plate_ingredient', 'allergen_ingredient', 'restaurant_type',
-                  'opening_hours', 'rates', 'orders', 'plates', 'restaurants', 'ingredients', 'allergens', 'dietary_tags', 'types', 'users'] as $table) {
+                  'opening_hours', 'reviews', 'orders', 'plates', 'restaurants', 'ingredients', 'allergens', 'dietary_tags', 'types', 'users'] as $table) {
             DB::table($table)->delete();
         }
     }
@@ -107,7 +107,15 @@ class DatabaseSeederTest extends TestCase
         $this->assertSame(0, DB::table('restaurants')->leftJoin('users', 'users.id', '=', 'restaurants.user_id')->whereNull('users.id')->count());
         $this->assertSame(0, DB::table('plates')->leftJoin('restaurants', 'restaurants.id', '=', 'plates.restaurant_id')->whereNull('restaurants.id')->count());
         $this->assertSame(0, DB::table('orders')->leftJoin('restaurants', 'restaurants.id', '=', 'orders.restaurant_id')->whereNull('restaurants.id')->count());
-        $this->assertSame(0, DB::table('rates')->leftJoin('restaurants', 'restaurants.id', '=', 'rates.restaurant_id')->whereNull('restaurants.id')->count());
+        $this->assertSame(0, DB::table('reviews')->leftJoin('restaurants', 'restaurants.id', '=', 'reviews.restaurant_id')->whereNull('restaurants.id')->count());
+        // every review belongs to a delivered order of its author, at the restaurant of the order, written after the delivery
+        $this->assertSame(0, DB::table('reviews as v')->leftJoin('orders as o', 'o.id', '=', 'v.order_id')
+            ->where(fn ($q) => $q->whereNull('o.id')->orWhereColumn('o.user_id', '!=', 'v.user_id')->orWhereColumn('o.restaurant_id', '!=', 'v.restaurant_id')
+                ->orWhere('o.fulfillment_status', '!=', 'delivered')->orWhereColumn('v.created_at', '<', 'o.delivered_at'))
+            ->count());
+        $this->assertSame(0, DB::table('reviews')->where('rating', '<', 1)->orWhere('rating', '>', 5)->count());
+        // the seeder never moderates: only an admin hides reviews
+        $this->assertSame(0, DB::table('reviews')->whereNotNull('hidden_at')->count());
         foreach (['plate_ingredient' => 'ingredients', 'allergen_ingredient' => 'ingredients', 'allergen_plate' => 'allergens', 'dietary_tag_plate' => 'dietary_tags'] as $pivot => $table) {
             $fk = $table === 'dietary_tags' ? 'dietary_tag_id' : ($table === 'allergens' ? 'allergen_id' : 'ingredient_id');
             $this->assertSame(0, DB::table($pivot)->leftJoin($table, "{$table}.id", '=', "{$pivot}.{$fk}")->whereNull("{$table}.id")->count(), $pivot);
@@ -151,12 +159,15 @@ class DatabaseSeederTest extends TestCase
         $this->assertSame(0, User::where('role', User::RESTAURATEUR)->doesntHave('restaurants')->count());
         $this->assertSame(0, User::where('role', '!=', User::RESTAURATEUR)->has('restaurants')->count());
 
-        // every restaurant has at least one plate, one type and one rate
+        // every restaurant has at least one plate and one type; its rating columns match its reviews
         foreach (DB::table('restaurants')->get() as $restaurant) {
             $this->assertGreaterThan(0, DB::table('plates')->where('restaurant_id', $restaurant->id)->count(), "{$restaurant->name} has no plates");
             $this->assertGreaterThan(0, DB::table('restaurant_type')->where('restaurant_id', $restaurant->id)->count(), "{$restaurant->name} has no types");
-            $this->assertGreaterThan(0, DB::table('rates')->where('restaurant_id', $restaurant->id)->count(), "{$restaurant->name} has no rates");
+            $counted = DB::table('reviews')->where('restaurant_id', $restaurant->id)->where('is_current', true)->whereNull('hidden_at');
+            $this->assertSame((clone $counted)->count(), (int) $restaurant->rating_count, "{$restaurant->name} rating_count");
+            $this->assertEqualsWithDelta((float) (clone $counted)->avg('rating'), (float) $restaurant->rating_avg, 0.006, "{$restaurant->name} rating_avg");
         }
+        $this->assertGreaterThan(0, DB::table('restaurants')->where('rating_count', '>', 0)->count());
 
         // every restaurant, the historic ones too, has a segment, a description and opening hours
         $this->assertSame(0, DB::table('restaurants')->whereNull('segment')->orWhereNull('description')->orWhereNull('price_range')->count());

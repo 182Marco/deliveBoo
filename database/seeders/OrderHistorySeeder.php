@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Order;
+use App\Plate;
 use Database\Seeders\Support\Catalog;
 use Database\Seeders\Support\CatalogPlan;
 use Database\Seeders\Support\Rng;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 // Order history of the generated restaurants, January 2025 - November 2026: synthetic customers
 // (some regulars, many occasional), lunch and dinner peaks, quantities and the unit price paid.
+// The restaurants of the demo owner are left to DemoOwnerHistorySeeder.
 // Idempotent: a restaurant that already has orders is skipped.
 class OrderHistorySeeder extends Seeder
 {
@@ -19,7 +21,7 @@ class OrderHistorySeeder extends Seeder
     public const TO = '2026-11-21';
 
     // courses that are drinks: an order has dishes and, sometimes, a drink (also CustomerProfilesSeeder)
-    public const DRINK_COURSES = ['water', 'soft_drink', 'beer', 'wine_red', 'wine_white', 'wine_rose', 'sparkling', 'champagne', 'dessert_wine', 'spirit', 'cocktail', 'hot_drink'];
+    public const DRINK_COURSES = Plate::DRINK_COURSES;
 
     // average orders per restaurant by segment (full profile)
     private const VOLUME = [
@@ -30,7 +32,8 @@ class OrderHistorySeeder extends Seeder
     public function run(): void
     {
         $profile = CatalogPlan::profile();
-        $plan = CatalogPlan::restaurants();
+        // the demo owner's group has its own, much longer history (DemoOwnerHistorySeeder)
+        $plan = array_values(array_filter(CatalogPlan::restaurants(), fn ($r) => $r['owner'] !== CatalogPlan::ROMITI));
         $ids = DB::table('restaurants')->whereIn('name', array_column($plan, 'name'))->pluck('id', 'name');
         $withOrders = DB::table('orders')->whereIn('restaurant_id', $ids)->distinct()->pluck('restaurant_id')->flip();
         $customers = self::customers($profile['customers']);
@@ -119,8 +122,10 @@ class OrderHistorySeeder extends Seeder
         ];
     }
 
-    public static function insert(array $orders): void
+    /** @return int[] the ids of the inserted orders, in the same order as $orders */
+    public static function insert(array $orders): array
     {
+        $all = [];
         foreach (array_chunk($orders, 500) as $chunk) {
             // seeding runs alone: the rows of one insert get consecutive ids, in order
             $before = (int) DB::table('orders')->max('id');
@@ -138,7 +143,10 @@ class OrderHistorySeeder extends Seeder
             foreach (array_chunk($pivot, 1000) as $p) {
                 DB::table('order_plate')->insert($p);
             }
+            array_push($all, ...$ids);
         }
+
+        return $all;
     }
 
     // synthetic customers: the first ones are the most frequent

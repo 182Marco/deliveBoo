@@ -8,6 +8,7 @@ use App\Ingredient;
 use App\Order;
 use App\Plate;
 use App\Restaurant;
+use App\Reviews\RestaurantRating;
 use App\Type;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -173,14 +174,17 @@ class DietaryQueriesTest extends TestCase
 
     public function testCheapWellRatedMexicanRestaurants()
     {
-        $this->rest->rates()->createMany([['rate' => 5], ['rate' => 4], ['rate' => 5]]);
+        $this->rest->reviews()->createMany([['rating' => 5], ['rating' => 4], ['rating' => 5]]);
         $pricey = $this->restaurant('Fixture Mexican Premium', ['Mexican'], 4);
-        $pricey->rates()->createMany([['rate' => 5], ['rate' => 5]]);
+        $pricey->reviews()->createMany([['rating' => 5], ['rating' => 5]]);
+        RestaurantRating::refresh($this->rest->id);
+        RestaurantRating::refresh($pricey->id);
 
-        $found = Restaurant::withRating()
-            ->whereHas('types', fn ($q) => $q->where('name', 'Mexican'))
+        // the average is stored on the restaurant: a plain WHERE, no aggregate in the query
+        $found = Restaurant::whereHas('types', fn ($q) => $q->where('name', 'Mexican'))
             ->where('price_range', '<=', 2)
-            ->get()->filter(fn ($r) => $r->average >= 4.5)->pluck('id');
+            ->where('rating_avg', '>=', 4.5)
+            ->pluck('id');
         $this->assertTrue($found->contains($this->rest->id));
         $this->assertFalse($found->contains($pricey->id));
     }
