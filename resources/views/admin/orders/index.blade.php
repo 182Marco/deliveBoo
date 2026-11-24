@@ -22,27 +22,23 @@
             <p class="ui-muted">{{ __('partner.orders.emptyText') }}</p>
         </div>
     @else
-        {{-- kitchen tickets, newest first: who, where, when and how much at a glance --}}
-        <ul class="adm-tickets">
+        {{-- one slim row per order, newest first: id, date, customer, address, total --}}
+        <ul class="adm-orders">
             @foreach ($orders as $order)
-                <li class="adm-ticket">
-                    <div class="adm-ticket-top">
-                        <span class="adm-mono">#{{ $order->id }}</span>
-                        <span class="adm-ticket-date">{{ $order->created_at->translatedFormat('j M Y') }}</span>
-                    </div>
-                    <h2 class="adm-ticket-name">{{ $order->customer_name }} {{ $order->customer_lastName }}</h2>
-                    <p class="adm-meta"><x-icon name="pin" size="16" /> {{ $order->customer_address }}</p>
-                    <div class="adm-ticket-foot">
-                        <span class="adm-ticket-total ui-price">€{{ number_format($order->price, 2) }}</span>
-                        <a class="ui-btn ui-btn--outline ui-btn--sm" href="{{ route('admin.orders.show', $order->id) }}">
-                            {{ __('partner.orders.details') }} <x-icon name="arrow-right" size="16" />
-                        </a>
-                    </div>
+                <li class="adm-orders-item">
+                    <a class="adm-order-row" href="{{ route('admin.orders.show', $order->id) }}" aria-label="{{ __('partner.orders.details') }} #{{ $order->id }}">
+                        <span class="adm-order-id adm-mono">#{{ $order->id }}</span>
+                        <span class="adm-order-date">{{ $order->created_at->translatedFormat('j M Y') }}</span>
+                        <span class="adm-order-name">{{ $order->customer_name }} {{ $order->customer_lastName }}</span>
+                        <span class="adm-order-address">{{ $order->customer_address }}</span>
+                        <span class="adm-order-total ui-price">€{{ number_format($order->price, 2) }}</span>
+                        <span class="adm-order-go"><x-icon name="arrow-right" size="16" /></span>
+                    </a>
                 </li>
             @endforeach
         </ul>
     @endif
 
-    {{ $orders->links() }}
+    <div class="adm-orders-pager">{{ $orders->links() }}</div>
 </div>
 @endsection

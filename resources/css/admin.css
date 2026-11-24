@@ -481,54 +481,129 @@
     letter-spacing: var(--tracking-display);
 }
 
-/* ---------- order tickets ---------- */
-.adm-tickets {
+/* ---------- order rows ---------- */
+.adm-orders {
     display: grid;
-    gap: var(--space-4);
-}
-
-.adm-ticket {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-5);
     border: 1px solid var(--line);
-    border-top: var(--tray-height) solid var(--brand);
     border-radius: var(--radius-lg);
     background-color: var(--surface);
+    overflow: hidden;
 }
 
-.adm-ticket-top {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
+.adm-orders-item {
+    border-top: 1px solid var(--line);
 }
 
-.adm-ticket-date {
+.adm-orders-item:first-child {
+    border-top: 0;
+}
+
+/* mobile: two lines — name and total, then id, date and address */
+.adm-order-row {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+        "name name name total"
+        "id date address go";
+    align-items: center;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    border-left: var(--tray-height) solid transparent;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--duration-fast) var(--ease);
+}
+
+.adm-order-row:hover {
+    border-left-color: var(--brand);
+    background-color: var(--oat);
+}
+
+.adm-order-row:focus-visible {
+    outline: 2px solid var(--brand-strong);
+    outline-offset: -2px;
+}
+
+.adm-order-id {
+    grid-area: id;
     font-size: var(--text-sm);
     color: var(--ink-muted);
 }
 
-.adm-ticket-name {
-    font-size: var(--text-lg);
-    line-height: var(--leading-snug);
+.adm-order-date {
+    grid-area: date;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    white-space: nowrap;
 }
 
-/* the tear line of a paper ticket */
-.adm-ticket-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-top: auto;
-    padding-top: var(--space-4);
-    border-top: 1.5px dashed var(--line-strong);
+.adm-order-name {
+    grid-area: name;
+    overflow: hidden;
+    font-weight: var(--weight-bold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.adm-ticket-total {
-    font-size: var(--text-xl);
+.adm-order-address {
+    grid-area: address;
+    overflow: hidden;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.adm-order-total {
+    grid-area: total;
     font-weight: var(--weight-black);
+    text-align: right;
+}
+
+.adm-order-go {
+    grid-area: go;
+    display: none;
+}
+
+/* the page switcher stays in view at the bottom of the screen on phones */
+.adm-orders-pager {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    margin-inline: calc(var(--space-4) * -1);
+    padding: var(--space-2) var(--space-4);
+    border-top: 1px solid var(--line);
+    background-color: var(--paper);
+}
+
+.adm-orders-pager .ui-pagination {
+    margin-top: 0;
+}
+
+@media (min-width: 900px) {
+    .adm-order-row {
+        grid-template-columns: 4.5rem 7rem minmax(10rem, 1fr) minmax(10rem, 1.6fr) 6rem 1.5rem;
+        grid-template-areas: "id date name address total go";
+        padding: var(--space-2) var(--space-4);
+    }
+
+    .adm-order-go {
+        display: inline-flex;
+        color: var(--ink-muted);
+    }
+
+    .adm-orders-pager {
+        position: static;
+        margin-inline: 0;
+        padding: 0;
+        border-top: 0;
+        background-color: transparent;
+    }
+
+    .adm-orders-pager .ui-pagination {
+        margin-top: var(--space-6);
+    }
 }
 
 /* ---------- reviews ---------- */
@@ -1376,10 +1451,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .adm-tickets {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .adm-menu-name {
         display: inline;
     }
@@ -1443,9 +1514,6 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .adm-tickets {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
 }
 
 .adm-wide {
