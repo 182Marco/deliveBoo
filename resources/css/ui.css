@@ -507,6 +507,40 @@
     white-space: nowrap;
 }
 
+/* ---------- stars (StarsBox in Vue, <x-stars> in Blade) ---------- */
+.ui-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    vertical-align: middle;
+}
+
+.ui-star {
+    flex-shrink: 0;
+    color: var(--line-strong);
+}
+
+.ui-star--on {
+    color: var(--saffron);
+}
+
+/* half star: an empty star with the left half of a full one on top */
+.ui-star-half {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.ui-star-half-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+
 /* ---------- modal ---------- */
 .ui-modal-backdrop {
     position: fixed;
@@ -530,10 +564,10 @@
 }
 
 .ui-modal-actions {
+    gap: 10px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    margin-top: var(--space-6);
+    margin-top: var(--space-4);
 }
 
 /* ---------- pagination ---------- */

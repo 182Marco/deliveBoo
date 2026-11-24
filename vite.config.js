@@ -15,7 +15,6 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/vue.js",
                 "resources/js/jsBack/confDelete.js",
-                "resources/js/jsBack/chart.js",
                 "resources/js/jsBack/logListen.js",
                 "resources/js/jsBack/demoAccounts.js",
                 "resources/js/jsBack/avatar.js",

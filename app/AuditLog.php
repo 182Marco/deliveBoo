@@ -17,6 +17,8 @@ class AuditLog extends Model
     public const USER_BANNED = 'user.banned';
     public const USER_UNBANNED = 'user.unbanned';
     public const ADMIN_LOGIN = 'admin.login';
+    public const REVIEW_HIDDEN = 'review.hidden';
+    public const REVIEW_UNHIDDEN = 'review.unhidden';
 
     // meta keys that must never be stored, whatever a caller passes
     private const SECRET_KEYS = ['password', 'password_confirmation', 'remember_token', '_token'];
@@ -50,7 +52,7 @@ class AuditLog extends Model
         return $this->belongsTo(User::class, 'actor_id');
     }
 
-    /** the user an entry is about (all targets are users for now) */
+    /** the user an entry is about: meaningful only when target_type is "User" (reviews are targets too) */
     public function targetUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'target_id');

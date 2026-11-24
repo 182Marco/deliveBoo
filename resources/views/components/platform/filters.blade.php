@@ -1,6 +1,7 @@
 {{-- Shared filters of Maps, Charts and Tables (App\Analytics\Period): a plain GET form, so every
-     filtered view has its own URL. Values outside the whitelists are ignored by the server. --}}
-@props(['period', 'keep' => []])
+     filtered view has its own URL. Values outside the whitelists are ignored by the server.
+     :places="false" (partner statistics) keeps only the dates: the scope is the partner's restaurants. --}}
+@props(['period', 'keep' => [], 'places' => true])
 <form class="plat-filters" method="GET" action="{{ url()->current() }}" aria-label="{{ __('platform.filters.label') }}">
     @foreach ($keep as $name => $value)
         <input type="hidden" name="{{ $name }}" value="{{ $value }}">
@@ -14,6 +15,7 @@
             <label class="ui-label" for="f-to">{{ __('platform.filters.to') }}</label>
             <input class="ui-input" id="f-to" type="date" name="to" value="{{ $period->to->toDateString() }}" max="{{ now()->toDateString() }}">
         </div>
+        @if ($places)
         <div class="ui-field">
             <label class="ui-label" for="f-city">{{ __('platform.filters.city') }}</label>
             <select class="ui-input" id="f-city" name="city">
@@ -32,6 +34,7 @@
                 @endforeach
             </select>
         </div>
+        @endif
         <div class="plat-filters-actions">
             <button type="submit" class="ui-btn ui-btn--primary">{{ __('platform.filters.apply') }}</button>
             <a class="ui-btn ui-btn--ghost" href="{{ url()->current().($keep ? '?'.http_build_query($keep) : '') }}">{{ __('platform.filters.reset') }}</a>
@@ -39,7 +42,7 @@
     </div>
     <div class="plat-presets">
         <span class="plat-presets-label">{{ __('platform.filters.presets') }}</span>
-        @foreach (\App\Analytics\Period::presets() as $key => $range)
+        @foreach (\App\Analytics\Period::presets($period->scoped() ? $period : null) as $key => $range)
             @php($current = $period->from->toDateString() === $range['from'] && $period->to->toDateString() === $range['to'])
             <a
                 @class(['ui-chip', 'plat-preset', 'ui-chip--active' => $current])

@@ -5,6 +5,7 @@ namespace Tests\Feature\Platform;
 use App\Analytics\OrderMetrics;
 use App\Analytics\Period;
 use App\Analytics\SqlBuckets;
+use App\Reviews\RestaurantRating;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -33,7 +34,8 @@ class OrderMetricsTest extends TestCase
         $this->r2 = DB::table('restaurants')->insertGetId(['name' => 'Metric Two', 'slug' => 'metric-two', 'phone' => '1', 'city' => 'Otherville', 'address' => 'b', 'postal_code' => '9002']);
         $this->type = (int) DB::table('types')->value('id');
         DB::table('restaurant_type')->insert(['restaurant_id' => $this->r1, 'type_id' => $this->type]);
-        DB::table('rates')->insert([['restaurant_id' => $this->r1, 'rate' => 4], ['restaurant_id' => $this->r1, 'rate' => 5]]);
+        DB::table('reviews')->insert([['restaurant_id' => $this->r1, 'rating' => 4], ['restaurant_id' => $this->r1, 'rating' => 5]]);
+        RestaurantRating::refresh($this->r1);
 
         // Monday 2030-01-07 at 12:30 for the completed orders of the week
         $this->order($this->r1, 10, 'a', 'paid', 'delivered', '2030-01-07 12:30:00', 30);
@@ -162,6 +164,34 @@ class OrderMetricsTest extends TestCase
         $cuisines = OrderMetrics::cuisines($this->january());
         $this->assertCount(1, $cuisines);
         $this->assertSame(75.0, $cuisines[0]['gross_value']);
+    }
+
+    public function testGroupingsAddUpToTheTotals()
+    {
+        // restaurants, zones and cuisines come from one grouped query (OrderMetrics::byRestaurant)
+        $p = $this->january();
+        $totals = OrderMetrics::totals($p);
+        $byRestaurant = OrderMetrics::restaurants($p, 'gross_value', 10);
+        $zones = OrderMetrics::zones($p);
+        foreach (['completed_orders', 'completed_value', 'in_progress_value', 'cancelled_orders', 'failed_orders', 'gross_value', 'revenue'] as $key) {
+            $this->assertEquals($totals[$key], array_sum(array_column($byRestaurant, $key)), "restaurants {$key}");
+            $this->assertEquals($totals[$key], array_sum(array_column($zones, $key)), "zones {$key}");
+        }
+        $this->assertSame([1, 1], array_column($zones, 'restaurants'));
+        // the cancel rate ranking of R1 (1 cancelled of 6 paid) and R2 (none)
+        $this->assertSame(['Metric One', 'Metric Two'], array_column(OrderMetrics::restaurants($p, 'cancel_rate', 10), 'name'));
+        // only R1 has the cuisine: its numbers, derived like the totals
+        $this->assertSame(OrderMetrics::totals($this->january(null, $this->type))['gross_value'], OrderMetrics::cuisines($p)[0]['gross_value']);
+        $this->assertSame(OrderMetrics::totals($this->january(null, $this->type))['average_order'], OrderMetrics::cuisines($p)[0]['average_order']);
+    }
+
+    public function testDeliveryPercentilesFromTheHistogram()
+    {
+        // one more completed order of 30 minutes: 20, 30, 30, 40, 50 → median 30, 90th percentile 40
+        $this->order($this->r2, 5, 'g', 'paid', 'delivered', '2030-01-21 19:00:00', 30);
+        $times = OrderMetrics::deliveryTimes($this->january());
+        $this->assertSame(['delivery_median_minutes' => 30, 'delivery_p90_minutes' => 40], $times);
+        $this->assertSame(['delivery_median_minutes' => null, 'delivery_p90_minutes' => null], OrderMetrics::deliveryTimes(Period::make('2031-01-01', '2031-01-31')));
     }
 
     public function testNewAndReturningCustomers()

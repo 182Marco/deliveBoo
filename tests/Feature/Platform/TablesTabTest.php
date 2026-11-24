@@ -26,7 +26,7 @@ class TablesTabTest extends TestCase
 
     public function testEverySectionOpens()
     {
-        foreach (['restaurants', 'orders', 'customers', 'zones', 'periods'] as $section) {
+        foreach (['restaurants', 'orders', 'customers', 'zones', 'periods', 'reviews'] as $section) {
             $this->open("/platform/tables/{$section}")->assertOk()->assertSee(__("platform.tables.sections.{$section}"));
         }
     }

@@ -18,7 +18,7 @@ use Illuminate\View\View;
 // plus the detail pages of an order, a restaurant and a customer
 class TableController extends Controller
 {
-    public const SECTIONS = ['restaurants', 'orders', 'customers', 'zones', 'periods'];
+    public const SECTIONS = ['restaurants', 'orders', 'customers', 'zones', 'periods', 'reviews'];
 
     public function index(Request $request, string $section = 'restaurants'): View
     {
@@ -31,6 +31,7 @@ class TableController extends Controller
             'customers' => $this->customers($request, $period, $q),
             'zones' => $this->zones($request, $period),
             'periods' => $this->periods($request, $period),
+            'reviews' => $this->reviews($request, $period, $q),
         };
 
         return view('platform.tables', ['period' => $period, 'section' => $section, 'sections' => self::SECTIONS, 'q' => $q, ...$data]);
@@ -64,6 +65,20 @@ class TableController extends Controller
         [$sort, $dir] = Tables::sort($request->query('sort'), $request->query('dir'), Tables::ZONE_SORTS, 'gross_value');
 
         return ['rows' => Tables::zones($period, $by, $sort, $dir), 'sort' => $sort, 'dir' => $dir, 'by' => $by];
+    }
+
+    private function reviews(Request $request, Period $period, string $q): array
+    {
+        [$sort, $dir] = Tables::sort($request->query('sort'), $request->query('dir'), Tables::REVIEW_SORTS, 'created_at');
+        $stars = (int) $request->query('stars');
+        $stars = $stars >= 1 && $stars <= 5 ? $stars : null;
+        $visibility = in_array($request->query('visibility'), Tables::REVIEW_VISIBILITY, true) ? $request->query('visibility') : null;
+        $withText = $request->boolean('text');
+
+        return [
+            'rows' => Tables::reviews($period, $q, $stars, $visibility, $withText, $sort, $dir),
+            'sort' => $sort, 'dir' => $dir, 'stars' => $stars, 'visibility' => $visibility, 'withText' => $withText,
+        ];
     }
 
     private function periods(Request $request, Period $period): array
@@ -111,7 +126,7 @@ class TableController extends Controller
             'unit' => $unit,
             'series' => array_reverse(array_map(fn ($key) => ['bucket' => $key, ...OrderMetrics::derive($series[$key] ?? null)], OrderMetrics::buckets($period, $unit))),
             'plates' => Tables::topPlates($period, $model->id),
-            'rating' => DB::table('rates')->where('restaurant_id', $model->id)->selectRaw('AVG(rate) AS avg, COUNT(*) AS n')->first(),
+            'rating' => (object) ['avg' => $model->rating_avg, 'n' => $model->rating_count],
         ]);
     }
 

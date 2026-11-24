@@ -30,7 +30,8 @@
 
             <nav class="adm-nav" aria-label="{{ auth()->check() && ! $partner ? __('site.nav.main') : __('partner.header.nav') }}">
                 @if ($partner)
-                    <a class="adm-nav-link {{ request()->routeIs('admin.*') ? 'adm-nav-link--active' : '' }}" href="{{ route('admin.restaurants.index') }}">{{ __('partner.header.restaurants') }}</a>
+                    <a class="adm-nav-link {{ request()->routeIs('admin.*') && ! request()->routeIs('admin.stats.*') ? 'adm-nav-link--active' : '' }}" href="{{ route('admin.restaurants.index') }}">{{ __('partner.header.restaurants') }}</a>
+                    <a class="adm-nav-link {{ request()->routeIs('admin.stats.*') ? 'adm-nav-link--active' : '' }}" href="{{ route('admin.stats.index') }}">{{ __('partner.header.statistics') }}</a>
                 @elseif ($customer)
                     <a class="adm-nav-link" href="{{ url('/my-orders') }}">{{ __('site.account.orders') }}</a>
                 @endif
@@ -57,6 +58,9 @@
                             @if ($partner)
                                 <a class="adm-menu-item" href="{{ route('admin.restaurants.index') }}">
                                     <x-icon name="store" size="18" /> {{ __('partner.header.myRestaurants') }}
+                                </a>
+                                <a class="adm-menu-item" href="{{ route('admin.stats.index') }}">
+                                    <x-icon name="chart" size="18" /> {{ __('partner.header.statistics') }}
                                 </a>
                             @elseif ($customer)
                                 <a class="adm-menu-item" href="{{ url('/my-orders') }}">

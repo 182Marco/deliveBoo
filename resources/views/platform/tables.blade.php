@@ -11,7 +11,7 @@
     $date = fn ($v) => $v ? \Carbon\Carbon::parse($v)->isoFormat('D MMM YYYY, HH:mm') : '–';
     $day = fn ($v) => $v ? \Carbon\Carbon::parse($v)->isoFormat('D MMM YYYY') : '–';
     // what the shared filter form must keep when the period changes
-    $keep = array_filter(request()->only(['q', 'sort', 'dir', 'state', 'by', 'unit']), fn ($v) => is_string($v) && $v !== '');
+    $keep = array_filter(request()->only(['q', 'sort', 'dir', 'state', 'by', 'unit', 'stars', 'visibility', 'text']), fn ($v) => is_string($v) && $v !== '');
     $stateBadge = ['completed' => 'ui-badge--basil', 'in_progress' => '', 'cancelled' => 'ui-badge--tomato', 'failed' => 'ui-badge--tomato'];
     $rate = number_format(config('platform.commission_rate') * 100, 0).'%';
 @endphp
@@ -34,7 +34,7 @@
         @foreach ($period->query() as $name => $value)
             <input type="hidden" name="{{ $name }}" value="{{ $value }}">
         @endforeach
-        @if (in_array($section, ['restaurants', 'orders', 'customers'], true))
+        @if (in_array($section, ['restaurants', 'orders', 'customers', 'reviews'], true))
             <input type="hidden" name="sort" value="{{ $sort }}">
             <input type="hidden" name="dir" value="{{ $dir }}">
             <div class="ui-field plat-toolbar-search">
@@ -52,6 +52,30 @@
                     @endforeach
                 </select>
             </div>
+        @endif
+        @if ($section === 'reviews')
+            <div class="ui-field">
+                <label class="ui-label" for="t-stars">{{ __('platform.reviews.stars') }}</label>
+                <select class="ui-input" id="t-stars" name="stars">
+                    <option value="">{{ __('platform.reviews.allStars') }}</option>
+                    @foreach (range(5, 1) as $n)
+                        <option value="{{ $n }}" @selected($stars === $n)>{{ trans_choice('platform.reviews.starsCount', $n, ['count' => $n]) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="ui-field">
+                <label class="ui-label" for="t-visibility">{{ __('platform.reviews.visibility') }}</label>
+                <select class="ui-input" id="t-visibility" name="visibility">
+                    <option value="">{{ __('platform.reviews.allVisibility') }}</option>
+                    @foreach (\App\Analytics\Tables::REVIEW_VISIBILITY as $v)
+                        <option value="{{ $v }}" @selected($visibility === $v)>{{ __("platform.reviews.{$v}") }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <label class="ui-check">
+                <input class="ui-check-input" type="checkbox" name="text" value="1" @checked($withText)>
+                {{ __('platform.reviews.withText') }}
+            </label>
         @endif
         @if ($section === 'zones')
             <div class="ui-field">
@@ -74,14 +98,14 @@
         @endif
         <div class="plat-filters-actions">
             <button type="submit" class="ui-btn ui-btn--outline">{{ $t('search') }}</button>
-            @if ($q !== '' || ($state ?? null))
+            @if ($q !== '' || ($state ?? null) || ($stars ?? null) || ($visibility ?? null) || ($withText ?? false))
                 <a class="ui-btn ui-btn--ghost" href="{{ url()->current().'?'.http_build_query($period->query()) }}">{{ $t('clear') }}</a>
             @endif
         </div>
     </form>
 
     @php($count = $rows instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $rows->total() : count($rows))
-    <p class="plat-note" role="status">{{ trans_choice('platform.tables.results', $count, ['count' => number_format($count)]) }} · {{ $t('estimateNote', ['rate' => $rate]) }}</p>
+    <p class="plat-note" role="status">{{ trans_choice('platform.tables.results', $count, ['count' => number_format($count)]) }}@if ($section === 'reviews') · {{ __('platform.reviews.note') }}@else · {{ $t('estimateNote', ['rate' => $rate]) }}@endif</p>
 
     @if ($count === 0)
         <div class="plat-empty">{{ $t('none') }}</div>
@@ -236,6 +260,66 @@
                                     <td class="ui-td ui-td--num">{{ number_format($p['new_customers']) }}</td>
                                     <td class="ui-td ui-td--num">{{ $p['cancelled_orders'] }}</td>
                                     <td class="ui-td ui-td--num">{{ $p['failed_orders'] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        @break
+
+                    @case('reviews')
+                        <thead><tr>
+                            <x-platform.th key="created_at" :label="$t('col.date')" :sort="$sort" :dir="$dir" />
+                            <th class="ui-th" scope="col">{{ $t('col.restaurant') }}</th>
+                            <th class="ui-th" scope="col">{{ __('platform.reviews.author') }}</th>
+                            <x-platform.th key="rating" :label="__('platform.reviews.stars')" :sort="$sort" :dir="$dir" num />
+                            <th class="ui-th" scope="col">{{ __('platform.reviews.text') }}</th>
+                            <th class="ui-th" scope="col">{{ $t('col.status') }}</th>
+                            <th class="ui-th ui-td--actions" scope="col"><span class="ui-sr-only">{{ __('platform.reviews.actions') }}</span></th>
+                        </tr></thead>
+                        <tbody>
+                            @foreach ($rows as $v)
+                                <tr id="review-{{ $v->id }}">
+                                    <td class="ui-td">{{ $date($v->created_at) }}</td>
+                                    <td class="ui-td ui-td--strong">
+                                        @if ($v->restaurant_id)
+                                            <a class="ui-link" href="{{ route('platform.tables.restaurant', ['restaurant' => $v->restaurant_id, ...$period->query()]) }}">{{ $v->restaurant_name }}</a>
+                                        @else
+                                            –
+                                        @endif
+                                    </td>
+                                    <td class="ui-td">
+                                        {{ $v->author_name ? $v->author_name.' '.$v->author_last_name : __('platform.reviews.anonymous') }}
+                                        @if ($v->order_id)
+                                            <a class="plat-cell-note ui-link" href="{{ route('platform.tables.order', ['order' => $v->order_id, ...$period->query()]) }}">#{{ $v->order_id }}</a>
+                                        @endif
+                                    </td>
+                                    <td class="ui-td ui-td--num"><x-stars :value="$v->rating" /></td>
+                                    <td class="ui-td plat-review-text">
+                                        @if ($v->comment)
+                                            {{ $v->comment }}
+                                        @else
+                                            <span class="plat-cell-note">{{ __('platform.reviews.noText') }}</span>
+                                        @endif
+                                        @if ($v->reply)
+                                            <span class="plat-cell-note">{{ __('platform.reviews.replied') }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="ui-td">
+                                        @if ($v->hidden_at)
+                                            <span class="ui-badge ui-badge--tomato">{{ __('platform.reviews.hidden') }}</span>
+                                            <span class="plat-cell-note">{{ __('platform.reviews.hiddenBy', ['admin' => trim($v->hidden_by_name.' '.$v->hidden_by_last_name) ?: '–', 'date' => $day($v->hidden_at)]) }}</span>
+                                        @else
+                                            <span class="ui-badge ui-badge--basil">{{ __('platform.reviews.visible') }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="ui-td ui-td--actions">
+                                        <form method="POST" action="{{ route($v->hidden_at ? 'platform.reviews.unhide' : 'platform.reviews.hide', $v->id) }}">
+                                            @csrf
+                                            <button type="submit" @class(['ui-btn', 'ui-btn--sm', 'ui-btn--danger' => ! $v->hidden_at, 'ui-btn--outline' => $v->hidden_at])>
+                                                <x-icon :name="$v->hidden_at ? 'eye' : 'ban'" size="16" />
+                                                {{ $v->hidden_at ? __('platform.reviews.unhide') : __('platform.reviews.hide') }}
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

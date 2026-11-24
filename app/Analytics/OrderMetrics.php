@@ -35,22 +35,33 @@ final class OrderMetrics
         return (float) config('platform.commission_rate');
     }
 
-    /** orders of the period (o) with their restaurant (r), filtered by city and cuisine */
+    /** orders of the period (o) with their restaurant (r), filtered by city and cuisine, or by the partner scope */
     public static function orders(Period $period): Builder
     {
         return DB::table('orders as o')
             ->leftJoin('restaurants as r', 'r.id', '=', 'o.restaurant_id')
             ->whereBetween('o.created_at', [$period->from, $period->to])
             ->whereIn('o.status', [Order::PAID, Order::FAILED])
+            ->tap(fn (Builder $q) => $period->applyScope($q))
             ->when($period->city, fn (Builder $q, string $city) => $q->where('r.city', $city))
             ->when($period->typeId, fn (Builder $q, int $type) => $q->whereExists(fn (Builder $e) => $e
                 ->from('restaurant_type as rt')->whereColumn('rt.restaurant_id', 'o.restaurant_id')->where('rt.type_id', $type)));
     }
 
-    /** the aggregate columns shared by totals, series and rankings */
-    public static function aggregates(): string
+    // the additive columns of aggregates(): a group of rows can be summed field by field
+    private const ADDITIVE = [
+        'completed_orders', 'completed_value', 'in_progress_orders', 'in_progress_value', 'cancelled_orders',
+        'cancelled_value', 'failed_orders', 'failed_value', 'gross_orders', 'gross_value',
+    ];
+
+    /**
+     * The aggregate columns shared by totals, series and rankings. Distinct customers are the only
+     * expensive one (COUNT DISTINCT per group) and the only one that cannot be summed across groups:
+     * $customers = false leaves them out where nobody shows them (derive() then gives 0).
+     */
+    public static function aggregates(bool $customers = true): string
     {
-        return implode(', ', [
+        return implode(', ', array_filter([
             'SUM(CASE WHEN '.self::COMPLETED.' THEN 1 ELSE 0 END) AS completed_orders',
             'SUM(CASE WHEN '.self::COMPLETED.' THEN o.price ELSE 0 END) AS completed_value',
             'SUM(CASE WHEN '.self::IN_PROGRESS.' THEN 1 ELSE 0 END) AS in_progress_orders',
@@ -61,8 +72,8 @@ final class OrderMetrics
             'SUM(CASE WHEN '.self::FAILED.' THEN o.price ELSE 0 END) AS failed_value',
             'SUM(CASE WHEN '.self::GROSS.' THEN 1 ELSE 0 END) AS gross_orders',
             'SUM(CASE WHEN '.self::GROSS.' THEN o.price ELSE 0 END) AS gross_value',
-            'COUNT(DISTINCT CASE WHEN '.self::GROSS.' THEN o.customer_email END) AS customers',
-        ]);
+            $customers ? 'COUNT(DISTINCT CASE WHEN '.self::GROSS.' THEN o.customer_email END) AS customers' : null,
+        ]));
     }
 
     /** numbers of one aggregate row, with the derived metrics */
@@ -127,12 +138,27 @@ final class OrderMetrics
     /** median and 90th percentile of the minutes from order to delivery (completed orders) */
     public static function deliveryTimes(Period $period): array
     {
+        // one row per distinct number of minutes (a few hundred), the percentiles are read in PHP:
+        // the value at position floor((n - 1) × q) of the sorted list, as an ORDER BY ... OFFSET would give
         $minutes = SqlBuckets::minutesBetween('o.created_at', 'o.delivered_at');
-        $base = fn () => self::orders($period)->whereRaw(self::COMPLETED)->whereNotNull('o.delivered_at');
-        $count = $base()->count();
-        $at = fn (float $q) => $count
-            ? (int) $base()->selectRaw("{$minutes} AS m")->orderBy('m')->offset((int) floor(($count - 1) * $q))->limit(1)->value('m')
-            : null;
+        $histogram = self::orders($period)->whereRaw(self::COMPLETED)->whereNotNull('o.delivered_at')
+            ->selectRaw("{$minutes} AS m, COUNT(*) AS n")->groupByRaw($minutes)->orderBy('m')->get();
+        $count = (int) $histogram->sum('n');
+        $at = function (float $q) use ($histogram, $count): ?int {
+            if ($count === 0) {
+                return null;
+            }
+            $position = (int) floor(($count - 1) * $q);
+            $seen = 0;
+            foreach ($histogram as $row) {
+                $seen += (int) $row->n;
+                if ($seen > $position) {
+                    return (int) $row->m;
+                }
+            }
+
+            return null;
+        };
 
         return ['delivery_median_minutes' => $at(0.5), 'delivery_p90_minutes' => $at(0.9)];
     }
@@ -144,8 +170,9 @@ final class OrderMetrics
 
         return self::cached($period, "series:{$granularity}", function () use ($period, $granularity) {
             $bucket = SqlBuckets::period($granularity, 'o.created_at');
+            // distinct customers per bucket come from customers(), not from here
             $rows = self::orders($period)
-                ->selectRaw("{$bucket} AS bucket, ".self::aggregates())
+                ->selectRaw("{$bucket} AS bucket, ".self::aggregates(false))
                 ->groupByRaw($bucket)->get()->keyBy('bucket');
 
             $points = [];
@@ -173,37 +200,72 @@ final class OrderMetrics
         });
     }
 
-    /** restaurants ranked by a metric; rating = average of all their rates (rates have no period) */
+    /**
+     * The aggregates of every restaurant with orders in the period: ONE grouped query (no distinct),
+     * from which restaurants(), zones() and cuisines() are combined in PHP. id => additive fields.
+     */
+    public static function byRestaurant(Period $period): array
+    {
+        return self::cached($period, 'by-restaurant', fn () => self::orders($period)->whereNotNull('r.id')
+            ->selectRaw('o.restaurant_id AS id, '.self::aggregates(false))
+            ->groupBy('o.restaurant_id')->orderBy('o.restaurant_id')->get()
+            ->mapWithKeys(fn ($r) => [(int) $r->id => array_intersect_key((array) $r, array_flip(self::ADDITIVE))])->all());
+    }
+
+    /** field by field sum of rows of byRestaurant() */
+    public static function sum(array $rows): array
+    {
+        $total = array_fill_keys(self::ADDITIVE, 0);
+        foreach ($rows as $row) {
+            foreach (self::ADDITIVE as $key) {
+                $total[$key] += (float) ($row[$key] ?? 0);
+            }
+        }
+        // amounts are whole cents: rounding removes the float error of the sum (SQL sums them exactly)
+        foreach ($total as $key => $value) {
+            $total[$key] = str_ends_with($key, '_value') ? round($value, 2) : (int) $value;
+        }
+
+        return $total;
+    }
+
+    /** restaurants ranked by a metric; rating = stored average of their counted reviews (no period) */
     public static function restaurants(Period $period, string $sort = 'gross_value', int $limit = 10): array
     {
         $sort = in_array($sort, ['gross_value', 'completed_orders', 'average_order', 'revenue', 'cancel_rate'], true) ? $sort : 'gross_value';
 
         return self::cached($period, "restaurants:{$sort}:{$limit}", function () use ($period, $sort, $limit) {
-            $rows = self::orders($period)->whereNotNull('r.id')
-                ->selectRaw('r.id, r.name, r.slug, r.city, '.self::aggregates())
-                ->groupBy('r.id', 'r.name', 'r.slug', 'r.city')->get();
-            $ratings = DB::table('rates')->whereIn('restaurant_id', $rows->pluck('id'))
-                ->groupBy('restaurant_id')->selectRaw('restaurant_id, AVG(rate) AS avg_rate, COUNT(*) AS n')->get()->keyBy('restaurant_id');
+            $rows = self::byRestaurant($period);
+            $info = DB::table('restaurants')->whereIn('id', array_keys($rows))
+                ->get(['id', 'name', 'slug', 'city', 'rating_avg', 'rating_count'])->keyBy('id');
 
-            return $rows->map(fn ($r) => [
-                'id' => (int) $r->id, 'name' => $r->name, 'slug' => $r->slug, 'city' => $r->city,
+            return collect($rows)->map(fn ($r, $id) => [
+                'id' => $id, 'name' => $info[$id]->name, 'slug' => $info[$id]->slug, 'city' => $info[$id]->city,
                 ...self::derive($r),
-                'rating' => isset($ratings[$r->id]) ? round((float) $ratings[$r->id]->avg_rate, 2) : null,
-                'ratings' => (int) ($ratings[$r->id]->n ?? 0),
-            ])->sortByDesc(fn ($r) => $r[$sort] ?? -1)->take($limit)->values()->all();
+                'rating' => $info[$id]->rating_avg !== null ? round((float) $info[$id]->rating_avg, 2) : null,
+                'ratings' => $info[$id]->rating_avg !== null ? (int) $info[$id]->rating_count : 0,
+            ])->values()->sortByDesc(fn ($r) => $r[$sort] ?? -1)->take($limit)->values()->all();
         });
     }
 
     /** by city or postal code of the restaurant */
     public static function zones(Period $period, string $by = 'city'): array
     {
-        $column = $by === 'postal_code' ? 'r.postal_code' : 'r.city';
+        $column = $by === 'postal_code' ? 'postal_code' : 'city';
 
-        return self::cached($period, "zones:{$by}", fn () => self::orders($period)->whereNotNull($column)
-            ->selectRaw("{$column} AS zone, COUNT(DISTINCT r.id) AS restaurants, ".self::aggregates())
-            ->groupBy($column)->get()
-            ->map(fn ($z) => ['zone' => $z->zone, 'restaurants' => (int) $z->restaurants, ...self::derive($z)])
-            ->sortByDesc('gross_value')->values()->all());
+        return self::cached($period, "zones:{$by}", function () use ($period, $column) {
+            $rows = self::byRestaurant($period);
+            $zoneOf = DB::table('restaurants')->whereIn('id', array_keys($rows))->whereNotNull($column)->pluck($column, 'id');
+            $groups = [];
+            foreach ($rows as $id => $row) {
+                if (isset($zoneOf[$id])) {
+                    $groups[$zoneOf[$id]][$id] = $row;
+                }
+            }
+
+            return collect($groups)->map(fn ($members, $zone) => ['zone' => (string) $zone, 'restaurants' => count($members), ...self::derive(self::sum($members))])
+                ->values()->sortByDesc('gross_value')->values()->all();
+        });
     }
 
     /**
@@ -212,13 +274,19 @@ final class OrderMetrics
      */
     public static function cuisines(Period $period): array
     {
-        return self::cached($period, 'cuisines', fn () => self::orders($period)
-            ->join('restaurant_type as rt2', 'rt2.restaurant_id', '=', 'o.restaurant_id')
-            ->join('types as t', 't.id', '=', 'rt2.type_id')
-            ->selectRaw('t.id, t.name, '.self::aggregates())
-            ->groupBy('t.id', 't.name')->get()
-            ->map(fn ($c) => ['id' => (int) $c->id, 'name' => $c->name, ...self::derive($c)])
-            ->sortByDesc('gross_value')->values()->all());
+        return self::cached($period, 'cuisines', function () use ($period) {
+            $rows = self::byRestaurant($period);
+            $groups = [];
+            $names = [];
+            foreach (DB::table('restaurant_type as rt')->join('types as t', 't.id', '=', 'rt.type_id')
+                ->whereIn('rt.restaurant_id', array_keys($rows))->orderBy('t.id')->get(['rt.restaurant_id', 't.id', 't.name']) as $link) {
+                $groups[(int) $link->id][] = $rows[(int) $link->restaurant_id];
+                $names[(int) $link->id] = $link->name;
+            }
+
+            return collect($groups)->map(fn ($members, $id) => ['id' => $id, 'name' => $names[$id], ...self::derive(self::sum($members))])
+                ->values()->sortByDesc('gross_value')->values()->all();
+        });
     }
 
     /**
@@ -230,7 +298,8 @@ final class OrderMetrics
         $granularity ??= SqlBuckets::granularityFor($period);
 
         return self::cached($period, "customers:{$granularity}", function () use ($period, $granularity) {
-            $first = DB::table('orders')->where('status', Order::PAID)
+            // "new" = first order ever within the scope (the platform, an owner's restaurants, one restaurant)
+            $first = $period->applyScope(DB::table('orders')->where('status', Order::PAID), 'restaurant_id')
                 ->selectRaw('customer_email, MIN(created_at) AS first_at')->groupBy('customer_email');
             $bucket = SqlBuckets::period($granularity, 'o.created_at');
             $firstBucket = SqlBuckets::period($granularity, 'f.first_at');

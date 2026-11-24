@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Platform;
 
+use App\Analytics\ChartFormat;
 use App\Analytics\OrderMetrics;
 use App\Analytics\Period;
 use App\Analytics\SqlBuckets;
 use App\Http\Controllers\Controller;
-use Carbon\CarbonImmutable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -43,10 +43,8 @@ class ChartController extends Controller
         $cuisines = array_slice(OrderMetrics::cuisines($period), 0, 10);
         $text = fn (string $key, array $replace = []) => __("platform.charts.{$key}", $replace);
         // a week or month cut by the period would look like a collapse: say it is partial
-        $partial = self::partialBuckets($period, $unit, array_column($series, 'bucket'));
-        $labels = array_map(fn ($p) => in_array($p['bucket'], $partial, true)
-            ? $text('partial', ['label' => self::bucketLabel($p['bucket'], $unit)])
-            : self::bucketLabel($p['bucket'], $unit), $series);
+        $partial = ChartFormat::partialBuckets($period, $unit, array_column($series, 'bucket'));
+        $labels = ChartFormat::labels($period, $unit, array_column($series, 'bucket'), 'platform.charts.partial');
 
         $charts = [
             'sales' => ['type' => 'line', 'money' => true, 'labels' => $labels,
@@ -90,48 +88,14 @@ class ChartController extends Controller
             'customers' => $customers,
             'registrations' => $registrations,
             'hasRegistrations' => array_sum(array_map(fn ($p) => $p['customer'] + $p['restaurateur'], $registrations)) > 0,
-            'heatmap' => self::heatmap(OrderMetrics::heatmap($period)),
+            'heatmap' => ChartFormat::heatmap(OrderMetrics::heatmap($period)),
             'charts' => $charts,
         ];
     }
 
-    /** 7×24 cells with a level 0–5 of the one-hue scale (0 = no orders) and the localized weekday */
-    private static function heatmap(array $grid): array
-    {
-        $max = max(1, ...array_map(fn ($row) => max($row), $grid));
-        $monday = CarbonImmutable::parse('2030-01-07')->locale(app()->getLocale());
-        $rows = [];
-        foreach ($grid as $d => $hours) {
-            $rows[] = [
-                'day' => $monday->addDays($d)->isoFormat('ddd'),
-                'cells' => array_map(fn ($n) => ['count' => $n, 'level' => $n ? (int) ceil(5 * $n / $max) : 0], $hours),
-            ];
-        }
-
-        return ['rows' => $rows, 'max' => $max];
-    }
-
-    /** buckets (first and last) that start before or end after the period */
-    private static function partialBuckets(Period $period, string $unit, array $buckets): array
-    {
-        if ($unit === 'day' || $buckets === []) {
-            return [];
-        }
-        $start = fn (string $b) => CarbonImmutable::parse($unit === 'month' ? "{$b}-01" : $b);
-        $end = fn (string $b) => $unit === 'month' ? $start($b)->endOfMonth() : $start($b)->addDays(6)->endOfDay();
-        $first = $buckets[0];
-        $last = $buckets[array_key_last($buckets)];
-
-        return array_values(array_unique(array_filter([
-            $start($first)->lessThan($period->from) ? $first : null,
-            $end($last)->greaterThan($period->to) ? $last : null,
-        ])));
-    }
-
+    /** kept for the Tables views: same as ChartFormat::bucketLabel */
     public static function bucketLabel(string $bucket, string $unit): string
     {
-        $date = CarbonImmutable::parse($unit === 'month' ? "{$bucket}-01" : $bucket)->locale(app()->getLocale());
-
-        return $unit === 'month' ? $date->isoFormat('MMM YYYY') : $date->isoFormat('D MMM');
+        return ChartFormat::bucketLabel($bucket, $unit);
     }
 }

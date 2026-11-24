@@ -22,6 +22,8 @@ final class Tables
     public const CUSTOMER_SORTS = ['gross_value', 'completed_orders', 'last_order', 'first_order', 'name'];
     public const ZONE_SORTS = ['zone', 'restaurants', 'gross_value', 'completed_orders', 'average_order', 'revenue'];
     public const PERIOD_UNITS = ['day', 'week', 'month'];
+    public const REVIEW_SORTS = ['created_at', 'rating'];
+    public const REVIEW_VISIBILITY = ['visible', 'hidden'];
 
     /** a whitelisted sort key and direction from the request values */
     public static function sort(?string $sort, ?string $dir, array $allowed, string $default, string $defaultDir = 'desc'): array
@@ -42,12 +44,11 @@ final class Tables
     {
         $sales = OrderMetrics::orders($period)->whereNotNull('o.restaurant_id')
             ->selectRaw('o.restaurant_id, '.OrderMetrics::aggregates())->groupBy('o.restaurant_id');
-        $ratings = DB::table('rates')->selectRaw('restaurant_id, AVG(rate) AS avg_rate, COUNT(*) AS rates')->groupBy('restaurant_id');
 
         $order = match ($sort) {
             'name' => 'LOWER(r.name)',
             'city' => 'LOWER(r.city)',
-            'rating' => 'COALESCE(rt.avg_rate, 0)',
+            'rating' => 'COALESCE(r.rating_avg, 0)',
             'average_order' => 'CASE WHEN COALESCE(s.completed_orders, 0) > 0 THEN s.completed_value / s.completed_orders ELSE 0 END',
             'cancel_rate' => 'CASE WHEN COALESCE(s.completed_orders, 0) + COALESCE(s.in_progress_orders, 0) + COALESCE(s.cancelled_orders, 0) > 0 THEN s.cancelled_orders * 1.0 / (s.completed_orders + s.in_progress_orders + s.cancelled_orders) ELSE 0 END',
             default => "COALESCE(s.{$sort}, 0)",
@@ -59,16 +60,45 @@ final class Tables
                 ->from('restaurant_type as t')->whereColumn('t.restaurant_id', 'r.id')->where('t.type_id', $type)))
             ->when($q !== '', fn (Builder $b) => $b->where('r.name', 'like', self::like($q)))
             ->leftJoinSub($sales, 's', 's.restaurant_id', '=', 'r.id')
-            ->leftJoinSub($ratings, 'rt', 'rt.restaurant_id', '=', 'r.id')
-            ->select('r.id', 'r.name', 'r.slug', 'r.city', 'rt.avg_rate', 'rt.rates', 's.*')
+            ->select('r.id', 'r.name', 'r.slug', 'r.city', 'r.rating_avg', 'r.rating_count', 's.*')
             ->orderByRaw("{$order} {$dir}")->orderBy('r.id')
             ->paginate(self::PER_PAGE)->withQueryString();
 
         return $page->through(fn ($r) => [
             'id' => (int) $r->id, 'name' => $r->name, 'slug' => $r->slug, 'city' => $r->city,
-            'rating' => $r->avg_rate === null ? null : round((float) $r->avg_rate, 2), 'rates' => (int) $r->rates,
+            'rating' => $r->rating_avg === null ? null : round((float) $r->rating_avg, 2), 'rates' => (int) $r->rating_count,
             ...OrderMetrics::derive($r),
         ]);
+    }
+
+    /**
+     * Reviews written in the period (moderation): search in the restaurant name, the author and the
+     * text, filters on stars, visibility and "with text only". Never the author's email.
+     */
+    public static function reviews(Period $period, string $q, ?int $stars, ?string $visibility, bool $withText, string $sort, string $dir): LengthAwarePaginator
+    {
+        return DB::table('reviews as v')
+            ->leftJoin('restaurants as r', 'r.id', '=', 'v.restaurant_id')
+            ->leftJoin('users as u', 'u.id', '=', 'v.user_id')
+            ->leftJoin('users as h', 'h.id', '=', 'v.hidden_by')
+            ->whereBetween('v.created_at', [$period->from, $period->to])
+            ->when($period->city, fn (Builder $b, string $city) => $b->where('r.city', $city))
+            ->when($period->typeId, fn (Builder $b, int $type) => $b->whereExists(fn (Builder $e) => $e
+                ->from('restaurant_type as t')->whereColumn('t.restaurant_id', 'v.restaurant_id')->where('t.type_id', $type)))
+            ->when($stars, fn (Builder $b, int $n) => $b->where('v.rating', $n))
+            ->when($visibility === 'visible', fn (Builder $b) => $b->whereNull('v.hidden_at'))
+            ->when($visibility === 'hidden', fn (Builder $b) => $b->whereNotNull('v.hidden_at'))
+            ->when($withText, fn (Builder $b) => $b->whereNotNull('v.comment'))
+            ->when($q !== '', fn (Builder $b) => $b->where(fn (Builder $w) => $w
+                ->orWhere('r.name', 'like', self::like($q))
+                ->orWhere('v.comment', 'like', self::like($q))
+                ->orWhere('u.name', 'like', self::like($q))
+                ->orWhere('u.last_name', 'like', self::like($q))))
+            ->select('v.id', 'v.rating', 'v.comment', 'v.reply', 'v.created_at', 'v.hidden_at', 'v.order_id', 'v.restaurant_id',
+                'r.name as restaurant_name', 'u.name as author_name', 'u.last_name as author_last_name',
+                'h.name as hidden_by_name', 'h.last_name as hidden_by_last_name')
+            ->orderBy("v.{$sort}", $dir)->orderBy('v.id', $dir)
+            ->paginate(self::PER_PAGE)->withQueryString();
     }
 
     public static function orders(Period $period, string $q, ?string $state, string $sort, string $dir): LengthAwarePaginator

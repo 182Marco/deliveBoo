@@ -21,12 +21,10 @@ final class GeoStats
         return Cache::remember($period->cacheKey('map'), (int) config('platform.cache_seconds', 600), function () use ($period) {
             $sales = OrderMetrics::orders($period)->whereNotNull('o.restaurant_id')
                 ->selectRaw('o.restaurant_id, '.OrderMetrics::aggregates())->groupBy('o.restaurant_id');
-            $ratings = DB::table('rates')->selectRaw('restaurant_id, AVG(rate) AS avg_rate')->groupBy('restaurant_id');
 
             $rows = self::restaurants($period)
                 ->leftJoinSub($sales, 's', 's.restaurant_id', '=', 'r.id')
-                ->leftJoinSub($ratings, 'rt', 'rt.restaurant_id', '=', 'r.id')
-                ->select('r.id', 'r.name', 'r.slug', 'r.city', 'r.postal_code', 'r.latitude', 'r.longitude', 'rt.avg_rate',
+                ->select('r.id', 'r.name', 'r.slug', 'r.city', 'r.postal_code', 'r.latitude', 'r.longitude', 'r.rating_avg',
                     's.completed_orders', 's.completed_value', 's.in_progress_orders', 's.in_progress_value', 's.cancelled_orders',
                     's.cancelled_value', 's.failed_orders', 's.failed_value', 's.gross_orders', 's.gross_value', 's.customers')
                 ->orderBy('r.name')->get();
@@ -44,7 +42,7 @@ final class GeoStats
                     'completed_orders' => $metrics['completed_orders'],
                     'average_order' => $metrics['average_order'],
                     'revenue' => $metrics['revenue'],
-                    'rating' => $r->avg_rate === null ? null : round((float) $r->avg_rate, 1),
+                    'rating' => $r->rating_avg === null ? null : round((float) $r->rating_avg, 1),
                 ];
                 if ($r->latitude === null || $r->longitude === null) {
                     $missing[] = $point;
