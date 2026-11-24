@@ -28,20 +28,23 @@ describe("mutations and getters", () => {
         expect(store.state.typesSelected).toEqual([]);
     });
 
-    it("adds and removes plates and recomputes the total", () => {
-        const a = { id: 1, price: 4.5, restaurant_id: 7 };
-        const b = { id: 2, price: 3, restaurant_id: 7 };
+    it("adds and removes plates; the getters give lines, count, amount and restaurant", () => {
+        const a = { id: 1, price: 4.5, restaurant_id: 7, restaurant_slug: "seven" };
+        const b = { id: 2, price: 3, restaurant_id: 7, restaurant_slug: "seven" };
+        expect(store.getters.cartRestaurant).toBeNull();
         store.commit("addPlate", a);
         store.commit("addPlate", b);
         store.commit("addPlate", a);
-        store.commit("changeTotal");
-        expect(store.getters.cartLenght).toBe(3);
-        expect(store.state.total).toBe(12);
+        expect(store.getters.cartLines).toEqual([{ plate: a, quantity: 2 }, { plate: b, quantity: 1 }]);
+        expect(store.getters.cartCount).toBe(3);
+        expect(store.getters.cartAmount).toBe(12);
+        expect(store.getters.cartRestaurant).toEqual({ id: 7, slug: "seven" });
+        expect(store.getters.portionsOf(1)).toBe(2);
+        expect(store.getters.portionsOf(99)).toBe(0);
 
         store.commit("removePlate", a);
-        store.commit("changeTotal");
         expect(store.state.cart).toEqual([a, b]);
-        expect(store.state.total).toBe(7.5);
+        expect(store.getters.cartAmount).toBe(7.5);
 
         // a plate that is not in the cart is ignored
         store.commit("removePlate", { id: 99, price: 1 });
@@ -65,6 +68,48 @@ describe("mutations and getters", () => {
 
         // a new store (page reload) restores the cart
         expect(createStore().state.cart).toEqual([{ id: 5, price: 2 }]);
+    });
+});
+
+describe("cart actions (local storage)", () => {
+    const a = { id: 1, price: 4.5, restaurant_id: 7, restaurant_slug: "seven" };
+    const b = { id: 2, price: 3, restaurant_id: 7, restaurant_slug: "seven" };
+    const other = { id: 9, price: 10, restaurant_id: 8, restaurant_slug: "eight" };
+
+    it("setQuantity sets the absolute number of portions; 0 removes the line", async () => {
+        await store.dispatch("setQuantity", { plate: a, quantity: 3 });
+        await store.dispatch("setQuantity", { plate: b, quantity: 1 });
+        expect(store.getters.cartLines.map(l => [l.plate.id, l.quantity])).toEqual([[1, 3], [2, 1]]);
+
+        await store.dispatch("setQuantity", { plate: a, quantity: 1 });
+        expect(store.getters.portionsOf(1)).toBe(1);
+        // the line keeps its position
+        expect(store.getters.cartLines[0].plate.id).toBe(1);
+
+        await store.dispatch("setQuantity", { plate: a, quantity: 0 });
+        await store.dispatch("setQuantity", { plate: b, quantity: -2 });
+        expect(store.getters.cartCount).toBe(0);
+    });
+
+    it("addOne and removeOne change one portion; another restaurant opens the warning", async () => {
+        expect(await store.dispatch("addOne", a)).toBe(true);
+        await store.dispatch("addOne", a);
+        await store.dispatch("removeOne", a);
+        expect(store.getters.portionsOf(1)).toBe(1);
+
+        expect(await store.dispatch("addOne", other)).toBe(false);
+        expect(store.state.warn).toBe(true);
+        expect(store.getters.portionsOf(9)).toBe(0);
+
+        // removing a plate that is not in the cart does nothing
+        await store.dispatch("removeOne", b);
+        expect(store.getters.cartCount).toBe(1);
+    });
+
+    it("clearCart empties the cart", async () => {
+        await store.dispatch("setQuantity", { plate: a, quantity: 2 });
+        await store.dispatch("clearCart");
+        expect(store.getters.cartLines).toEqual([]);
     });
 });
 
