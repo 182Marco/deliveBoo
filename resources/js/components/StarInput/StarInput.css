@@ -1,0 +1,47 @@
+.star-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.star-input-group {
+    display: inline-flex;
+    gap: var(--space-1);
+}
+
+/* 44px touch targets; the star grows a little under the pointer */
+.star-input-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--line-strong);
+    cursor: pointer;
+    transition: transform var(--duration-fast) var(--ease);
+}
+
+.star-input-btn:hover {
+    transform: scale(1.12);
+}
+
+.star-input-btn:focus-visible {
+    outline: 2px solid var(--brand-strong);
+    outline-offset: 2px;
+}
+
+.star-input-btn--on {
+    color: var(--saffron);
+}
+
+.star-input-level {
+    min-height: 25px;
+    min-width: 7ch;
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    color: var(--saffron-ink);
+}

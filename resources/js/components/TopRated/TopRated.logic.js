@@ -3,7 +3,7 @@ import { Icon } from "../Icon";
 import { StarsBox } from "../StarsBox";
 import { fetchTopRated } from "../../api";
 import { t } from "../../utils";
-import { rankLabel, withStarsAverage } from "./TopRated.utils.js";
+import { rankLabel } from "./TopRated.utils.js";
 
 // share of the visible rail moved by the arrows
 const SCROLL_STEP = 0.85;
@@ -16,7 +16,8 @@ const topRatedLogic = {
     }),
     async created() {
         try {
-            this.topRest = withStarsAverage(await fetchTopRated());
+            // average = real arithmetic mean, order = Bayesian score (server side)
+            this.topRest = await fetchTopRated();
         } catch (error) {
             console.error(error);
         }

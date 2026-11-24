@@ -1,13 +1,17 @@
 .stars {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 2px;
+    gap: var(--space-2);
 }
 
-.star {
-    color: var(--line-strong);
+.stars-meta {
+    font-size: var(--text-sm);
+    color: inherit;
 }
 
-.star--on {
-    color: var(--saffron);
+.stars-number {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
 }

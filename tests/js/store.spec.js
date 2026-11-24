@@ -94,7 +94,7 @@ describe("actions", () => {
     });
 
     it("getMenuAndDetails calls /api/restaurantsMenu/<slug>?page=<n>", async () => {
-        const data = { averageRate: 4, location: { slug: "mc" }, types: [], menu: { current_page: 1, last_page: 2 } };
+        const data = { rating: { average: 4, count: 3 }, location: { slug: "mc" }, types: [], menu: { current_page: 1, last_page: 2 } };
         axios.get.mockResolvedValue({ data });
         store.dispatch("getMenuAndDetails", { slug: "mc", page: 1 });
         await flush();

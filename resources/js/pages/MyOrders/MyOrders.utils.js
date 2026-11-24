@@ -9,6 +9,15 @@ const STATE_TONES = {
     pending: ""
 };
 
+// days after the delivery to write or edit a review (same value as config/reviews.php window_days)
+const REVIEW_WINDOW_DAYS = 30;
+
+// what the review button of an order does: "write", "edit" or "none" (the server decides can_review)
+const reviewAction = ({ can_review: can, review }) => (can ? (review ? "edit" : "write") : "none");
+
+// the order after a save: the new review and whether it can still be edited
+const withReview = (order, { review, can_review: can }) => ({ ...order, review, can_review: can });
+
 // one state for the customer from the two columns: payment first, then delivery progress
 const orderState = ({ status, fulfillment_status: fulfillment }) => {
     if (status === "failed" || status === "pending") return status;
@@ -33,9 +42,10 @@ const toOrderView = (order, locale) => {
         state,
         tone: stateTone(state),
         items: itemCount(order.lines),
+        action: reviewAction(order),
         placed: formatDateTime(order.placed_at, locale),
         delivered: state === "delivered" ? formatDateTime(order.delivered_at, locale) : ""
     };
 };
 
-export { formatDateTime, itemCount, orderState, stateTone, toOrderView };
+export { formatDateTime, itemCount, orderState, REVIEW_WINDOW_DAYS, reviewAction, stateTone, toOrderView, withReview };

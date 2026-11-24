@@ -151,7 +151,7 @@ class CustomerOrdersTest extends TestCase
             ->assertJsonPath('data.1.restaurant.slug', Restaurant::find($payload['restaurant_id'])->slug);
         $paid = $response->json('data.1');
         $this->assertEqualsCanonicalizing(
-            ['id', 'placed_at', 'delivered_at', 'price', 'status', 'fulfillment_status', 'address', 'restaurant', 'lines'],
+            ['id', 'placed_at', 'delivered_at', 'price', 'status', 'fulfillment_status', 'address', 'restaurant', 'lines', 'review', 'can_review'],
             array_keys($paid),
         );
         $this->assertSame([2, 1], array_column($paid['lines'], 'quantity'));

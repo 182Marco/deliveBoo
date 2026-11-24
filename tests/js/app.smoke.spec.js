@@ -15,15 +15,17 @@ vi.mock("braintree-web", () => ({
     }
 }));
 
-const REST = { id: 7, name: "Mc Donald's", slug: "mc-donalds", city: "Modena", address: "via Moro 52", phone: "1", img: "https://example.com/r.jpg", average: 4.2 };
+const REST = { id: 7, name: "Mc Donald's", slug: "mc-donalds", city: "Modena", address: "via Moro 52", phone: "1", img: "https://example.com/r.jpg", average: 4.2, count: 12 };
 const PLATE = { id: 11, name: "Fries", price: 2.5, restaurant_id: 7, description: "d", ingredients: "i", img: "https://example.com/p.jpg", visible: 1 };
-const ORDER = { id: 42, placed_at: "2026-11-20T19:30:00+01:00", delivered_at: "2026-11-20T20:05:00+01:00", price: 7.5, status: "paid", fulfillment_status: "delivered", address: "Langstrasse 1", restaurant: { name: "Mc Donald's", slug: "mc-donalds", img: null }, lines: [{ name: "Fries", quantity: 3, unit_price: 2.5 }] };
+const ORDER = { id: 42, placed_at: "2026-11-20T19:30:00+01:00", delivered_at: "2026-11-20T20:05:00+01:00", price: 7.5, status: "paid", fulfillment_status: "delivered", address: "Langstrasse 1", restaurant: { name: "Mc Donald's", slug: "mc-donalds", img: null }, lines: [{ name: "Fries", quantity: 3, unit_price: 2.5 }], review: null, can_review: true };
+const REVIEWS = { summary: { average: 4.2, count: 2, distribution: { 5: 1, 4: 1, 3: 0, 2: 0, 1: 0 } }, reviews: { data: [{ id: 1, rating: 5, comment: "Hot food, quick rider.", created_at: "2026-11-20T21:00:00+01:00", author: { name: "Anna B.", avatar_seed: "user-1", avatar_overrides: {} }, reply: "Thank you!", replied_at: null }], current_page: 1, last_page: 1, per_page: 4, total: 1 } };
 const PAGE = (data) => ({ data, current_page: 1, last_page: 2, per_page: 4, total: 5 });
 
 function api(url) {
     if (url === "/api/types") return { data: { types: [{ id: 1, name: "Fast Food", img: "https://example.com/t.jpg" }] } };
     if (url === "/api/restaurantsTopRated") return { data: [REST] };
-    if (url.startsWith("/api/restaurantsMenu/")) return { data: { averageRate: 4.2, location: REST, types: ["Fast Food"], menu: PAGE([PLATE]) } };
+    if (url.startsWith("/api/restaurantsMenu/")) return { data: { rating: { average: 4.2, count: 12 }, location: REST, types: ["Fast Food"], menu: PAGE([PLATE]) } };
+    if (/^\/api\/restaurants\/[^/]+\/reviews$/.test(url)) return { data: REVIEWS };
     if (url.startsWith("/api/restaurants/")) return { data: PAGE([REST]) };
     if (url === "/api/me") return { data: { user: null } };
     if (url === "/api/me/orders") return { data: PAGE([ORDER]) };

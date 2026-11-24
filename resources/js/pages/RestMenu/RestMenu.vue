@@ -17,8 +17,10 @@
                     </ul>
                     <h1 id="rest-name" class="ui-display rest-name">{{ restaurant.location.name }}</h1>
                     <p class="rest-rating">
-                        <StarsBox :average="stars" :size="18" />
-                        <span>{{ t("menu.outOf", { stars }) }}</span>
+                        <a v-if="rating.count" href="#reviews" class="rest-rating-link">
+                            <StarsBox :average="rating.average" :count="rating.count" :size="18" />
+                        </a>
+                        <span v-else class="ui-badge ui-badge--light">{{ t("reviews.noRating") }}</span>
                     </p>
                 </div>
             </div>
@@ -75,6 +77,8 @@
                 <OrderSummary cta-route="cart" />
             </div>
         </div>
+
+        <RestReviews :slug="restaurant.location.slug" :restaurant="restaurant.location.name" />
 
         <router-link v-if="cart.length" :to="{ name: 'cart' }" class="rest-bagbar">
             <span class="rest-bagbar-count">{{ cart.length }}</span>

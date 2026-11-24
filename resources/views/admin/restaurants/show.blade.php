@@ -14,6 +14,7 @@
         <div class="adm-actions">
             <a class="ui-btn ui-btn--dark" href="{{ route('admin.plates.index', $restaurant->slug) }}"><x-icon name="utensils" size="18" /> {{ __('partner.common.menu') }}</a>
             <a class="ui-btn ui-btn--outline" href="{{ route('admin.orders.index', $restaurant->slug) }}"><x-icon name="receipt" size="18" /> {{ __('partner.common.orders') }}</a>
+            <a class="ui-btn ui-btn--outline" href="{{ route('admin.reviews.index', $restaurant->slug) }}"><x-icon name="star" size="18" /> {{ __('partner.reviews.title') }}</a>
             <a class="ui-btn ui-btn--outline" href="{{ route('admin.restaurants.edit', $restaurant->id) }}"><x-icon name="edit" size="18" /> {{ __('partner.common.edit') }}</a>
         </div>
     </div>
@@ -31,6 +32,17 @@
                     </dd>
                 </div>
             @endif
+            <div class="adm-fact">
+                <dt class="adm-fact-label">{{ __('partner.reviews.rating') }}</dt>
+                <dd class="adm-fact-value">
+                    @if ($restaurant->rating_count > 0)
+                        <x-stars :value="$restaurant->rating_avg" />
+                        {{ trans_choice('partner.reviews.summary', $restaurant->rating_count, ['avg' => number_format($restaurant->rating_avg, 1), 'count' => $restaurant->rating_count]) }}
+                    @else
+                        {{ __('partner.reviews.none') }}
+                    @endif
+                </dd>
+            </div>
             <div class="adm-fact">
                 <dt class="adm-fact-label">{{ __('partner.common.phone') }}</dt>
                 <dd class="adm-fact-value">{{ $restaurant->phone }}</dd>

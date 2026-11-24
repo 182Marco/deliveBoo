@@ -154,12 +154,13 @@ class OwnershipTest extends TestCase
         $this->actingAs($this->owner());
         $rest = $this->ownedRestaurant();
 
-        $orders = $this->get(route('admin.stats.show', $rest->id))->assertOk()->assertViewIs('admin.stats.show')->viewData('related_orders');
-
-        $this->assertNotEmpty($orders);
-        foreach ($orders as $order) {
-            $this->assertEquals($rest->id, $order->restaurant_id);
-        }
+        // only aggregates of this restaurant reach the page (the orders themselves never do)
+        $page = $this->get(route('admin.stats.show', ['stat' => $rest->id, 'from' => '2000-01-01']))->assertOk()->assertViewIs('admin.stats.show');
+        $this->assertSame($rest->id, $page->viewData('restaurant')->id);
+        $this->assertFalse($page->viewData('empty'));
+        $this->assertArrayNotHasKey('related_orders', $page->original->getData());
+        $paid = \App\Order::where('restaurant_id', $rest->id)->where('status', 'paid')->where('fulfillment_status', '!=', 'cancelled')->sum('price');
+        $this->assertEqualsWithDelta((float) $paid, $page->viewData('summary')['current']['gross_value'], 0.01);
     }
 
     public function testOtherUserCannotSeeForeignStats()

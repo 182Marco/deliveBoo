@@ -48,6 +48,15 @@
     font-weight: var(--weight-bold);
 }
 
+.rest-rating-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.rest-rating-link:hover {
+    text-decoration: underline;
+}
+
 /* practical facts right under the cover */
 .rest-facts {
     border-bottom: 1px solid var(--line);

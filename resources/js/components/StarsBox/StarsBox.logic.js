@@ -1,19 +1,24 @@
 import { Icon } from "../Icon";
-import { t } from "../../utils";
+import { formatRating, t } from "../../utils";
+import { starStates } from "./StarsBox.utils.js";
 
-const MAX_STARS = 5;
-
-// average: integer from 0 to 5 (full stars), the rest are empty stars
+// read-only stars of an average (0-5, decimals shown as half stars); with `count` also "4.6 · 123 reviews"
 const starsBoxLogic = {
     name: "StarsBox",
     components: { Icon },
     props: {
         average: { type: Number, default: 0 },
-        size: { type: Number, default: 16 }
+        size: { type: Number, default: 16 },
+        count: { type: Number, default: null }
     },
-    data: () => ({
-        max: MAX_STARS
-    }),
+    computed: {
+        states() {
+            return starStates(this.average);
+        },
+        label() {
+            return formatRating(this.average);
+        }
+    },
     methods: {
         t
     }

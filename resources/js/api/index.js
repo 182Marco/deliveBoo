@@ -2,3 +2,4 @@ export { fetchTypes, fetchRestaurantsByTypes, fetchRestaurantMenu, fetchTopRated
 export { postOrder } from "./orders.js";
 export { createCardForm } from "./payments.js";
 export { fetchMe, fetchMyOrders, logout } from "./account.js";
+export { fetchRestaurantReviews, saveReview } from "./reviews.js";

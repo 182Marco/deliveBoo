@@ -1,14 +1,15 @@
 import { mapActions, mapState } from "vuex";
-import { FoodImage, Icon, OrderSummary, PaginateEl, Plate, StarsBox, Warning } from "../../components";
+import { FoodImage, Icon, OrderSummary, PaginateEl, Plate, RestReviews, StarsBox, Warning } from "../../components";
 import { cartTotal, formatPrice, t } from "../../utils";
 
 const restMenuLogic = {
     name: "RestMenu",
-    components: { FoodImage, Icon, OrderSummary, PaginateEl, Plate, StarsBox, Warning },
+    components: { FoodImage, Icon, OrderSummary, PaginateEl, Plate, RestReviews, StarsBox, Warning },
     computed: {
         ...mapState(["restaurant", "menuPagination", "cart", "warn"]),
-        stars() {
-            return Math.ceil(this.restaurant.averageRate);
+        // stored average (arithmetic mean) and number of counted reviews; null average = no reviews yet
+        rating() {
+            return this.restaurant.rating ?? { average: null, count: 0 };
         },
         amount() {
             return formatPrice(cartTotal(this.cart));

@@ -36,6 +36,14 @@
                         <h2 class="adm-rest-name">{{ str_replace('_', ' ', $auth_restaurant->name) }}</h2>
                         <p class="adm-meta"><x-icon name="pin" size="16" /> {{ $auth_restaurant->address }}, {{ $auth_restaurant->city }}</p>
                         <p class="adm-meta"><x-icon name="phone" size="16" /> {{ $auth_restaurant->phone }}</p>
+                        <a class="adm-meta adm-rating-link" href="{{ route('admin.reviews.index', $auth_restaurant->slug) }}">
+                            @if ($auth_restaurant->rating_count > 0)
+                                <x-stars :value="$auth_restaurant->rating_avg" />
+                                {{ trans_choice('partner.reviews.summary', $auth_restaurant->rating_count, ['avg' => number_format($auth_restaurant->rating_avg, 1), 'count' => $auth_restaurant->rating_count]) }}
+                            @else
+                                <x-icon name="star" size="16" /> {{ __('partner.reviews.none') }}
+                            @endif
+                        </a>
                     </div>
                     <div class="adm-rest-foot">
                         <a class="ui-btn ui-btn--dark ui-btn--sm" href="{{ route('admin.plates.index', $auth_restaurant->slug) }}">
@@ -45,6 +53,9 @@
                             <x-icon name="receipt" size="16" /> {{ __('partner.common.orders') }}
                         </a>
                         <div class="adm-rest-tools">
+                            <a class="ui-btn ui-btn--ghost ui-btn--icon ui-btn--icon-sm" href="{{ route('admin.stats.show', $auth_restaurant->id) }}" aria-label="{{ __('partner.common.statistics') }}: {{ $auth_restaurant->name }}" title="{{ __('partner.common.statistics') }}">
+                                <x-icon name="chart" size="18" />
+                            </a>
                             <a class="ui-btn ui-btn--ghost ui-btn--icon ui-btn--icon-sm" href="{{ route('admin.restaurants.show', $auth_restaurant->id) }}" aria-label="{{ __('partner.common.viewItem', ['name' => $auth_restaurant->name]) }}" title="{{ __('partner.common.view') }}">
                                 <x-icon name="eye" size="18" />
                             </a>

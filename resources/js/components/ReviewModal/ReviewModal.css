@@ -1,0 +1,61 @@
+/* phones: a sheet from the bottom edge, as wide as the screen; from 600px the centred card of ui-modal */
+.review-backdrop {
+    align-items: end;
+    padding: 0;
+}
+
+.review-modal {
+    max-width: none;
+    max-height: 100dvh;
+    overflow-y: auto;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.review-title {
+    margin-top: var(--space-2);
+}
+
+.review-lead {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--space-4);
+}
+
+.review-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.review-optional {
+    font-weight: var(--weight-regular);
+    color: var(--ink-muted);
+}
+
+.review-textarea {
+    resize: vertical;
+}
+
+.review-counter {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 600px) {
+    .review-backdrop {
+        align-items: center;
+        padding: var(--gutter);
+    }
+
+    .review-modal {
+        max-width: 540px;
+        max-height: calc(100dvh - 2 * var(--gutter));
+        border-radius: var(--radius-lg);
+    }
+}

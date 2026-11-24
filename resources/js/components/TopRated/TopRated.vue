@@ -41,7 +41,7 @@
                                 <Icon name="pin" :size="16" />
                                 {{ rest.city }}
                             </span>
-                            <StarsBox :average="rest.average" />
+                            <StarsBox :average="rest.average" :count="rest.count" />
                         </p>
                     </router-link>
                 </li>

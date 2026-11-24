@@ -76,6 +76,19 @@
                         </li>
                     </ul>
 
+                    <div v-if="order.review" class="orders-review">
+                        <p class="orders-review-head">
+                            <span class="orders-review-title">{{ t("reviews.yours") }}</span>
+                            <StarsBox :average="order.review.rating" />
+                        </p>
+                        <p v-if="order.review.comment" class="orders-review-text">{{ order.review.comment }}</p>
+                        <p v-if="order.review.hidden" class="ui-notice orders-review-hidden">{{ t("reviews.hiddenNote") }}</p>
+                        <div v-if="order.review.reply" class="orders-reply">
+                            <p class="orders-reply-label">{{ t("reviews.replyFrom", { restaurant: order.restaurant?.name ?? "" }) }}</p>
+                            <p class="orders-reply-text">{{ order.review.reply }}</p>
+                        </div>
+                    </div>
+
                     <div class="orders-foot">
                         <p class="orders-meta">
                             {{ t("orders.items", { count: order.items }) }}
@@ -86,19 +99,42 @@
                             {{ t("orders.total") }}
                             <strong class="ui-price orders-amount">€{{ formatPrice(order.price) }}</strong>
                         </p>
-                        <router-link
-                            v-if="order.restaurant"
-                            class="ui-btn ui-btn--outline ui-btn--sm orders-again"
-                            :to="{ name: 'restMenu', params: { slug: order.restaurant.slug } }"
-                        >
-                            {{ t("orders.again") }}
-                            <Icon name="arrow-right" :size="16" />
-                        </router-link>
+                        <div class="orders-actions">
+                            <router-link
+                                v-if="order.restaurant"
+                                class="ui-btn ui-btn--outline ui-btn--sm"
+                                :to="{ name: 'restMenu', params: { slug: order.restaurant.slug } }"
+                            >
+                                {{ t("orders.again") }}
+                                <Icon name="arrow-right" :size="16" />
+                            </router-link>
+                            <button
+                                v-if="order.action !== 'none'"
+                                type="button"
+                                class="ui-btn ui-btn--outline ui-btn--sm"
+                                @click="openReview(order, $event)"
+                            >
+                                <Icon :name="order.action === 'edit' ? 'edit' : 'star'" :size="16" />
+                                {{ order.action === "edit" ? t("reviews.edit") : t("reviews.review") }}
+                            </button>
+                        </div>
                     </div>
                 </li>
             </ol>
             <PaginateEl local :paginate="pagination" @go="goTo" />
+            <p class="orders-window ui-muted">{{ t("reviews.window", { days: reviewDays }) }}</p>
         </template>
+
+        <p v-if="notice" class="ui-notice ui-notice--success orders-notice" role="status">{{ notice }}</p>
+
+        <ReviewModal
+            v-if="reviewing"
+            :order-id="reviewing.id"
+            :restaurant="reviewing.restaurant?.name ?? ''"
+            :review="reviewing.review"
+            @close="closeReview"
+            @saved="reviewSaved"
+        />
     </section>
 </template>
 

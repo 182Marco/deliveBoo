@@ -28,9 +28,10 @@ class PublicApiTest extends TestCase
         parent::setUp();
     }
 
+    // arithmetic mean of the counted reviews (visible and latest of their author), from the rows
     private function averageOf($restaurantId)
     {
-        return (float) DB::table('rates')->where('restaurant_id', $restaurantId)->avg('rate');
+        return (float) DB::table('reviews')->where('restaurant_id', $restaurantId)->where('is_current', true)->whereNull('hidden_at')->avg('rating');
     }
 
     public function testTypesReturnsAllTypesWrappedInTypesKey()
@@ -41,22 +42,41 @@ class PublicApiTest extends TestCase
         $this->assertCount(Type::count(), $response->json('types'));
     }
 
-    public function testTopRatedReturnsAtMostTwelveRestaurantsSortedByAverage()
+    public function testTopRatedReturnsAtMostTwelveRatedRestaurantsSortedByBayesianScore()
     {
         $response = $this->getJson('/api/restaurantsTopRated');
 
-        $response->assertOk()->assertJsonStructure([['id', 'name', 'slug', 'city', 'img', 'average']]);
+        $response->assertOk()->assertJsonStructure([['id', 'name', 'slug', 'city', 'img', 'average', 'count']]);
         $rests = $response->json();
-        $this->assertLessThanOrEqual(12, count($rests));
-        $this->assertSame(min(12, Restaurant::count()), count($rests));
+        $this->assertSame(min(12, Restaurant::where('rating_count', '>', 0)->count()), count($rests));
+        $this->assertGreaterThan(0, count($rests));
 
         $previous = INF;
         foreach ($rests as $rest) {
-            $this->assertIsNumeric($rest['average']);
-            $this->assertEqualsWithDelta($this->averageOf($rest['id']), $rest['average'], 0.0001, $rest['name']);
-            $this->assertLessThanOrEqual($previous, $rest['average'], 'not sorted by average desc');
-            $previous = $rest['average'];
+            // the average shown is the arithmetic mean, the order follows the stored Bayesian score
+            $this->assertEqualsWithDelta($this->averageOf($rest['id']), $rest['average'], 0.006, $rest['name']);
+            $this->assertGreaterThan(0, $rest['count']);
+            $score = (float) Restaurant::whereKey($rest['id'])->value('rating_score');
+            $this->assertLessThanOrEqual($previous, $score, 'not sorted by score desc');
+            $previous = $score;
         }
+    }
+
+    public function testAFewPerfectReviewsDoNotBeatManyGoodOnes()
+    {
+        [$few, $many] = Restaurant::take(2)->get();
+        DB::table('reviews')->whereIn('restaurant_id', [$few->id, $many->id])->delete();
+        DB::table('reviews')->insert([['restaurant_id' => $few->id, 'rating' => 5], ['restaurant_id' => $few->id, 'rating' => 5]]);
+        DB::table('reviews')->insert(array_fill(0, 200, ['restaurant_id' => $many->id, 'rating' => 5]));
+        DB::table('reviews')->insert(array_fill(0, 40, ['restaurant_id' => $many->id, 'rating' => 4]));
+        \App\Reviews\RestaurantRating::refresh($few->id);
+        \App\Reviews\RestaurantRating::refresh($many->id);
+
+        $ids = collect($this->getJson('/api/restaurantsTopRated')->assertOk()->json())->pluck('id')->all();
+        $this->assertLessThan(array_search($few->id, $ids, true), array_search($many->id, $ids, true));
+        // shown: the real averages (5.0 for the few, 4.83 for the many)
+        $this->assertSame(5.0, Restaurant::find($few->id)->rating_avg);
+        $this->assertSame(4.83, Restaurant::find($many->id)->rating_avg);
     }
 
     public function testRestaurantsByTypesIsPaginatedByFour()
@@ -87,13 +107,14 @@ class PublicApiTest extends TestCase
         $response = $this->getJson("/api/restaurantsMenu/{$rest->slug}?page=1");
 
         $response->assertOk()->assertJsonStructure([
-            'averageRate',
+            'rating' => ['average', 'count'],
             'location' => ['id', 'name', 'slug', 'phone', 'city', 'address', 'img'],
             'types',
             'menu' => ['data' => [['id', 'name', 'price', 'restaurant_id']], 'current_page', 'last_page', 'per_page'],
         ]);
         $this->assertSame($rest->slug, $response->json('location.slug'));
-        $this->assertEqualsWithDelta($this->averageOf($rest->id), $response->json('averageRate'), 0.0001);
+        $this->assertEqualsWithDelta($this->averageOf($rest->id), (float) $response->json('rating.average'), 0.006);
+        $this->assertSame($rest->rating_count, $response->json('rating.count'));
         $this->assertEquals($rest->types()->pluck('name')->sort()->values()->all(), collect($response->json('types'))->sort()->values()->all());
         $this->assertEquals(4, $response->json('menu.per_page'));
         $this->assertEquals((int) ceil(Plate::where('restaurant_id', $rest->id)->count() / 4), $response->json('menu.last_page'));
@@ -264,20 +285,18 @@ class PublicApiTest extends TestCase
         Mail::assertNothingSent();
     }
 
-    public function testRestaurantWithoutRatesHasAverageZero()
+    public function testRestaurantWithoutReviewsHasNoAverageAndIsNotRanked()
     {
         // used to be a division by zero (500) in both endpoints
         $rest = Restaurant::where('name', "Mc Donald's")->firstOrFail();
-        DB::table('rates')->where('restaurant_id', $rest->id)->delete();
+        DB::table('reviews')->where('restaurant_id', $rest->id)->delete();
+        \App\Reviews\RestaurantRating::refresh($rest->id);
 
-        $this->getJson("/api/restaurantsMenu/{$rest->slug}")->assertOk()->assertJsonPath('averageRate', 0);
+        $this->getJson("/api/restaurantsMenu/{$rest->slug}")->assertOk()
+            ->assertJsonPath('rating.average', null)->assertJsonPath('rating.count', 0);
 
         $top = collect($this->getJson('/api/restaurantsTopRated')->assertOk()->json());
-        $this->assertSame(min(12, Restaurant::count()), $top->count());
-        $listed = $top->firstWhere('id', $rest->id);
-        if ($listed) {
-            $this->assertEquals(0, $listed['average']);
-        }
+        $this->assertNull($top->firstWhere('id', $rest->id));
     }
 
     public function testUnknownRestaurantMenuIs404()
