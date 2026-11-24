@@ -327,6 +327,7 @@
 /* ---------- detail pages ---------- */
 .adm-detail {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
     gap: var(--space-7);
 }
@@ -343,8 +344,8 @@
 
 .adm-fact {
     display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: var(--space-4);
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
     padding-block: var(--space-4);
     border-bottom: 1px solid var(--line);
 }
@@ -359,6 +360,15 @@
 
 .adm-fact-value {
     margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (min-width: 600px) {
+    .adm-fact {
+        grid-template-columns: 140px minmax(0, 1fr);
+        gap: var(--space-4);
+    }
 }
 
 .adm-section-title {
