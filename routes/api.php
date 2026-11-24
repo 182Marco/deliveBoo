@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\MeController;
 use App\Http\Controllers\Api\MyOrdersController;
 use App\Http\Controllers\Api\OrderController;
@@ -46,3 +47,15 @@ Route::get('/me', [MeController::class, 'show'])->middleware(['active', 'throttl
 Route::get('/me/orders', [MyOrdersController::class, 'index'])->middleware(['auth:sanctum', 'active', 'throttle:60,1']);
 // write or edit the review of a delivered order of the account (OrderPolicy@review)
 Route::put('/me/orders/{order}/review', [ReviewController::class, 'upsert'])->whereNumber('order')->middleware(['auth:sanctum', 'active', 'throttle:20,1']);
+
+// the cart of the site, in the database (dev/PIANO_CARRELLO.md): of the logged-in account, otherwise of the
+// guest cookie. cart.token answers 404 while config cart.server is off and gives every browser its guest id
+// own throttle counter ("cart"): unnamed throttles share one counter per client, and a click on the cart
+// must never use up the 10 requests a minute of POST /api/orders
+Route::prefix('cart')->controller(CartController::class)->middleware(['cart.token', 'active', 'throttle:120,1,cart'])->group(function () {
+    Route::get('/', 'show');
+    Route::delete('/', 'clear');
+    Route::post('/import', 'import');
+    Route::put('/items/{plate}', 'update')->whereNumber('plate');
+    Route::delete('/items/{plate}', 'destroy')->whereNumber('plate');
+});
