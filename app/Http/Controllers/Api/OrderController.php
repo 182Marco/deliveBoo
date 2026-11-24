@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Carts\CartService;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderedMessage;
 use App\Order;
@@ -97,6 +98,17 @@ class OrderController extends Controller
         }
 
         $order->forceFill(['status' => Order::PAID, 'transaction_id' => $result->transactionId, 'fulfillment_status' => Order::RECEIVED])->save();
+
+        // the server cart (dev/PIANO_CARRELLO.md) is emptied only once the payment went through;
+        // like the mail, a failure here must not turn a paid order into an error
+        if (config('cart.server')) {
+            try {
+                $token = $r->cookie(config('cart.cookie'));
+                app(CartService::class)->clearFor($r->user(), is_string($token) ? $token : null);
+            } catch (\Throwable $e) {
+                Log::warning('Cart not emptied after order', ['order' => $order->id, 'exception' => $e]);
+            }
+        }
 
         $data = [...$order->only(['id', 'restaurant_id', 'price', 'customer_name', 'customer_lastName', 'customer_email', 'customer_phone', 'customer_address', 'status', 'transaction_id']), 'plates' => $plateIds];
 

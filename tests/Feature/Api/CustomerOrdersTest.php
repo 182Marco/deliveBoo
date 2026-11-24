@@ -191,4 +191,56 @@ class CustomerOrdersTest extends TestCase
         // the session guard is logged out (auth:sanctum made "sanctum" the default guard of the request)
         $this->assertGuest('web');
     }
+
+    // --- server cart (dev/PIANO_CARRELLO.md, step 5): emptied only by a paid order ---
+
+    private const CART_TOKEN = 'guest-token-0123456789-0123456789-012345';
+
+    /** a cart with the plates of the payload, for the account or for the guest cookie */
+    private function serverCart(?User $user): \App\Cart
+    {
+        config(['cart.server' => true]);
+        $carts = app(\App\Carts\CartService::class);
+        $cart = $carts->findOrCreate($user, self::CART_TOKEN);
+        foreach ($this->payload()['plates'] as $plateId) {
+            $cart = $carts->setQuantity($cart, Plate::findOrFail($plateId), 1);
+        }
+
+        return $cart;
+    }
+
+    // same host as the page: session and encrypted cookies, as from the site
+    private function fromSite(): self
+    {
+        return $this->withCredentials()->withHeader('Referer', config('app.url') . '/')->withCookie(config('cart.cookie'), self::CART_TOKEN);
+    }
+
+    public function testPaidOrderEmptiesTheGuestCart()
+    {
+        $cart = $this->serverCart(null);
+
+        $this->fromSite()->postJson('/api/orders', $this->payload())->assertOk()->assertJsonPath('status', Order::PAID);
+
+        $this->assertSame(0, $cart->items()->count());
+    }
+
+    public function testPaidOrderEmptiesTheAccountCart()
+    {
+        $mario = $this->demo('customer');
+        $cart = $this->serverCart($mario);
+
+        $this->actingAs($mario)->fromSite()->postJson('/api/orders', $this->payload())->assertOk()->assertJsonPath('status', Order::PAID);
+
+        $this->assertSame(0, $cart->items()->count());
+    }
+
+    public function testDeclinedPaymentKeepsTheCart()
+    {
+        $cart = $this->serverCart(null);
+
+        $this->fromSite()->postJson('/api/orders', $this->payload(['payment_nonce' => FakeGateway::DECLINED_NONCE]))
+            ->assertOk()->assertJsonStructure(['errors' => ['payment']]);
+
+        $this->assertSame(2, $cart->items()->count());
+    }
 }
